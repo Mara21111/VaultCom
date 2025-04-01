@@ -1,16 +1,38 @@
-<form>
-  <div class="row mb-3">
-    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-    <div class="col-sm-10">
-      <input type="email" class="form-control" id="inputEmail3">
+<div class="position-absolute top-50 start-50 translate-middle text-bg-secondary p-5 border-radius-5">
+
+  <form>
+
+    <div class="row mb-5">
+      <h1 class="text-dark">VaultCom</h1>
     </div>
-  </div>
-  <div class="row mb-3">
-    <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-    <div class="col-sm-10">
-      <input type="password" class="form-control" id="inputPassword3">
+
+    <div class="row mb-3">
+      <div class="col-3">
+        <label for="inputEmail3" class="col-form-label">Email:</label>
+      </div>
+      <div class="col-9">
+        <input type="email" class="form-control" id="inputEmail3">
+      </div>
     </div>
-  </div>
-  <button type="submit" class="btn btn-primary">Login</button>
-</form>
-<li><a routerLink="/admin-all-users" routerLinkActive="active" ariaCurrentWhenActive="page">Sign in</a></li>
+
+    <div class="row mb-5">
+      <div class="col-3">
+        <label for="inputPassword3" class="col-form-label">Password:</label>
+      </div>
+      <div class="col-9">
+        <input type="password" class="form-control" id="inputPassword3">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+        <button type="submit" class="btn text-white bg-dark">Login</button>
+    </div>
+
+    <div class="text-center">
+      <label for="SignIn" class="col-form-label">Dont have an account yet?</label>
+      <button type="button" class="btn btn-link" routerLink="/sigin" routerLinkActive="active" id="SignIn">Sign in</button>
+    </div>
+
+  </form>
+  
+</div>
