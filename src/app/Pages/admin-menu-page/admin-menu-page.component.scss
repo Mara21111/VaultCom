@@ -1,0 +1,25 @@
+@import "../../variables.scss";
+
+.btn {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: black;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #ffffff;
+  }
+
+  .wrapper{
+    background-color: $login-bg-color;
+    border-radius: 12px;
+  }
+
+  .text {
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 36px;
+    margin-bottom: 8px;
+  }
+

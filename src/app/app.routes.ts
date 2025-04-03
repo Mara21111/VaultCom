@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import {LoginPageComponent} from './Pages/login-page/login-page.component';
-import {SignInPageComponent} from './Pages/sign-in-page/sign-in-page.component';
+import { LoginPageComponent } from './Pages/login-page/login-page.component';
+import { RegisterComponent } from './Pages/register-page/register-page.component';
 import { AdminAllUsersPageComponent } from './Pages/admin-all-users-page/admin-all-users-page.component';
 import { AdminMenuPageComponent } from './Pages/admin-menu-page/admin-menu-page.component';
 import { AdminUserInfoPageComponent } from './Pages/admin-user-info-page/admin-user-info-page.component';
@@ -14,7 +14,7 @@ import { DatabaseStatsComponent } from './Pages/database-stats/database-stats.co
 
 export const routes: Routes = [
   { path: '', component: LoginPageComponent},
-  { path: 'sigin', component: SignInPageComponent},
+  { path: 'register', component: RegisterComponent},
   { path: 'admin-all-users', component: AdminAllUsersPageComponent},
   { path: 'admin-menu', component: AdminMenuPageComponent},
   { path: 'admin-user-info', component: AdminUserInfoPageComponent},
