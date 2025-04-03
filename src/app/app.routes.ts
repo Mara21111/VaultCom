@@ -14,7 +14,7 @@ import { DatabaseStatsComponent } from './Pages/database-stats/database-stats.co
 
 export const routes: Routes = [
   { path: '', component: LoginPageComponent},
-  { path: 'sigin', component: RegisterComponent},
+  { path: 'register', component: RegisterComponent},
   { path: 'admin-all-users', component: AdminAllUsersPageComponent},
   { path: 'admin-menu', component: AdminMenuPageComponent},
   { path: 'admin-user-info', component: AdminUserInfoPageComponent},
