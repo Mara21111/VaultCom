@@ -1,58 +1,93 @@
-<div class="container-fluid d-flex" style="height: 100vh;">
-    <div class="profile-picture">
-        <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgayazovblog.ru%2Fwp-content%2Fuploads%2F2021%2F12%2Finstasaver-111763321-1-1.jpg&f=1&nofb=1&ipt=3f468a4b8815de1d6efb40f5aecf0979f2ada5882245973ff71676bc765693d0&ipo=images" alt="Profile Picture">
-    </div>
-    <div class="profile-picture">
-        <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpluspng.com%2Fimg-png%2Feditor-png-png-file-svg-980.png&f=1&nofb=1&ipt=abd7a88c1c27cec44634cd155f75120a15b167c6244d94ae7a69ce175cff1949&ipo=images" alt="Edit Profile" class="img-fluid" />
-    </div>
-</div>
-
-<!---
+<!DOCTYPE html>
 <html lang="en">
-<div class="position-absolute top-50 start-50 translate-middle text-bg-secondary p-5 border-radius-5">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image and Panel Layout</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            display: flex;
-            height: 100vh; /* Full height of the viewport */
-        }
-        .image-section {
-            flex: 1; /* Takes up half of the container */
-            background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgayazovblog.ru%2Fwp-content%2Fuploads%2F2021%2F12%2Finstasaver-111763321-1-1.jpg&f=1&nofb=1&ipt=3f468a4b8815de1d6efb40f5aecf0979f2ada5882245973ff71676bc765693d0&ipo=images'); /* Replace with your image URL */
-            background-size: cover; /* Cover the entire section */
-            background-position: center; /* Center the image */
-        }
-        .panel-section {
-            flex: 1; /* Takes up half of the container */
-            background-color: #f8f9fa; /* Light background color */
-            padding: 20px; /* Padding for the content */
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* Center content vertically */
-        }
-        h2 {
-            margin: 0 0 10px; /* Margin for the heading */
-        }
-    </style>
-</div>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
 <body>
-
-<div class="container">
-    <div class="image-section"></div>
-    <div class="panel-section">
-        <h2>Welcome to the Panel</h2>
-        <p>This is where you can add lots of content, such as text, forms, or other elements.</p>
-        <p>Feel free to customize this section as needed!</p>
-        <button>Click Me</button>
+  <div class="container-fluid p-0 my-profile">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <!---<div class="profiel-picture">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgayazovblog.ru%2Fwp-content%2Fuploads%2F2021%2F12%2Finstasaver-111763321-1-1.jpg&f=1&nofb=1&ipt=3f468a4b8815de1d6efb40f5aecf0979f2ada5882245973ff71676bc765693d0&ipo=images" alt="Profile Picture" class="img-fluid rounded-circle profile-image">
+        </div>-->
+        <div class="profile-image-container">
+            <!--<img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgayazovblog.ru%2Fwp-content%2Fuploads%2F2021%2F12%2Finstasaver-111763321-1-1.jpg&f=1&nofb=1&ipt=3f468a4b8815de1d6efb40f5aecf0979f2ada5882245973ff71676bc765693d0&ipo=images" alt="Profile Picture" class="img-fluid rounded-circle profile-image">-->
+          <img src="https://c.animaapp.com/m91lm1h7eKpzaT/img/pfp.png" alt="Profile Picture" class="img-fluid rounded-circle profile-image">
+          <img src="https://c.animaapp.com/m91lm1h7eKpzaT/img/edit-2.svg" alt="Edit" class="edit-profile-image">
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="user-profile p-4">
+          <h2 class="mb-4">Your profile <img src="https://c.animaapp.com/m91lm1h7eKpzaT/img/edit-1.svg" alt="Edit" class="edit-icon"></h2>
+          <div class="profile-item">
+            <img src="https://c.animaapp.com/m91lm1h7eKpzaT/img/user.svg" alt="User" class="profile-icon">
+            <div>
+              <h3>Ethan123</h3>
+              <p>Username</p>
+            </div>
+          </div>
+          <div class="profile-item">
+            <img src="https://c.animaapp.com/m91lm1h7eKpzaT/img/at-sign.svg" alt="Email" class="profile-icon">
+            <div>
+              <h3>ethangmail.com</h3>
+              <p>Email</p>
+            </div>
+          </div>
+          <div class="profile-item">
+            <img src="https://c.animaapp.com/m91lm1h7eKpzaT/img/phone.svg" alt="Phone" class="profile-icon">
+            <div>
+              <h3>+1 212-555-1234</h3>
+              <p>Phone number</p>
+            </div>
+          </div>
+          <div class="profile-item">
+            <img src="https://c.animaapp.com/m91lm1h7eKpzaT/img/info.svg" alt="Bio" class="profile-icon">
+            <div>
+              <h3>Not doing great.</h3>
+              <p>Bio</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
-
+    <div class="row g-0">
+      <div class="col-12">
+        <div class="settings p-4">
+          <h2 class="mb-4">Settings</h2>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="darkModeSwitch" checked>
+                <label class="form-check-label" for="darkModeSwitch">Dark Mode</label>
+              </div>
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="kidsModeSwitch">
+                <label class="form-check-label" for="kidsModeSwitch">Kids Mode</label>
+              </div>
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="publicAccountSwitch" checked>
+                <label class="form-check-label" for="publicAccountSwitch">Public Account</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-outline-secondary mb-2 w-100">Change Email</button>
+              <button class="btn btn-outline-secondary mb-2 w-100">Change Password</button>
+              <button class="btn btn-outline-secondary mb-2 w-100">Change Phone number</button>
+              <button class="btn btn-danger w-100">Log Out</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
--->
+  
+
+
+
+https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgayazovblog.ru%2Fwp-content%2Fuploads%2F2021%2F12%2Finstasaver-111763321-1-1.jpg&f=1&nofb=1&ipt=3f468a4b8815de1d6efb40f5aecf0979f2ada5882245973ff71676bc765693d0&ipo=images
