@@ -1,3 +1,10 @@
 body{
     background-color: #BEBDBD;
 }
+
+@import "../../variables.scss";
+
+:host .login-panel {
+    background-color: $login-bg-color;
+    color: white;
+  }

@@ -1,0 +1,6 @@
+@import "../../variables.scss";
+
+:host .sign-in-panel {
+    background-color: $login-bg-color;
+    color: white;
+  }
