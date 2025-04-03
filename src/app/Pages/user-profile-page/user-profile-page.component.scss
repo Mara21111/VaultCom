@@ -1,0 +1,19 @@
+@import "../../variables.scss";
+
+$profile-image-size: 400px; // Adjust the size as needed
+
+.profile-picture {
+    position: absolute; // Position it in the top left corner
+    top: 20px; // Adjust the distance from the top
+    left: 20px; // Adjust the distance from the left
+    width: $profile-image-size; // Set the width
+    height: $profile-image-size; // Set the height
+    border-radius: 25%; // Make it circular
+    overflow: hidden; // Hide overflow
+
+    img {
+        width: 100%; // Make the image fill the container
+        height: 100%; // Make the image fill the container
+        object-fit: cover; // Cover the entire area without distortion
+    }
+}
