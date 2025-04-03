@@ -1,38 +1,31 @@
-<div class="login-panel position-absolute top-50 start-50 translate-middle p-5 border-radius-5">
-
-  <form>
-
-    <div class="row mb-5">
-      <h1 class="text-dark">VaultCom</h1>
-    </div>
-
-    <div class="row mb-3">
-      <div class="col-3">
-        <label for="inputEmail3" class="col-form-label">Email:</label>
-      </div>
-      <div class="col-9">
-        <input type="email" class="form-control" id="inputEmail3">
-      </div>
-    </div>
-
-    <div class="row mb-5">
-      <div class="col-3">
-        <label for="inputPassword3" class="col-form-label">Password:</label>
-      </div>
-      <div class="col-9">
-        <input type="password" class="form-control" id="inputPassword3">
-      </div>
-    </div>
-
-    <div class="row mb-3">
-        <button type="submit" class="btn text-white bg-dark">Login</button>
-    </div>
-
-    <div class="text-center">
-      <label for="SignIn" class="col-form-label">Dont have an account yet?</label>
-      <button type="button" class="btn btn-link" routerLink="/sigin" routerLinkActive="active" id="SignIn">Sign in</button>
-    </div>
-
-  </form>
+<div class="login position-absolute top-50 start-50 translate-middle">
+  <div class="logo">
+    <h1 class="text-wrapper-3">VaultCom
+      <img class="message-circle" src="https://c.animaapp.com/m91ki1p2SO1Byh/img/message-circle.svg" alt="VaultCom logo" />
+    </h1>
+  </div>
   
+  <div class="login-wrapper">
+    <div class="overlap-group">
+      <div class="overlap">
+        <form class="form-log-in">
+          <div class="input-field">
+            <label for="email" class="label">Email</label>
+            <input type="email" id="email" class="input" placeholder="Enter your email" required>
+          </div>
+          <div class="input-field">
+            <label for="password" class="label">Password</label>
+            <input type="password" id="password" class="input" placeholder="Enter your password" required>
+          </div>
+          <div class="button-group">
+            <button type="submit" class="button">Sign In</button>
+          </div>
+          <div class="link-group">
+            <a class="text-link" routerLink="/sigin" routerLinkActive="active">Forgot password?</a>
+            <a class="text-link register" routerLink="/sigin" routerLinkActive="active">Register</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
