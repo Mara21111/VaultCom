@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import {LoginPageComponent} from './Pages/login-page/login-page.component';
-import {RegisterComponent} from './Pages/register-page/register-page.component';
+import { LoginPageComponent } from './Pages/login-page/login-page.component';
+import { RegisterComponent } from './Pages/register-page/register-page.component';
 import { AdminAllUsersPageComponent } from './Pages/admin-all-users-page/admin-all-users-page.component';
 import { AdminMenuPageComponent } from './Pages/admin-menu-page/admin-menu-page.component';
 import { AdminUserInfoPageComponent } from './Pages/admin-user-info-page/admin-user-info-page.component';
