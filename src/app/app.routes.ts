@@ -9,6 +9,7 @@ import { ReportsPageComponent } from './Pages/reports-page/reports-page.componen
 import { UserFriendsPageComponent } from './Pages/user-friends-page/user-friends-page.component';
 import { UserProfilePageComponent } from './Pages/user-profile-page/user-profile-page.component';
 import { MainPageComponent } from './Pages/main-page/main-page.component';
+import { BaseUiComponent } from './Pages/base-ui/base-ui.component';
 
 export const routes: Routes = [
   { path: '', component: LoginPageComponent},
@@ -20,5 +21,6 @@ export const routes: Routes = [
   { path: 'reports', component: ReportsPageComponent},
   { path: 'user-friends', component: UserFriendsPageComponent},
   { path: 'user-profile', component: UserProfilePageComponent},
-  { path: 'main', component: MainPageComponent}
+  { path: 'main', component: MainPageComponent},
+  { path: 'base', component: BaseUiComponent}
 ];
