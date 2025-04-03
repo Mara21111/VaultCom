@@ -1,24 +1,5 @@
 @import "../../variables.scss";
 
-$profile-image-size: 400px; // Adjust the size as neededb
-
-.profile-picture {
-    position: absolute; // Position it in the top left corner
-    top: 20px; // Adjust the distance from the top
-    left: 20px; // Adjust the distance from the left
-    width: $profile-image-size; // Set the width
-    height: $profile-image-size; // Set the height
-    border-radius: 25%; // Make it circular
-    overflow: hidden; // Hide overflow
-
-    img {
-        width: 100%; // Make the image fill the container
-        height: 100%; // Make the image fill the container
-        object-fit: cover; // Cover the entire area without distortion
-    }
-}
-
-
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f8f9fa;
@@ -54,6 +35,9 @@ body {
   .user-profile {
     background-color: #f8f9fa;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: #6c757d;
   }
   
   .edit-icon {
@@ -62,17 +46,49 @@ body {
     margin-left: 10px;
     cursor: pointer;
   }
+
+  .edit-profile {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: auto;
+  }
   
   .profile-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr;
     align-items: center;
-    margin-bottom: 1.5rem;
+    border: 2px solid gray;
+    border-radius: 12px;
+    margin-top: 15px;
+}
+
+.profile-item-first {
+  display: grid;  
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+  .profile-item-text {
+    text-align: center;
   }
   
   .profile-icon {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     margin-right: 1rem;
+    align-items: left;
+  }
+
+  .profile-item-first h2 {
+    font-size: 1.5rem;
   }
   
   .profile-item h3 {
