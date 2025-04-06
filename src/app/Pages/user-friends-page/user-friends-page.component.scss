@@ -1,0 +1,196 @@
+/* Custom SCSS compiled to CSS */
+    $header-bg: #BEBDBD;
+    $friends-bg: #777;
+    $body-bg: #969696;
+    $table-row-bg: #64645F;
+    $table-row-hover: #c0c0c0;
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: $body-bg;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background-color: $header-bg;
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.logo i {
+    margin-left: 10px;
+}
+  
+  .main-container {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .friends-container {
+    width: 100%;
+    background-color: $table-row-bg;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 44px);
+  }
+  
+  .friends-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: $friends-bg;
+    border-bottom: 1px solid #ddd;
+    flex-shrink: 0;
+  }
+  
+  .friends-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .search-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-input {
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    padding: 6px 15px;
+    margin-right: 10px;
+  }
+  
+  .close-btn {
+    font-size: 24px;
+    cursor: pointer;
+    color: #000000;
+  }
+  
+  .content-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .requests-section,
+  .friends-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .requests-section tr:hover td,
+  .friends-section tr:hover td {
+    background-color: $table-row-hover;
+  }
+
+  .requests-header,
+  .friends-list-header {
+    padding: 10px 15px;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    background-color: $friends-bg;
+  }
+  
+  .requests-list,
+  .friends-list {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    flex: 1;
+  }
+  
+  .request-row, .friend-row {
+    padding: 10px 15px;
+    border-bottom: 1px solid #adadad;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .username-col, .bio-col, .nickname-col {
+    width: 30%;
+    padding-left: 15px;
+  }
+  
+  .username-col {
+    font-weight: 500;
+    color: white;
+  }
+  
+  .bio-col {
+    color: #ffffff;
+  }
+  
+  .nickname-col {
+    font-weight: 500;
+    color: white;
+  }
+  
+  .action-buttons {
+    width: 30%;
+    display: flex;
+    gap: 10px;
+    margin-right: 15px;
+    justify-content: flex-start;
+  }
+  
+  .action-buttons a {
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .accept-btn {
+    color: #28a745;
+  }
+  
+  .reject-btn {
+    color: #dc3545;
+  }
+  
+  .col-header {
+    padding-left: 15px;
+    font-weight: bold;
+  }
+  
+  .friends-list::-webkit-scrollbar,
+  .requests-list::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .friends-list::-webkit-scrollbar-track,
+  .requests-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .friends-list::-webkit-scrollbar-thumb,
+  .requests-list::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+  }
+  
+  .friends-list::-webkit-scrollbar-thumb:hover,
+  .requests-list::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+  }
+  

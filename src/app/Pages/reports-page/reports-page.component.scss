@@ -1,20 +1,20 @@
-:root {
-    --header-bg: #333;
-    --body-bg: #9b9b9b;
-    --table-header-bg: #777;
-    --table-row-bg: #adadad;
-    --table-row-hover: #c0c0c0;
-}
+
+    $header-bg: #BEBDBD;
+    $body-bg: #969696;
+    $table-header-bg: #777;
+    $table-row-bg: #64645F;
+    $table-row-hover: #c0c0c0;
+
 
 body {
     font-family: Arial, sans-serif;
-    background-color: var(--body-bg);
+    background-color: $body-bg;
     margin: 0;
     padding: 0;
 }
 
 .header {
-    background-color: var(--header-bg);
+    background-color: $header-bg;
     color: white;
     padding: 12px 20px;
     display: flex;
@@ -34,7 +34,7 @@ body {
 }
 
 .reports-section {
-    background-color: var(--body-bg);
+    background-color: $body-bg;
     padding: 10px 20px;
     border-bottom: 1px solid #666;
     display: flex;
@@ -64,13 +64,13 @@ body {
     transform: translateY(-50%);
     background: none;
     border: none;
-    color: #333;
+    color: #000000;
 }
 
 .close-btn {
     background: none;
     border: none;
-    color: #333;
+    color: #000000;
     font-size: 1.5rem;
     cursor: pointer;
 }
@@ -88,7 +88,7 @@ body {
 }
 
 .reports-table th {
-    background-color: var(--table-header-bg);
+    background-color: $table-header-bg;
     color: black;
     text-align: left;
     padding: 12px 15px;
@@ -97,12 +97,12 @@ body {
 
 .reports-table td {
     padding: 12px 15px;
-    border-bottom: 1px solid #666;
-    background-color: var(--table-row-bg);
+    border-bottom: 1px solid #989797;
+    background-color: $table-row-bg;
 }
 
 .reports-table tr:hover td {
-    background-color: var(--table-row-hover);
+    background-color: $table-row-hover;
 }
 
 .table-container {
