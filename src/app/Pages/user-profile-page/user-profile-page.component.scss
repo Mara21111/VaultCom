@@ -4,7 +4,19 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: #f8f9fa;
   }
-  
+
+  .button-left {
+    background-color: #FF0000;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    position: absolute;
+    top: 600px;
+    left: 300px;
+    cursor:alias;
+}
+
   .my-profile {
     min-height: 100vh;
     background-color: #ffffff;
@@ -15,6 +27,10 @@ body {
     padding: 2rem;
   }
   
+  .form-check-label {
+    color:#000000;
+  }
+
   .profile-image {
     width: 100%;
     max-width: 300px;
@@ -60,7 +76,7 @@ body {
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
-    border: 2px solid gray;
+    border: 2px solid rgb(165, 165, 165);
     border-radius: 12px;
     margin-top: 15px;
 }
@@ -74,11 +90,31 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
+  color: #000000 !important;
 }
 
-  .profile-item-text {
-    text-align: center;
-  }
+.mb-5 {
+  text-align: left;
+  color: #000000 !important;
+}
+.form-check-label {
+  text-align: left;
+  color: #000000 !important;
+}
+.profile-item-text p {
+  text-align: center;
+  color: #000000 !important;
+}
+.profile-item-text h3 {
+  text-align: center;
+  color: #000000 !important;
+}
+
+.btn {
+  text-align: center;
+  color: #000000 !important;
+  border: 2px solid rgb(165, 165, 165);
+}
   
   .profile-icon {
     width: 40px;
