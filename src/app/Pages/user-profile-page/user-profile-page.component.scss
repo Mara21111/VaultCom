@@ -1,5 +1,9 @@
 @import "../../variables.scss";
 
+* {
+  color: #000000 !important; /* Set all text color to black */
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f8f9fa;
@@ -7,7 +11,6 @@ body {
 
   .button-left {
     background-color: #FF0000;
-    color: #000000;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -90,29 +93,17 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
-  color: #000000 !important;
 }
 
-.mb-5 {
-  text-align: left;
-  color: #000000 !important;
-}
-.form-check-label {
-  text-align: left;
-  color: #000000 !important;
-}
 .profile-item-text p {
   text-align: center;
-  color: #000000 !important;
 }
 .profile-item-text h3 {
   text-align: center;
-  color: #000000 !important;
 }
 
 .btn {
   text-align: center;
-  color: #000000 !important;
   border: 2px solid rgb(165, 165, 165);
 }
   
