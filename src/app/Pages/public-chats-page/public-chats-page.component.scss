@@ -1,21 +1,19 @@
-:root {
-    --header-bg: #333;
-    --body-bg: #9b9b9b;
-    --table-header-bg: #777;
-    --table-row-bg: #8a8a8a;
-    --table-row-hover: #929292;
-    --border-color: #666;
-}
+    $header-bg: #BEBDBD;
+    $body-bg: #969696;
+    $table-header-bg: #777;
+    $table-row-bg: #64645F;
+    $table-row-hover: #c0c0c0;
+    $border-color: #666;
 
 body {
     font-family: Arial, sans-serif;
-    background-color: var(--body-bg);
+    background-color: $body-bg;
     margin: 0;
     padding: 0;
 }
 
 .header {
-    background-color: var(--header-bg);
+    background-color: $header-bg;
     color: white;
     padding: 12px 20px;
     display: flex;
@@ -54,9 +52,9 @@ body {
 }
 
 .chats-section {
-    background-color: var(--body-bg);
+    background-color: $body-bg;
     padding: 10px 20px;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid $border-color;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -115,7 +113,7 @@ body {
 }
 
 .chats-table th {
-    background-color: var(--table-header-bg);
+    background-color: $table-header-bg;
     color: black;
     text-align: left;
     padding: 12px 15px;
@@ -126,12 +124,12 @@ body {
 
 .chats-table td {
     padding: 12px 15px;
-    border-bottom: 1px solid var(--border-color);
-    background-color: var(--table-row-bg);
+    border-bottom: 1px solid $border-color;
+    background-color: $table-row-bg;
 }
 
 .chats-table tr:hover td {
-    background-color: var(--table-row-hover);
+    background-color: $table-row-hover;
 }
 
 .pencil-icon {
@@ -194,7 +192,7 @@ body {
 /* Newly Added Row Animation */
 @keyframes highlight {
     0% { background-color: #4CAF50; }
-    100% { background-color: var(--table-row-bg); }
+    100% { background-color: $table-row-bg; }
 }
 
 .highlight-row td {

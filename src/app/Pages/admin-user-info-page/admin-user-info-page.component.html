@@ -1,12 +1,22 @@
-<div class="admin-panel">
-    <div class="panel-header">
-      <div class="vaultcom-label">VaultCom</div>
-      <div class="admin-menu">Admin Menu</div>
-      <div class="expand-icon">
-        <i class="fas fa-external-link-alt"></i>
-      </div>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+
+<div class="header">
+    <div class="d-flex align-items-center">
+        <div class="logo">
+            VaultCom
+            <i class="bi bi-chat-fill ms-2"></i>
+        </div>
+        <div class="admin-menu ms-4">Admin Menu</div>
     </div>
-    
+    <div class="header-right">
+        <button class="expand-icon" routerLink="/main" routerLinkActive="active">
+            <i class="bi bi-box-arrow-right"></i>
+        </button>
+    </div>
+</div>
+
+<div class="admin-panel">
+  
     <div class="user-card">
       <div class="user-header">
         <div class="warning-icon">

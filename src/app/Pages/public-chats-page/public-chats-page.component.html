@@ -3,7 +3,6 @@
     <!-- Bootstrap Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
 
-    <!-- Header -->
     <div class="header">
         <div class="d-flex align-items-center">
             <div class="logo">
@@ -13,7 +12,7 @@
             <div class="admin-menu ms-4">Admin Menu</div>
         </div>
         <div class="header-right">
-            <button class="expand-icon">
+            <button class="expand-icon" routerLink="/main" routerLinkActive="active">
                 <i class="bi bi-box-arrow-right"></i>
             </button>
         </div>
@@ -28,7 +27,7 @@
                 <i class="bi bi-search"></i>
             </button>
         </div>
-        <button class="close-btn">
+        <button class="close-btn" routerLink="/admin-menu" routerLinkActive="active">
             <i class="bi bi-x-lg"></i>
         </button>
     </div>

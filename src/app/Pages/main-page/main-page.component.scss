@@ -1,3 +1,6 @@
+$header-bg: #BEBDBD;
+$body-bg: #969696;
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
@@ -18,7 +21,7 @@ body {
   }
   
   .header {
-    background-color: #4d4d4d;
+    background-color: $header-bg;
     color: white;
     padding: 10px 15px;
     display: flex;
@@ -41,7 +44,7 @@ body {
   }
   
   .admin-menu {
-    background-color: #333;
+    background-color: #3a3a3a;
     color: white;
     padding: 4px 12px;
     border-radius: 20px;
@@ -66,7 +69,7 @@ body {
   
   .sidebar {
     width: 280px;
-    background-color: #5a5a5a;
+    background-color: #64645F;
     border-right: 1px solid #4d4d4d;
     display: flex;
     flex-direction: column;
@@ -91,7 +94,7 @@ body {
     padding-right: 40px;
     border-radius: 20px;
     border: none;
-    background-color: #4d4d4d;
+    background-color: #929090;
     color: white;
   }
   
@@ -104,7 +107,7 @@ body {
   }
   
   .new-chat-btn {
-    background-color: transparent;
+    background-color: #868684;
     border: none;
     color: white;
     font-size: 20px;
@@ -114,6 +117,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 36px;
   }
   
   .chat-list {
@@ -130,11 +134,11 @@ body {
   }
   
   .chat-item:hover {
-    background-color: #4d4d4d;
+    background-color: #9d9a9a;
   }
   
   .chat-item.active {
-    background-color: #666;
+    background-color: #565555;
   }
   
   .avatar {
@@ -191,16 +195,17 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    background-color: #5a5a5a;
+    background-color: #64645F;
   }
   
   .chat-header {
     padding: 10px 15px;
-    background-color: #5a5a5a;
+    background-color: #969696;
     border-bottom: 1px solid #4d4d4d;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 56px;
   }
   
   .chat-title {
@@ -290,6 +295,7 @@ body {
     border-top: 1px solid #4d4d4d;
     display: flex;
     align-items: center;
+    height: 52px;
   }
   
   .message-input {
@@ -332,12 +338,13 @@ body {
   }
   
   .pinned {
-    background-color: rgba(255, 255, 0, 0.05);
+    background-color: rgba(145, 192, 154, 0.182);
+    border-radius: 16PX;
   }
   
   .pin-icon {
     margin-left: 5px;
-    color: #ffcc00;
+    color: #000000;
     font-size: 12px;
   }
   

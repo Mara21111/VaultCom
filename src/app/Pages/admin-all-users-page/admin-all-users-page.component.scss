@@ -1,11 +1,108 @@
+$header-bg: #BEBDBD;
+$body-bg: #969696;
+$table-header-bg: #777;
+$table-row-bg: #64645F;
+$table-row-hover: #c0c0c0;
+
+
 body {
-    background: linear-gradient(to bottom, #333, #666);
+font-family: Arial, sans-serif;
+background-color: $body-bg;
+margin: 0;
+padding: 0;
+}
+
+.header {
+background-color: $header-bg;
+color: white;
+padding: 12px 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.logo {
+font-weight: bold;
+font-size: 1.5rem;
+display: flex;
+align-items: center;
+}
+
+.logo i {
+margin-left: 10px;
+}
+
+.all-users-section {
+background-color: $body-bg;
+padding: 10px 20px;
+border-bottom: 1px solid #666;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.all-users-title {
+font-size: 1.2rem;
+font-weight: bold;
+}
+
+.search-container {
+position: relative;
+}
+
+.search-input {
+border-radius: 15px;
+padding: 5px 30px 5px 10px;
+border: none;
+}
+
+.search-btn {
+position: absolute;
+right: 5px;
+top: 50%;
+transform: translateY(-50%);
+background: none;
+border: none;
+color: #000000;
+}
+
+.close-btn {
+background: none;
+border: none;
+color: #000000;
+font-size: 1.5rem;
+cursor: pointer;
+}
+
+.table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #989797;
+    background-color: $table-row-bg;
+}
+
+.table th {
+    background-color: #727272;
     color: white;
 }
+
 .table-container {
     max-height: 400px;
     overflow-y: auto;
+    border-radius: 12px;
 }
 .table tbody tr:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: $table-row-hover;
+}
+
+.table-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #888;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 12px;
 }

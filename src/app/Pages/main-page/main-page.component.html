@@ -1,16 +1,23 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <body>
     <div class="app-container">
       <!-- App Header -->
       <div class="header">
         <div class="logo">
           VaultCom
-          <div class="logo-circle"></div>
+          <i class="bi bi-chat-fill ms-2"></i>
         </div>
-        <div class="admin-menu">Admin menu</div>
+        <button class="admin-menu" routerLink="/admin-menu" routerLinkActive="active">Admin menu</button>
         <div class="user-icons">
-          <div class="user-icon"><i class="fas fa-users"></i></div>
-          <div class="user-icon"><i class="fas fa-user"></i></div>
-          <div class="user-icon"><i class="fas fa-cog"></i></div>
+          <button class="expand-icon" routerLink="/user-friends" routerLinkActive="active">
+            <i class="fas fa-users"></i>
+          </button>
+          <button class="expand-icon" routerLink="/user-profile" routerLinkActive="active">
+            <div class="user-icon"><i class="fas fa-user"></i></div>
+          </button>
+          <button class="expand-icon" routerLink="" routerLinkActive="active">
+            <i class="bi bi-box-arrow-right"></i>
+        </button>
         </div>
       </div>
       
