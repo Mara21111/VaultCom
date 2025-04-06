@@ -1,1 +1,175 @@
-<p>main-page works!</p>
+<body>
+    <div class="app-container">
+      <!-- App Header -->
+      <div class="header">
+        <div class="logo">
+          VaultCom
+          <div class="logo-circle"></div>
+        </div>
+        <div class="admin-menu">Admin menu</div>
+        <div class="user-icons">
+          <div class="user-icon"><i class="fas fa-users"></i></div>
+          <div class="user-icon"><i class="fas fa-user"></i></div>
+          <div class="user-icon"><i class="fas fa-cog"></i></div>
+        </div>
+      </div>
+      
+      <!-- Main Content Area -->
+      <div class="content">
+        <!-- Sidebar with chat list -->
+        <div class="sidebar">
+          <div class="search-container">
+            <div class="search-box">
+              <input type="text" placeholder="Search...">
+              <div class="search-icon">
+                <i class="fas fa-search"></i>
+              </div>
+            </div>
+            <button class="new-chat-btn">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+          
+          <div class="chat-list">
+            <div class="chat-item active">
+              <div class="avatar">
+                <img src="/api/placeholder/40/40" alt="V">
+              </div>
+              <div class="chat-info">
+                <div class="chat-name">Victor</div>
+              </div>
+            </div>
+            
+            <div class="chat-item">
+              <div class="avatar">
+                <img src="/api/placeholder/40/40" alt="N">
+              </div>
+              <div class="chat-info">
+                <div class="chat-name">Nathan</div>
+              </div>
+            </div>
+            
+            <div class="chat-item">
+              <div class="avatar">
+                <img src="/api/placeholder/40/40" alt="E">
+              </div>
+              <div class="chat-info">
+                <div class="chat-name">Emily (1)</div>
+              </div>
+            </div>
+            
+            <div class="chat-item">
+              <div class="avatar">
+                <img src="/api/placeholder/40/40" alt="J">
+              </div>
+              <div class="chat-info">
+                <div class="chat-name">James</div>
+              </div>
+            </div>
+            
+            <div class="chat-item">
+              <div class="avatar group">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="chat-info">
+                <div class="chat-name">Work (99+)</div>
+                <div class="chat-meta">10 Users</div>
+              </div>
+            </div>
+            
+            <div class="chat-item">
+              <div class="avatar group">
+                <i class="fas fa-code"></i>
+              </div>
+              <div class="chat-info">
+                <div class="chat-name">Programming</div>
+                <div class="chat-meta">254 Users</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mode-toggle">
+            <div class="mode-button active">Private</div>
+            <div class="mode-button">Public</div>
+          </div>
+        </div>
+        
+        <!-- Chat window -->
+        <div class="chat-window">
+          <div class="chat-header">
+            <div class="chat-title">Work</div>
+            <div class="chat-actions">
+              <button class="chat-action" id="pin-toggle">
+                <i class="fas fa-thumbtack"></i>
+              </button>
+              <button class="chat-action">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="messages-container" id="messages-container">
+            <div class="message">
+              <div class="message-avatar" style="background-color: #e74c3c;">B</div>
+              <div class="message-content">
+                <div class="message-sender">Boss</div>
+                Hey team, how's the update going?
+                <div class="message-time">11:25</div>
+              </div>
+            </div>
+            
+            <div class="message">
+              <div class="message-avatar" style="background-color: #3498db;">N</div>
+              <div class="message-content">
+                <div class="message-sender">Nick</div>
+                Backend is almost done, just finishing APIs.
+                <div class="message-time">11:28</div>
+              </div>
+            </div>
+            
+            <div class="message">
+              <div class="message-avatar" style="background-color: #2980b9;">L</div>
+              <div class="message-content">
+                <div class="message-sender">Liam</div>
+                UI design is ready, sending mockups now.
+                <div class="message-time">11:34</div>
+              </div>
+            </div>
+            
+            <div class="message">
+              <div class="message-avatar" style="background-color: #27ae60;">E</div>
+              <div class="message-content">
+                <div class="message-sender">Emma</div>
+                Great! When can I get screenshots?
+                <div class="message-time">11:39</div>
+              </div>
+            </div>
+            
+            <div class="message own pinned">
+              <div class="message-avatar" style="background-color: #9b59b6;">Y</div>
+              <div class="message-content">
+                Need a test version by Wednesday. Possible? <i class="fas fa-thumbtack pin-icon"></i>
+                <div class="message-time">11:56</div>
+              </div>
+            </div>
+            
+            <div class="message">
+              <div class="message-avatar" style="background-color: #f1c40f;">M</div>
+              <div class="message-content">
+                <div class="message-sender">Mike</div>
+                I'll deploy a beta by then.
+                <div class="message-time">12:45</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="input-area">
+            <input type="text" class="message-input" placeholder="Write message">
+            <button class="send-button">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>

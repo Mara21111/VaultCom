@@ -1,0 +1,138 @@
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <!-- Header -->
+    <div class="header">
+        <div class="d-flex align-items-center">
+            <div class="logo">
+                VaultCom
+                <i class="bi bi-chat-fill ms-2"></i>
+            </div>
+            <div class="admin-menu ms-4">Admin Menu</div>
+        </div>
+        <div class="header-right">
+            <button class="expand-icon">
+                <i class="bi bi-box-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Public Chats Section -->
+    <div class="chats-section">
+        <div class="chats-title">Public Chats</div>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search">
+            <button class="search-btn">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+        <button class="close-btn">
+            <i class="bi bi-x-lg"></i>
+        </button>
+    </div>
+    
+    <!-- Chats Table -->
+    <div class="chats-container">
+        <div class="table-container">
+            <table class="chats-table" id="chatsTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Users</th>
+                        <th>Active Users</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="chatsTableBody">
+                    <tr>
+                        <td>
+                            <i class="bi bi-pencil-fill pencil-icon"></i>
+                            Programming
+                        </td>
+                        <td>219</td>
+                        <td>31</td>
+                        <td>
+                            <button class="delete-button" onclick="deleteRow(this)">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="bi bi-pencil-fill pencil-icon"></i>
+                            Technology
+                        </td>
+                        <td>171</td>
+                        <td>20</td>
+                        <td>
+                            <button class="delete-button" onclick="deleteRow(this)">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="bi bi-pencil-fill pencil-icon"></i>
+                            Science
+                        </td>
+                        <td>156</td>
+                        <td>17</td>
+                        <td>
+                            <button class="delete-button" onclick="deleteRow(this)">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="bi bi-pencil-fill pencil-icon"></i>
+                            Sports
+                        </td>
+                        <td>192</td>
+                        <td>21</td>
+                        <td>
+                            <button class="delete-button" onclick="deleteRow(this)">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- Additional rows for scrolling demonstration -->
+                    <tr>
+                        <td>
+                            <i class="bi bi-pencil-fill pencil-icon"></i>
+                            Music
+                        </td>
+                        <td>245</td>
+                        <td>35</td>
+                        <td>
+                            <button class="delete-button" onclick="deleteRow(this)">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="bi bi-pencil-fill pencil-icon"></i>
+                            Gaming
+                        </td>
+                        <td>310</td>
+                        <td>42</td>
+                        <td>
+                            <button class="delete-button" onclick="deleteRow(this)">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Add Chat Input -->
+    <div class="chat-input-container">
+        <input type="text" class="chat-input" id="newChatInput" placeholder="Enter new chat name...">
+        <button class="add-button" id="addChatButton">ADD</button>
+    </div>
+    

@@ -1,0 +1,202 @@
+:root {
+    --header-bg: #333;
+    --body-bg: #9b9b9b;
+    --table-header-bg: #777;
+    --table-row-bg: #8a8a8a;
+    --table-row-hover: #929292;
+    --border-color: #666;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--body-bg);
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: var(--header-bg);
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.logo i {
+    margin-left: 10px;
+}
+
+.admin-menu {
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.expand-icon {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+}
+
+.chats-section {
+    background-color: var(--body-bg);
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chats-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.search-container {
+    position: relative;
+}
+
+.search-input {
+    border-radius: 15px;
+    padding: 5px 30px 5px 10px;
+    border: none;
+    font-size: 0.9rem;
+}
+
+.search-btn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.chats-container {
+    margin: 20px;
+    background-color: #777;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table-container {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.chats-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.chats-table th {
+    background-color: var(--table-header-bg);
+    color: black;
+    text-align: left;
+    padding: 12px 15px;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+}
+
+.chats-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--table-row-bg);
+}
+
+.chats-table tr:hover td {
+    background-color: var(--table-row-hover);
+}
+
+.pencil-icon {
+    color: #333;
+    margin-right: 8px;
+}
+
+.delete-button {
+    background-color: #ff3b30;
+    color: white;
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.chat-input-container {
+    display: flex;
+    margin: 20px;
+    gap: 10px;
+}
+
+.chat-input {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    background-color: #e0e0e0;
+}
+
+.add-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Custom Scrollbar */
+.table-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #888;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 5px;
+}
+
+/* Newly Added Row Animation */
+@keyframes highlight {
+    0% { background-color: #4CAF50; }
+    100% { background-color: var(--table-row-bg); }
+}
+
+.highlight-row td {
+    animation: highlight 1.5s ease;
+}

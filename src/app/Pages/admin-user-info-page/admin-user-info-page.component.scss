@@ -1,0 +1,128 @@
+.admin-panel {
+    background-color: #808080;
+    border-radius: 4px;
+    color: #333;
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid #999;
+    
+    .vaultcom-label {
+      font-weight: bold;
+      font-size: 14px;
+    }
+    
+    .admin-menu {
+      font-weight: bold;
+      font-size: 16px;
+      flex-grow: 1;
+      text-align: center;
+    }
+    
+    .expand-icon {
+      cursor: pointer;
+      color: #333;
+    }
+  }
+  
+  .user-card {
+    padding: 15px;
+    
+    .user-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      
+      .warning-icon {
+        margin-right: 15px;
+        
+        .stop-sign {
+          width: 60px;
+          height: 60px;
+        }
+      }
+      
+      .user-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-grow: 1;
+        
+        .username {
+          font-size: 20px;
+          font-weight: bold;
+          margin: 0;
+        }
+        
+        .chevron-icon {
+          color: #666;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  
+  .details-grid {
+    margin-bottom: 20px;
+    
+    .detail-row {
+      display: flex;
+      margin-bottom: 10px;
+      
+      .detail-label {
+        width: 110px;
+        font-weight: bold;
+        text-align: right;
+        padding-right: 10px;
+        color: #222;
+        
+        &.public-label {
+          margin-left: 20px;
+        }
+      }
+      
+      .detail-value {
+        width: 200px;
+        border-bottom: 1px solid #999;
+        margin-right: 20px;
+      }
+    }
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 30px;
+    
+    .action-btn {
+      flex: 1;
+      text-align: center;
+      padding: 8px 12px;
+      font-size: 14px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 1px solid #666;
+      color: #333;
+      transition: background-color 0.3s;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.4);
+      }
+      
+      &.ban-btn {
+        background-color: rgba(220, 53, 69, 0.1);
+        
+        &:hover {
+          background-color: rgba(220, 53, 69, 0.2);
+        }
+      }
+    }
+  }

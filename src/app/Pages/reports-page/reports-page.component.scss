@@ -1,0 +1,147 @@
+:root {
+    --header-bg: #333;
+    --body-bg: #9b9b9b;
+    --table-header-bg: #777;
+    --table-row-bg: #adadad;
+    --table-row-hover: #c0c0c0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--body-bg);
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: var(--header-bg);
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.logo i {
+    margin-left: 10px;
+}
+
+.reports-section {
+    background-color: var(--body-bg);
+    padding: 10px 20px;
+    border-bottom: 1px solid #666;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reports-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.search-container {
+    position: relative;
+}
+
+.search-input {
+    border-radius: 15px;
+    padding: 5px 30px 5px 10px;
+    border: none;
+}
+
+.search-btn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #333;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.reports-container {
+    margin: 20px;
+    background-color: #777;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.reports-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.reports-table th {
+    background-color: var(--table-header-bg);
+    color: black;
+    text-align: left;
+    padding: 12px 15px;
+    font-weight: bold;
+}
+
+.reports-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #666;
+    background-color: var(--table-row-bg);
+}
+
+.reports-table tr:hover td {
+    background-color: var(--table-row-hover);
+}
+
+.table-container {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.btn-ban {
+    background-color: #8b0000;
+    color: white;
+}
+
+.btn-mute {
+    background-color: #2173b0;
+    color: white;
+}
+
+.btn-ignore {
+    background-color: #c4a000;
+    color: white;
+}
+
+/* Custom Scrollbar */
+.table-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #888;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 5px;
+}

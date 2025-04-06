@@ -1,0 +1,11 @@
+body {
+    background: linear-gradient(to bottom, #333, #666);
+    color: white;
+}
+.table-container {
+    max-height: 400px;
+    overflow-y: auto;
+}
+.table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
