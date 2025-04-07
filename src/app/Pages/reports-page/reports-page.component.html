@@ -2,22 +2,6 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 <!-- Bootstrap Icons -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
-
-<div class="header">
-    <div class="d-flex align-items-center">
-        <div class="logo">
-            VaultCom
-            <i class="bi bi-chat-fill ms-2"></i>
-        </div>
-        <div class="admin-menu ms-4">Admin Menu</div>
-    </div>
-    <div class="header-right">
-        <button class="expand-icon" routerLink="/main" routerLinkActive="active">
-            <i class="bi bi-box-arrow-right"></i>
-        </button>
-    </div>
-</div>
-
     
     <!-- Reports Section -->
     <div class="reports-section">
@@ -45,88 +29,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Ethan123</td>
-                        <td>SchoolShooter2000</td>
-                        <td>Username promotes violence and threats.</td>
-                    </tr>
-                    <tr>
-                        <td>Ethan123</td>
-                        <td>FreeCryptoNow_999</td>
-                        <td>Account appears to be a bot promoting scam messages.</td>
-                    </tr>
-                    <tr>
-                        <td>Ethan123</td>
-                        <td>BombMakerX</td>
-                        <td>Username references violence and may promote harmful actions.</td>
-                    </tr>
-                    <tr>
-                        <td>Ethan123</td>
-                        <td>ToxicPineapple</td>
-                        <td>Toxic user.</td>
-                    </tr>
-                    <tr>
-                        <td>Ethan123</td>
-                        <td>PixelPhantom</td>
-                        <td>Don't like him.</td>
-                    </tr>
-                    <!-- Additional rows can be added here -->
-                    <tr>
-                        <td>User555</td>
-                        <td>SpamBot123</td>
-                        <td>Sending unsolicited advertisements.</td>
-                    </tr>
-                    <tr>
-                        <td>ModeratorA</td>
-                        <td>HackerElite</td>
-                        <td>Attempting to compromise user accounts.</td>
-                    </tr>
-                    <tr>
-                        <td>SecurityTeam</td>
-                        <td>PhishingMaster</td>
-                        <td>Sharing suspicious links to fake login pages.</td>
-                    </tr>
-                    <tr>
-                        <td>SecurityTeam</td>
-                        <td>PhishingMaster</td>
-                        <td>Sharing suspicious links to fake login pages.</td>
-                    </tr>
-                    <tr>
-                        <td>SecurityTeam</td>
-                        <td>PhishingMaster</td>
-                        <td>Sharing suspicious links to fake login pages.</td>
-                    </tr>
-                    <tr>
-                        <td>SecurityTeam</td>
-                        <td>PhishingMaster</td>
-                        <td>Sharing suspicious links to fake login pages.</td>
-                    </tr>
-                    <tr>
-                        <td>SecurityTeam</td>
-                        <td>PhishingMaster</td>
-                        <td>Sharing suspicious links to fake login pages.</td>
-                    </tr>
-                    <tr>
-                        <td>SecurityTeam</td>
-                        <td>PhishingMaster</td>
-                        <td>Sharing suspicious links to fake login pages.</td>
-                    </tr>
-                    <tr>
-                        <td>SecurityTeam</td>
-                        <td>PhishingMaster</td>
-                        <td>Sharing suspicious links to fake login pages.</td>
-                    </tr>
-                    <tr>
-                        <td>SecurityTeam</td>
-                        <td>PhishingMaster</td>
-                        <td>Sharing suspicious links to fake login pages.</td>
-                    </tr>
-                    <tr>
-                        <td>SecurityTeam</td>
-                        <td>PhishingMaster</td>
-                        <td>Sharing suspicious links to fake login pages.</td>
-                    </tr>
-                    
+                    <tr *ngFor="let item of reports">
+                        <td>{{item.user_id}}</td>
+                        <td>{{item.reported_user_id}}</td>
+                        <td>{{item.message}}</td>
+                    </tr>          
                 </tbody>
             </table>
         </div>
