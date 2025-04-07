@@ -1,0 +1,19 @@
+.header {
+background-color: #BEBDBD;
+color: white;
+padding: 12px 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.logo {
+font-weight: bold;
+font-size: 1.5rem;
+display: flex;
+align-items: center;
+}
+
+.logo i {
+margin-left: 10px;
+}
