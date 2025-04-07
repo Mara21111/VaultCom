@@ -23,30 +23,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr><td>Ethan123</td><td>ethan&#64;gmail.com</td><td>123</td></tr>
-                <tr><td>Victor123</td><td>smithvictor45&#64;gmail.com</td><td>0</td></tr>
-                <tr><td>Katka_Novakova</td><td>katkanovakova&#64;gmail.com</td><td>5</td></tr>
-                <tr><td>SuperGamer777</td><td>supergamer777&#64;gmail.com</td><td>777</td></tr>
-                <tr><td>DeviousChatter</td><td>anonymousguypro&#64;gmail.com</td><td>26</td></tr>
-                <tr><td>Bobecek</td><td>bobecek&#64;gmail.com</td><td>3</td></tr>
-                <tr><td>car.seller</td><td>carseller&#64;superdomain.com</td><td>800</td></tr>
-                <tr><td>Delta</td><td>delta&#64;gmail.com</td><td>1456202</td></tr>
-                <tr><td>IM_DUMB_USER_BAN_ME_PLS</td><td>horribleguy&#64;gmail.com</td><td>999</td></tr>
-                <tr><td>James</td><td>james&#64;gmail.com</td><td>1</td></tr>
-                <tr><td>James</td><td>james&#64;gmail.com</td><td>1</td></tr>
-                <tr><td>James</td><td>james&#64;gmail.com</td><td>1</td></tr>
-                <tr><td>James</td><td>james&#64;gmail.com</td><td>1</td></tr>
-                <tr><td>James</td><td>james&#64;gmail.com</td><td>1</td></tr>
-                <tr><td>James</td><td>james&#64;gmail.com</td><td>1</td></tr>
-                <tr><td>James</td><td>james&#64;gmail.com</td><td>1</td></tr>
-                <tr><td>James</td><td>james&#64;gmail.com</td><td>1</td></tr>
-                <tr><td>James</td><td>james&#64;gmail.com</td><td>1</td></tr>
-                <tr><td>James</td><td>james&#64;gmail.com</td><td>1</td></tr>
-                <tr><td>James</td><td>james&#64;gmail.com</td><td>1</td></tr>
-                <tr><td>James</td><td>james&#64;gmail.com</td><td>1</td></tr>
-                <tr><td>James</td><td>james&#64;gmail.com</td><td>1</td></tr>
-                <tr><td>James</td><td>james&#64;gmail.com</td><td>1</td></tr>
-                <tr><td>James</td><td>james&#64;gmail.com</td><td>1</td></tr>
+                <tr *ngFor="let item of users">
+                    <td class="username" routerLink="/admin-user-info" routerLinkActive="active">{{item.username}}</td>
+                    <td>{{item.email}}</td>
+                    <td>999</td>
+                </tr>
             </tbody>
         </table>
     </div>

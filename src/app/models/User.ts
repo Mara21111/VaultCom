@@ -5,7 +5,6 @@ export class User
     password: string;
     username: string;
     phone_number: string;
-    profile_picture: ImageBitmap;
     bio: string;
     status: number;
     is_public: boolean;
