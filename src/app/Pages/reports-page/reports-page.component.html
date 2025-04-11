@@ -1,58 +1,64 @@
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+<!-- Bootstrap & Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet" />
 
-<div class="header">
-    <div class="d-flex align-items-center">
-        <div class="logo">
-            VaultCom
-            <i class="bi bi-chat-fill ms-2"></i>
+<!-- Page Wrapper -->
+<div class="d-flex flex-column vh-100 bg-dark text-white overflow-hidden">
+
+  <!-- Header -->
+  <div class="header bg-dark">
+    <div class="d-flex justify-content-between align-items-center p-3 w-100">
+      <!-- Logo and Chat Icon -->
+      <div class="logo text-white fs-3">
+        VaultCom
+        <i class="bi bi-chat-fill ms-2"></i>
+      </div>
+
+      <!-- Search and Chats Title -->
+      <div class="d-flex align-items-center">
+        <!-- Search Bar -->
+        <div class="search-container d-flex align-items-center me-3">
+          <input type="text" class="form-control search-input" placeholder="Search">
+          <button class="search-btn btn btn-dark ms-2">
+            <i class="bi bi-search"></i>
+          </button>
         </div>
-        <div class="admin-menu ms-4">Admin Menu</div>
-    </div>
-    <div class="header-right">
-        <button class="expand-icon" routerLink="/main" routerLinkActive="active">
-            <i class="bi bi-box-arrow-right"></i>
+        <!-- Public Chats Title -->
+        <div class="chats-title text-white fs-5 me-3">Reports</div>
+        <!-- Close Button -->
+        <button class="close-btn btn btn-dark p-2 ms-2">
+          <i class="bi bi-x-lg"></i>
         </button>
+      </div>
     </div>
+  </div>
+
+  <!-- Reports Table Area -->
+  <div class="reports-container overflow-auto">
+    <div class="table-container">
+      <table class="reports-table table text-white">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Reported user</th>
+            <th>Reason</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of reports">
+            <td>{{ item.user_id }}</td>
+            <td>{{ item.reported_user_id }}</td>
+            <td>{{ item.message }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Fixed Bottom Buttons -->
+  <div class="action-buttons">
+    <button class="btn btn-ban">Ban</button>
+    <button class="btn btn-mute">Mute</button>
+    <button class="btn btn-ignore">Ignore</button>
+  </div>
 </div>
-
-
-    <div class="reports-section">
-        <div class="reports-title">Reports</div>
-        <div class="search-container">
-            <input type="text" class="search-input" placeholder="Search">
-            <button class="search-btn">
-                <i class="bi bi-search"></i>
-            </button>
-        </div>
-        <button class="close-btn" routerLink="/admin-menu" routerLinkActive="active">
-            <i class="bi bi-x-lg"></i>
-        </button>
-    </div>
-    
-    <div class="reports-container">
-        <div class="table-container">
-            <table class="reports-table">
-                <thead>
-                    <tr>
-                        <th>User</th>
-                        <th>Reported user</th>
-                        <th>Reason</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of reports">
-                        <td>{{item.user_id}}</td>
-                        <td>{{item.reported_user_id}}</td>
-                        <td>{{item.message}}</td>
-                    </tr>          
-                </tbody>
-            </table>
-        </div>
-    </div>
-    
-    <div class="action-buttons">
-        <button class="btn btn-ban">Ban</button>
-        <button class="btn btn-mute">Mute</button>
-        <button class="btn btn-ignore">Ignore</button>
-    </div>

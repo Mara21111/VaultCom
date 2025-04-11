@@ -1,112 +1,136 @@
-$header-bg: #BEBDBD;
-$body-bg: #969696;
-$table-header-bg: #777;
-$table-row-bg: #64645F;
-$table-row-hover: #c0c0c0;
-
+$header-bg: #202225;
+$body-bg: #181a1b;
+$table-header-bg: #2f3436;
+$table-row-bg: #2a2f32;
+$table-row-hover: #36393f;
+$btn-color: #7289da;
+$border-color: #444;
 
 body {
-font-family: Arial, sans-serif;
-background-color: $body-bg;
-margin: 0;
-padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: $body-bg;
+  margin: 0;
+  padding: 0;
+  color: #ffffff;
+  overflow-y: auto;
 }
 
 .header {
-background-color: $header-bg;
-color: white;
-padding: 12px 20px;
-display: flex;
-justify-content: space-between;
-align-items: center;
+  background-color: $header-bg;
+  color: white;
+  width: 100%;  /* Full width */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .logo {
-font-weight: bold;
-font-size: 1.5rem;
-display: flex;
-align-items: center;
+  font-weight: 700;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
 }
 
 .logo i {
-margin-left: 10px;
-}
-
-.all-users-section {
-background-color: $body-bg;
-padding: 10px 20px;
-border-bottom: 1px solid #666;
-display: flex;
-justify-content: space-between;
-align-items: center;
-}
-
-.all-users-title {
-font-size: 1.2rem;
-font-weight: bold;
+  margin-left: 8px;
+  font-size: 1.5rem;
 }
 
 .search-container {
-position: relative;
+  position: relative;
+  width: 100%;
 }
 
 .search-input {
-border-radius: 15px;
-padding: 5px 30px 5px 10px;
-border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  font-size: 1rem;
+  background-color: #333;
+  color: white;
+  width: 100%; /* Ensures it fills available space */
 }
 
 .search-btn {
-position: absolute;
-right: 5px;
-top: 50%;
-transform: translateY(-50%);
-background: none;
-border: none;
-color: #000000;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.all-users-title {
+  font-size: 1.5rem; /* Adjusted font size for more space */
+  font-weight: bold;
+  color: white;
+  margin-left: 20px; /* Adds some space before the title */
+  white-space: nowrap; /* Prevent text from wrapping */
 }
 
 .close-btn {
-background: none;
-border: none;
-color: #000000;
-font-size: 1.5rem;
-cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 8px;
+  margin-left: 10px;
+  border-radius: 6px;
 }
 
-.table td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #989797;
-    background-color: $table-row-bg;
-}
-
-.table th {
-    background-color: #727272;
-    color: white;
+.close-btn:hover {
+  background-color: #444;
 }
 
 .table-container {
-    max-height: 400px;
-    overflow-y: auto;
-    border-radius: 12px;
+  background-color: #2a2f32;
+  border-radius: 12px;
 }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  background-color: $table-header-bg;
+  color: white;
+  text-align: left;
+  padding: 12px 20px;
+  font-weight: 600;
+}
+
+.table td {
+  padding: 12px 20px;
+  border-bottom: 1px solid $border-color;
+  background-color: $table-row-bg;
+}
+
 .table tbody tr:hover {
-    background-color: $table-row-hover;
+  background-color: $table-row-hover;
+}
+
+.username {
+  text-decoration: underline;
+  color: #fff;
+}
+
+.table-container {
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 .table-container::-webkit-scrollbar {
-    width: 10px;
+  width: 10px;
 }
 
 .table-container::-webkit-scrollbar-track {
-    background: #888;
+  background: #888;
 }
 
 .table-container::-webkit-scrollbar-thumb {
-    background: #555;
-    border-radius: 12px;
-}
-
-.username{
-    text-decoration: underline;
+  background: #555;
+  border-radius: 12px;
 }

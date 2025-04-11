@@ -1,132 +1,100 @@
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public Chats</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+</head>
+<body>
 
-    <div class="header">
+  <div class="container-fluid d-flex flex-column min-vh-100">
+    <!-- Fullscreen Header Section -->
+    <div class="header bg-dark">
+      <div class="d-flex justify-content-between align-items-center p-3 w-100">
+        <!-- Logo and Chat Icon -->
+        <div class="logo text-white fs-3">
+          VaultCom
+          <i class="bi bi-chat-fill ms-2"></i>
+        </div>
+
+        <!-- Search and Chats Title -->
         <div class="d-flex align-items-center">
-            <div class="logo">
-                VaultCom
-                <i class="bi bi-chat-fill ms-2"></i>
-            </div>
-            <div class="admin-menu ms-4">Admin Menu</div>
-        </div>
-        <div class="header-right">
-            <button class="expand-icon" routerLink="/main" routerLinkActive="active">
-                <i class="bi bi-box-arrow-right"></i>
+          <!-- Search Bar -->
+          <div class="search-container d-flex align-items-center me-3">
+            <input type="text" class="form-control search-input" placeholder="Search">
+            <button class="search-btn btn btn-dark ms-2">
+              <i class="bi bi-search"></i>
             </button>
+          </div>
+          <!-- Public Chats Title -->
+          <div class="chats-title text-white fs-5 me-3">Public Chats</div>
+          <!-- Close Button -->
+          <button class="close-btn btn btn-dark p-2 ms-2">
+            <i class="bi bi-x-lg"></i>
+          </button>
         </div>
+      </div>
     </div>
 
-    <div class="chats-section">
-        <div class="chats-title">Public Chats</div>
-        <div class="search-container">
-            <input type="text" class="search-input" placeholder="Search">
-            <button class="search-btn">
-                <i class="bi bi-search"></i>
-            </button>
-        </div>
-        <button class="close-btn" routerLink="/admin-menu" routerLinkActive="active">
-            <i class="bi bi-x-lg"></i>
-        </button>
+    <!-- Chats List Section -->
+    <div class="chats-container overflow-auto flex-grow-1">
+      <div class="table-container">
+        <table class="chats-table table table-dark table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Users</th>
+              <th>Active Users</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><i class="bi bi-pencil-fill pencil-icon"></i>Programming</td>
+              <td>219</td>
+              <td>31</td>
+              <td>
+                <button class="delete-button btn btn-danger">
+                  <i class="bi bi-x"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td><i class="bi bi-pencil-fill pencil-icon"></i>Technology</td>
+              <td>171</td>
+              <td>20</td>
+              <td>
+                <button class="delete-button btn btn-danger">
+                  <i class="bi bi-x"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td><i class="bi bi-pencil-fill pencil-icon"></i>Science</td>
+              <td>156</td>
+              <td>17</td>
+              <td>
+                <button class="delete-button btn btn-danger">
+                  <i class="bi bi-x"></i>
+                </button>
+              </td>
+            </tr>
+            <!-- More rows as needed -->
+          </tbody>
+        </table>
+      </div>
     </div>
-    
-    <div class="chats-container">
-        <div class="table-container">
-            <table class="chats-table" id="chatsTable">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Users</th>
-                        <th>Active Users</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="chatsTableBody">
-                    <tr>
-                        <td>
-                            <i class="bi bi-pencil-fill pencil-icon"></i>
-                            Programming
-                        </td>
-                        <td>219</td>
-                        <td>31</td>
-                        <td>
-                            <button class="delete-button" onclick="deleteRow(this)">
-                                <i class="bi bi-x"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="bi bi-pencil-fill pencil-icon"></i>
-                            Technology
-                        </td>
-                        <td>171</td>
-                        <td>20</td>
-                        <td>
-                            <button class="delete-button" onclick="deleteRow(this)">
-                                <i class="bi bi-x"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="bi bi-pencil-fill pencil-icon"></i>
-                            Science
-                        </td>
-                        <td>156</td>
-                        <td>17</td>
-                        <td>
-                            <button class="delete-button" onclick="deleteRow(this)">
-                                <i class="bi bi-x"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="bi bi-pencil-fill pencil-icon"></i>
-                            Sports
-                        </td>
-                        <td>192</td>
-                        <td>21</td>
-                        <td>
-                            <button class="delete-button" onclick="deleteRow(this)">
-                                <i class="bi bi-x"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="bi bi-pencil-fill pencil-icon"></i>
-                            Music
-                        </td>
-                        <td>245</td>
-                        <td>35</td>
-                        <td>
-                            <button class="delete-button" onclick="deleteRow(this)">
-                                <i class="bi bi-x"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="bi bi-pencil-fill pencil-icon"></i>
-                            Gaming
-                        </td>
-                        <td>310</td>
-                        <td>42</td>
-                        <td>
-                            <button class="delete-button" onclick="deleteRow(this)">
-                                <i class="bi bi-x"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+
+    <!-- New Chat Section (fixed at bottom) -->
+    <div class="chat-input-container fixed-bottom p-3 bg-dark">
+      <div class="d-flex justify-content-center align-items-center">
+        <input type="text" class="form-control chat-input text-center" id="newChatInput" placeholder="Enter new chat name..." aria-label="New Chat Name">
+        <button class="add-button btn btn-primary ms-3" id="addChatButton">ADD</button>
+      </div>
     </div>
-    
-    <!-- Add Chat Input -->
-    <div class="chat-input-container">
-        <input type="text" class="chat-input" id="newChatInput" placeholder="Enter new chat name...">
-        <button class="add-button" id="addChatButton">ADD</button>
-    </div>
-    
+  </div>
+
+</body>
+</html>

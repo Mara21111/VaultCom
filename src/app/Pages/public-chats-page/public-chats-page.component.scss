@@ -1,200 +1,201 @@
-    $header-bg: #BEBDBD;
-    $body-bg: #969696;
-    $table-header-bg: #777;
-    $table-row-bg: #64645F;
-    $table-row-hover: #c0c0c0;
-    $border-color: #666;
+$header-bg: #202225;
+$body-bg: #181a1b;
+$table-header-bg: #2f3436;
+$table-row-bg: #2a2f32;
+$table-row-hover: #36393f;
+$btn-color: #7289da;
+$border-color: #444;
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: $body-bg;
-    margin: 0;
-    padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: $body-bg;
+  margin: 0;
+  padding: 0;
+  color: #ffffff;
+  overflow-y: auto;
 }
 
 .header {
-    background-color: $header-bg;
-    color: white;
-    padding: 12px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  background-color: $header-bg;
+  color: white;
+  width: 100%;  /* Full width */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .logo {
-    font-weight: bold;
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
+  font-weight: 700;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
 }
 
 .logo i {
-    margin-left: 10px;
-}
-
-.admin-menu {
-    margin-left: 20px;
-    font-weight: bold;
+  margin-left: 8px;
+  font-size: 1.5rem;
 }
 
 .header-right {
-    display: flex;
-    align-items: center;
-}
-
-.expand-icon {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-}
-
-.chats-section {
-    background-color: $body-bg;
-    padding: 10px 20px;
-    border-bottom: 1px solid $border-color;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.chats-title {
-    font-size: 1.1rem;
-    font-weight: bold;
+  align-items: center;
 }
 
 .search-container {
-    position: relative;
+  align-items: center;
 }
 
 .search-input {
-    border-radius: 15px;
-    padding: 5px 30px 5px 10px;
-    border: none;
-    font-size: 0.9rem;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  font-size: 1rem;
+  width: 300px;
+  background-color: #333;
+  color: white;
 }
 
 .search-btn {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: #333;
-    font-size: 0.9rem;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.chats-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  margin-right: 20px;
 }
 
 .close-btn {
-    background: none;
-    border: none;
-    color: #333;
-    font-size: 1.5rem;
-    cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 8px;
+  margin-left: 10px;
+  border-radius: 6px;
+}
+
+.close-btn:hover {
+  background-color: #444;
 }
 
 .chats-container {
-    margin: 20px;
-    background-color: #777;
-    border-radius: 8px;
-    overflow: hidden;
+  background-color: #2a2f32;
+  border-radius: 12px;
+  margin-top: 20px;
+  margin-bottom: 80px;  /* Space for new chat input section */
 }
 
 .table-container {
-    max-height: 300px;
-    overflow-y: auto;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .chats-table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .chats-table th {
-    background-color: $table-header-bg;
-    color: black;
-    text-align: left;
-    padding: 12px 15px;
-    font-weight: bold;
-    position: sticky;
-    top: 0;
+  background-color: $table-header-bg;
+  color: white;
+  text-align: left;
+  padding: 12px 20px;
+  font-weight: 600;
 }
 
 .chats-table td {
-    padding: 12px 15px;
-    border-bottom: 1px solid $border-color;
-    background-color: $table-row-bg;
+  padding: 12px 20px;
+  border-bottom: 1px solid $border-color;
+  background-color: $table-row-bg;
 }
 
-.chats-table tr:hover td {
-    background-color: $table-row-hover;
+.chats-table tr {
+  transition: background-color 0.3s ease; /* Smooth transition for the entire row */
+}
+
+.chats-table tr:hover {
+  background-color: $table-row-hover; /* Apply hover effect to the entire row */
 }
 
 .pencil-icon {
-    color: #333;
-    margin-right: 8px;
+  color: #ffffff;
+  margin-right: 8px;
 }
 
 .delete-button {
-    background-color: #ff3b30;
-    color: white;
-    border: none;
-    width: 24px;
-    height: 24px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .chat-input-container {
-    display: flex;
-    margin: 20px;
-    gap: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .chat-input {
-    flex-grow: 1;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    background-color: #e0e0e0;
+  flex-grow: 1;
+  padding: 10px 15px;
+  font-size: 1.5rem;
+  background-color: #444c56;
+  color: white;
+  border-radius: 20px;
+  text-align: center;
+  width: 600px;  /* Longer and slimmer input */
 }
 
 .add-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
-/* Custom Scrollbar */
-.table-container::-webkit-scrollbar {
-    width: 8px;
+.fixed-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 
-.table-container::-webkit-scrollbar-track {
-    background: #888;
-}
+@media screen and (max-width: 768px) {
+  .search-container {
+    width: 100%;
+  }
 
-.table-container::-webkit-scrollbar-thumb {
-    background: #555;
-    border-radius: 5px;
-}
+  .chats-title {
+    font-size: 1rem;
+  }
 
-/* Newly Added Row Animation */
-@keyframes highlight {
-    0% { background-color: #4CAF50; }
-    100% { background-color: $table-row-bg; }
-}
+  .chat-input {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 1.2rem;
+  }
 
-.highlight-row td {
-    animation: highlight 1.5s ease;
+  .add-button {
+    width: 100%;
+    margin-top: 10px;
+  }
 }
