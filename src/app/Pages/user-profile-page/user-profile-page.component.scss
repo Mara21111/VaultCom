@@ -1,9 +1,187 @@
 @import "../../variables.scss";
 
 * {
-  color: #000000 !important; /* Set all text color to black */
+  color: black;
 }
 
+.header-space {
+  height: 60px;
+}
+
+
+.panel {
+  width: 100%;
+  background-color: $primary-color;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.header {
+  //vsechno zabere
+  position: fixed;
+  width: 100vw;
+  left: 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $header-color;
+  padding: 10px 20px;
+
+  .left-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .title {
+    font-size: 1.5em;
+    margin-right: 10px;
+  }
+  
+  .logo {
+    width: 50px;
+    height: auto;
+  }
+  
+  .close-button {
+    text-decoration: none;
+    font-size: 1.2em;
+  }
+}
+
+.profile-panel {
+  display: flex;
+  align-items: stretch; // <- umoznuje children se stretchnout uplne nahoru
+  height: 300px; // <- na tomhle je linked velikost pfp A panelu
+  padding: 20px;
+
+  .profile-image {
+    width: auto;
+    height: auto;
+    border-radius: 20%;
+  }
+  
+  .user-info-panel {
+    @extend .panel;
+    margin-left: 20px;
+
+    .item {
+      display: flex;
+      align-items: center;
+      width: 100%;
+  
+      .icon {
+        flex: 0 0 auto; // <- zleva
+        width: 42px; // <- main velikost tohle
+        height: auto;
+      }
+  
+      .text {
+        text-align: center;
+        display: flex;
+        flex-direction: column; // <- na sobe ty texty budou
+        font-size: auto;
+        flex: 1; // <- zabere si misto ktery ma v tom flexu
+
+        .top-text {
+          font-size: 1.2em;
+          font-weight: bold;
+        }
+    
+        .bottom-text {
+          font-size: 0.7em; // <- 70% od parenta takze .text
+          color: rgb(40, 40, 40);
+        }
+      }
+    }
+
+    .item-lined {
+      @extend .item; 
+      border-bottom: 1px solid #ffffff;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.settings-panel{
+  @extend .panel;
+  justify-content: space-between;
+  display: flex;
+  background-color: $secondary-color;
+
+  .on-off-panel {
+    margin-right: auto;
+
+    .on-off-item {
+      display: flex;
+      align-items: center; // <- tohle jen vertikalne
+      border-radius: 10px;
+      padding: 5px 10px; // <- x, y ofc
+      margin: 10px;
+      border: 1px solid white;
+      width: 250px;
+      
+      .on-off-text {
+          flex: 1;
+          font-size: auto;
+      }
+  
+      .on-off-button {
+          cursor: pointer;
+          background-color: $secondary-color;
+          width: 30px;
+          height: 30px;
+          border: 3px solid black; // <- nejakej basic border tam je a vypada hnusne
+          border-radius: 5px;
+      }
+    }
+  }
+
+  .edit-panel {
+    margin-left: auto;
+
+    .edit-item {
+      display: flex;
+      align-items: center;
+      border-radius: 10px;
+      padding: 5px 10px; 
+      margin: 10px;
+      border: 1px solid white;
+      width: 250px; 
+
+
+      .edit-text {
+        flex: 1;
+        font-size: auto;
+      }
+
+      .edit-icon {
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
+      }
+    }
+  }
+
+
+}
+
+.logout-btn{
+  cursor: pointer;
+  margin-bottom: auto;
+  background-color: red;
+  width: auto;
+  height: 30px;
+  border: 3px solid black; // <- nejakej basic border tam je a vypada hnusne
+  border-radius: 5px;
+  padding: 0px 5px;
+}
+
+
+/*
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f8f9fa;
@@ -23,7 +201,7 @@ body {
     border-radius: 5px;
     position: absolute;
     top: 630px;
-    left: 300px;
+    left: 310px;
     cursor:alias;
 }
 
@@ -155,3 +333,4 @@ body {
       padding: 1rem !important;
     }
 }
+    */
