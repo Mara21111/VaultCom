@@ -24,7 +24,7 @@
           <img src="assets/images/stop-icon.svg" alt="Warning" class="stop-sign">
         </div>
         <div class="user-title">
-          <h2 class="username">IM_DUMB_USER_BAN_ME_PLS</h2>
+          <h2 class="username"> {{ user.username }}</h2>
           <div class="chevron-icon">
             <i class="fas fa-chevron-right"></i>
           </div>
@@ -35,30 +35,32 @@
         <div class="details-grid">
           <div class="detail-row">
             <div class="detail-label">Email:</div>
-            <div class="detail-value">horribleguygmail.com</div>
+            <div class="detail-value">{{ user.email }}</div>
             <div class="detail-label public-label">Public account:</div>
-            <div class="detail-value">Off</div>
+            <div class="detail-value" *ngIf="user.is_public">On</div>
+            <div class="detail-value" *ngIf="!user.is_public">Off</div>
           </div>
           
           <div class="detail-row">
             <div class="detail-label">Phone:</div>
-            <div class="detail-value">+1 555-6666-777</div>
+            <div class="detail-value">{{ user.phone_number }}</div>
             <div class="detail-label">Kids mode:</div>
-            <div class="detail-value">Off</div>
+            <div class="detail-value" *ngIf="user.safe_mode">On</div>
+            <div class="detail-value" *ngIf="!user.safe_mode">Off</div>
           </div>
           
           <div class="detail-row">
             <div class="detail-label">Date Created:</div>
-            <div class="detail-value">25.2.2024</div>
+            <div class="detail-value">{{ user.created_at }}</div>
             <div class="detail-label">Time-out End:</div>
-            <div class="detail-value">1.1.2025</div>
+            <div class="detail-value">{{ user.timeout_end }}</div>
           </div>
           
           <div class="detail-row">
             <div class="detail-label"></div>
             <div class="detail-value"></div>
             <div class="detail-label">Ban End:</div>
-            <div class="detail-value">never</div>
+            <div class="detail-value">{{ user.ban_end }}</div>
           </div>
         </div>
       </div>

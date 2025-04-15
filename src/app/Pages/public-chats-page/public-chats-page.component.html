@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Public Chats</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
-</head>
-<body>
 
   <div class="container-fluid d-flex flex-column min-vh-100">
     <!-- Fullscreen Header Section -->
@@ -51,8 +43,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><i class="bi bi-pencil-fill pencil-icon"></i>Programming</td>
+            <tr *ngFor="let item of data?.chats">
+              <td><i class="bi bi-pencil-fill pencil-icon"></i>{{ item.name }}</td>
               <td>219</td>
               <td>31</td>
               <td>
@@ -61,27 +53,6 @@
                 </button>
               </td>
             </tr>
-            <tr>
-              <td><i class="bi bi-pencil-fill pencil-icon"></i>Technology</td>
-              <td>171</td>
-              <td>20</td>
-              <td>
-                <button class="delete-button btn btn-danger">
-                  <i class="bi bi-x"></i>
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="bi bi-pencil-fill pencil-icon"></i>Science</td>
-              <td>156</td>
-              <td>17</td>
-              <td>
-                <button class="delete-button btn btn-danger">
-                  <i class="bi bi-x"></i>
-                </button>
-              </td>
-            </tr>
-            <!-- More rows as needed -->
           </tbody>
         </table>
       </div>
@@ -95,6 +66,3 @@
       </div>
     </div>
   </div>
-
-</body>
-</html>

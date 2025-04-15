@@ -14,28 +14,28 @@
     <div class="item-lined">
       <img class="icon" src="https://c.animaapp.com/m91lm1h7eKpzaT/img/user.svg"/>
         <div class="text">
-            <div class="top-text">Ethan</div>
+            <div class="top-text">{{ user.username }}</div>
             <div class="bottom-text">username</div>
         </div>
     </div>
     <div class="item-lined">
       <img class="icon" src="https://c.animaapp.com/m91lm1h7eKpzaT/img/at-sign.svg"/>
         <div class="text">
-            <div class="top-text">etha123&#64;gmail.com</div>
+            <div class="top-text">{{ user.email }}</div>
             <div class="bottom-text">email</div>
         </div>
     </div>
     <div class="item-lined">
       <img class="icon" src="https://c.animaapp.com/m91lm1h7eKpzaT/img/phone.svg"/>
         <div class="text">
-            <div class="top-text">1234-5678</div>
+            <div class="top-text"> {{ user.phone_number }}</div>
             <div class="bottom-text">phone</div>
         </div>
     </div>
     <div class="item">
       <img class="icon" src="https://c.animaapp.com/m91lm1h7eKpzaT/img/info.svg"/>
         <div class="text">
-            <div class="top-text">Not doing great.</div>
+            <div class="top-text"> {{ user.bio }}</div>
             <div class="bottom-text">bio</div>
         </div>
     </div>
@@ -46,15 +46,15 @@
   <div class="on-off-panel">
     <div class="on-off-item">
       <div class="on-off-text">Public Account:</div>
-      <button class="on-off-button" onclick="toggleState()">X</button> <!-- √ = 251 -->
+      <button class="on-off-button" (click)="togglePublicAccount()">{{ user.is_public ? ' ' : 'X' }}</button> <!-- √ = 251 -->
     </div>
     <div class="on-off-item">
       <div class="on-off-text">Kids Mode:</div>
-      <button class="on-off-button" onclick="toggleState()"> </button>
+      <button class="on-off-button" (click)="toggleKidsMode()">{{ user.safe_mode ? ' ' : 'X' }}</button>
     </div>
     <div class="on-off-item">
       <div class="on-off-text">Dark Mode:</div>
-      <button class="on-off-button" onclick="toggleState()">X</button>
+      <button class="on-off-button" (click)="toggleDarkMode()">{{ darkMode ? ' ' : 'X' }}</button>
     </div>
   </div>
   <div class="edit-panel">

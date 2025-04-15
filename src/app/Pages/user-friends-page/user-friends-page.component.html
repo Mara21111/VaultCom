@@ -40,7 +40,7 @@
             </div>
           </div>
           <div class="requests-list">
-            <div class="request-row" *ngFor="let item of requests">
+            <div class="request-row" *ngFor="let item of data.users">
               <div class="username-col">{{item.username}}</div>
               <div class="bio-col">{{item.bio}}</div>
               <div class="action-buttons">
@@ -60,7 +60,7 @@
             </div>
           </div>
           <div class="friends-list">
-            <div class="friend-row" *ngFor="let item of friends">
+            <div class="friend-row" *ngFor="let item of data.users">
               <div class="username-col">{{item.username}}</div>
               <div class="bio-col">{{item.bio}}</div>
               <div class="nickname-col">text</div>

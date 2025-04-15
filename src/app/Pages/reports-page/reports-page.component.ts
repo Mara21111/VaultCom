@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { Report_log } from '../../models/Report_log';
 import { NgFor } from '@angular/common';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-reports-page',
@@ -11,18 +11,5 @@ import { NgFor } from '@angular/common';
 })
 export class ReportsPageComponent {
 
-  reports: Report_log[] = [
-    { user_id: 1, reported_user_id: 2, message: "test"},
-    { user_id: 1, reported_user_id: 2, message: "test"},
-    { user_id: 1, reported_user_id: 2, message: "test"},
-    { user_id: 1, reported_user_id: 2, message: "test"},
-    { user_id: 1, reported_user_id: 2, message: "test"},
-    { user_id: 1, reported_user_id: 2, message: "test"},
-    { user_id: 1, reported_user_id: 2, message: "test"},
-    { user_id: 1, reported_user_id: 2, message: "test"},
-    { user_id: 1, reported_user_id: 2, message: "test"},
-    { user_id: 1, reported_user_id: 2, message: "test"},
-    { user_id: 1, reported_user_id: 2, message: "test"},
-    { user_id: 1, reported_user_id: 2, message: "test"},
-  ];
+  data = inject(DataService)
 }

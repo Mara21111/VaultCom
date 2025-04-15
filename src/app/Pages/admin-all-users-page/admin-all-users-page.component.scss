@@ -50,6 +50,10 @@ body {
   background-color: #333;
   color: white;
   width: 100%; /* Ensures it fills available space */
+
+  &::placeholder {
+    color: rgb(137, 136, 136);
+  }
 }
 
 .search-btn {

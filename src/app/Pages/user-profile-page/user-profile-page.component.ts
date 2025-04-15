@@ -1,27 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { DataService } from '../../services/data.service';
+import { User } from '../../models/User';
+import { NgIf } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile-page',
-  imports: [],
+  imports: [NgIf, RouterLink, RouterLinkActive],
   templateUrl: './user-profile-page.component.html',
   styleUrl: './user-profile-page.component.scss'
 })
 
-// TOTALNE ZADRENY TO JE ↓↓↓ (zkrachuje celej angular v konzoli jestli se tohle odkomentuje)
-/*
-@Component({
-  selector: 'app-on-off-toggle',
-  templateUrl: './on-off-toggle.component.html',
-  styleUrls: ['./on-off-toggle.component.scss']
-})
-export class OnOffToggleComponent {
-  isOn = false; // Initial state
-
-  toggleState() {
-    this.isOn = !this.isOn; // Toggle the state
-  }
-}*/
 
 export class UserProfilePageComponent {
+
+  data = inject(DataService)
+
+  user: User = this.data.users[0];
+
+  darkMode: Boolean = true;
+
+  togglePublicAccount() {
+    this.user.is_public = !this.user.is_public;
+  }
+
+  toggleKidsMode() {
+    this.user.safe_mode = !this.user.safe_mode;
+  }
+
+  toggleDarkMode() {
+    this.darkMode = !this.darkMode;
+  }
+
 
 }

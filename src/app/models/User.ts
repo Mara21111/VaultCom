@@ -9,7 +9,7 @@ export class User
     status: number;
     is_public: boolean;
     is_admin: boolean;
-    created_ad: Date;
+    created_at: Date;
     private_key: string;
     public_key: string;
     timeout_end: Date;

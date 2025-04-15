@@ -44,22 +44,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="username">user1</td>
-            <td>user1example.com</td>
+          <tr *ngFor="let item of data.users">
+            <td class="username"> {{ item.username }}</td>
+            <td> {{ item.email }}</td>
             <td>99</td>
           </tr>
-          <tr>
-            <td class="username">user2</td>
-            <td>user2example.com</td>
-            <td>56</td>
-          </tr>
-          <tr>
-            <td class="username">user3</td>
-            <td>user3example.com</td>
-            <td>120</td>
-          </tr>
-          <!-- More rows as needed -->
         </tbody>
       </table>
     </div>
