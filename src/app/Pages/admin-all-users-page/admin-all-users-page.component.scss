@@ -6,6 +6,10 @@ $table-row-hover: #36393f;
 $btn-color: #7289da;
 $border-color: #444;
 
+.header-space {
+  height: 10px;
+}
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: $body-bg;
