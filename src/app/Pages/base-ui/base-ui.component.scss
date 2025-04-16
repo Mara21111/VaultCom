@@ -1,6 +1,103 @@
-@import "../../variables.scss";
+$header-bg: #202225;
+$body-bg: #181a1b;
+$btn-radius: 12px;
+$btn-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+$btn-hover: #444;
 
-.sign-in-panel {
-    background-color: $primary-color;
-    color: white; 
+.header-space {
+  height: 10px;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: $body-bg;
+  margin: 0;
+  padding: 0;
+  color: #ffffff;
+  overflow-y: auto;
+}
+
+.header {
+  background-color: $header-bg;
+  color: white;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+}
+
+.logo i {
+  margin-left: 8px;
+  font-size: 1.5rem;
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+}
+
+.search-input {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  font-size: 1rem;
+  background-color: #333;
+  color: white;
+  width: 40vw;
+
+  &::placeholder {
+    color: rgb(137, 136, 136);
   }
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 8px;
+  margin-left: 10px;
+  border-radius: 6px;
+}
+
+.action-btn:hover {
+  background-color: $btn-hover;
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.btn-Admin-Menu {
+  padding: 10px 20px;
+  border-radius: $btn-radius;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  color: white;
+  box-shadow: $btn-shadow;
+}
+
+.btn-Admin-Menu:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  background-color: $btn-hover;
+}

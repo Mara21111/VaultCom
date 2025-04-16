@@ -1,34 +1,16 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
 
-  <div class="container-fluid d-flex flex-column min-vh-100">
-    <!-- Fullscreen Header Section -->
-    <div class="header bg-dark">
-      <div class="d-flex justify-content-between align-items-center p-3 w-100">
-        <!-- Logo and Chat Icon -->
-        <div class="logo text-white fs-3">
-          VaultCom
-          <i class="bi bi-chat-fill ms-2"></i>
-        </div>
+  <app-base-ui
+  [title]="'Public Chats'"
+  [titleOn]="true"
+  [searchOn]="true"
+  [closeOn]="true"
+  [closeRoute]="'/admin-menu'">
+</app-base-ui>
 
-        <!-- Search and Chats Title -->
-        <div class="d-flex align-items-center">
-          <!-- Search Bar -->
-          <div class="search-container d-flex align-items-center me-3">
-            <input type="text" class="form-control search-input" placeholder="Search">
-            <button class="search-btn btn btn-dark ms-2">
-              <i class="bi bi-search"></i>
-            </button>
-          </div>
-          <!-- Public Chats Title -->
-          <div class="chats-title text-white fs-5 me-3">Public Chats</div>
-          <!-- Close Button -->
-          <button class="close-btn btn btn-dark p-2 ms-2">
-            <i class="bi bi-x-lg"></i>
-          </button>
-        </div>
-      </div>
-    </div>
+
+  <div class="container-fluid d-flex flex-column min-vh-100">
 
     <!-- Chats List Section -->
     <div class="chats-container overflow-auto flex-grow-1">

@@ -46,3 +46,9 @@ button:focus-visible {
 a {
   text-decoration: none;
 }
+
+app-base-ui {
+  position: sticky;
+  top: 0;
+  left: 0;
+}

@@ -3,10 +3,12 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { User } from '../../models/User';
 import { NgIf } from '@angular/common';
+import { BaseUiComponent } from "../base-ui/base-ui.component";
 
 @Component({
   selector: 'app-admin-user-info-page',
-  imports: [RouterLinkActive, RouterLink, NgIf],
+  standalone: true,
+  imports: [RouterLinkActive, RouterLink, NgIf, BaseUiComponent],
   templateUrl: './admin-user-info-page.component.html',
   styleUrl: './admin-user-info-page.component.scss'
 })

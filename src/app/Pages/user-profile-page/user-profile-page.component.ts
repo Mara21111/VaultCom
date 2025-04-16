@@ -3,10 +3,12 @@ import { DataService } from '../../services/data.service';
 import { User } from '../../models/User';
 import { NgIf } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { BaseUiComponent } from "../base-ui/base-ui.component";
 
 @Component({
   selector: 'app-user-profile-page',
-  imports: [NgIf, RouterLink, RouterLinkActive],
+  standalone: true,
+  imports: [NgIf, RouterLink, RouterLinkActive, BaseUiComponent],
   templateUrl: './user-profile-page.component.html',
   styleUrl: './user-profile-page.component.scss'
 })

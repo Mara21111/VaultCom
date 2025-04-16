@@ -1,20 +1,12 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
   
-<div class="header">
-  <div class="d-flex align-items-center">
-      <div class="logo">
-          VaultCom
-          <i class="bi bi-chat-fill ms-2"></i>
-      </div>
-      <div class="admin-menu ms-4">Admin Menu</div>
-  </div>
-  <div class="header-right">
-      <button class="expand-icon" routerLink="/main" routerLinkActive="active">
-          <i class="bi bi-box-arrow-right"></i>
-      </button>
-  </div>
-</div>
-
+<app-base-ui
+  [title]="'About User'"
+  [titleOn]="true"
+  [searchOn]="true"
+  [closeOn]="true"
+  [closeRoute]="'/admin-all-users'">
+</app-base-ui>
 
 <div class="admin-panel">
   
@@ -25,9 +17,6 @@
         </div>
         <div class="user-title">
           <h2 class="username"> {{ user.username }}</h2>
-          <div class="chevron-icon">
-            <i class="fas fa-chevron-right"></i>
-          </div>
         </div>
       </div>
       
