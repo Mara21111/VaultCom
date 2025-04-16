@@ -12,6 +12,28 @@ body{
   box-sizing: border-box;
 }
 
+.header {
+  background-color: $header-bg;
+  color: white;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+}
+
+.logo i {
+  margin-left: 8px;
+  font-size: 1.5rem;
+}
+
 body {
   font-family: "Inter", sans-serif;
 }

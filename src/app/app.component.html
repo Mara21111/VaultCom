@@ -1,3 +1,32 @@
+<div class="header bg-dark p-3">
+  <div class="d-flex justify-content-between align-items-center w-100">
+    <!-- Logo and Chat Icon -->x
+    <div class="logo fs-3">
+      VaultCom
+      <i class="bi bi-chat-fill ms-2"></i>
+    </div>
+
+    <!-- Search Bar Section -->
+    <div class="d-flex align-items-center w-50">
+      <!-- Search Bar -->
+      <div class="search-container d-flex align-items-center flex-grow-1">
+        <input type="text" class="form-control search-input" placeholder="Search">
+        <button class="search-btn btn btn-dark ms-2">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+
+      <!-- All Users Title and Close Button -->
+      <div class="d-flex align-items-center ms-4">
+        <div class="all-users-title fs-4">All Users</div>
+        <button class="close-btn btn btn-dark p-2" routerLink="/admin-menu" routerLinkActive="active">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div>
   <router-outlet/>
 </div>
