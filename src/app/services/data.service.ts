@@ -12,7 +12,7 @@ export class DataService {
   reports: Report_log[] = [];
 
     constructor() {
-        for (let i = 1; i <= 10; i++) {
+        for (let i = 1; i <= 20; i++) {
           this.chats.push({
             id: i,
             is_public: true,
