@@ -1,62 +1,49 @@
 <app-base-ui
-[title]="'Friends'"
-[titleOn]="true"
-[closeOn]="true"
-[closeRoute]="'/main'">
+  [title]="'Friends'"
+  [titleOn]="true"
+  [closeOn]="true"
+  [closeRoute]="'/main'">
 </app-base-ui>
-  
-  <div class="main-container">
-    <div class="friends-container">
-      <div class="friends-header">
-        <h2 class="friends-title">Friends</h2>
-        <div class="search-container">
-          <button class="btn btn-secondary me-2">Send request</button>
-          <div class="input-group">
-            <input type="text" class="form-control search-input" placeholder="Insert username" aria-label="Username">
-            <span class="input-group-text bg-transparent border-0">×</span>
-          </div>
+
+<div class="main-container">
+  <div class="friends-container">
+    <div class="content-area">
+
+      <!-- Friend Requests -->
+      <div class="requests-section">
+        <div class="requests-header d-flex">
+          <div class="col-header">Username</div>
+          <div class="col-header">Bio</div>
+          <div class="col-header">Actions</div>
         </div>
-        <div class="close-btn" routerLink="/main" routerLinkActive="active">×</div>
-      </div>
-
-      <div class="content-area">
-
-        <div class="requests-section">
-          <div class="requests-header">
-            <div class="d-flex">
-              <div class="col-header" style="width: 100%;">Username</div>
-              <div class="col-header" style="width: 100%;">Bio</div>
-              <div class="col-header" style="width: 100%;">Actions</div>
-            </div>
-          </div>
-          <div class="requests-list">
-            <div class="request-row" *ngFor="let item of data.users">
-              <div class="username-col">{{item.username}}</div>
-              <div class="bio-col">{{item.bio}}</div>
-              <div class="action-buttons">
-                <a href="#" class="accept-btn">Accept</a> 
-                <a href="#" class="reject-btn">Reject</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="friends-section">
-          <div class="friends-list-header">
-            <div class="d-flex">
-              <div class="col-header" style="width: 100%;">Username</div>
-              <div class="col-header" style="width: 100%;">Bio</div>
-              <div class="col-header" style="width: 100%;">Nickname</div>
-            </div>
-          </div>
-          <div class="friends-list">
-            <div class="friend-row" *ngFor="let item of data.users">
-              <div class="username-col">{{item.username}}</div>
-              <div class="bio-col">{{item.bio}}</div>
-              <div class="nickname-col">text</div>
+        <div class="requests-list">
+          <div class="request-row" *ngFor="let item of data.users">
+            <div class="username-col">{{ item.username }}</div>
+            <div class="bio-col">{{ item.bio }}</div>
+            <div class="action-buttons">
+              <a href="#" class="accept-btn">Accept</a>
+              <a href="#" class="reject-btn">Reject</a>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Friends List -->
+      <div class="friends-section">
+        <div class="friends-list-header d-flex">
+          <div class="col-header">Username</div>
+          <div class="col-header">Bio</div>
+          <div class="col-header">Nickname</div>
+        </div>
+        <div class="friends-list">
+          <div class="friend-row" *ngFor="let item of data.users">
+            <div class="username-col">{{ item.username }}</div>
+            <div class="bio-col">{{ item.bio }}</div>
+            <div class="nickname-col">text</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
+</div>
