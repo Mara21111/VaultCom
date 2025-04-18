@@ -500,7 +500,7 @@ NÁŠ DESIGN
   CHAT GPT PŘEDĚLAL NÁŠ DESIGN
     */
 
-
+/*
     $body-bg: #202225;
     $panel-bg: #2a2d34;
     $panel-hover: #36393f;
@@ -746,4 +746,222 @@ NÁŠ DESIGN
         transform: scale(1.03);
       }
     }
-    
+    */
+
+// Shared variables (suggest to move to _variables.scss or global.scss)
+$body-bg: #202225;
+$panel-bg: #2a2d34;
+$panel-hover: #36393f;
+$text-light: #ffffff;
+$text-muted: #aaaaaa;
+$accent: #3498db;
+$danger: #e74c3c;
+$btn-radius: 12px;
+$btn-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+
+// Animations (suggest global: _animations.scss)
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideUp {
+  0% { transform: translateY(30px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+// Base layout
+.profile-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+  min-height: 100vh;
+  background-color: $body-bg;
+}
+
+.profile-container {
+  width: 100%;
+  max-width: 1080px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+// Suggest: extract .common-panel to a global class
+.common-panel {
+  background-color: $panel-bg;
+  border-radius: 10px;
+  border: 1px solid #444;
+  padding: 20px;
+  color: $text-light;
+}
+
+// Profile image
+.profile-image {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid $accent;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+}
+
+// Info items
+.user-info-panel {
+  flex: 1;
+  min-width: 250px;
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .item,
+  .item-lined {
+    display: flex;
+    align-items: flex-start;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    min-height: 48px;
+
+    .icon {
+      font-size: 1.4rem;
+      margin-right: 16px;
+      color: $accent;
+      margin-top: 2px;
+    }
+
+    .text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.3;
+
+      .top-text {
+        font-size: 1rem;
+        font-weight: 600;
+        word-break: break-word;
+      }
+
+      .bottom-text {
+        font-size: 0.75rem;
+        color: $text-muted;
+      }
+    }
+  }
+
+  .item-lined {
+    border-bottom: 1px solid #555;
+  }
+
+  .item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
+// Settings and edit panel
+.settings-panel {
+  display: grid;
+  gap: 30px;
+  padding: 30px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .on-off-panel,
+  .edit-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .on-off-item,
+  .edit-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    height: 52px;
+    border: 1px solid #555;
+    border-radius: $btn-radius;
+    background-color: $panel-bg;
+    transition: background-color 0.2s, transform 0.2s;
+
+    &:hover {
+      background-color: $panel-hover;
+      transform: translateY(-2px);
+    }
+
+    .on-off-text,
+    .edit-text {
+      flex: 1;
+      font-size: 1rem;
+      color: $text-light;
+    }
+
+    .on-off-button {
+      width: 36px;
+      height: 36px;
+      border: 2px solid $text-light;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $text-light;
+      background-color: transparent;
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.2s;
+
+      &:hover {
+        background-color: $accent;
+        border-color: $accent;
+        color: white;
+      }
+    }
+
+    .edit-icon {
+      font-size: 1.4rem;
+      color: $accent;
+      cursor: pointer;
+      transition: transform 0.2s ease, color 0.2s ease;
+
+      &:hover {
+        color: lighten($accent, 10%);
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+// Logout
+.logout-panel {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 30px;
+}
+
+.logout-btn {
+  background-color: $danger;
+  border: none;
+  padding: 12px 22px;
+  color: white;
+  border-radius: $btn-radius;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.2s;
+
+  &:hover {
+    background-color: darken($danger, 10%);
+    transform: scale(1.03);
+  }
+}

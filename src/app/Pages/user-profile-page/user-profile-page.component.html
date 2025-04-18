@@ -152,7 +152,7 @@
   STARÝ HTML  -->
 
 
-  
+<!--  
   <app-base-ui
   [title]="'Your Profile'"
   [titleOn]="true"
@@ -162,7 +162,7 @@
 
 <div class="profile-wrapper animate-fade-in">
   <div class="profile-container animate-slide-up">
-    <!-- Profile Section -->
+     Profile Section 
     <section class="profile-panel">
       <img src="https://c.animaapp.com/m91lm1h7eKpzaT/img/pfp.png" alt="Profile Picture" class="profile-image" />
 
@@ -201,7 +201,7 @@
       </div>
     </section>
 
-    <!-- Settings Panel -->
+     Settings Panel 
     <section class="settings-panel">
       <div class="on-off-panel">
         <div class="on-off-item">
@@ -240,9 +240,99 @@
       </div>
     </section>
 
-    <!-- Logout Button -->
+     Logout Button
     <div class="logout-panel">
       <button class="logout-btn">Log out</button>
+    </div>
+  </div>
+</div>
+-->
+
+<app-base-ui
+  [title]="'Your Profile'"
+  [titleOn]="true"
+  [closeOn]="true"
+  [closeRoute]="'/main'">
+</app-base-ui>
+
+<div class="profile-wrapper animate-fade-in">
+  <div class="profile-container animate-slide-up">
+    
+    <!-- Profile Info -->
+    <section class="profile-panel common-panel">
+      <img src="https://c.animaapp.com/m91lm1h7eKpzaT/img/pfp.png" alt="Profile Picture" class="profile-image" />
+
+      <div class="user-info-panel common-panel">
+        <div class="item-lined">
+          <i class="bi bi-person icon"></i>
+          <div class="text">
+            <div class="top-text">{{ user.username }}</div>
+            <div class="bottom-text">username</div>
+          </div>
+        </div>
+
+        <div class="item-lined">
+          <i class="bi bi-at icon"></i>
+          <div class="text">
+            <div class="top-text">{{ user.email }}</div>
+            <div class="bottom-text">email</div>
+          </div>
+        </div>
+
+        <div class="item-lined">
+          <i class="bi bi-telephone icon"></i>
+          <div class="text">
+            <div class="top-text">{{ user.phone_number }}</div>
+            <div class="bottom-text">phone</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <i class="bi bi-info-circle icon"></i>
+          <div class="text">
+            <div class="top-text">{{ user.bio || 'No bio added yet.' }}</div>
+            <div class="bottom-text">bio</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Settings Section -->
+    <section class="settings-panel common-panel">
+      <div class="on-off-panel">
+        <div class="on-off-item">
+          <div class="on-off-text">Public Account:</div>
+          <button class="on-off-button">{{ user.is_public ? '✓' : '✕' }}</button>
+        </div>
+        <div class="on-off-item">
+          <div class="on-off-text">Kids Mode:</div>
+          <button class="on-off-button">{{ user.safe_mode ? '✓' : '✕' }}</button>
+        </div>
+        <div class="on-off-item">
+          <div class="on-off-text">Dark Mode:</div>
+          <button class="on-off-button">{{ darkMode ? '✓' : '✕' }}</button>
+        </div>
+      </div>
+
+      <div class="edit-panel">
+        <div class="edit-item">
+          <div class="edit-text">Change email</div>
+          <i class="bi bi-pencil-square edit-icon"></i>
+        </div>
+        <div class="edit-item">
+          <div class="edit-text">Change password</div>
+          <i class="bi bi-pencil-square edit-icon"></i>
+        </div>
+        <div class="edit-item">
+          <div class="edit-text">Change phone</div>
+          <i class="bi bi-pencil-square edit-icon"></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- Logout -->
+    <div class="logout-panel">
+      <button class="logout-btn btn-danger">Log out</button>
     </div>
   </div>
 </div>

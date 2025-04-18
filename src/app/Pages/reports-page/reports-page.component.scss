@@ -1,11 +1,13 @@
+/*
 $header-bg: #2c2f38;
 $body-bg: #202225;
 $table-header-bg: #353c47;
 $table-row-bg: #2a2d34;
 $table-row-hover: #36393f;
 $btn-radius: 12px;  /* Subtle rounded corners for buttons */
-$btn-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);  /* Softer shadow for buttons */
+/*$btn-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);  /* Softer shadow for buttons */
 
+/*
 body {
   margin: 0;
   padding: 0;
@@ -24,7 +26,7 @@ body {
   top: 0;
   z-index: 100;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Softer header shadow */
-}
+/*}
 
 .logo {
   font-weight: 700;
@@ -46,7 +48,7 @@ body {
 .search-input {
   padding: 8px 16px;
   border-radius: 8px;  /* Subtle rounded input */
-  border: none;
+  /*border: none;
   font-size: 1rem;
   width: 300px;
   background-color: #333;
@@ -85,14 +87,14 @@ body {
 }
 
 /* Main content area with more space for bottom buttons */
-.reports-container {
+/*.reports-container {
   flex-grow: 1;
   padding: 20px;
   background-color: $body-bg;
   box-sizing: border-box;
   overflow-y: auto;
   padding-bottom: 120px; /* Sufficient space below content */
-}
+/*}
 
 .reports-table {
   width: 100%;
@@ -122,7 +124,7 @@ body {
 .action-buttons {
   position: fixed;
   bottom: 20px;  /* Added a small gap from the bottom */
-  left: 50%;
+  /*left: 50%;
   transform: translateX(-50%);
   display: flex;
   justify-content: center;
@@ -132,10 +134,10 @@ body {
   border-top: 1px solid #444;
   z-index: 101;
   box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.2);  /* Softer shadow for the buttons */
-  border-radius: 10px;  /* Subtle rounded top corners */
-}
+  //border-radius: 10px;  /* Subtle rounded top corners */
+//}
 
-.btn-ban,
+/*.btn-ban,
 .btn-mute,
 .btn-ignore {
   padding: 10px 20px;
@@ -188,5 +190,122 @@ body {
   .btn-mute,
   .btn-ignore {
     width: 100%;
+  }
+}
+*/
+
+// Variables (should be global)
+$body-bg: #202225;
+$table-header-bg: #353c47;
+$table-row-bg: #2a2d34;
+$table-row-hover: #36393f;
+$accent: #3498db;
+$danger: #e74c3c;
+$warning: #f39c12;
+$text-light: #ffffff;
+$btn-radius: 12px;
+$btn-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: $body-bg;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: $text-light;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.reports-wrapper {
+  background-color: $body-bg;
+}
+
+.reports-container {
+  flex-grow: 1;
+  padding: 20px;
+  padding-bottom: 120px; // Make space for fixed bottom buttons
+  overflow-y: auto;
+  background-color: $body-bg;
+}
+
+// Suggest: use global .table-panel or similar
+.reports-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    background-color: $table-header-bg;
+    color: $text-light;
+    padding: 14px 18px;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 1px solid #444;
+  }
+
+  td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #555;
+    background-color: $table-row-bg;
+  }
+
+  tr:hover td {
+    background-color: $table-row-hover;
+  }
+}
+
+// Reused button group styling - suggested global
+.action-buttons {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 15px 25px;
+  background-color: $body-bg;
+  border-top: 1px solid #444;
+  z-index: 101;
+  border-radius: 10px;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.2);
+
+  .btn {
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    border-radius: $btn-radius;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: $btn-shadow;
+
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    &.btn-danger {
+      background-color: $danger;
+    }
+
+    &.btn-accent {
+      background-color: $accent;
+    }
+
+    &.btn-warning {
+      background-color: $warning;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .action-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    .btn {
+      width: 100%;
+    }
   }
 }

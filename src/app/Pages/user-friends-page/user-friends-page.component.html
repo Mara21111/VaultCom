@@ -1,4 +1,4 @@
-<app-base-ui
+<!--<app-base-ui
   [title]="'Friends'"
   [titleOn]="true"
   [closeOn]="true"
@@ -9,7 +9,7 @@
   <div class="friends-container">
     <div class="content-area">
 
-      <!-- Friend Requests -->
+       Friend Requests
       <div class="requests-section">
         <div class="requests-header d-flex">
           <div class="col-header">Username</div>
@@ -28,7 +28,7 @@
         </div>
       </div>
 
-      <!-- Friends List -->
+      Friends List 
       <div class="friends-section">
         <div class="friends-list-header d-flex">
           <div class="col-header">Username</div>
@@ -43,6 +43,59 @@
           </div>
         </div>
       </div>
+
+    </div>
+  </div>
+</div>
+-->
+
+<app-base-ui
+  [title]="'Friends'"
+  [titleOn]="true"
+  [closeOn]="true"
+  [closeRoute]="'/main'">
+</app-base-ui>
+
+<div class="main-container">
+  <div class="friends-container">
+    <div class="content-area">
+
+      <!-- Friend Requests -->
+      <section class="panel friends-panel">
+        <div class="section-title">Friend Requests</div>
+        <div class="table-header">
+          <div class="col-header">Username</div>
+          <div class="col-header">Bio</div>
+          <div class="col-header">Actions</div>
+        </div>
+        <div class="table-body">
+          <div class="table-row" *ngFor="let item of data.users">
+            <div class="col">{{ item.username }}</div>
+            <div class="col">{{ item.bio }}</div>
+            <div class="col action-buttons">
+              <button class="btn btn-success">Accept</button>
+              <button class="btn btn-danger">Reject</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Friends List -->
+      <section class="panel friends-panel">
+        <div class="section-title">Your Friends</div>
+        <div class="table-header">
+          <div class="col-header">Username</div>
+          <div class="col-header">Bio</div>
+          <div class="col-header">Nickname</div>
+        </div>
+        <div class="table-body">
+          <div class="table-row" *ngFor="let item of data.users">
+            <div class="col">{{ item.username }}</div>
+            <div class="col">{{ item.bio }}</div>
+            <div class="col">Nickname Here</div>
+          </div>
+        </div>
+      </section>
 
     </div>
   </div>
