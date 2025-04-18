@@ -1,3 +1,5 @@
+/*
+
 $header-bg: #BEBDBD;
 $body-bg: #969696;
 
@@ -353,3 +355,252 @@ body {
     color: #ccc;
     font-size: 12px;
   }
+
+  */
+
+  $primary-bg: #2e2e2e;
+  $sidebar-bg: #3a3a3a;
+  $sidebar-hover-bg: #444;
+  $active-chat-bg: #555;
+  $chat-bg: #1c1c1c;
+  $input-bg: #3c3c3c;
+  $button-bg: #4d4d4d;
+  $header-bg: #3a3a3a;
+  $font-color: #ccc;
+  $button-color: #fff;
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    background-color: $primary-bg;
+    height: 100%;
+  }
+  
+  .content {
+    display: flex;
+    flex: 1;
+  }
+  
+  .sidebar {
+    width: 280px;
+    background-color: $sidebar-bg;
+    border-right: 1px solid #4d4d4d;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .search-container {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .search-box input {
+    width: 100%;
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: none;
+    background-color: #929090;
+    color: $font-color;
+  }
+  
+  .search-box .search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $font-color;
+  }
+  
+  .new-chat-btn {
+    background-color: $button-bg;
+    border: none;
+    color: $button-color;
+    font-size: 20px;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  
+  .chat-list {
+    flex: 1;
+    overflow-y: auto;
+  }
+  
+  .chat-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #4d4d4d;
+  }
+  
+  .chat-item:hover {
+    background-color: $sidebar-hover-bg;
+  }
+  
+  .chat-item.active {
+    background-color: $active-chat-bg;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #777;
+    margin-right: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .chat-info {
+    flex: 1;
+    color: $font-color;
+  }
+  
+  .chat-name {
+    font-weight: bold;
+  }
+  
+  .chat-window {
+    flex: 1;
+    background-color: $chat-bg;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .chat-header {
+    padding: 10px;
+    background-color: $header-bg;
+    border-bottom: 1px solid #4d4d4d;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .chat-title {
+    font-weight: bold;
+    color: $font-color;
+  }
+  
+  .messages-container {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .message {
+    display: flex;
+    max-width: 80%;
+  }
+  
+  .message.own {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+  }
+  
+  .message-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #777;
+    margin: 0 10px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $font-color;
+    font-weight: bold;
+  }
+  
+  .message-content {
+    background-color: #444;
+    color: $font-color;
+    padding: 10px 15px;
+    border-radius: 15px;
+  }
+  
+  .message.own .message-content {
+    background-color: #2c95d8;
+  }
+  
+  .message-sender {
+    font-weight: bold;
+  }
+  
+  .message-time {
+    font-size: 10px;
+    color: #888;
+    text-align: right;
+    margin-top: 5px;
+  }
+  
+  .input-area {
+    padding: 10px;
+    background-color: $input-bg;
+    border-top: 1px solid #4d4d4d;
+    display: flex;
+    align-items: center;
+  }
+  
+  .message-input {
+    flex: 1;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: none;
+    background-color: $button-bg;
+    color: $font-color;
+  }
+  
+  .send-button {
+    background: none;
+    border: none;
+    color: $button-color;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .mode-toggle {
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    background-color: $button-bg;
+  }
+  
+  .mode-button {
+    padding: 8px;
+    text-align: center;
+    border-radius: 20px;
+    color: $font-color;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .mode-button.active {
+    background-color: #333;
+  }
+  
