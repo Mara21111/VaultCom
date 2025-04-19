@@ -302,15 +302,15 @@
       <div class="on-off-panel">
         <div class="on-off-item">
           <div class="on-off-text">Public Account:</div>
-          <button class="on-off-button">{{ user.is_public ? '✓' : '✕' }}</button>
+          <button class="on-off-button" (click)="togglePublicAccount()">{{ user.is_public ? '✓' : '✕' }}</button>
         </div>
         <div class="on-off-item">
           <div class="on-off-text">Kids Mode:</div>
-          <button class="on-off-button">{{ user.safe_mode ? '✓' : '✕' }}</button>
+          <button class="on-off-button" (click)="toggleKidsMode()">{{ user.safe_mode ? '✓' : '✕' }}</button>
         </div>
         <div class="on-off-item">
           <div class="on-off-text">Dark Mode:</div>
-          <button class="on-off-button">{{ darkMode ? '✓' : '✕' }}</button>
+          <button class="on-off-button" (click)="toggleDarkMode()">{{ darkMode ? '✓' : '✕' }}</button>
         </div>
       </div>
 
