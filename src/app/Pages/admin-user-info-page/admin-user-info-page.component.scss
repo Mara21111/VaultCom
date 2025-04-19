@@ -1,8 +1,10 @@
-$header-bg: #BEBDBD;
-$body-bg: #969696;
-$table-header-bg: #777;
-$table-row-bg: #64645F;
-$table-row-hover: #c0c0c0;
+$header-bg: #ce1b1b;
+$body-bg: #202225;
+$table-header-bg: #d43333;
+$table-row-bg: #a1a12c;
+$table-row-hover: #b13030;
+$btn-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+$btn-hover: #444;
 
 
 body {
@@ -34,9 +36,9 @@ margin-left: 10px;
 
 
 .admin-panel {
-  background-color: #808080;
+  background-color: $body-bg;
   border-radius: 5px; /* Zvýšení zaoblení */
-  color: #333;
+  color: #ffffff;
   font-family: Arial, sans-serif;
   margin: 0 auto;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -121,14 +123,14 @@ margin-left: 10px;
       text-align: center;
       padding-right: 20px;
       font-size: 20px; /* Zvýšení velikosti textu */
-      color: #222;
+      color: #ffffff;
     }
 
     .detail-value {
       width: 250px; /* Zvýšení šířky */
       text-align: center;
       font-size: 20px; /* Zvýšení velikosti textu */
-      border-bottom: 1.5px solid #999;
+      border-bottom: 1.5px solid #a4a4a4;
       margin-right: 40px; /* Zvýšení mezery mezi sloupci */
       padding: 15px 0; /* Zvýšení paddingu pro více prostoru */
     }
@@ -141,25 +143,29 @@ margin-left: 10px;
   gap: 15px;
   margin-top: 40px; /* Zvýšení mezery mezi tlačítky a detaily */
 
+
   .action-btn {
     flex: 1;
     text-align: center;
     padding: 12px 18px; /* Zvýšení paddingu */
     font-size: 20px; /* Zvýšení velikosti textu */
-    background-color: rgba(255, 255, 255, 0.2);
-    border: 1px solid #666;
-    color: #333;
+    color: #ffffff;
     transition: background-color 0.3s;
+    box-shadow: $btn-shadow;
+    cursor: pointer;
+    transition: all 0.3s ease;
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.4);
+      opacity: 0.9;
+      transform: translateY(-2px);
+      background-color: $btn-hover;
     }
 
     &.ban-btn {
       background-color: rgba(220, 53, 69, 0.1);
 
       &:hover {
-        background-color: rgba(220, 53, 69, 0.2);
+        background-color: rgba(155, 15, 29, 0.785);
       }
     }
   }
