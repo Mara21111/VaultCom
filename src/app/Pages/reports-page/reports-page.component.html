@@ -51,10 +51,10 @@
   [closeRoute]="'/admin-menu'">
 </app-base-ui>
 
-<div class="reports-wrapper d-flex flex-column vh-100 bg-dark text-white overflow-hidden">
+<!--<div class="reports-wrapper d-flex flex-column vh-100 bg-dark text-white overflow-hidden">-->
   
   <!-- Reports Table Area -->
-  <div class="reports-container overflow-auto">
+  <!--<div class="reports-container overflow-auto">
     <div class="table-container">
       <table class="reports-table table text-white">
         <thead>
@@ -73,12 +73,43 @@
         </tbody>
       </table>
     </div>
-  </div>
+  </div>-->
 
   <!-- Bottom Action Buttons -->
-  <div class="action-buttons">
+  <!--<div class="action-buttons">
     <button class="btn btn-danger">Ban</button>
     <button class="btn btn-accent">Mute</button>
     <button class="btn btn-warning">Ignore</button>
+  </div>
+</div>-->
+
+
+<div class="main-container">
+  <div class="reports-container">
+    <div class="content-area">
+
+      <!-- All Users -->
+      <section class="panel reports-panel">
+        <div class="table-header">
+          <div class="col-header">User</div>
+          <div class="col-header">Reported user</div>
+          <div class="col-header">Reason</div>
+        </div>
+        <div class="table-body">
+          <div class="table-row" *ngFor="let item of data?.reports">
+            <div class="col username">{{ item.user_id }}</div>
+            <div class="col">{{ item.reported_user_id }}</div>
+            <div class="col">{{ item.message }}</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="action-buttons">
+        <button class="btn btn-danger">Ban</button>
+        <button class="btn btn-accent">Mute</button>
+        <button class="btn btn-warning">Ignore</button>
+      </div>
+
+    </div>
   </div>
 </div>

@@ -9,9 +9,9 @@
   [closeRoute]="'/admin-menu'">
 </app-base-ui>
 
+<!--
 <div class="container-fluid d-flex flex-column min-vh-100 bg-dark text-white">
 
-  <!-- Table Section -->
   <div class="flex-grow-1 overflow-auto">
       <table class="table table-dark table-striped">
         <thead>
@@ -29,5 +29,31 @@
           </tr>
         </tbody>
       </table>
+  </div>
+</div>-->
+
+
+
+<div class="main-container">
+  <div class="users-container">
+    <div class="content-area">
+
+      <!-- All Users -->
+      <section class="panel users-panel">
+        <div class="table-header">
+          <div class="col-header">Username</div>
+          <div class="col-header">Email</div>
+          <div class="col-header">Report count</div>
+        </div>
+        <div class="table-body">
+          <div class="table-row" *ngFor="let item of data.users">
+            <div class="col username">{{ item.username }}</div>
+            <div class="col">{{ item.email }}</div>
+            <div class="col">999</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
   </div>
 </div>
