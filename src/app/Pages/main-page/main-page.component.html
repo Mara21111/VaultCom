@@ -1,4 +1,5 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
 <app-base-ui
 [logOutOn]="true"
 [adminMenuOn]="true"
@@ -12,28 +13,24 @@
 
         <div class="sidebar">
           <div class="search-container">
-            <div class="search-box">
-              <input type="text" placeholder="Search...">
-              <div class="search-icon">
-                <i class="fas fa-search"></i>
-              </div>
-            </div>
-            <button class="new-chat-btn">
-              <i class="fas fa-plus"></i>
-            </button>
+              <input type="text" class="form-control search-input" placeholder="Search">
+              <button class="search-btn btn btn-dark ms-2 btn-all">
+                <i class="bi bi-search"></i>
+              </button>
+              <button class="new-chat-btn btn btn-dark ms-2 btn-all">
+                <i class="fas fa-plus"></i>
+              </button>
           </div>
           
           <div class="chat-list">
-            <div class="chat-item active">
-              <div class="avatar">
-                <img src="/api/placeholder/40/40" alt="V">
-              </div>
+            <div class="chat-item" *ngFor="let item of data.chats">
+              <div class="message-avatar" style="background-color: #e74c3c;">{{ item.creator_id}}</div>
               <div class="chat-info">
-                <div class="chat-name">Victor</div>
+                <div class="chat-name">{{ item.creator_id }}</div>
               </div>
             </div>
             
-            <div class="chat-item">
+            <div class="chat-item active">
               <div class="avatar">
                 <img src="/api/placeholder/40/40" alt="N">
               </div>
@@ -82,8 +79,8 @@
           </div>
           
           <div class="mode-toggle">
-            <div class="mode-button active">Private</div>
-            <div class="mode-button">Public</div>
+            <div class="mode-button" [ngClass]="{'active': !public_chats}" (click)="changeChatsToPrivate()">Private</div>
+            <div class="mode-button" [ngClass]="{'active': public_chats}" (click)="changeChatsToPublic()">Public</div>
           </div>
         </div>
         
@@ -92,7 +89,7 @@
           <div class="chat-header">
             <div class="chat-title">Work</div>
             <div class="chat-actions">
-              <button class="chat-action" id="pin-toggle">
+              <button class="chat-action">
                 <i class="fas fa-thumbtack"></i>
               </button>
               <button class="chat-action">
@@ -102,12 +99,12 @@
           </div>
           
           <div class="messages-container" id="messages-container">
-            <div class="message">
-              <div class="message-avatar" style="background-color: #e74c3c;">B</div>
+            <div class="message" *ngFor="let item of data.messages">
+              <div class="message-avatar" style="background-color: #e74c3c;">{{ item.user_id }}</div>
               <div class="message-content">
-                <div class="message-sender">Boss</div>
-                Hey team, how's the update going?
-                <div class="message-time">11:25</div>
+                <div class="message-sender">{{ item.user_id }}</div>
+                {{ item.content }}
+                <div class="message-time">{{ item.time }}</div>
               </div>
             </div>
             
@@ -158,7 +155,7 @@
           
           <div class="input-area">
             <input type="text" class="message-input" placeholder="Write message">
-            <button class="send-button">
+            <button class="send-button btn-all btn-dark btn ms-2">
               <i class="fas fa-paper-plane"></i>
             </button>
           </div>

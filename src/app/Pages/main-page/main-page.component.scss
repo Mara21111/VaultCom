@@ -357,24 +357,26 @@ body {
   }
 
   */
-
-  $primary-bg: #2e2e2e;
-  $sidebar-bg: #3a3a3a;
-  $sidebar-hover-bg: #444;
-  $active-chat-bg: #555;
-  $chat-bg: #1c1c1c;
-  $input-bg: #3c3c3c;
-  $button-bg: #4d4d4d;
-  $header-bg: #3a3a3a;
-  $font-color: #ccc;
+  $primary-bg: #202225;
+  $sidebar-bg: #202225;
+  $sidebar-header-bg: #2c2f34;
+  $sidebar-hover-bg: #292b2e;
+  $active-chat-bg: #2c2f34;
+  $chat-bg: #202225;
+  $input-bg: #2c2f34;
+  $message-input-bg: #444950;
+  $button-bg: #2c2f34;
+  $header-bg: #2c2f34;
+  $font-color: #ffffff;
   $button-color: #fff;
+  $btn-hover: #ffffff;
   
   body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 80vh;
     overflow: hidden;
   }
   
@@ -382,7 +384,7 @@ body {
     display: flex;
     flex-direction: column;
     background-color: $primary-bg;
-    height: 100%;
+    height: 87vh;
   }
   
   .content {
@@ -403,19 +405,25 @@ body {
     padding: 10px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 0px;
+    background-color: $sidebar-header-bg;
   }
   
-  .search-box input {
-    width: 100%;
-    padding: 8px 15px;
+  .search-input {
+    padding: 8px 16px;
     border-radius: 20px;
     border: none;
-    background-color: #929090;
-    color: $font-color;
+    font-size: 1rem;
+    background-color: #444950;
+    color: white;
+    width: 11vw;
+  
+    &::placeholder {
+      color: rgb(137, 136, 136);
+    }
   }
   
-  .search-box .search-icon {
+  .search-icon {
     position: absolute;
     right: 15px;
     top: 50%;
@@ -424,11 +432,19 @@ body {
   }
   
   .new-chat-btn {
-    background-color: $button-bg;
     border: none;
-    color: $button-color;
     font-size: 20px;
-    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .btn-all {
+    border: none;
+    font-size: 18px;
     width: 36px;
     height: 36px;
     display: flex;
@@ -440,6 +456,28 @@ body {
   .chat-list {
     flex: 1;
     overflow-y: auto;
+    max-height: 70vh;
+
+    &::-webkit-scrollbar {
+      width: 12px; // šířka vertikálního scrollbaru
+    }
+  
+    &::-webkit-scrollbar-track {
+      background: #444950; // pozadí "dráhy"
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background: #212c38; // barva posuvníku
+      border-radius: 5px;
+      border: 2px solid transparent;
+      background-clip: padding-box; 
+    }
+  
+    &::-webkit-scrollbar-thumb:hover {
+      background: #79828f; // barva při najetí
+      border: 2px solid transparent;
+      background-clip: padding-box; 
+    }
   }
   
   .chat-item {
@@ -488,10 +526,11 @@ body {
     background-color: $chat-bg;
     display: flex;
     flex-direction: column;
+    height: 87vh;
   }
   
   .chat-header {
-    padding: 10px;
+    padding: 14px;
     background-color: $header-bg;
     border-bottom: 1px solid #4d4d4d;
     display: flex;
@@ -503,7 +542,24 @@ body {
     font-weight: bold;
     color: $font-color;
   }
+
+  .chat-action {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 2px;
+    margin-left: 14px;
+    margin-right: 14px;
+  }
   
+  .chat-action:hover {
+    background-color: $btn-hover;
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+
   .messages-container {
     flex: 1;
     padding: 10px;
@@ -511,11 +567,32 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+    &::-webkit-scrollbar {
+      width: 12px; // šířka vertikálního scrollbaru
+    }
+  
+    &::-webkit-scrollbar-track {
+      background: #444950; // pozadí "dráhy"
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background: #212c38; // barva posuvníku
+      border-radius: 5px;
+      border: 2px solid transparent;
+      background-clip: padding-box; 
+    }
+  
+    &::-webkit-scrollbar-thumb:hover {
+      background: #79828f; // barva při najetí
+      border: 2px solid transparent;
+      background-clip: padding-box; 
+    }
   }
   
   .message {
     display: flex;
-    max-width: 80%;
+    max-width: 40%;
   }
   
   .message.own {
@@ -572,7 +649,7 @@ body {
     padding: 10px 15px;
     border-radius: 20px;
     border: none;
-    background-color: $button-bg;
+    background-color: $message-input-bg;
     color: $font-color;
   }
   
@@ -589,6 +666,7 @@ body {
     display: flex;
     justify-content: space-around;
     background-color: $button-bg;
+    height: 64px;
   }
   
   .mode-button {
@@ -598,9 +676,13 @@ body {
     color: $font-color;
     font-weight: bold;
     cursor: pointer;
+    background-color: #202225;
   }
   
   .mode-button.active {
-    background-color: #333;
+    background-color: #444950;
   }
   
+  .mode-button:hover{
+    opacity: 0.7;
+  }
