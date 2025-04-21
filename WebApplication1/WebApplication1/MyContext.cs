@@ -32,9 +32,10 @@ namespace WebApplication1
         {
             modelBuilder.Entity<Message_Info>().HasNoKey();
             modelBuilder.Entity<Message_User_Reaction>().HasNoKey();
-            modelBuilder.Entity<Report_Log>().HasNoKey();
             modelBuilder.Entity<User_Chat>().HasNoKey();
             modelBuilder.Entity<User_Relationship>().HasNoKey();
+
+            modelBuilder.Entity<Report_Log>().HasKey(x => x.Id);
 
             base.OnModelCreating(modelBuilder);
         }

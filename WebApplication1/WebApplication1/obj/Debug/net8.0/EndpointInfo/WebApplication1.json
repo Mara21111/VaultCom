@@ -52,6 +52,10 @@
       "Report_Log": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
           "user_Id": {
             "type": "integer",
             "format": "int32"
