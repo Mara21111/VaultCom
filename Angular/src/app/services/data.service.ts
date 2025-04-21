@@ -42,6 +42,7 @@ export class DataService {
           });
 
           this.reports.push({
+            Id: i,
             user_Id: i,
             reported_User_Id: i * 20,
             message: "test"

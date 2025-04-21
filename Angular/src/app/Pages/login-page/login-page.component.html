@@ -8,17 +8,17 @@
   <div class="login-wrapper">
     <div class="overlap-group">
       <div class="overlap">
-        <form class="form-log-in">
+        <form [formGroup]="form" (submit)="save()">
           <div class="input-field">
             <label for="email" class="label">Email/Username</label>
-            <input type="email" name="name" id="name" class="input" placeholder="Enter your email/username" required [(ngModel)]="name">
+            <input type="email" name="name" id="name" class="from-control" formControlName="username" placeholder="Enter your email/username">
           </div>
           <div class="input-field">
             <label for="password" class="label">Password</label>
-            <input type="password" name="password" id="password" class="input" placeholder="Enter your password" required [(ngModel)]="password">
+            <input type="password" name="password" id="password" class="from-control" formControlName="password" placeholder="Enter your password">
           </div>
           <div class="button-group">
-            <button type="submit button" class="button" routerLink="/main" routerLinkActive="active" (click)="onLogin()">Sign In</button>
+            <button type="submit button" class="button">Sign In</button>
           </div>
           <div class="link-group">
             <a class="text-link" routerLink="/register" routerLinkActive="active">Forgot password?</a>

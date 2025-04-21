@@ -2,6 +2,8 @@
 {
     public class Report_Log
     {
+        public int Id { get; set; }
+
         public int User_Id { get; set; }
 
         public int Reported_User_Id { get; set; }
