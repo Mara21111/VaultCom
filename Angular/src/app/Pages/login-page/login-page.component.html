@@ -11,14 +11,14 @@
         <form class="form-log-in">
           <div class="input-field">
             <label for="email" class="label">Email/Username</label>
-            <input type="name" id="name" class="input" placeholder="Enter your email/username" required>
+            <input type="email" name="name" id="name" class="input" placeholder="Enter your email/username" required [(ngModel)]="name">
           </div>
           <div class="input-field">
             <label for="password" class="label">Password</label>
-            <input type="password" id="password" class="input" placeholder="Enter your password" required>
+            <input type="password" name="password" id="password" class="input" placeholder="Enter your password" required [(ngModel)]="password">
           </div>
           <div class="button-group">
-            <button type="submit" class="button" routerLink="/main" routerLinkActive="active">Sign In</button>
+            <button type="submit button" class="button" routerLink="/main" routerLinkActive="active" (click)="onLogin()">Sign In</button>
           </div>
           <div class="link-group">
             <a class="text-link" routerLink="/register" routerLinkActive="active">Forgot password?</a>
