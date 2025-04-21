@@ -19,7 +19,7 @@ export class PublicChatsPageComponent {
 
   chatName: string = "";
 
-  onClick() {
+  createChat() {
     this.data.chats.push({
       id: this.data.chats.length + 1,
       is_public: true,
