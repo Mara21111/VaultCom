@@ -27,5 +27,16 @@ namespace WebApplication1
         {
             optionsBuilder.UseMySQL("server=mysqlstudenti.litv.sssvt.cz;database=3b1_dekanmarek_db2;user=dekanmarek;password=123456;SslMode=none");
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Message_Info>().HasNoKey();
+            modelBuilder.Entity<Message_User_Reaction>().HasNoKey();
+            modelBuilder.Entity<Report_Log>().HasNoKey();
+            modelBuilder.Entity<User_Chat>().HasNoKey();
+            modelBuilder.Entity<User_Relationship>().HasNoKey();
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

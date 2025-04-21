@@ -1,6 +1,6 @@
 export class Report_log
 {
-    user_id: number;
-    reported_user_id: number;
+    user_Id: number;
+    reported_User_Id: number;
     message: string;
 }
