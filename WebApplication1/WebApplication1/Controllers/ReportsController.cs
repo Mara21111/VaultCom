@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
@@ -7,6 +8,20 @@ namespace WebApplication1.Controllers
     public class ReportsController : ControllerBase
     {
         private MyContext context = new MyContext();
+
+        [HttpPost]
+        public JsonResult CreateReport(Report_Log report)
+        {
+            var reportInDB = context.Report_Log.Find(report);
+
+            if (reportInDB != null)
+                return new JsonResult(BadRequest());
+        
+            context.Report_Log.Add(report);
+            context.SaveChanges();
+
+            return new JsonResult(Ok(report));
+        }
 
         [HttpGet]
         public IActionResult GetAll()
