@@ -12,12 +12,20 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public JsonResult CreateReport(Report_Log report)
         {
-            var reportInDB = context.Report_Log.Find(report);
+            if (report.Id == 0)
+            {
+                context.Report_Log.Add(report);
+            }
+            else
+            {
+                var reportInDB = context.Report_Log.Find(report);
 
-            if (reportInDB != null)
-                return new JsonResult(BadRequest());
-        
-            context.Report_Log.Add(report);
+                if (reportInDB != null)
+                    return new JsonResult(BadRequest());
+
+                context.Report_Log.Add(report);
+            }
+
             context.SaveChanges();
 
             return new JsonResult(Ok(report));
