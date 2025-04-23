@@ -9,11 +9,11 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './login-page.component.scss'
 })
 export class LoginPageComponent {
-  name: string = '';
+  username: string = '';
   password: string = '';
 
   onLogin() {
-    console.log('Email:', this.name);
+    console.log('Email:', this.username);
     console.log('Password:', this.password);
   }
 }

@@ -33,6 +33,4 @@ export class UserProfilePageComponent {
   toggleDarkMode() {
     this.darkMode = !this.darkMode;
   }
-
-
 }
