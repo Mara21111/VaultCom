@@ -8,14 +8,44 @@ namespace WebApplication1.Services
     {
         const string Password = "silneheslo";
 
-        public string Create(User user)
+        public string Create(LoginModel loginModel)
         {
             return JwtBuilder.Create()
                  .WithAlgorithm(new HMACSHA256Algorithm())
                  .WithSecret(Password)
-                 .AddClaim("exp", DateTimeOffset.UtcNow.AddHours(0.5).ToUnixTimeSeconds())
-                 .AddClaim("user", user.UserName)
+                 .AddClaim("exp", DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds())
+                 .AddClaim("user", loginModel.Username)
                  .Encode();
+        }
+
+        public bool Verify(string header)
+        {
+            try
+            {
+                if (header == null)
+                {
+                    return false;
+                }
+
+                string[] parts = header.Split(' ');
+
+                if (parts.Length != 2)
+                {
+                    return false;
+                }
+
+                var payload = JwtBuilder.Create()
+                            .WithAlgorithm(new HMACSHA256Algorithm())
+                            .WithSecret(Password)
+                            .MustVerifySignature()
+                            .Decode<IDictionary<string, object>>(parts[1]);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

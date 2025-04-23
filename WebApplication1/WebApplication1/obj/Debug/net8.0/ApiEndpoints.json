@@ -8,8 +8,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "user",
-        "Type": "WebApplication1.Models.User",
+        "Name": "loginModel",
+        "Type": "WebApplication1.Models.LoginModel",
         "IsRequired": true
       }
     ],

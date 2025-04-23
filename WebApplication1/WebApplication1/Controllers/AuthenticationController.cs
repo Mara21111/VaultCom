@@ -9,16 +9,19 @@ namespace WebApplication1.Controllers
     public class AuthenticationController : ControllerBase
     {
         private TokenService tokenService = new TokenService();
+        private MyContext context = new MyContext();
 
         [HttpPost]
-        public IActionResult Login(User user)
+        public IActionResult Login(LoginModel loginModel)
         {
-            if (user.UserName == "pavel" && user.Password == "test")
-            {
-                string token = this.tokenService.Create(user);
+            var user = context.User.FirstOrDefault(x => x.Username == loginModel.Username);
 
-                return Ok(new { token = token });
-            }
+            if (user != null && loginModel.Password == user.Password)
+                {
+                    string token = this.tokenService.Create(loginModel);
+
+                    return Ok(new { token = token });
+                }
 
             return Unauthorized(new {message = "Invalid username or password"});
         }
