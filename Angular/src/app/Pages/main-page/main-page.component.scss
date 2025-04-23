@@ -651,6 +651,7 @@ body {
     border: none;
     background-color: $message-input-bg;
     color: $font-color;
+    height: 6vh;
   }
   
   .send-button {
@@ -666,7 +667,7 @@ body {
     display: flex;
     justify-content: space-around;
     background-color: $button-bg;
-    height: 64px;
+    height: 8.8vh;
   }
   
   .mode-button {
