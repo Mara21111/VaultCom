@@ -1,164 +1,85 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
 <app-base-ui
-[logOutOn]="true"
-[adminMenuOn]="true"
-[profileOn]="true"
-[friendsOn]="true">
+  [logOutOn]="true"
+  [adminMenuOn]="true"
+  [profileOn]="true"
+  [friendsOn]="true">
 </app-base-ui>
-  
-    <div class="app-container">      
 
-      <div class="content">
+<div class="app-container">
+  <div class="content">
+    
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="search-container">
+        <input type="text" class="form-control search-input" placeholder="Search">
+        <button class="search-btn btn btn-dark btn-icon">
+          <i class="bi bi-search"></i>
+        </button>
+        <button class="new-chat-btn btn btn-dark btn-icon">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
 
-        <div class="sidebar">
-          <div class="search-container">
-              <input type="text" class="form-control search-input" placeholder="Search">
-              <button class="search-btn btn btn-dark ms-2 btn-all">
-                <i class="bi bi-search"></i>
-              </button>
-              <button class="new-chat-btn btn btn-dark ms-2 btn-all">
-                <i class="fas fa-plus"></i>
-              </button>
-          </div>
-          
-          <div class="chat-list">
-            <div class="chat-item" *ngFor="let item of data.chats">
-              <div class="message-avatar" style="background-color: #e74c3c;">{{ item.creator_id}}</div>
-              <div class="chat-info">
-                <div class="chat-name">{{ item.creator_id }}</div>
-              </div>
-            </div>
-            
-            <div class="chat-item active">
-              <div class="avatar">
-                <img src="/api/placeholder/40/40" alt="N">
-              </div>
-              <div class="chat-info">
-                <div class="chat-name">Nathan</div>
-              </div>
-            </div>
-            
-            <div class="chat-item">
-              <div class="avatar">
-                <img src="/api/placeholder/40/40" alt="E">
-              </div>
-              <div class="chat-info">
-                <div class="chat-name">Emily (1)</div>
-              </div>
-            </div>
-            
-            <div class="chat-item">
-              <div class="avatar">
-                <img src="/api/placeholder/40/40" alt="J">
-              </div>
-              <div class="chat-info">
-                <div class="chat-name">James</div>
-              </div>
-            </div>
-            
-            <div class="chat-item">
-              <div class="avatar group">
-                <i class="fas fa-users"></i>
-              </div>
-              <div class="chat-info">
-                <div class="chat-name">Work (99+)</div>
-                <div class="chat-meta">10 Users</div>
-              </div>
-            </div>
-            
-            <div class="chat-item">
-              <div class="avatar group">
-                <i class="fas fa-code"></i>
-              </div>
-              <div class="chat-info">
-                <div class="chat-name">Programming</div>
-                <div class="chat-meta">254 Users</div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="mode-toggle">
-            <div class="mode-button" [ngClass]="{'active': !public_chats}" (click)="changeChatsToPrivate()">Private</div>
-            <div class="mode-button" [ngClass]="{'active': public_chats}" (click)="changeChatsToPublic()">Public</div>
+      <div class="chat-list">
+        <div class="chat-item" *ngFor="let item of data.chats">
+          <div class="message-avatar" style="background-color: #e74c3c;">{{ item.creator_id }}</div>
+          <div class="chat-info">
+            <div class="chat-name">{{ item.creator_id }}</div>
           </div>
         </div>
-        
 
-        <div class="chat-window">
-          <div class="chat-header">
-            <div class="chat-title">Work</div>
-            <div class="chat-actions">
-              <button class="chat-action">
-                <i class="fas fa-thumbtack"></i>
-              </button>
-              <button class="chat-action">
-                <i class="fas fa-search"></i>
-              </button>
-            </div>
-          </div>
-          
-          <div class="messages-container" id="messages-container">
-            <div class="message" *ngFor="let item of data.messages">
-              <div class="message-avatar" style="background-color: #e74c3c;">{{ item.user_id }}</div>
-              <div class="message-content">
-                <div class="message-sender">{{ item.user_id }}</div>
-                {{ item.content }}
-                <div class="message-time">{{ item.time }}</div>
-              </div>
-            </div>
-            
-            <div class="message">
-              <div class="message-avatar" style="background-color: #3498db;">N</div>
-              <div class="message-content">
-                <div class="message-sender">Nick</div>
-                Backend is almost done, just finishing APIs.
-                <div class="message-time">11:28</div>
-              </div>
-            </div>
-            
-            <div class="message">
-              <div class="message-avatar" style="background-color: #2980b9;">L</div>
-              <div class="message-content">
-                <div class="message-sender">Liam</div>
-                UI design is ready, sending mockups now.
-                <div class="message-time">11:34</div>
-              </div>
-            </div>
-            
-            <div class="message">
-              <div class="message-avatar" style="background-color: #27ae60;">E</div>
-              <div class="message-content">
-                <div class="message-sender">Emma</div>
-                Great! When can I get screenshots?
-                <div class="message-time">11:39</div>
-              </div>
-            </div>
-            
-            <div class="message own pinned">
-              <div class="message-avatar" style="background-color: #9b59b6;">Y</div>
-              <div class="message-content">
-                Need a test version by Wednesday. Possible? <i class="fas fa-thumbtack pin-icon"></i>
-                <div class="message-time">11:56</div>
-              </div>
-            </div>
-            
-            <div class="message">
-              <div class="message-avatar" style="background-color: #f1c40f;">M</div>
-              <div class="message-content">
-                <div class="message-sender">Mike</div>
-                I'll deploy a beta by then.
-                <div class="message-time">12:45</div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="input-area">
-            <input type="text" class="message-input" placeholder="Write message">
-            <button class="send-button btn-all btn-dark btn ms-2">
-              <i class="fas fa-paper-plane"></i>
-            </button>
+        <!-- Example chat items -->
+        <div class="chat-item active">
+          <div class="avatar"><img src="/api/placeholder/40/40" alt="N"></div>
+          <div class="chat-info"><div class="chat-name">Nathan</div></div>
+        </div>
+        <div class="chat-item">
+          <div class="avatar"><img src="/api/placeholder/40/40" alt="E"></div>
+          <div class="chat-info"><div class="chat-name">Emily (1)</div></div>
+        </div>
+        <div class="chat-item">
+          <div class="avatar"><img src="/api/placeholder/40/40" alt="J"></div>
+          <div class="chat-info"><div class="chat-name">James</div></div>
+        </div>
+      </div>
+
+      <!-- Sticky Public/Private Toggle -->
+      <div class="footer-bar mode-toggle">
+        <div class="mode-button" [ngClass]="{'active': !public_chats}" (click)="changeChatsToPrivate()">Private</div>
+        <div class="mode-button" [ngClass]="{'active': public_chats}" (click)="changeChatsToPublic()">Public</div>
+      </div>
+    </div>
+
+    <!-- Chat Window -->
+    <div class="chat-window">
+      <div class="chat-header">
+        <div class="chat-title">Work</div>
+        <div class="chat-actions">
+          <button class="chat-action"><i class="fas fa-thumbtack"></i></button>
+          <button class="chat-action"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+
+      <div class="messages-container" id="messages-container">
+        <div class="message" *ngFor="let item of data.messages">
+          <div class="message-avatar" style="background-color: #e74c3c;">{{ item.user_id }}</div>
+          <div class="message-content">
+            <div class="message-sender">{{ item.user_id }}</div>
+            {{ item.content }}
+            <div class="message-time">{{ item.time | date:'shortTime' }}</div>
           </div>
         </div>
       </div>
+
+      <div class="footer-bar message-footer">
+        <input type="text" class="message-input" placeholder="Write message">
+        <button class="btn btn-dark btn-icon send-button">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
     </div>
+
+  </div>
+</div>

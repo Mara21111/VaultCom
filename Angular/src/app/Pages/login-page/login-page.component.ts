@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login-page',
@@ -12,8 +13,13 @@ export class LoginPageComponent {
   username: string = '';
   password: string = '';
 
-  onLogin() {
-    console.log('Email:', this.username);
-    console.log('Password:', this.password);
+  onSubmit(form: NgForm) {
+    if (form.invalid) {
+      // This will trigger the effect if the form is invalid
+      console.log('Form is invalid');
+    } else {
+      console.log('username: ' + this.username);
+      console.log('password: ' + this.password)
+    }
   }
 }
