@@ -10,7 +10,7 @@ namespace WebApplication1.Controllers
     {
         private MyContext context = new MyContext();
 
-        /*[HttpPost]
+        [HttpPost]
         public JsonResult CreateMessage(Message message)
         {
             context.Message.Add(message);
@@ -18,7 +18,7 @@ namespace WebApplication1.Controllers
             context.SaveChanges();
 
             return new JsonResult(Ok(message));
-        }*/
+        }
 
         [HttpGet]
         public IActionResult GetChat()
