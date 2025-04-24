@@ -11,15 +11,15 @@
         <form class="form-log-in" (ngSubmit)="onRegister()" #registerForm="ngForm">
           <div class="input-field">
             <label for="name" class="label">Name</label>
-            <input type="text" id="name" name="name" class="input" placeholder="Enter your name" required [(ngModel)]="name">
+            <input type="text" id="name" name="name" class="input" placeholder="Create your username" required [(ngModel)]="name">
           </div>
           <div class="input-field">
             <label for="email" class="label">Email/Tel</label>
-            <input type="email" id="email" name="email" class="input" placeholder="Enter your email/telephone number" required [(ngModel)]="email">
+            <input type="email" id="email" name="email" class="input" placeholder="Enter your email" required [(ngModel)]="email">
           </div>
           <div class="input-field">
             <label for="password" class="label">Password</label>
-            <input type="password" id="password" name="password" class="input" placeholder="Enter your password" required [(ngModel)]="password">
+            <input type="password" id="password" name="password" class="input" placeholder="Create a password" required [(ngModel)]="password">
           </div>
           <div class="input-field">
             <label for="confirmPassword" class="label">Repeat Password</label>
@@ -27,6 +27,10 @@
           </div>
           <div class="button-group">
             <button type="submit" class="button">Register</button>
+          </div>
+
+          <div class="link-group">
+            <a class="text-link" routerLink="/login" routerLinkActive="active">Log in</a>
           </div>
         </form>
       </div>

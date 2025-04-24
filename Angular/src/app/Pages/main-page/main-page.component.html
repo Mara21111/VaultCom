@@ -68,18 +68,19 @@
           <div class="message-content">
             <div class="message-sender">{{ item.user_id }}</div>
             {{ item.content }}
-            <div class="message-time">{{ item.time | date:'shortTime' }}</div>
+            <div class="message-time">{{ item.time | date: "H:mm" }}</div>
           </div>
         </div>
       </div>
 
-      <div class="footer-bar message-footer">
-        <input type="text" class="message-input" placeholder="Write message">
-        <button class="btn btn-dark btn-icon send-button">
-          <i class="fas fa-paper-plane"></i>
-        </button>
-      </div>
+      <form class="form-log-in" (ngSubmit)="sendMessage(loginForm)" #loginForm="ngForm">
+        <div class="footer-bar message-footer">
+          <input type="text" class="message-input" placeholder="Write message" name="msg" [(ngModel)]="message" required>
+          <button class="btn btn-dark btn-icon send-button">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </form>
     </div>
-
   </div>
 </div>
