@@ -1,3 +1,8 @@
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+using System.IO;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +11,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//tohle je aby se Program na routeoval spravne coz vaskovi to nefunguje
+Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(webBuilder =>
+            {webBuilder.UseContentRoot(Path.Combine(Directory.GetCurrentDirectory(), "WebApplication1"));});
 
 var app = builder.Build();
 
