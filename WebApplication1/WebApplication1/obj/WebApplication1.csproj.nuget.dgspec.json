@@ -1,24 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\blindovskyiartem\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\WebApplication1.csproj": {}
+    "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\WebApplication1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\blindovskyiartem\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\WebApplication1.csproj": {
+    "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\WebApplication1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\blindovskyiartem\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+        "projectUniqueName": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
         "projectName": "WebApplication1",
-        "projectPath": "C:\\Users\\blindovskyiartem\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
-        "packagesPath": "C:\\Users\\blindovskyiartem\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\blindovskyiartem\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\obj\\",
+        "projectPath": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+        "packagesPath": "C:\\Users\\Joker\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\blindovskyiartem\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Joker\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -45,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -83,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

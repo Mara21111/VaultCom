@@ -8,8 +8,8 @@
       "sslPort": 44300
     }
   },
-  "profiles": {
-    "http": {
+  /*"profiles": {
+    "https": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
@@ -17,6 +17,17 @@
       "applicationUrl": "http://localhost:5034",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },*/
+    "profiles": {
+    "http": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "http://localhost:5000", // http misto https nahore
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+        }
       }
     },
     "https": {
