@@ -8,13 +8,14 @@ namespace WebApplication1.Services
     {
         const string Password = "silneheslo";
 
-        public string Create(LoginModel loginModel)
+        public string Create(User user)
         {
             return JwtBuilder.Create()
                  .WithAlgorithm(new HMACSHA256Algorithm())
                  .WithSecret(Password)
                  .AddClaim("exp", DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds())
-                 .AddClaim("user", loginModel.Username)
+                 .AddClaim("id", user.Id)
+                 .AddClaim("username", user.Username)
                  .Encode();
         }
 

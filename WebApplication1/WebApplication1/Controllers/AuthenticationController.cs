@@ -18,7 +18,7 @@ namespace WebApplication1.Controllers
 
             if (user != null && loginModel.Password == user.Password)
                 {
-                    string token = this.tokenService.Create(loginModel);
+                    string token = this.tokenService.Create(user);
 
                     return Ok(new { token = token });
                 }
