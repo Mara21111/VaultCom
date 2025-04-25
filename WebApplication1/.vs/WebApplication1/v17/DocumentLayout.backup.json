@@ -34,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,90 +42,39 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "MyContext.cs",
-              "DocumentMoniker": "C:\\GitHub\\VaultCom\\WebApplication1\\WebApplication1\\MyContext.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\MyContext.cs",
-              "ToolTip": "C:\\GitHub\\VaultCom\\WebApplication1\\WebApplication1\\MyContext.cs",
-              "RelativeToolTip": "WebApplication1\\MyContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAfAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Program.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Program.cs",
+              "ToolTip": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Program.cs",
+              "RelativeToolTip": "WebApplication1\\Program.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAcwA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-24T19:44:39.528Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "LoginModel.cs",
-              "DocumentMoniker": "C:\\GitHub\\VaultCom\\WebApplication1\\WebApplication1\\Models\\LoginModel.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Models\\LoginModel.cs",
-              "ToolTip": "C:\\GitHub\\VaultCom\\WebApplication1\\WebApplication1\\Models\\LoginModel.cs",
-              "RelativeToolTip": "WebApplication1\\Models\\LoginModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-23T19:48:03.46Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\GitHub\\VaultCom\\WebApplication1\\WebApplication1\\Program.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Program.cs",
-              "ToolTip": "C:\\GitHub\\VaultCom\\WebApplication1\\WebApplication1\\Program.cs",
-              "RelativeToolTip": "WebApplication1\\Program.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAACQAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-23T19:23:28.481Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "SecuredAttribute.cs",
-              "DocumentMoniker": "C:\\GitHub\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\SecuredAttribute.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\SecuredAttribute.cs",
-              "ToolTip": "C:\\GitHub\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\SecuredAttribute.cs",
-              "RelativeToolTip": "WebApplication1\\Controllers\\SecuredAttribute.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABMAAABIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-23T18:23:20.055Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "TokenService.cs",
-              "DocumentMoniker": "C:\\GitHub\\VaultCom\\WebApplication1\\WebApplication1\\Services\\TokenService.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Services\\TokenService.cs",
-              "ToolTip": "C:\\GitHub\\VaultCom\\WebApplication1\\WebApplication1\\Services\\TokenService.cs",
-              "RelativeToolTip": "WebApplication1\\Services\\TokenService.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAB0AAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T20:28:35.376Z",
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "WebApplication1\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Properties\\launchSettings.json",
+              "RelativeToolTip": "WebApplication1\\Properties\\launchSettings.json",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-24T19:42:33.056Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AuthenticationController.cs",
-              "DocumentMoniker": "C:\\GitHub\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\AuthenticationController.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\AuthenticationController.cs",
-              "ToolTip": "C:\\GitHub\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\AuthenticationController.cs",
-              "RelativeToolTip": "WebApplication1\\Controllers\\AuthenticationController.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAYwBQAAABCAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T20:27:05.986Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ReportsController.cs",
-              "DocumentMoniker": "C:\\GitHub\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\ReportsController.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\ReportsController.cs",
-              "ToolTip": "C:\\GitHub\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\ReportsController.cs",
-              "RelativeToolTip": "WebApplication1\\Controllers\\ReportsController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAlAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Models\\User.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Models\\User.cs",
+              "RelativeToolTip": "WebApplication1\\Models\\User.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-23T21:26:15.706Z"
             },
@@ -164,40 +113,6 @@
               "ViewState": "AgIAABQAAAAAAAAAAAAIwCIAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-21T19:35:02.039Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "02fceef9-fe15-4d01-947a-ec1e71bf8240",
-        "Display": 1,
-        "X": 110,
-        "Y": 102,
-        "Width": 1247,
-        "Height": 602,
-        "WindowState": 0
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\GitHub\\VaultCom\\WebApplication1\\WebApplication1\\Models\\User.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Models\\User.cs",
-              "ToolTip": "C:\\GitHub\\VaultCom\\WebApplication1\\WebApplication1\\Models\\User.cs",
-              "RelativeToolTip": "WebApplication1\\Models\\User.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAswBEAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-23T19:43:58.734Z",
               "EditorCaption": ""
             }
           ]

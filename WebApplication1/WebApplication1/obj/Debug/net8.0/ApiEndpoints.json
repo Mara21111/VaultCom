@@ -52,22 +52,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "WebApplication1.Controllers.AuthenticationController",
-    "Method": "Login",
-    "RelativePath": "api/Authentication",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "loginModel",
-        "Type": "WebApplication1.Models.LoginModel",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "WebApplication1.Controllers.ReportsController",
     "Method": "GetAll",
     "RelativePath": "api/Reports",

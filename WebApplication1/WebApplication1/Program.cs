@@ -16,19 +16,6 @@ builder.Services.AddSwaggerGen();
 Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(webBuilder =>
             {webBuilder.UseContentRoot(Path.Combine(Directory.GetCurrentDirectory(), "WebApplication1"));});
 
-// SETUP CORS
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(
-        builder =>
-        {
-            builder.AllowAnyOrigin()
-                   .AllowAnyHeader()
-                   .AllowAnyMethod();
-        }
-    );
-});
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -41,8 +28,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
-app.UseCors();
 
 app.MapControllers();
 

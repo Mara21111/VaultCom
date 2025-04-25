@@ -8,19 +8,37 @@
   <div class="login-wrapper">
     <div class="overlap-group">
       <div class="overlap">
-        <form class="form-log-in" [formGroup]="form" (submit)="save()">
+        <form class="form-log-in" (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
           <div class="input-field">
-            <label for="email" class="label">Email/Username</label>
-            <input class="input form-control" formControlName="username" placeholder="Enter your email/username" required>
+            <label for="username" class="label">Email/Username</label>
+            <input 
+              type="text" 
+              name="username" 
+              id="username" 
+              class="input" 
+              placeholder="Enter your email/username" 
+              required 
+              [(ngModel)]="username" 
+              #usernameInput="ngModel">
+            <div *ngIf="usernameInput.invalid && usernameInput.touched" class="error-message">Field required</div>
           </div>
 
           <div class="input-field">
             <label for="password" class="label">Password</label>
-            <input type="password" id="password" class="input form-control" formControlName="password" placeholder="Enter your password" required>
+            <input 
+              type="password" 
+              name="password" 
+              id="password" 
+              class="input" 
+              placeholder="Enter your password" 
+              required 
+              [(ngModel)]="password" 
+              #passwordInput="ngModel">
+            <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error-message">Password required</div>
           </div>
 
           <div class="button-group">
-            <button type="submit" class="button">Sign In</button>
+            <button type="submit" class="button" [disabled]="loginForm.invalid">Sign In</button>
           </div>
 
           <div class="link-group">
