@@ -12,9 +12,9 @@ namespace WebApplication1.Models
 
         public string UserName { get; set; }
         
-        public string Phone_Number { get; set; }
+        public string? Phone_Number { get; set; }
 
-        public string Bio {  get; set; }
+        public string? Bio {  get; set; }
 
         public int Status { get; set; }
 
@@ -28,9 +28,9 @@ namespace WebApplication1.Models
 
         public string Public_Key { get; set; }
 
-        public DateTime Timeout_End { get; set; }
+        public DateTime? Timeout_End { get; set; }
 
-        public DateTime Ban_End { get; set; }
+        public DateTime? Ban_End { get; set; }
 
         public bool Safe_Mode { get; set; }
     }
