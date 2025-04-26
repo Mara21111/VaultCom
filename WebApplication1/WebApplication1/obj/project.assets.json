@@ -2944,23 +2944,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Joker\\.nuget\\packages\\": {},
+    "C:\\Users\\Vasek\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "projectUniqueName": "C:\\Users\\Vasek\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
       "projectName": "WebApplication1",
-      "projectPath": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
-      "packagesPath": "C:\\Users\\Joker\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\obj\\",
+      "projectPath": "C:\\Users\\Vasek\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "packagesPath": "C:\\Users\\Vasek\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Vasek\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Joker\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Vasek\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

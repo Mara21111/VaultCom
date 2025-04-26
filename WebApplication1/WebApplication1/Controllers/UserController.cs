@@ -8,10 +8,10 @@ namespace WebApplication1.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
-    {   
+    {
         private MyContext context = new MyContext();
 
-        [HttpPost]
+        [HttpPost("create-user")]
         public JsonResult CreateUser(User user)
         {
             context.User.Add(user);
@@ -21,7 +21,25 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(user));
         }
 
-        [HttpGet("all")]
+        [HttpPost("edit-user")]
+        public JsonResult EditUser(User user)
+        {
+            context.User.Where(x => x.Id == user.Id).First().UserName = user.UserName;
+            context.User.Where(x => x.Id == user.Id).First().Email = user.Email;
+            context.User.Where(x => x.Id == user.Id).First().Password = user.Password;
+
+            context.SaveChanges();
+
+            return new JsonResult(Ok(user));
+        }
+
+        [HttpGet("user-{id}")]
+        public IActionResult GetUser(int id)
+        {
+            return Ok(context.User.Where(x => x.Id == id));
+        }
+
+        [HttpGet("all-users")]
         public IActionResult GetAllUsers()
         {
             try
@@ -36,7 +54,7 @@ namespace WebApplication1.Controllers
             }
         }
 
-        [HttpGet("banned")]
+        [HttpGet("banned-users")]
         public IActionResult GetBannedUsers()
         {
             //NEFUNGUJE CHECK PRO NULL?? rika ze to nemuze bejt null prej nikdy ale potom tady vrati null a spadne to...
@@ -44,7 +62,7 @@ namespace WebApplication1.Controllers
             return Ok();
         }
 
-        [HttpGet("timeouted")]
+        [HttpGet("timeouted-users")]
         public IActionResult GetTimeOutedUsers()
         {
             //tady uplne to samy co nahore

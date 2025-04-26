@@ -19,8 +19,15 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(chat));
         }
 
-        [HttpGet]
-        public IActionResult GetChat()
+        [HttpGet("chat-{id}")]
+        public IActionResult GetChat(int id)
+        {
+            return Ok(context.Chat.Where(x => x.Id == id));
+        }
+
+
+        [HttpGet("all-chats")]
+        public IActionResult GetAllChats()
         {
             return Ok(context.Chat);
         }
