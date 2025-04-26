@@ -34,7 +34,32 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/Chat/chat-{id}": {
+      "get": {
+        "tags": [
+          "Chat"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Chat/all-chats": {
       "get": {
         "tags": [
           "Chat"
@@ -75,7 +100,67 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/Message/edit-message-content": {
+      "post": {
+        "tags": [
+          "Message"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "content",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Message/message-{id}": {
+      "get": {
+        "tags": [
+          "Message"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Message/get-all-chats": {
       "get": {
         "tags": [
           "Message"
@@ -128,7 +213,7 @@
         }
       }
     },
-    "/api/User": {
+    "/api/User/create-user": {
       "post": {
         "tags": [
           "User"
@@ -159,7 +244,61 @@
         }
       }
     },
-    "/api/User/all": {
+    "/api/User/edit-user": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/User/user-{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/User/all-users": {
       "get": {
         "tags": [
           "User"
@@ -171,7 +310,7 @@
         }
       }
     },
-    "/api/User/banned": {
+    "/api/User/banned-users": {
       "get": {
         "tags": [
           "User"
@@ -183,7 +322,7 @@
         }
       }
     },
-    "/api/User/timeouted": {
+    "/api/User/timeouted-users": {
       "get": {
         "tags": [
           "User"

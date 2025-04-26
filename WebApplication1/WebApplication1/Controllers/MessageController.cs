@@ -21,25 +21,46 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost("edit-message-content")]
-        public JsonResult EditMessageContent(Message message)
+        public JsonResult EditMessageContent(int id, string content)
         {
-            context.Message.Where(x => x.Id == message.Id).First().Content = message.Content;
+            try
+            {
+                context.Message.Where(x => x.Id == id).First().Content = content;
 
-            context.SaveChanges();
+                context.SaveChanges();
 
-            return new JsonResult(Ok(message));
+                return new JsonResult(Ok(context.Message.Where(x => x.Id == id)));
+            }
+            catch
+            {
+                throw new Exception("Message not found");
+            }
         }
 
         [HttpGet("message-{id}")]
         public IActionResult GetMessage(string text)
         {
-            return Ok(context.Message.Where(x => x.Content.StartsWith(text)));
+            try
+            {
+                return Ok(context.Message.Where(x => x.Content.StartsWith(text)));
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         [HttpGet("get-all-chats")]
         public IActionResult GetAllChats()
         {
-            return Ok(context.Message);
+            if (context.Message.Count() == 0)
+            {
+                throw new Exception("No messages found");
+            }
+            else
+            {
+                return Ok(context.Message);
+            }
         }
     }
 }
