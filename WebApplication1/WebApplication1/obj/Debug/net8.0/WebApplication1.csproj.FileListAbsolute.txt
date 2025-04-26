@@ -290,3 +290,9 @@ C:\Users\Vasek\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0
 C:\Users\Vasek\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.pdb
 C:\Users\Vasek\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.genruntimeconfig.cache
 C:\Users\Vasek\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0\ref\WebApplication1.dll
+C:\GitHub\VaultCom\WebApplication1\WebApplication1\bin\Debug\net8.0\System.Data.SqlClient.dll
+C:\GitHub\VaultCom\WebApplication1\WebApplication1\bin\Debug\net8.0\runtimes\win-arm64\native\sni.dll
+C:\GitHub\VaultCom\WebApplication1\WebApplication1\bin\Debug\net8.0\runtimes\win-x64\native\sni.dll
+C:\GitHub\VaultCom\WebApplication1\WebApplication1\bin\Debug\net8.0\runtimes\win-x86\native\sni.dll
+C:\GitHub\VaultCom\WebApplication1\WebApplication1\bin\Debug\net8.0\runtimes\unix\lib\net8.0\System.Data.SqlClient.dll
+C:\GitHub\VaultCom\WebApplication1\WebApplication1\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Data.SqlClient.dll
