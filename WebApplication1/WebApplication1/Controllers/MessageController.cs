@@ -20,6 +20,23 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(message));
         }
 
+        [HttpPost]
+        public JsonResult RemoveMessage(Message message)
+        {
+            try
+            {
+                context.Message.Remove(message);
+
+                context.SaveChanges();
+
+                return new JsonResult(Ok(message));
+            }
+            catch
+            {
+                throw new Exception("Reaction could not be removed because it does not exist");
+            }
+        }
+
         [HttpPost("edit-message-content")]
         public JsonResult EditMessageContent(int id, string content)
         {
@@ -37,8 +54,8 @@ namespace WebApplication1.Controllers
             }
         }
 
-        [HttpGet("message-{id}")]
-        public IActionResult GetMessage(string text)
+        [HttpGet("search-for-message")]
+        public IActionResult SearchForMessage(string text)
         {
             try
             {
@@ -50,8 +67,8 @@ namespace WebApplication1.Controllers
             }
         }
 
-        [HttpGet("get-all-chats")]
-        public IActionResult GetAllChats()
+        [HttpGet("get-all-messages")]
+        public IActionResult GetAllMessages()
         {
             if (context.Message.Count() == 0)
             {
