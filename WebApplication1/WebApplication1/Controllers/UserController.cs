@@ -14,6 +14,15 @@ namespace WebApplication1.Controllers
         [HttpPost("create-user")]
         public JsonResult CreateUser(User user)
         {
+            if (context.User.Where(x => x.UserName == user.UserName).Any())
+            {
+                return new JsonResult(StatusCode(1, "This username is already taken."));
+            }
+            else if (context.User.Where(x => x.Email == user.Email).Any())
+            {
+                return new JsonResult(StatusCode(1, "This email already exists."));
+            }
+
             context.User.Add(user);
 
             context.SaveChanges();
@@ -21,7 +30,7 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(user));
         }
 
-        [HttpPost("edit-user")]
+        [HttpPut("edit-user")]
         public JsonResult EditUser(User user)
         {
             context.User.Where(x => x.Id == user.Id).First().UserName = user.UserName;
