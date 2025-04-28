@@ -27,7 +27,7 @@ namespace WebApplication1.Controllers
             }
         }
 
-        [HttpPost("reaction-remove")]
+        [HttpDelete("reaction-remove")]
         public JsonResult RemoveReaction(Message_User_Reaction reaction)
         {
             try

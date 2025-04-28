@@ -20,7 +20,7 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(message));
         }
 
-        [HttpPost("remove-message")]
+        [HttpDelete("remove-message")]
         public JsonResult RemoveMessage(Message message)
         {
             try
@@ -37,7 +37,7 @@ namespace WebApplication1.Controllers
             }
         }
 
-        [HttpPost("edit-message-content")]
+        [HttpPut("edit-message-content")]
         public JsonResult EditMessageContent(int id, string content)
         {
             try

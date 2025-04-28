@@ -19,7 +19,7 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(chat));
         }
 
-        [HttpPost("delete-chat")]
+        [HttpDelete("delete-chat")]
         public JsonResult DeleteChat(Chat chat)
         {
             try
