@@ -17,7 +17,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent},
   { path: 'admin-all-users', component: AdminAllUsersPageComponent},
   { path: 'admin-menu', component: AdminMenuPageComponent},
-  { path: 'admin-user-info', component: AdminUserInfoPageComponent},
+  { path: 'admin-user-info/:id', component: AdminUserInfoPageComponent},
   { path: 'public-chats', component: PublicChatsPageComponent},
   { path: 'reports', component: ReportsPageComponent},
   { path: 'user-friends', component: UserFriendsPageComponent},

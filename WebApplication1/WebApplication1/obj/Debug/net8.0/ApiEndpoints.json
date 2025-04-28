@@ -27,6 +27,16 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.ChatController",
+    "Method": "GetAllPublicChats",
+    "RelativePath": "api/Chat/all-public-chats",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ChatController",
     "Method": "CreateChat",
     "RelativePath": "api/Chat/create-chat",
     "HttpMethod": "POST",
@@ -45,14 +55,14 @@
     "ContainingType": "WebApplication1.Controllers.ChatController",
     "Method": "DeleteChat",
     "RelativePath": "api/Chat/delete-chat",
-    "HttpMethod": "POST",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "chat",
-        "Type": "WebApplication1.Models.Chat",
-        "IsRequired": true
+        "Name": "ID",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -93,7 +103,7 @@
     "ContainingType": "WebApplication1.Controllers.MessageController",
     "Method": "EditMessageContent",
     "RelativePath": "api/Message/edit-message-content",
-    "HttpMethod": "POST",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -124,7 +134,7 @@
     "ContainingType": "WebApplication1.Controllers.MessageController",
     "Method": "RemoveMessage",
     "RelativePath": "api/Message/remove-message",
-    "HttpMethod": "POST",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -172,7 +182,7 @@
     "ContainingType": "WebApplication1.Controllers.MessageUserReactionController",
     "Method": "RemoveReaction",
     "RelativePath": "api/MessageUserReaction/reaction-remove",
-    "HttpMethod": "POST",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [

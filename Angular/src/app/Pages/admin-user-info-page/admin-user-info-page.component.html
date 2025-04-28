@@ -8,7 +8,7 @@
   [closeRoute]="'/admin-all-users'">
 </app-base-ui>
 
-<div class="admin-panel">
+<div class="admin-panel" *ngIf="user; else loadingOrError">
   
     <div class="user-card">
       <div class="user-header">
@@ -70,3 +70,9 @@
       </div>
     </div>
   </div>
+
+  <ng-template #loadingOrError>
+    <div class="loading">
+      <p>Loading user...</p>
+    </div>
+  </ng-template>

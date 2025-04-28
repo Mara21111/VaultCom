@@ -2,6 +2,8 @@
 {
     public class User_Relationship
     {
+        public int Id { get; set; }
+
         public int User_Id { get; set; }
 
         public int Friend_User_Id { get; set; }

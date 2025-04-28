@@ -14,6 +14,14 @@ export class UserService {
     return this.http.post<User>('http://localhost:5000/api/User/create-user', user);
   }
 
+  public getAll(): Observable<User[]> {
+    return this.http.get<User[]>('http://localhost:5000/api/User/all-users');
+  }
+
+  public getById(id: number): Observable<User>{
+    return this.http.get<User>('http://localhost:5000/api/User/user-' + id);
+  }
+
   public getNewUser(): User{
     let user = new User;
     user = new User;

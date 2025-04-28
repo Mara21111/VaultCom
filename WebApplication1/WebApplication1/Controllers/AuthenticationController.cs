@@ -14,7 +14,7 @@ namespace WebApplication1.Controllers
         [HttpPost("login_post")]
         public IActionResult Login(LoginModel loginModel)
         {
-            var user = context.User.FirstOrDefault(x => x.UserName == loginModel.Username);
+            var user = context.User.FirstOrDefault(x => x.Username == loginModel.Username);
 
             if (user != null && loginModel.Password == user.Password)
             {

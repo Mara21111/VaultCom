@@ -14,7 +14,7 @@ namespace WebApplication1.Controllers
         [HttpPost("create-user")]
         public JsonResult CreateUser(User user)
         {
-            if (context.User.Where(x => x.UserName == user.UserName).Any())
+            if (context.User.Where(x => x.Username == user.Username).Any())
             {
                 return new JsonResult(StatusCode(1, "This username is already taken."));
             }
@@ -33,7 +33,7 @@ namespace WebApplication1.Controllers
         [HttpPut("edit-user")]
         public JsonResult EditUser(User user)
         {
-            context.User.Where(x => x.Id == user.Id).First().UserName = user.UserName;
+            context.User.Where(x => x.Id == user.Id).First().Username = user.Username;
             context.User.Where(x => x.Id == user.Id).First().Email = user.Email;
             context.User.Where(x => x.Id == user.Id).First().Password = user.Password;
 
@@ -45,22 +45,24 @@ namespace WebApplication1.Controllers
         [HttpGet("user-{id}")]
         public IActionResult GetUser(int id)
         {
-            return Ok(context.User.Where(x => x.Id == id));
+            return Ok(context.User.FirstOrDefault(x => x.Id == id));
         }
 
         [HttpGet("all-users")]
         public IActionResult GetAllUsers()
         {
-            try
-            {
-                // bere usery jinym zpusobem kinda
-                var users = context.User.Select(user => new { user.Id, user.UserName }).ToList();
-                return Ok(users);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(-1, "ajajaj neco se posralo (tenhle error se za zadnych okolnosti nema objevit)");
-            }
+            //try
+            //{
+            //    // bere usery jinym zpusobem kinda
+            //    var users = context.User.Select(user => new { user.Id, user.UserName }).ToList();
+            //    return Ok(users);
+            //}
+            //catch (Exception ex)
+            //{
+            //    return StatusCode(-1, "ajajaj neco se posralo (tenhle error se za zadnych okolnosti nema objevit)");
+            //}
+
+            return Ok(context.User);
         }
 
         [HttpGet("banned-users")]
@@ -75,13 +77,13 @@ namespace WebApplication1.Controllers
         public IActionResult GetTimeOutedUsers()
         {
             //tady uplne to samy co nahore
-            return Ok(context.User.Where(x => x.Timeout_End != null).Select(user => new { user.Id, user.UserName }).ToList());
+            return Ok(context.User.Where(x => x.Timeout_End != null).Select(user => new { user.Id, user.Username }).ToList());
         }
 
         [HttpGet("online")]
         public IActionResult GetOnlineUsers()
         {
-            return Ok(context.User.Where(x => x.Status == 2).Select(user => new { user.Id, user.UserName }).ToList());
+            return Ok(context.User.Where(x => x.Status == 2).Select(user => new { user.Id, user.Username }).ToList());
         }
     }
 }

@@ -1,8 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { NgFor } from '@angular/common';
 import { BaseUiComponent } from "../base-ui/base-ui.component";
+import { UserService } from '../../services/user.service';
+import { User } from '../../models/User';
 
 @Component({
   selector: 'app-admin-all-users-page',
@@ -13,5 +15,13 @@ import { BaseUiComponent } from "../base-ui/base-ui.component";
 })
 export class AdminAllUsersPageComponent {
 
-  data = inject(DataService)
+  users: User[] = [];
+
+  constructor(private userService: UserService, private router: Router) {
+    this.userService.getAll().subscribe(result => this.users = result);
+  }
+
+  goToUser(id: number){
+    this.router.navigate(['/admin-user-info/', id])
+  }
 }

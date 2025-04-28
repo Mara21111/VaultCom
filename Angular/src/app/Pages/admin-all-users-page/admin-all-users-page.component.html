@@ -9,30 +9,6 @@
   [closeRoute]="'/admin-menu'">
 </app-base-ui>
 
-<!--
-<div class="container-fluid d-flex flex-column min-vh-100 bg-dark text-white">
-
-  <div class="flex-grow-1 overflow-auto">
-      <table class="table table-dark table-striped">
-        <thead>
-          <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Report count</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of data.users">
-            <td class="username"> {{ item.username }}</td>
-            <td> {{ item.email }}</td>
-            <td>99</td>
-          </tr>
-        </tbody>
-      </table>
-  </div>
-</div>-->
-
-
 
 <div class="main-container">
   <div class="users-container">
@@ -46,7 +22,7 @@
           <div class="col-header">Report count</div>
         </div>
         <div class="table-body">
-          <div class="table-row" *ngFor="let item of data.users">
+          <div class="table-row" (click)="goToUser(item.id)" *ngFor="let item of users" style="cursor: pointer;">
             <div class="col username">{{ item.username }}</div>
             <div class="col">{{ item.email }}</div>
             <div class="col">999</div>

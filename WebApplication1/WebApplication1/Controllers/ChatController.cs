@@ -20,10 +20,12 @@ namespace WebApplication1.Controllers
         }
 
         [HttpDelete("delete-chat")]
-        public JsonResult DeleteChat(Chat chat)
+        public JsonResult DeleteChat(int ID)
         {
             try
             {
+                Chat chat = context.Chat.Where(x => x.Id == ID).FirstOrDefault();
+
                 context.Chat.Remove(chat);
 
                 context.SaveChanges();
@@ -47,6 +49,12 @@ namespace WebApplication1.Controllers
         public IActionResult GetAllChats()
         {
             return Ok(context.Chat);
+        }
+
+        [HttpGet("all-public-chats")]
+        public IActionResult GetAllPublicChats()
+        {
+            return Ok(context.Chat.Where(x => x.Is_Public == true));
         }
     }
 }

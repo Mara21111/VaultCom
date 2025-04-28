@@ -1,9 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { User } from '../../models/User';
 import { NgIf } from '@angular/common';
 import { BaseUiComponent } from "../base-ui/base-ui.component";
+import { UserService } from '../../services/user.service';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-admin-user-info-page',
@@ -14,7 +16,19 @@ import { BaseUiComponent } from "../base-ui/base-ui.component";
 })
 export class AdminUserInfoPageComponent {
 
-  data = inject(DataService)
+  user: User | undefined;
 
-  user: User = this.data.users[0];
+  constructor(private route: ActivatedRoute, private userService: UserService) {
+  }
+
+  ngOnInit() {
+    console.log(this.route.snapshot.params['id']);
+    this.userService.getById(this.route.snapshot.params['id'])
+      .pipe(
+        catchError(error => 
+          error = "Uživatel nebyl nalezen."
+        )
+      )
+      .subscribe(result => this.user == result);
+  }
 }

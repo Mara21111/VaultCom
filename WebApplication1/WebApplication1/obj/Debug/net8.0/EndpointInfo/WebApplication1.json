@@ -68,29 +68,20 @@
       }
     },
     "/api/Chat/delete-chat": {
-      "post": {
+      "delete": {
         "tags": [
           "Chat"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Chat"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Chat"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Chat"
-              }
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -122,6 +113,18 @@
       }
     },
     "/api/Chat/all-chats": {
+      "get": {
+        "tags": [
+          "Chat"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Chat/all-public-chats": {
       "get": {
         "tags": [
           "Chat"
@@ -165,7 +168,7 @@
       }
     },
     "/api/Message/remove-message": {
-      "post": {
+      "delete": {
         "tags": [
           "Message"
         ],
@@ -196,7 +199,7 @@
       }
     },
     "/api/Message/edit-message-content": {
-      "post": {
+      "put": {
         "tags": [
           "Message"
         ],
@@ -289,7 +292,7 @@
       }
     },
     "/api/MessageUserReaction/reaction-remove": {
-      "post": {
+      "delete": {
         "tags": [
           "MessageUserReaction"
         ],
@@ -622,6 +625,10 @@
       "Message_User_Reaction": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
           "user_Id": {
             "type": "integer",
             "format": "int32"
@@ -674,7 +681,7 @@
             "type": "string",
             "nullable": true
           },
-          "userName": {
+          "username": {
             "type": "string",
             "nullable": true
           },

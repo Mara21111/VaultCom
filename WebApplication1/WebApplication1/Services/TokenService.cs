@@ -15,7 +15,7 @@ namespace WebApplication1.Services
                  .WithSecret(Password)
                  .AddClaim("exp", DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds())
                  .AddClaim("id", user.Id)
-                 .AddClaim("username", user.UserName)
+                 .AddClaim("username", user.Username)
                  .Encode();
         }
 

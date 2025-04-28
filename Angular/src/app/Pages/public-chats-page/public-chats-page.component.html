@@ -9,45 +9,6 @@
   [closeRoute]="'/admin-menu'">
 </app-base-ui>
 
-
-  <!--<div class="container-fluid d-flex flex-column min-vh-100">-->
-
-    <!-- Chats List Section -->
-    <!--<div class="chats-container overflow-auto flex-grow-1">
-        <table class="chats-table table table-dark table-striped">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Users</th>
-              <th>Active Users</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of data?.chats">
-              <td><i class="bi bi-pencil-fill pencil-icon"></i>{{ item.name }}</td>
-              <td>219</td>
-              <td>31</td>
-              <td>
-                <button class="delete-button btn btn-danger">
-                  <i class="bi bi-x"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-    </div>-->
-
-    <!-- New Chat Section (fixed at bottom) -->
-    <!--<div class="chat-input-container fixed-bottom p-3 bg-dark">
-      <div class="d-flex justify-content-center align-items-center">
-        <input type="text" class="form-control chat-input text-center" id="newChatInput" placeholder="Enter new chat name..." aria-label="New Chat Name">
-        <button class="add-button btn btn-primary ms-3" id="addChatButton">ADD</button>
-      </div>
-    </div>
-  </div>-->
-
-
   <div class="main-container">
     <div class="public-chats-container">
       <div class="content-area">
@@ -61,11 +22,11 @@
             <div class="col-header"></div>
           </div>
           <div class="table-body">
-            <div class="table-row" *ngFor="let item of data.chats">
+            <div class="table-row" *ngFor="let item of publicChats">
               <div class="col"><i class="bi bi-pencil-fill pencil-icon"></i>{{ item.name }}</div>
               <div class="col">256</div>
               <div class="col">58</div>
-              <div class="col"><button class="delete-button btn btn-danger">
+              <div class="col"><button class="delete-button btn btn-danger" (click)="deleleteChat(item.id)">
                 <i class="bi bi-x"></i>
               </button></div>
             </div>
