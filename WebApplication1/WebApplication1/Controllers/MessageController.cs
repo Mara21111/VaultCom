@@ -10,7 +10,7 @@ namespace WebApplication1.Controllers
     {
         private MyContext context = new MyContext();
 
-        [HttpPost]
+        [HttpPost("create-message")]
         public JsonResult CreateMessage(Message message)
         {
             context.Message.Add(message);
@@ -20,7 +20,7 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(message));
         }
 
-        [HttpPost]
+        [HttpPost("remove-message")]
         public JsonResult RemoveMessage(Message message)
         {
             try

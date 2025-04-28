@@ -11,7 +11,7 @@ namespace WebApplication1.Controllers
         private TokenService tokenService = new TokenService();
         private MyContext context = new MyContext();
 
-        [HttpPost]
+        [HttpPost("login_post")]
         public IActionResult Login(LoginModel loginModel)
         {
             var user = context.User.FirstOrDefault(x => x.UserName == loginModel.Username);

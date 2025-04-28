@@ -296,3 +296,9 @@ C:\GitHub\VaultCom\WebApplication1\WebApplication1\bin\Debug\net8.0\runtimes\win
 C:\GitHub\VaultCom\WebApplication1\WebApplication1\bin\Debug\net8.0\runtimes\win-x86\native\sni.dll
 C:\GitHub\VaultCom\WebApplication1\WebApplication1\bin\Debug\net8.0\runtimes\unix\lib\net8.0\System.Data.SqlClient.dll
 C:\GitHub\VaultCom\WebApplication1\WebApplication1\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Data.SqlClient.dll
+C:\Users\blindovskyiartem\Desktop\Vaultcom\WebApplication1\WebApplication1\bin\Debug\net8.0\System.Data.SqlClient.dll
+C:\Users\blindovskyiartem\Desktop\Vaultcom\WebApplication1\WebApplication1\bin\Debug\net8.0\runtimes\win-arm64\native\sni.dll
+C:\Users\blindovskyiartem\Desktop\Vaultcom\WebApplication1\WebApplication1\bin\Debug\net8.0\runtimes\win-x64\native\sni.dll
+C:\Users\blindovskyiartem\Desktop\Vaultcom\WebApplication1\WebApplication1\bin\Debug\net8.0\runtimes\win-x86\native\sni.dll
+C:\Users\blindovskyiartem\Desktop\Vaultcom\WebApplication1\WebApplication1\bin\Debug\net8.0\runtimes\unix\lib\net8.0\System.Data.SqlClient.dll
+C:\Users\blindovskyiartem\Desktop\Vaultcom\WebApplication1\WebApplication1\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Data.SqlClient.dll

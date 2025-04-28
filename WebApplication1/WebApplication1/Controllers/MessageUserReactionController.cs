@@ -43,10 +43,5 @@ namespace WebApplication1.Controllers
                 throw new Exception("Reaction could not be removed because it does not exist");
             }
         }
-
-        public IActionResult GetAll()
-        {
-            return Ok(context.Reaction);
-        }
     }
 }

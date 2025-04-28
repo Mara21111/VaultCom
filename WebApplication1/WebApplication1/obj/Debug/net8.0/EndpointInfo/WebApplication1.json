@@ -5,7 +5,7 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Authentication": {
+    "/api/Authentication/login_post": {
       "post": {
         "tags": [
           "Authentication"
@@ -36,7 +36,38 @@
         }
       }
     },
-    "/api/Chat": {
+    "/api/Chat/create-chat": {
+      "post": {
+        "tags": [
+          "Chat"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Chat"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Chat"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Chat"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Chat/delete-chat": {
       "post": {
         "tags": [
           "Chat"
@@ -102,7 +133,38 @@
         }
       }
     },
-    "/api/Message": {
+    "/api/Message/create-message": {
+      "post": {
+        "tags": [
+          "Message"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Message"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Message"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Message"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Message/remove-message": {
       "post": {
         "tags": [
           "Message"
@@ -162,7 +224,7 @@
         }
       }
     },
-    "/api/Message/message-{id}": {
+    "/api/Message/search-for-message": {
       "get": {
         "tags": [
           "Message"
@@ -171,14 +233,6 @@
           {
             "name": "text",
             "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
             "schema": {
               "type": "string"
             }
@@ -191,11 +245,73 @@
         }
       }
     },
-    "/api/Message/get-all-chats": {
+    "/api/Message/get-all-messages": {
       "get": {
         "tags": [
           "Message"
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MessageUserReaction/reaction-add": {
+      "post": {
+        "tags": [
+          "MessageUserReaction"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Message_User_Reaction"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Message_User_Reaction"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Message_User_Reaction"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MessageUserReaction/reaction-remove": {
+      "post": {
+        "tags": [
+          "MessageUserReaction"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Message_User_Reaction"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Message_User_Reaction"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Message_User_Reaction"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -457,7 +573,8 @@
             "type": "string",
             "nullable": true
           }
-        }
+        },
+        "additionalProperties": false
       },
       "Message": {
         "type": "object",
@@ -498,6 +615,24 @@
           },
           "is_Pinned": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Message_User_Reaction": {
+        "type": "object",
+        "properties": {
+          "user_Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message_Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "reaction_Id": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
