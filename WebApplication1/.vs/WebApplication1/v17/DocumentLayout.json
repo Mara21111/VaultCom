@@ -30,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -89,14 +89,54 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "MyContext.cs",
-              "DocumentMoniker": "C:\\GitHub\\VaultCom\\WebApplication1\\WebApplication1\\MyContext.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\MyContext.cs",
-              "ToolTip": "C:\\GitHub\\VaultCom\\WebApplication1\\WebApplication1\\MyContext.cs",
-              "RelativeToolTip": "WebApplication1\\MyContext.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAIwCIAAAAQAAAAAAAAAA==",
+              "Title": "MessageUserReactionController.cs",
+              "DocumentMoniker": "C:\\Users\\Vasek\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\MessageUserReactionController.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\MessageUserReactionController.cs",
+              "ToolTip": "C:\\Users\\Vasek\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\MessageUserReactionController.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\MessageUserReactionController.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAgwCAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T19:35:02.039Z"
+              "WhenOpened": "2025-04-27T14:53:09.523Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MessageController.cs",
+              "DocumentMoniker": "C:\\Users\\Vasek\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\MessageController.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\MessageController.cs",
+              "ToolTip": "C:\\Users\\Vasek\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\MessageController.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\MessageController.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA1wBgAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-27T14:48:44.83Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ChatController.cs",
+              "DocumentMoniker": "C:\\Users\\Vasek\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\ChatController.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\ChatController.cs",
+              "ToolTip": "C:\\Users\\Vasek\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\ChatController.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\ChatController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABAAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-27T14:48:26.773Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Vasek\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Program.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Program.cs",
+              "ToolTip": "C:\\Users\\Vasek\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Program.cs",
+              "RelativeToolTip": "WebApplication1\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T22:32:22.008Z",
+              "EditorCaption": ""
             }
           ]
         }

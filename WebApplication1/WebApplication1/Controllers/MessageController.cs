@@ -10,7 +10,7 @@ namespace WebApplication1.Controllers
     {
         private MyContext context = new MyContext();
 
-        /*[HttpPost]
+        [HttpPost]
         public JsonResult CreateMessage(Message message)
         {
             context.Message.Add(message);
@@ -18,12 +18,66 @@ namespace WebApplication1.Controllers
             context.SaveChanges();
 
             return new JsonResult(Ok(message));
-        }*/
+        }
 
-        [HttpGet]
-        public IActionResult GetChat()
+        [HttpPost]
+        public JsonResult RemoveMessage(Message message)
         {
-            return Ok(context.Message);
+            try
+            {
+                context.Message.Remove(message);
+
+                context.SaveChanges();
+
+                return new JsonResult(Ok(message));
+            }
+            catch
+            {
+                throw new Exception("Reaction could not be removed because it does not exist");
+            }
+        }
+
+        [HttpPost("edit-message-content")]
+        public JsonResult EditMessageContent(int id, string content)
+        {
+            try
+            {
+                context.Message.Where(x => x.Id == id).First().Content = content;
+
+                context.SaveChanges();
+
+                return new JsonResult(Ok(context.Message.Where(x => x.Id == id)));
+            }
+            catch
+            {
+                throw new Exception("Message not found");
+            }
+        }
+
+        [HttpGet("search-for-message")]
+        public IActionResult SearchForMessage(string text)
+        {
+            try
+            {
+                return Ok(context.Message.Where(x => x.Content.StartsWith(text)));
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        [HttpGet("get-all-messages")]
+        public IActionResult GetAllMessages()
+        {
+            if (context.Message.Count() == 0)
+            {
+                throw new Exception("No messages found");
+            }
+            else
+            {
+                return Ok(context.Message);
+            }
         }
     }
 }

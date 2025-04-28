@@ -19,8 +19,32 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(chat));
         }
 
-        [HttpGet]
-        public IActionResult GetChat()
+        [HttpPost]
+        public JsonResult DeleteChat(Chat chat)
+        {
+            try
+            {
+                context.Chat.Remove(chat);
+
+                context.SaveChanges();
+
+                return new JsonResult(Ok(chat));
+            }
+            catch
+            {
+                throw new Exception("Reaction could not be removed because it does not exist");
+            }
+        }
+
+        [HttpGet("chat-{id}")]
+        public IActionResult GetChat(int id)
+        {
+            return Ok(context.Chat.Where(x => x.Id == id));
+        }
+
+
+        [HttpGet("all-chats")]
+        public IActionResult GetAllChats()
         {
             return Ok(context.Chat);
         }
