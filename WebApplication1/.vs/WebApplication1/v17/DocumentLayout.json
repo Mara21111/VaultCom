@@ -3,36 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\svitilvaclav\\Desktop\\vaultcom\\WebApplication1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\svitilvaclav\\desktop\\vaultcom\\webapplication1\\webapplication1\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\svitilvaclav\\desktop\\vaultcom\\webapplication1\\webapplication1\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\svitilvaclav\\desktop\\vaultcom\\webapplication1\\webapplication1\\controllers\\messagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\messagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\svitilvaclav\\desktop\\vaultcom\\webapplication1\\webapplication1\\controllers\\messageinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\messageinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\svitilvaclav\\desktop\\vaultcom\\webapplication1\\webapplication1\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\svitilvaclav\\desktop\\vaultcom\\webapplication1\\webapplication1\\models\\chat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\models\\chat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\svitilvaclav\\desktop\\vaultcom\\webapplication1\\webapplication1\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\svitilvaclav\\desktop\\vaultcom\\webapplication1\\webapplication1\\services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\svitilvaclav\\desktop\\vaultcom\\webapplication1\\webapplication1\\controllers\\reportscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\reportscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,104 +22,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MessageInfoController.cs",
-              "DocumentMoniker": "C:\\Users\\svitilvaclav\\Desktop\\vaultcom\\WebApplication1\\WebApplication1\\Controllers\\MessageInfoController.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\MessageInfoController.cs",
-              "ToolTip": "C:\\Users\\svitilvaclav\\Desktop\\vaultcom\\WebApplication1\\WebApplication1\\Controllers\\MessageInfoController.cs",
-              "RelativeToolTip": "WebApplication1\\Controllers\\MessageInfoController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T06:13:40.081Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MessageController.cs",
-              "DocumentMoniker": "C:\\Users\\svitilvaclav\\Desktop\\vaultcom\\WebApplication1\\WebApplication1\\Controllers\\MessageController.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\MessageController.cs",
-              "ToolTip": "C:\\Users\\svitilvaclav\\Desktop\\vaultcom\\WebApplication1\\WebApplication1\\Controllers\\MessageController.cs",
-              "RelativeToolTip": "WebApplication1\\Controllers\\MessageController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T06:08:36.747Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Chat.cs",
-              "DocumentMoniker": "C:\\Users\\svitilvaclav\\Desktop\\vaultcom\\WebApplication1\\WebApplication1\\Models\\Chat.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Models\\Chat.cs",
-              "ToolTip": "C:\\Users\\svitilvaclav\\Desktop\\vaultcom\\WebApplication1\\WebApplication1\\Models\\Chat.cs",
-              "RelativeToolTip": "WebApplication1\\Models\\Chat.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T06:06:45.413Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ChatController.cs",
-              "DocumentMoniker": "C:\\Users\\svitilvaclav\\Desktop\\vaultcom\\WebApplication1\\WebApplication1\\Controllers\\ChatController.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\ChatController.cs",
-              "ToolTip": "C:\\Users\\svitilvaclav\\Desktop\\vaultcom\\WebApplication1\\WebApplication1\\Controllers\\ChatController.cs",
-              "RelativeToolTip": "WebApplication1\\Controllers\\ChatController.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAkwEYAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T06:04:10.268Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "TokenService.cs",
-              "DocumentMoniker": "C:\\Users\\svitilvaclav\\Desktop\\vaultcom\\WebApplication1\\WebApplication1\\Services\\TokenService.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Services\\TokenService.cs",
-              "ToolTip": "C:\\Users\\svitilvaclav\\Desktop\\vaultcom\\WebApplication1\\WebApplication1\\Services\\TokenService.cs",
-              "RelativeToolTip": "WebApplication1\\Services\\TokenService.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAQwDQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T20:19:59.037Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AuthenticationController.cs",
-              "DocumentMoniker": "C:\\Users\\svitilvaclav\\Desktop\\vaultcom\\WebApplication1\\WebApplication1\\Controllers\\AuthenticationController.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\AuthenticationController.cs",
-              "ToolTip": "C:\\Users\\svitilvaclav\\Desktop\\vaultcom\\WebApplication1\\WebApplication1\\Controllers\\AuthenticationController.cs",
-              "RelativeToolTip": "WebApplication1\\Controllers\\AuthenticationController.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAYwBAAAABCAAAAAAAAAA==",
+              "Title": "ReportsController.cs",
+              "DocumentMoniker": "C:\\Users\\svitilvaclav\\Desktop\\vaultcom\\WebApplication1\\WebApplication1\\Controllers\\ReportsController.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\ReportsController.cs",
+              "ToolTip": "C:\\Users\\svitilvaclav\\Desktop\\vaultcom\\WebApplication1\\WebApplication1\\Controllers\\ReportsController.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\ReportsController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAADMAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T20:18:29.395Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\svitilvaclav\\Desktop\\vaultcom\\WebApplication1\\WebApplication1\\Models\\User.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Models\\User.cs",
-              "ToolTip": "C:\\Users\\svitilvaclav\\Desktop\\vaultcom\\WebApplication1\\WebApplication1\\Models\\User.cs",
-              "RelativeToolTip": "WebApplication1\\Models\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T20:18:14.535Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\svitilvaclav\\Desktop\\vaultcom\\WebApplication1\\WebApplication1\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\svitilvaclav\\Desktop\\vaultcom\\WebApplication1\\WebApplication1\\Controllers\\UserController.cs",
-              "RelativeToolTip": "WebApplication1\\Controllers\\UserController.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAswDkAAABGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T20:15:56.334Z",
+              "WhenOpened": "2025-04-29T06:24:52.401Z",
               "EditorCaption": ""
             }
           ]

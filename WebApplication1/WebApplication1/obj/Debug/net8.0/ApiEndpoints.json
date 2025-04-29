@@ -254,8 +254,29 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.ReportsController",
+    "Method": "BanUser",
+    "RelativePath": "api/Reports/ban-user",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "banEnd",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ReportsController",
     "Method": "CreateReport",
-    "RelativePath": "api/Reports",
+    "RelativePath": "api/Reports/create-report",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -271,11 +292,48 @@
   {
     "ContainingType": "WebApplication1.Controllers.ReportsController",
     "Method": "GetAll",
-    "RelativePath": "api/Reports",
+    "RelativePath": "api/Reports/get-all-reports",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ReportsController",
+    "Method": "IgnoreReport",
+    "RelativePath": "api/Reports/ignore-report",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "report",
+        "Type": "WebApplication1.Models.Report_Log",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ReportsController",
+    "Method": "TimeoutUser",
+    "RelativePath": "api/Reports/timeout-user",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "timeoutEnd",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -303,6 +361,22 @@
     "Method": "CreateUser",
     "RelativePath": "api/User/create-user",
     "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "WebApplication1.Models.User",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserController",
+    "Method": "DeleteUser",
+    "RelativePath": "api/User/delete-user",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
