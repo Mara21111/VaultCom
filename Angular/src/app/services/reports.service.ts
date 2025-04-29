@@ -13,4 +13,8 @@ export class ReportsService {
   public getAll(): Observable<Report_log[]> {
     return this.http.get<Report_log[]>('http://localhost:5000/api/Reports');
   }
+
+  public getAllUserId(id: number): Observable<Report_log[]> {
+    return this.http.get<Report_log[]>('http://localhost:5000/api/Reports/get-all-reports-user-id?Id=' + id);
+  }
 }

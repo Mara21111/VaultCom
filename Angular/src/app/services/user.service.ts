@@ -32,11 +32,11 @@ export class UserService {
     user.status = 1;
     user.is_public = false;
     user.is_admin = false;
-    user.created_at = new Date();
+    user.created_At = new Date();
     user.private_key = '';
     user.public_key = '';
-    user.timeout_end = new Date();
-    user.ban_end = new Date();
+    user.timeout_End = new Date();
+    user.ban_End = new Date();
     user.safe_mode = false;
     return user;
   }

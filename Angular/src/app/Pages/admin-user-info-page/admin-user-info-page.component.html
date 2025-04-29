@@ -32,7 +32,7 @@
           
           <div class="detail-row">
             <div class="detail-label">Phone:</div>
-            <div class="detail-value">{{ user.phone_number }}</div>
+            <div class="detail-value">{{ user.phone_number ? user.phone_number : 'not set' }}</div>
             <div class="detail-label">Kids mode:</div>
             <div class="detail-value" *ngIf="user.safe_mode">On</div>
             <div class="detail-value" *ngIf="!user.safe_mode">Off</div>
@@ -40,23 +40,23 @@
           
           <div class="detail-row">
             <div class="detail-label">Date Created:</div>
-            <div class="detail-value">{{ user.created_at }}</div>
+            <div class="detail-value">{{ user.created_At ? (user.created_At| date:'short') : 'not set' }}</div>
             <div class="detail-label">Time-out End:</div>
-            <div class="detail-value">{{ user.timeout_end }}</div>
+            <div class="detail-value">{{ user.timeout_End ? (user.timeout_End | date:'short') : 'not set' }}</div>
           </div>
           
           <div class="detail-row">
             <div class="detail-label"></div>
             <div class="detail-value"></div>
             <div class="detail-label">Ban End:</div>
-            <div class="detail-value">{{ user.ban_end }}</div>
+            <div class="detail-value">{{ user.ban_End ? (user.ban_End | date:'short') : 'not set' }}</div>
           </div>
         </div>
       </div>
       
       <div class="action-buttons">
         <button class="btn action-btn report-btn">
-          Report Logs (999)
+          Report Logs ({{ reportCount }})
         </button>
         <button class="btn action-btn chat-btn">
           Public chat messages

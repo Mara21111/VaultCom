@@ -33,11 +33,11 @@ export class DataService {
             status: 0,
             is_public: true,
             is_admin: false,
-            created_at: new Date(),
+            created_At: new Date(),
             private_key: '',
             public_key: '',
-            timeout_end: new Date(),
-            ban_end: new Date(),
+            timeout_End: new Date(),
+            ban_End: new Date(),
             safe_mode: false
           });
 

@@ -18,10 +18,17 @@ export class AdminAllUsersPageComponent {
   users: User[] = [];
 
   constructor(private userService: UserService, private router: Router) {
-    this.userService.getAll().subscribe(result => this.users = result);
   }
 
-  goToUser(id: number){
+  ngOnInit(){
+    this.refresh();
+  }
+
+  goToUser(id: number): void{
     this.router.navigate(['/admin-user-info/', id])
+  }
+
+  refresh(): void{
+    this.userService.getAll().subscribe(result => this.users = result);
   }
 }

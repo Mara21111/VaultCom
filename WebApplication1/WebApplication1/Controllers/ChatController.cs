@@ -20,11 +20,11 @@ namespace WebApplication1.Controllers
         }
 
         [HttpDelete("delete-chat")]
-        public JsonResult DeleteChat(int chatId)
+        public JsonResult DeleteChat(int ID)
         {
             try
             {
-                Chat chat = context.Chat.Where(x => x.Id == chatId).First();
+                Chat chat = context.Chat.Where(x => x.Id == ID).FirstOrDefault();
 
                 context.Chat.Remove(chat);
 

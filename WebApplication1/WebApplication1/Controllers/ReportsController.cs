@@ -87,5 +87,11 @@ namespace WebApplication1.Controllers
         {
             return Ok(this.context.Report_Log);
         }
+
+        [HttpGet("get-all-reports-user-id")]
+        public IActionResult GetAllUserId(int Id)
+        {
+            return Ok(this.context.Report_Log.Where(x => x.User_Id == Id));
+        }
     }
 }

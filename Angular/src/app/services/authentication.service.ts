@@ -23,8 +23,12 @@ export class AuthenticationService {
     return !!this.getToken();
   }
 
-  public getToken(): string|null {
-    return sessionStorage.getItem('token');
+  getToken(): string | null {
+    try {
+      return sessionStorage?.getItem('token') ?? null;
+    } catch {
+      return null;
+    }
   }
 
   public setToken(token: string): void {

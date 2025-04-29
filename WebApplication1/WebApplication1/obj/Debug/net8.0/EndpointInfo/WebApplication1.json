@@ -74,7 +74,7 @@
         ],
         "parameters": [
           {
-            "name": "chatId",
+            "name": "ID",
             "in": "query",
             "schema": {
               "type": "integer",
@@ -536,6 +536,28 @@
         }
       }
     },
+    "/api/Reports/get-all-reports-user-id": {
+      "get": {
+        "tags": [
+          "Reports"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/User/create-user": {
       "post": {
         "tags": [
@@ -712,7 +734,7 @@
         }
       }
     },
-    "/api/UserChat": {
+    "/api/UserChat/create-user-chat-link": {
       "post": {
         "tags": [
           "UserChat"
@@ -736,16 +758,6 @@
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "UserChat"
-        ],
         "responses": {
           "200": {
             "description": "OK"

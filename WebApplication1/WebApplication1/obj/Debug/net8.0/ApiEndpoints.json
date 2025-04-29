@@ -60,7 +60,7 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "chatId",
+        "Name": "ID",
         "Type": "System.Int32",
         "IsRequired": false
       }
@@ -301,6 +301,22 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.ReportsController",
+    "Method": "GetAllUserId",
+    "RelativePath": "api/Reports/get-all-reports-user-id",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ReportsController",
     "Method": "IgnoreReport",
     "RelativePath": "api/Reports/ignore-report",
     "HttpMethod": "DELETE",
@@ -453,7 +469,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserChatController",
     "Method": "CreateUserChat",
-    "RelativePath": "api/UserChat",
+    "RelativePath": "api/UserChat/create-user-chat-link",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -464,16 +480,6 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebApplication1.Controllers.UserChatController",
-    "Method": "GetUsers",
-    "RelativePath": "api/UserChat",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {
