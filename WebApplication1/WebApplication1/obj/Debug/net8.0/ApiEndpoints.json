@@ -60,8 +60,50 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "ID",
+        "Name": "chatId",
         "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ChatController",
+    "Method": "EditChatDescription",
+    "RelativePath": "api/Chat/edit-description",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "chatId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "newChatDescription",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ChatController",
+    "Method": "EditChatName",
+    "RelativePath": "api/Chat/edit-name",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "chatId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "newChatName",
+        "Type": "System.String",
         "IsRequired": false
       }
     ],
@@ -157,6 +199,22 @@
       {
         "Name": "text",
         "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.MessageInfoController",
+    "Method": "MarkMessageAsSeen",
+    "RelativePath": "api/MessageInfo/mark-as-seen",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "messageId",
+        "Type": "System.Int32",
         "IsRequired": false
       }
     ],

@@ -42,6 +42,24 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(user));
         }
 
+        [HttpDelete("delete-user")]
+        public JsonResult DeleteUser(User user)
+        {
+            try
+            {
+                context.Remove(user);
+
+                context.SaveChanges();
+
+                return new JsonResult(Ok(user));
+            }
+            catch
+            {
+                throw new Exception("User couldnt have been deleted");
+            }
+        }
+
+
         [HttpGet("user-{id}")]
         public IActionResult GetUser(int id)
         {
