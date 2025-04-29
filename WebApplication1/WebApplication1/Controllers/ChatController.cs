@@ -20,17 +20,51 @@ namespace WebApplication1.Controllers
         }
 
         [HttpDelete("delete-chat")]
-        public JsonResult DeleteChat(int ID)
+        public JsonResult DeleteChat(int chatId)
         {
             try
             {
-                Chat chat = context.Chat.Where(x => x.Id == ID).FirstOrDefault();
+                Chat chat = context.Chat.Where(x => x.Id == chatId).First();
 
                 context.Chat.Remove(chat);
 
                 context.SaveChanges();
 
                 return new JsonResult(Ok(chat));
+            }
+            catch
+            {
+                throw new Exception("Reaction could not be removed because it does not exist");
+            }
+        }
+
+        [HttpPut("edit-name")]
+        public JsonResult EditChatName(int chatId, string newChatName)
+        {
+            try
+            {
+                context.Chat.Where(x => x.Id == chatId).First().Name = newChatName;
+
+                context.SaveChanges();
+
+                return new JsonResult(Ok(context.Chat.Where(x => x.Id == chatId).First()));
+            }
+            catch
+            {
+                throw new Exception("Reaction could not be removed because it does not exist");
+            }
+        }
+
+        [HttpPut("edit-description")]
+        public JsonResult EditChatDescription(int chatId, string newChatDescription)
+        {
+            try
+            {
+                context.Chat.Where(x => x.Id == chatId).First().Description = newChatDescription;
+
+                context.SaveChanges();
+
+                return new JsonResult(Ok(context.Chat.Where(x => x.Id == chatId).First()));
             }
             catch
             {

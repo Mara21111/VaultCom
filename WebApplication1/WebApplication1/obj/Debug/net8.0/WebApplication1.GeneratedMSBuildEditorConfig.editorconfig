@@ -9,13 +9,21 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = WebApplication1
 build_property.RootNamespace = WebApplication1
+<<<<<<< HEAD
 build_property.ProjectDir = C:\Users\blindovskyiartem\Desktop\Vaultcom\WebApplication1\WebApplication1\
+=======
+build_property.ProjectDir = C:\Users\svitilvaclav\Desktop\vaultcom\WebApplication1\WebApplication1\
+>>>>>>> e8905dfd0413811d714728d17dec09ee5f95ff77
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+<<<<<<< HEAD
 build_property.MSBuildProjectDirectory = C:\Users\blindovskyiartem\Desktop\Vaultcom\WebApplication1\WebApplication1
+=======
+build_property.MSBuildProjectDirectory = C:\Users\svitilvaclav\Desktop\vaultcom\WebApplication1\WebApplication1
+>>>>>>> e8905dfd0413811d714728d17dec09ee5f95ff77
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
