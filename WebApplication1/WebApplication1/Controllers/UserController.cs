@@ -68,16 +68,19 @@ namespace WebApplication1.Controllers
         [HttpGet("banned-users")]
         public IActionResult GetBannedUsers()
         {
-            //NEFUNGUJE CHECK PRO NULL?? rika ze to nemuze bejt null prej nikdy ale potom tady vrati null a spadne to...
-            //return Ok(context.User.Where(x => !x.Ban_End?.HasValue).Select(user => new { user.Id, user.UserName }).ToList());
-            return Ok();
+            return Ok(context.User.Where(x => x.Ban_End.Value != null));
         }
 
         [HttpGet("timeouted-users")]
         public IActionResult GetTimeOutedUsers()
         {
-            //tady uplne to samy co nahore
-            return Ok(context.User.Where(x => x.Timeout_End != null).Select(user => new { user.Id, user.Username }).ToList());
+            return Ok(context.User.Where(x => x.Timeout_End.Value != null));
+        }
+
+        [HttpGet("good-users")]
+        public IActionResult GetGoodUsers()
+        {
+            return Ok(context.User.Where(x => x.Timeout_End.Value == null && x.Ban_End.Value == null));
         }
 
         [HttpGet("online")]

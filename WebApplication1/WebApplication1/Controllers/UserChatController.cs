@@ -24,22 +24,14 @@ namespace WebApplication1.Controllers
 
             return new JsonResult(Ok(user_chat));
         }
-        /*[HttpPost]
-        public JsonResult CreateUserChat(User_Chat user_chat)
+
+
+        [HttpGet("get-all-users-in-chat-{id}")]
+        public IActionResult GetUsersInChat(int id)
         {
-            if (user_chat == null)
-            {
-                return new JsonResult("Invalid data") { StatusCode = 400 };
-            }
-
-            // Add the new user chat record to the context
-            context.User_Chat.Add(user_chat);
-
-            // Save changes to the database
-            context.SaveChanges();
-
-            return new JsonResult(Ok(user_chat));
-        }*/
+            List<int> user_ids = context.User_Chat.Where(x => x.Chat_Id == id).Select(x => x.User_Id).ToList();
+            return Ok(context.User.Where(x => user_ids.Contains(x.Id)).ToList());
+        }
 
         [HttpGet]
         public IActionResult GetUsers()

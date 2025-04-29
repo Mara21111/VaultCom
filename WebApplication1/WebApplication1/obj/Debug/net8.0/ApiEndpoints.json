@@ -274,6 +274,16 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.UserController",
+    "Method": "GetGoodUsers",
+    "RelativePath": "api/User/good-users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserController",
     "Method": "GetOnlineUsers",
     "RelativePath": "api/User/online",
     "HttpMethod": "GET",
@@ -332,6 +342,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserChatController",
+    "Method": "GetUsersInChat",
+    "RelativePath": "api/UserChat/get-all-users-in-chat-{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   }
 ]

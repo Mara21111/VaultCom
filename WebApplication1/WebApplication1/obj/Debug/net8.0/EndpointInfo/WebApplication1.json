@@ -484,6 +484,18 @@
         }
       }
     },
+    "/api/User/good-users": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/User/online": {
       "get": {
         "tags": [
@@ -529,6 +541,29 @@
       "get": {
         "tags": [
           "UserChat"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserChat/get-all-users-in-chat-{id}": {
+      "get": {
+        "tags": [
+          "UserChat"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "responses": {
           "200": {
