@@ -11,7 +11,7 @@ export class ReportsService {
   public constructor(private http: HttpClient) {}
 
   public getAll(): Observable<Report_log[]> {
-    return this.http.get<Report_log[]>('http://localhost:5000/api/Reports');
+    return this.http.get<Report_log[]>('http://localhost:5000/api/Reports/get-all-reports');
   }
 
   public getAllUserId(id: number): Observable<Report_log[]> {

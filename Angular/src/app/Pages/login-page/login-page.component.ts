@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
- import { Router } from '@angular/router';
- import { AuthenticationService } from '../../services/authentication.service';
- import { catchError } from 'rxjs';
- import { NgIf } from '@angular/common';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
+import { catchError } from 'rxjs';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login-page',
