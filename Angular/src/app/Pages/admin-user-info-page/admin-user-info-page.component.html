@@ -1,5 +1,3 @@
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
-  
 <app-base-ui
   [title]="'About User'"
   [titleOn]="true"
@@ -8,53 +6,43 @@
   [closeRoute]="'/admin-all-users'">
 </app-base-ui>
 
-<div class="admin-panel" *ngIf="user; else loadingOrError">
-  
-    <div class="user-card">
-      <div class="user-header">
-        <div class="warning-icon">
-          <img src="assets/images/stop-icon.svg" alt="Warning" class="stop-sign">
+<div class="admin-panel-fullscreen animate-fade-in">
+  <div class="user-card animate-slide-up">
+    <!-- Header with Warning Icon -->
+    <section class="user-header common-panel">
+      <div class="user-title">
+        <h2 class="username">{{ user.username }}</h2>
+      </div>
+    </section>
+
+    <!-- User Details -->
+    <section class="user-details common-panel">
+      <div class="details-grid">
+        <div class="detail-row">
+          <div class="detail-label">Email:</div>
+          <div class="detail-value">{{ user.email }}</div>
         </div>
-        <div class="user-title">
-          <h2 class="username"> {{ user.username }}</h2>
+
+        <div class="detail-row">
+          <div class="detail-label">Phone:</div>
+          <div class="detail-value">{{ user.phone_Number || 'not set' }}</div>
+        </div>
+
+        <div class="detail-row">
+          <div class="detail-label">Date Created:</div>
+          <div class="detail-value">{{ user.created_At | date:'short' }}</div>
+        </div>
+
+        <div class="detail-row">
+          <div class="detail-label">Ban End:</div>
+          <div class="detail-value">{{ user.ban_End | date:'short' }}</div>
         </div>
       </div>
-      
-      <div class="user-details">
-        <div class="details-grid">
-          <div class="detail-row">
-            <div class="detail-label">Email:</div>
-            <div class="detail-value">{{ user.email }}</div>
-            <div class="detail-label public-label">Public account:</div>
-            <div class="detail-value" *ngIf="user.is_public">On</div>
-            <div class="detail-value" *ngIf="!user.is_public">Off</div>
-          </div>
-          
-          <div class="detail-row">
-            <div class="detail-label">Phone:</div>
-            <div class="detail-value">{{ user.phone_Number ? user.phone_Number : 'not set' }}</div>
-            <div class="detail-label">Kids mode:</div>
-            <div class="detail-value" *ngIf="user.safe_mode">On</div>
-            <div class="detail-value" *ngIf="!user.safe_mode">Off</div>
-          </div>
-          
-          <div class="detail-row">
-            <div class="detail-label">Date Created:</div>
-            <div class="detail-value">{{ user.created_At ? (user.created_At| date:'short') : 'not set' }}</div>
-            <div class="detail-label">Time-out End:</div>
-            <div class="detail-value">{{ user.timeout_End ? (user.timeout_End | date:'short') : 'not set' }}</div>
-          </div>
-          
-          <div class="detail-row">
-            <div class="detail-label"></div>
-            <div class="detail-value"></div>
-            <div class="detail-label">Ban End:</div>
-            <div class="detail-value">{{ user.ban_End ? (user.ban_End | date:'short') : 'not set' }}</div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="action-buttons">
+    </section>
+
+    <!-- Action Buttons -->
+    <section class="action-buttons common-panel">
+      <div class="button-group">
         <button class="btn action-btn report-btn">
           Report Logs ({{ reportCount }})
         </button>
@@ -68,11 +56,13 @@
           Ban
         </button>
       </div>
-    </div>
+    </section>
   </div>
+</div>
 
-  <ng-template #loadingOrError>
-    <div class="loading">
-      <p>Loading user...</p>
-    </div>
-  </ng-template>
+<ng-template #loadingOrError>
+  <div class="loading">
+    <p>Loading user...</p>
+  </div>
+</ng-template>
+z

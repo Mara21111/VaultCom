@@ -1,10 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { DataService } from '../../services/data.service';
 import { BaseUiComponent } from "../base-ui/base-ui.component";
 import { Report_log } from '../../models/Report_log';
+import { User } from '../../models/User';
 import { ReportsService } from '../../services/reports.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-reports-page',
@@ -16,9 +18,20 @@ import { ReportsService } from '../../services/reports.service';
 export class ReportsPageComponent {
 
   data: Report_log[] = [];
+  users: User[] = [];
 
-  public constructor(private service: ReportsService)
+  public constructor(private reportsService: ReportsService, private userService: UserService, private router: Router)
   {
-    this.service.getAll().subscribe(result => this.data = result)
+    this.reportsService.getAll().subscribe(result => this.data = result)
+    this.userService.getAll().subscribe(result => this.users = result)
+  }
+
+  public goToUser(id: number): void{
+    this.router.navigate(['/admin-user-info/', id])
+  }
+
+  getUsername(userId: number): string {
+    const user = this.users.find(u => u.id === userId);
+    return user ? user.username : 'Unknown';
   }
 }

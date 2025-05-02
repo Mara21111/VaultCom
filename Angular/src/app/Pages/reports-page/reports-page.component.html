@@ -96,9 +96,9 @@
           <div class="col-header">Reason</div>
         </div>
         <div class="table-body">
-          <div class="table-row" *ngFor="let item of data">
-            <div class="col username">{{ item.user_Id }}</div>
-            <div class="col">{{ item.reported_User_Id }}</div>
+          <div class="table-row" (click)="this.goToUser(item.reported_User_Id)" *ngFor="let item of data" style="cursor: pointer;">
+            <div class="col username">{{ getUsername(item.user_Id) }}</div>
+            <div class="col">{{ getUsername(item.reported_User_Id) }}</div>
             <div class="col">{{ item.message }}</div>
           </div>
         </div>

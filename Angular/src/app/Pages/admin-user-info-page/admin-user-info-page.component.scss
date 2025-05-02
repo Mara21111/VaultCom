@@ -1,172 +1,194 @@
-$header-bg: #ce1b1b;
 $body-bg: #202225;
-$table-header-bg: #d43333;
-$table-row-bg: #a1a12c;
-$table-row-hover: #b13030;
+$panel-bg: #2a2d34;
+$panel-hover: #36393f;
+$text-light: #ffffff;
+$btn-radius: 12px;
 $btn-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-$btn-hover: #444;
+$accent: #3498db;
+$danger: #e74c3c;
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.8s ease-out;
+}
 
 body {
-font-family: Arial, sans-serif;
-background-color: $body-bg;
-margin: 0;
-padding: 0;
-}
-
-.header {
-background-color: $header-bg;
-color: white;
-padding: 12px 20px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-}
-
-.logo {
-font-weight: bold;
-font-size: 1.5rem;
-display: flex;
-align-items: center;
-}
-
-.logo i {
-margin-left: 10px;
-}
-
-
-.admin-panel {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: $body-bg;
-  border-radius: 5px; /* Zvýšení zaoblení */
-  color: #ffffff;
-  font-family: Arial, sans-serif;
-  margin: 0 auto;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  color: $text-light;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
-.panel-header {
+.admin-panel-fullscreen {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 20px 30px; /* Zvýšení paddingu */
-  border-bottom: 1.5px solid #999;
-
-  .vaultcom-label {
-    font-weight: bold;
-    font-size: 20px; /* Zvýšení velikosti písma */
-  }
-
-  .admin-menu {
-    font-weight: bold;
-    font-size: 28px; /* Zvýšení velikosti písma */
-    flex-grow: 1;
-    text-align: center;
-  }
-
-  .expand-icon {
-    cursor: pointer;
-    color: #333;
-    font-size: 28px; /* Zvýšení velikosti ikony */
-  }
+  padding: 0;
+  height: 100vh;
+  background-color: $body-bg;
+  overflow: hidden;
 }
 
 .user-card {
-  padding: 20px; /* Zvýšení paddingu */
+  width: 100%;
+  max-width: 1280px;  /* Increase max width for a wider view */
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  background-color: $panel-bg;
+  padding: 40px;
+  border-radius: $btn-radius;
+  box-shadow: $btn-shadow;
+}
 
-  .user-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 30px; /* Zvýšení mezery mezi hlavičkou a detaily */
+.user-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: $panel-bg;
+  border-radius: $btn-radius;
+  color: $text-light;
+  box-shadow: $btn-shadow;
+}
 
-    .warning-icon {
-      margin-right: 20px;
+.warning-icon {
+  margin-right: 20px;
 
-      .stop-sign {
-        width: 100px; /* Zvýšení velikosti ikonky */
-        height: 100px;
-      }
-    }
-
-    .user-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-grow: 1;
-
-      .username {
-        font-size: 28px; /* Zvýšení velikosti písma */
-        font-weight: bold;
-        margin: 0;
-      }
-
-      .chevron-icon {
-        color: #666;
-        cursor: pointer;
-        font-size: 28px; /* Zvýšení velikosti ikony */
-      }
-    }
+  .stop-sign {
+    width: 60px;
+    height: 60px;
   }
 }
 
-.details-grid {
-  margin-bottom: 30px; /* Zvýšení mezery mezi detaily */
+.user-title {
+  .username {
+    font-size: 36px;  /* Increased font size for more prominence */
+    font-weight: bold;
+    color: $accent;
+    margin: 0;
+  }
+}
+
+.user-details {
+  background-color: $panel-bg;
+  border-radius: $btn-radius;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: $btn-shadow;
+
+  .details-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
 
   .detail-row {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px; /* Zvýšení mezery mezi řádky */
+    font-size: 18px;
+  }
 
-    .detail-label {
-      width: 250px; /* Zvýšení šířky */
-      font-weight: bold;
-      text-align: center;
-      padding-right: 20px;
-      font-size: 20px; /* Zvýšení velikosti textu */
-      color: #ffffff;
-    }
+  .detail-label {
+    font-weight: bold;
+    color: $text-light;
+  }
 
-    .detail-value {
-      width: 250px; /* Zvýšení šířky */
-      text-align: center;
-      font-size: 20px; /* Zvýšení velikosti textu */
-      border-bottom: 1.5px solid #a4a4a4;
-      margin-right: 40px; /* Zvýšení mezery mezi sloupci */
-      padding: 15px 0; /* Zvýšení paddingu pro více prostoru */
-    }
+  .detail-value {
+    color: $text-light;
+    font-size: 16px;
   }
 }
 
 .action-buttons {
   display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 15px;
-  margin-top: 40px; /* Zvýšení mezery mezi tlačítky a detaily */
+  margin-top: 40px;
 
+  .button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+  }
 
   .action-btn {
     flex: 1;
+    min-width: 180px;  /* Ensuring buttons are not too small on smaller screens */
     text-align: center;
-    padding: 12px 18px; /* Zvýšení paddingu */
-    font-size: 20px; /* Zvýšení velikosti textu */
-    color: #ffffff;
-    transition: background-color 0.3s;
+    padding: 16px 24px;
+    font-size: 20px;
+    color: $text-light;
+    background-color: $accent;
+    border-radius: $btn-radius;
+    transition: all 0.3s ease;
     box-shadow: $btn-shadow;
     cursor: pointer;
-    transition: all 0.3s ease;
 
     &:hover {
       opacity: 0.9;
       transform: translateY(-2px);
-      background-color: $btn-hover;
+      background-color: darken($accent, 5%);
     }
 
     &.ban-btn {
-      background-color: rgba(220, 53, 69, 0.1);
+      background-color: $danger;
 
       &:hover {
-        background-color: rgba(155, 15, 29, 0.785);
+        background-color: darken($danger, 10%);
       }
     }
+  }
+}
+
+.loading {
+  text-align: center;
+  color: $text-light;
+  font-size: 18px;
+  padding-top: 50px;
+}
+
+button {
+  background-color: $accent;
+  color: $text-light;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: $btn-radius;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($accent, 5%);
   }
 }
