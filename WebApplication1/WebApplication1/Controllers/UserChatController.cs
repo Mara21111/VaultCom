@@ -22,12 +22,18 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(user_chat));
         }
 
-
-        [HttpGet("get-all-users-in-chat-{id}")]
+        [HttpGet("users-in-chat({id})")]
         public IActionResult GetUsersInChat(int id)
         {
             List<int> user_ids = context.User_Chat.Where(x => x.Chat_Id == id).Select(x => x.User_Id).ToList();
             return Ok(context.User.Where(x => user_ids.Contains(x.Id)).ToList());
+        }
+
+        [HttpGet("user({id})s-chats")]
+        public IActionResult GetChatsOfUser(int id)
+        {
+            List<int> chat_ids = context.User_Chat.Where(x => x.User_Id == id).Select(x => x.Chat_Id).ToList();
+            return Ok(context.Chat.Where(x => chat_ids.Contains(x.Id)).ToList());
         }
     }
 }

@@ -112,7 +112,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.ChatController",
     "Method": "GetChat",
-    "RelativePath": "api/Chat/chat-{id}",
+    "RelativePath": "api/Chat/chat({id})",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -433,7 +433,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserController",
     "Method": "EditUser",
-    "RelativePath": "api/User/edit-user-{id}",
+    "RelativePath": "api/User/edit-user({id})",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -484,7 +484,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserController",
     "Method": "GetUser",
-    "RelativePath": "api/User/user-{id}",
+    "RelativePath": "api/User/user({id})",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -515,14 +515,130 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.UserChatController",
-    "Method": "GetUsersInChat",
-    "RelativePath": "api/UserChat/get-all-users-in-chat-{id}",
+    "Method": "GetChatsOfUser",
+    "RelativePath": "api/UserChat/user({id})s-chats",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserChatController",
+    "Method": "GetUsersInChat",
+    "RelativePath": "api/UserChat/users-in-chat({id})",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "AcceptRequest",
+    "RelativePath": "api/UserRelationship/accept-request-from-({acceptor_id})-to-({requestor_id})",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "acceptor_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "requestor_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "PostRelationship",
+    "RelativePath": "api/UserRelationship/create-relationship(uselessquestionmark)",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "rel",
+        "Type": "WebApplication1.Models.User_Relationship",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "GetAll",
+    "RelativePath": "api/UserRelationship/get-all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "GetFriends",
+    "RelativePath": "api/UserRelationship/get-friends-of-user({id})",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "GetPendingRequests",
+    "RelativePath": "api/UserRelationship/pending-requests-to-user({id})",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "SendRequest",
+    "RelativePath": "api/UserRelationship/send-request-from-({sender_id})-to-({other_id})",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sender_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "other_id",
         "Type": "System.Int32",
         "IsRequired": true
       }

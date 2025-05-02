@@ -72,7 +72,7 @@ namespace WebApplication1.Controllers
             }
         }
 
-        [HttpGet("chat-{id}")]
+        [HttpGet("chat({id})")]
         public IActionResult GetChat(int id)
         {
             return Ok(context.Chat.Where(x => x.Id == id));
