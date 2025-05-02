@@ -1,505 +1,3 @@
-/* NÁŠ DESIGN
-
-@import "../../variables.scss";
-
-* {
-  color: black;
-}
-
-.panel {
-  width: 100%;
-  background-color: $primary-color;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  padding: 10px;
-}
-
-.header {
-  //vsechno zabere
-  position: fixed;
-  width: 100vw;
-  left: 0;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: $header-color;
-  padding: 10px 20px;
-
-  .left-section {
-    display: flex;
-    align-items: center;
-  }
-  
-  .title {
-    font-size: 1.5em;
-    margin-right: 10px;
-  }
-  
-  .logo {
-    width: 50px;
-    height: auto;
-  }
-  
-  .close-button {
-    text-decoration: none;
-    font-size: 1.2em;
-  }
-}
-
-.profile-panel {
-  display: flex;
-  align-items: stretch; // <- umoznuje children se stretchnout uplne nahoru
-  height: 300px; // <- na tomhle je linked velikost pfp A panelu
-  padding: 20px;
-
-  .profile-image {
-    width: auto;
-    height: auto;
-    border-radius: 20%;
-  }
-  
-  .user-info-panel {
-    @extend .panel;
-    margin-left: 20px;
-
-    .item {
-      display: flex;
-      align-items: center;
-      width: 100%;
-  
-      .icon {
-        flex: 0 0 auto; // <- zleva
-        width: 42px; // <- main velikost tohle
-        height: auto;
-      }
-  
-      .text {
-        text-align: center;
-        display: flex;
-        flex-direction: column; // <- na sobe ty texty budou
-        font-size: auto;
-        flex: 1; // <- zabere si misto ktery ma v tom flexu
-
-        .top-text {
-          font-size: 1.2em;
-          font-weight: bold;
-        }
-    
-        .bottom-text {
-          font-size: 0.7em; // <- 70% od parenta takze .text
-          color: rgb(40, 40, 40);
-        }
-      }
-    }
-
-    .item-lined {
-      @extend .item; 
-      border-bottom: 1px solid #ffffff;
-      padding-bottom: 8px;
-      margin-bottom: 10px;
-    }
-  }
-}
-
-.settings-panel{
-  @extend .panel;
-  justify-content: space-between;
-  display: flex;
-  background-color: $secondary-color;
-
-  .on-off-panel {
-    margin-right: auto;
-
-    .on-off-item {
-      display: flex;
-      align-items: center; // <- tohle jen vertikalne
-      border-radius: 10px;
-      padding: 5px 10px; // <- x, y ofc
-      margin: 10px;
-      border: 1px solid white;
-      width: 250px;
-      
-      .on-off-text {
-          flex: 1;
-          font-size: auto;
-      }
-  
-      .on-off-button {
-          cursor: pointer;
-          background-color: $secondary-color;
-          width: 30px;
-          height: 30px;
-          border: 3px solid black; // <- nejakej basic border tam je a vypada hnusne
-          border-radius: 5px;
-      }
-    }
-  }
-
-  .edit-panel {
-    margin-left: auto;
-
-    .edit-item {
-      display: flex;
-      align-items: center;
-      border-radius: 10px;
-      padding: 5px 10px; 
-      margin: 10px;
-      border: 1px solid white;
-      width: 250px; 
-
-
-      .edit-text {
-        flex: 1;
-        font-size: auto;
-      }
-
-      .edit-icon {
-        cursor: pointer;
-        width: 30px;
-        height: 30px;
-        border-radius: 5px;
-      }
-    }
-  }
-
-
-}
-
-.logout-btn{
-  cursor: pointer;
-  margin-bottom: auto;
-  background-color: red;
-  width: auto;
-  height: 30px;
-  border: 3px solid black; // <- nejakej basic border tam je a vypada hnusne
-  border-radius: 5px;
-  padding: 0px 5px;
-}
-
-
-
-body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f8f9fa;
-  }
-  
-  .settings-panel {
-    background-color: #7e7e78;
-    border: 2px solid rgb(165, 165, 165);
-    border-radius: 10px;
-    padding: 20px;
-}
-
-  .button-left {
-    background-color: #FF0000;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    position: absolute;
-    top: 630px;
-    left: 310px;
-    cursor:alias;
-}
-
-  .my-profile {
-    min-height: 100vh;
-    background-color: #ffffff;
-  }
-  
-  .profile-image-container {
-    position: relative;
-    padding: 2rem;
-  }
-  
-  .form-check-label {
-    color:#000000;
-  }
-
-  .profile-image {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    margin: 0 auto;
-    display: block;
-  }
-  
-  .edit-profile-image {
-    position: absolute;
-    bottom: 2rem;
-    right: 2rem;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-  }
-  
-  .user-profile {
-    background-color: #f8f9fa;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    border: #6c757d;
-  }
-  
-  .edit-icon {
-    width: 24px;
-    height: 24px;
-    margin-left: 10px;
-    cursor: pointer;
-  }
-
-  .edit-profile {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 30px;
-    height: auto;
-  }
-  
-  .profile-item {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: center;
-    border: 2px solid rgb(165, 165, 165);
-    border-radius: 12px;
-    margin-top: 15px;
-}
-
-.profile-item-first {
-  display: grid;  
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  margin-top: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-.profile-item-text p {
-  text-align: center;
-}
-.profile-item-text h3 {
-  text-align: center;
-}
-
-.btn {
-  text-align: center;
-  border: 2px solid rgb(165, 165, 165);
-}
-  
-  .profile-icon {
-    width: 40px;
-    height: 40px;
-    margin-right: 1rem;
-    align-items: left;
-  }
-
-  .profile-item-first h2 {
-    font-size: 1.5rem;
-  }
-  
-  .profile-item h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0;
-  }
-  
-  .profile-item p {
-    font-size: 0.9rem;
-    color: #6c757d;
-    margin-bottom: 0;
-  }
-  
-  .settings {
-    background-color: #e9ecef;
-  }
-  
-  @media (max-width: 768px) {
-    .profile-image-container {
-      text-align: center;
-      border-radius: 25%;
-    }
-  
-    .edit-profile-image {
-      position: static;
-      margin-top: 1rem;
-    }
-  
-    .user-profile, .settings {
-      padding: 1rem !important;
-    }
-}
-
-NÁŠ DESIGN
-    */
-
-
-/* CHAT GPT PŘEDĚLAL NÁS DESIGN
-
-
-
-    $header-bg: #2c2f38;
-    $body-bg: #202225;
-    $panel-bg: #2a2d34;
-    $panel-hover: #36393f;
-    $text-light: #ffffff;
-    $text-muted: #aaaaaa;
-    $accent: #3498db;
-    $danger: #e74c3c;
-    $btn-radius: 12px;
-    $btn-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: $body-bg;
-      color: $text-light;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-    }
-    
-    * {
-      box-sizing: border-box;
-    }
-    
-    .panel {
-      background-color: $panel-bg;
-      border-radius: 10px;
-      border: 1px solid #444;
-      padding: 15px;
-      color: $text-light;
-    }
-    
-    .profile-panel {
-      display: flex;
-      align-items: stretch;
-      padding: 20px;
-    
-      .profile-image {
-        height: 300px;
-        border-radius: 20%;
-        object-fit: cover;
-      }
-    
-      .user-info-panel {
-        @extend .panel;
-        margin-left: 20px;
-        flex: 1;
-    
-        .item,
-        .item-lined {
-          display: flex;
-          align-items: center;
-          margin-bottom: 15px;
-          padding-bottom: 10px;
-    
-          .icon {
-            width: 36px;
-            margin-right: 15px;
-          }
-    
-          .text {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-    
-            .top-text {
-              font-size: 1.1em;
-              font-weight: 600;
-              color: $text-light;
-            }
-    
-            .bottom-text {
-              font-size: 0.8em;
-              color: $text-muted;
-            }
-          }
-        }
-    
-        .item-lined {
-          border-bottom: 1px solid #555;
-        }
-      }
-    }
-    
-    .settings-panel {
-      @extend .panel;
-      display: flex;
-      justify-content: space-between;
-      margin: 20px;
-      background-color: $panel-bg;
-    
-      .on-off-panel,
-      .edit-panel {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-    
-      .on-off-item,
-      .edit-item {
-        display: flex;
-        align-items: center;
-        padding: 10px 15px;
-        border: 1px solid #555;
-        border-radius: $btn-radius;
-        background-color: $panel-bg;
-        width: 260px;
-        transition: background-color 0.3s;
-    
-        &:hover {
-          background-color: $panel-hover;
-        }
-    
-        .on-off-text,
-        .edit-text {
-          flex: 1;
-          font-size: 1em;
-          color: $text-light;
-        }
-    
-        .on-off-button {
-          background: none;
-          border: 2px solid $text-light;
-          color: $text-light;
-          width: 30px;
-          height: 30px;
-          border-radius: 6px;
-          cursor: pointer;
-          font-size: 1rem;
-          text-align: center;
-          line-height: 24px;
-        }
-    
-        .edit-icon {
-          width: 24px;
-          height: 24px;
-          cursor: pointer;
-          margin-left: 10px;
-        }
-      }
-    }
-    
-    .logout-btn {
-      background-color: $danger;
-      border: none;
-      padding: 8px 16px;
-      color: white;
-      border-radius: $btn-radius;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s;
-    
-      &:hover {
-        background-color: darken($danger, 10%);
-      }
-    }
-
-
-  CHAT GPT PŘEDĚLAL NÁŠ DESIGN
-    */
-
     
     $body-bg: #202225;
     $panel-bg: #2a2d34;
@@ -508,6 +6,7 @@ NÁŠ DESIGN
     $text-muted: #aaaaaa;
     $accent: #3498db;
     $danger: #e74c3c;
+    $save: #2f682b;
     $btn-radius: 12px;
     $btn-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     
@@ -553,12 +52,17 @@ NÁŠ DESIGN
     * {
       box-sizing: border-box;
     }
+
+    .no-scroll {
+      overflow: hidden;
+      height: 100%;
+    }
     
     .profile-wrapper {
       display: flex;
       justify-content: center;
       padding: 10px 20px;
-      min-height: 100vh;
+      max-height: 100vh;
       background-color: $body-bg;
     }
     
@@ -725,12 +229,6 @@ NÁŠ DESIGN
       }
     }
     
-    .logout-panel {
-      display: flex;
-      justify-content: flex-end;
-      padding: 0 30px;
-    }
-    
     .logout-btn {
       background-color: $danger;
       border: none;
@@ -740,6 +238,7 @@ NÁŠ DESIGN
       cursor: pointer;
       font-weight: bold;
       transition: background 0.3s, transform 0.2s;
+      width: 32vw;
     
       &:hover {
         background-color: darken($danger, 10%);
@@ -747,224 +246,70 @@ NÁŠ DESIGN
       }
     }
 
-
-
-    /*
-// Shared variables (suggest to move to _variables.scss or global.scss)
-$body-bg: #202225;
-$panel-bg: #2a2d34;
-$panel-hover: #36393f;
-$text-light: #ffffff;
-$text-muted: #aaaaaa;
-$accent: #3498db;
-$danger: #e74c3c;
-$btn-radius: 12px;
-$btn-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-
-// Animations (suggest global: _animations.scss)
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out;
-}
-
-.animate-slide-up {
-  animation: slideUp 0.8s ease-out;
-}
-
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-@keyframes slideUp {
-  0% { transform: translateY(30px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
-}
-
-// Base layout
-.profile-wrapper {
-  display: flex;
-  justify-content: center;
-  padding: 60px 20px;
-  min-height: 100vh;
-  background-color: $body-bg;
-}
-
-.profile-container {
-  width: 100%;
-  max-width: 1080px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-// Suggest: extract .common-panel to a global class
-.common-panel {
-  background-color: $panel-bg;
-  border-radius: 10px;
-  border: 1px solid #444;
-  padding: 20px;
-  color: $text-light;
-}
-
-// Profile image
-.profile-image {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid $accent;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  flex-shrink: 0;
-}
-
-// Info items
-.user-info-panel {
-  flex: 1;
-  min-width: 250px;
-  padding: 20px 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  .item,
-  .item-lined {
-    display: flex;
-    align-items: flex-start;
-    padding-bottom: 12px;
-    margin-bottom: 12px;
-    min-height: 48px;
-
-    .icon {
-      font-size: 1.4rem;
-      margin-right: 16px;
-      color: $accent;
-      margin-top: 2px;
-    }
-
-    .text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.3;
-
-      .top-text {
-        font-size: 1rem;
-        font-weight: 600;
-        word-break: break-word;
-      }
-
-      .bottom-text {
-        font-size: 0.75rem;
-        color: $text-muted;
+    .save-btn {
+      background-color: $save;
+      border: none;
+      padding: 12px 22px;
+      color: white;
+      border-radius: $btn-radius;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s, transform 0.2s;
+      width: 32vw;
+    
+      &:hover {
+        background-color: darken($save, 10%);
+        transform: scale(1.03);
       }
     }
-  }
 
-  .item-lined {
-    border-bottom: 1px solid #555;
-  }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 9999;
+    }
+    
+    .side-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 350px;
+      height: 100%;
+      background-color: $body-bg;
+      border-radius: $btn-radius;
+      color: #dadada;
+      padding: 20px;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+      z-index: 10000;
+      overflow-y: auto;
+      max-height: 100vh;
+    }
+    
+    form label {
+      display: block;
+      margin-bottom: 10px;
+      border-radius: $btn-radius;
+    }
+    
+    form input, form textarea {
+      width: 100%;
+      padding: 5px;
+      margin-top: 5px;
+      border: 3px solid;
+      border-color: $panel-hover;
+      border-radius: $btn-radius;
+      background-color: $panel-bg;
+      color: #ffffff;
+    }
 
-  .item:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
-}
-
-// Settings and edit panel
-.settings-panel {
-  display: grid;
-  gap: 30px;
-  padding: 30px;
-
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .on-off-panel,
-  .edit-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .on-off-item,
-  .edit-item {
-    display: flex;
-    align-items: center;
-    padding: 12px 16px;
-    height: 52px;
-    border: 1px solid #555;
-    border-radius: $btn-radius;
-    background-color: $panel-bg;
-    transition: background-color 0.2s, transform 0.2s;
-
-    &:hover {
+    .errorMessage {
+      color: #fa0404;
+      font-size: 30px;
+      font-weight: bold;
       background-color: $panel-hover;
-      transform: translateY(-2px);
+      text-align: center;
     }
-
-    .on-off-text,
-    .edit-text {
-      flex: 1;
-      font-size: 1rem;
-      color: $text-light;
-    }
-
-    .on-off-button {
-      width: 36px;
-      height: 36px;
-      border: 2px solid $text-light;
-      border-radius: 8px;
-      font-size: 1.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: $text-light;
-      background-color: transparent;
-      cursor: pointer;
-      padding: 0;
-      transition: all 0.2s;
-
-      &:hover {
-        background-color: $accent;
-        border-color: $accent;
-        color: white;
-      }
-    }
-
-    .edit-icon {
-      font-size: 1.4rem;
-      color: $accent;
-      cursor: pointer;
-      transition: transform 0.2s ease, color 0.2s ease;
-
-      &:hover {
-        color: lighten($accent, 10%);
-        transform: scale(1.1);
-      }
-    }
-  }
-}
-
-// Logout
-.logout-panel {
-  display: flex;
-  justify-content: flex-end;
-  padding: 0 30px;
-}
-
-.logout-btn {
-  background-color: $danger;
-  border: none;
-  padding: 12px 22px;
-  color: white;
-  border-radius: $btn-radius;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s, transform 0.2s;
-
-  &:hover {
-    background-color: darken($danger, 10%);
-    transform: scale(1.03);
-  }
-}
-*/

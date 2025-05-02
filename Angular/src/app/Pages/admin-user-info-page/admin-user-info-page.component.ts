@@ -23,13 +23,10 @@ export class AdminUserInfoPageComponent {
   }
 
   ngOnInit() {
-    console.log(this.route.snapshot.params['id']);
     this.userService.getById(this.route.snapshot.params['id'])
-      .subscribe(result => this.user = result);
-
-      console.log('User:', this.user);
-
-    let reports: Report_log[] = [];
-    this.reportService.getAllUserId(this.user.id).subscribe(result => this.reportCount = result.length);
+      .subscribe(result => {
+        this.user = result;
+        this.reportService.userReportCount(this.user.id).subscribe(result => this.reportCount = result);
+      })
   }
 }

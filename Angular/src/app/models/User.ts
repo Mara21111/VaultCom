@@ -4,11 +4,11 @@ export class User
     email: string;
     password: string;
     username: string;
-    phone_number: string;
+    phone_Number: string;
     bio: string;
     status: number;
-    is_public: boolean;
-    is_admin: boolean;
+    is_Public: boolean;
+    is_Admin: boolean;
     created_At: Date;
     private_key: string;
     public_key: string;

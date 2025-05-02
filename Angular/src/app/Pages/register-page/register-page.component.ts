@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/User';
 import { catchError } from 'rxjs';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-register-page',
@@ -19,7 +20,7 @@ export class RegisterComponent {
   user: User;
   rPassword: string;
   
-  public constructor (private fb: FormBuilder, private router: Router, private userService: UserService) {
+  public constructor (private fb: FormBuilder, private router: Router, private userService: UserService, private authService: AuthenticationService) {
     this.form = this.fb.group({
       username: '',
       email: '',
@@ -43,12 +44,17 @@ export class RegisterComponent {
       this.errorMessage = true;
       throw new Error('Password does not match');
     }
-
-    console.log(this.user)
     
     this.userService.createUser(this.user).pipe(
       catchError(error =>{throw error})
     ).subscribe(response => console.log(response));
+
+    this.authService.login(new Credentials(this.form.value.username, this.form.value.password)).pipe(
+      catchError(error => {
+        this.errorMessage = true;
+        throw error;
+      })
+    ).subscribe(result => this.router.navigate([ '/main' ]));
   }
 
   public GetValues(): void{
@@ -57,4 +63,9 @@ export class RegisterComponent {
     this.user.password = this.form.get('password')!.value;
     this.rPassword = this.form.get('rPassword')!.value;
   }
+}
+
+class Credentials {
+  constructor(  public username: string,
+                public password: string) {}
 }

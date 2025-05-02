@@ -1,13 +1,16 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
-<app-base-ui
+
+
+<div class="app-container">
+
+  <app-base-ui
   [logOutOn]="true"
   [adminMenuOn]="true"
   [profileOn]="true"
   [friendsOn]="true">
 </app-base-ui>
 
-<div class="app-container">
   <div class="content">
     
     <!-- Sidebar -->
@@ -23,25 +26,11 @@
       </div>
 
       <div class="chat-list">
-        <div class="chat-item" *ngFor="let item of data.chats">
-          <div class="message-avatar" style="background-color: #e74c3c;">{{ item.creator_id }}</div>
+        <div class="chat-item" *ngFor="let item of chats">
+          <div class="message-avatar" style="background-color: #435466">{{ item.name.charAt(0) }}</div>
           <div class="chat-info">
-            <div class="chat-name">{{ item.creator_id }}</div>
+            <div class="chat-name">{{ item.name }}</div>
           </div>
-        </div>
-
-        <!-- Example chat items -->
-        <div class="chat-item active">
-          <div class="avatar"><img src="/api/placeholder/40/40" alt="N"></div>
-          <div class="chat-info"><div class="chat-name">Nathan</div></div>
-        </div>
-        <div class="chat-item">
-          <div class="avatar"><img src="/api/placeholder/40/40" alt="E"></div>
-          <div class="chat-info"><div class="chat-name">Emily (1)</div></div>
-        </div>
-        <div class="chat-item">
-          <div class="avatar"><img src="/api/placeholder/40/40" alt="J"></div>
-          <div class="chat-info"><div class="chat-name">James</div></div>
         </div>
       </div>
 

@@ -32,7 +32,7 @@
           
           <div class="detail-row">
             <div class="detail-label">Phone:</div>
-            <div class="detail-value">{{ user.phone_number ? user.phone_number : 'not set' }}</div>
+            <div class="detail-value">{{ user.phone_Number ? user.phone_Number : 'not set' }}</div>
             <div class="detail-label">Kids mode:</div>
             <div class="detail-value" *ngIf="user.safe_mode">On</div>
             <div class="detail-value" *ngIf="!user.safe_mode">Off</div>

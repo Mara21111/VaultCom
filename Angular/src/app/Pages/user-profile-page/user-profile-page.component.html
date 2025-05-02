@@ -1,253 +1,3 @@
-<!-- STARÝ HTML
-
-<app-base-ui
-[title]="'Your Profile'"
-[titleOn]="true"
-[closeOn]="true"
-[closeRoute]="'/main'">
-</app-base-ui>
-
-<div class="profile-panel">
-  <img src="https://c.animaapp.com/m91lm1h7eKpzaT/img/pfp.png" alt="Profile Picture" class="profile-image">
-  <div class="user-info-panel">
-    <div class="item-lined">
-      <img class="icon" src="https://c.animaapp.com/m91lm1h7eKpzaT/img/user.svg"/>
-        <div class="text">
-            <div class="top-text">{{ user.username }}</div>
-            <div class="bottom-text">username</div>
-        </div>
-    </div>
-    <div class="item-lined">
-      <img class="icon" src="https://c.animaapp.com/m91lm1h7eKpzaT/img/at-sign.svg"/>
-        <div class="text">
-            <div class="top-text">{{ user.email }}</div>
-            <div class="bottom-text">email</div>
-        </div>
-    </div>
-    <div class="item-lined">
-      <img class="icon" src="https://c.animaapp.com/m91lm1h7eKpzaT/img/phone.svg"/>
-        <div class="text">
-            <div class="top-text"> {{ user.phone_number }}</div>
-            <div class="bottom-text">phone</div>
-        </div>
-    </div>
-    <div class="item">
-      <img class="icon" src="https://c.animaapp.com/m91lm1h7eKpzaT/img/info.svg"/>
-        <div class="text">
-            <div class="top-text"> {{ user.bio }}</div>
-            <div class="bottom-text">bio</div>
-        </div>
-    </div>
-  </div>
-</div>
-
-<div class="settings-panel">
-  <div class="on-off-panel">
-    <div class="on-off-item">
-      <div class="on-off-text">Public Account:</div>
-      <button class="on-off-button" (click)="togglePublicAccount()">{{ user.is_public ? ' ' : 'X' }}</button>  √ = 251
-    </div>
-    <div class="on-off-item">
-      <div class="on-off-text">Kids Mode:</div>
-      <button class="on-off-button" (click)="toggleKidsMode()">{{ user.safe_mode ? ' ' : 'X' }}</button>
-    </div>
-    <div class="on-off-item">
-      <div class="on-off-text">Dark Mode:</div>
-      <button class="on-off-button" (click)="toggleDarkMode()">{{ darkMode ? ' ' : 'X' }}</button>
-    </div>
-  </div>
-  <div class="edit-panel">
-    <div class="edit-item">
-      <div class="edit-text">Change email</div>
-      <img class="edit-icon" src="https://c.animaapp.com/m91lm1h7eKpzaT/img/edit-1.svg"/>
-    </div>
-    <div class="edit-item">
-      <div class="edit-text">Change password</div>
-      <img class="edit-icon" src="https://c.animaapp.com/m91lm1h7eKpzaT/img/edit-1.svg"/>
-    </div>
-    <div class="edit-item">
-      <div class="edit-text">Change phone</div>
-      <img class="edit-icon" src="https://c.animaapp.com/m91lm1h7eKpzaT/img/edit-1.svg"/>
-    </div>
-  </div>
-</div>
-
--->
-      
-
-
-
-
-  <!--- class="settings-panel">
-    <div class="row g-0">
-      <div class="col-md-4">
-        <div class="profiel-picture">
-        </div>
-        <div class="profile-image-container">
-          <img src="https://c.animaapp.com/m91lm1h7eKpzaT/img/pfp.png" alt="Profile Picture" class="img-fluid rounded-circle profile-image">
-          <img src="https://c.animaapp.com/m91lm1h7eKpzaT/img/edit-2.svg" alt="Edit" class="edit-profile-image">
-        </div>
-      </div>
-      <div class="col-md-8">
-          <div class="profile-item-first">
-            <img src="https://c.animaapp.com/m91lm1h7eKpzaT/img/edit-1.svg" alt="Edit" class="edit-profile">
-            <h2 class="profile-item-text">Your profile</h2>
-          </div>
-          <div class="profile-item">
-            <img src="https://c.animaapp.com/m91lm1h7eKpzaT/img/user.svg" alt="User" class="profile-icon">
-              <div class="profile-item-text">
-                <h3>Ethan123</h3>
-                <p>Username</p>
-              </div>
-          </div>
-          <div class="profile-item">
-            <img src="https://c.animaapp.com/m91lm1h7eKpzaT/img/at-sign.svg" alt="Email" class="profile-icon">
-            <div class="profile-item-text">
-              <h3>ethan&#64;gmail.com</h3>
-              <p>Email</p>
-            </div>
-          </div>
-          <div class="profile-item">
-            <img src="https://c.animaapp.com/m91lm1h7eKpzaT/img/phone.svg" alt="Phone" class="profile-icon">
-            <div class="profile-item-text">
-              <h3>+1 212-555-1234</h3>
-              <p>Phone number</p>
-            </div>
-          </div>
-          <div class="profile-item">
-            <img src="https://c.animaapp.com/m91lm1h7eKpzaT/img/info.svg" alt="Bio" class="profile-icon">
-            <div class="profile-item-text">
-              <h3>Not doing great.</h3>
-              <p>Bio</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="settings-panel">
-        <h2 class="mb-5">Settings</h2>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-check form-switch mb-3">
-                <input class="form-check-input" type="checkbox" id="darkModeSwitch" checked>
-                <label class="form-check-label" for="darkModeSwitch">Dark Mode</label>
-              </div>
-              <div class="form-check form-switch mb-3">
-                <input class="form-check-input" type="checkbox" id="kidsModeSwitch">
-                <label class="form-check-label" for="kidsModeSwitch">Kids Mode</label>
-              </div>
-              <div class="form-check form-switch mb-3">
-                <input class="form-check-input" type="checkbox" id="publicAccountSwitch" checked>
-                <label class="form-check-label" for="publicAccountSwitch">Public Account</label>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <button class="btn btn-outline-secondary mb-2 w-100">Change Email</button>
-              <button class="btn btn-outline-secondary mb-2 w-100">Change Password</button>
-              <button class="btn btn-outline-secondary mb-2 w-100">Change Phone number</button>
-              <button class="button-left">Log Out</button>
-            </div>
-          </div>
-      </div>
-  STARÝ HTML  -->
-
-
-<!--  
-  <app-base-ui
-  [title]="'Your Profile'"
-  [titleOn]="true"
-  [closeOn]="true"
-  [closeRoute]="'/main'">
-</app-base-ui>
-
-<div class="profile-wrapper animate-fade-in">
-  <div class="profile-container animate-slide-up">
-     Profile Section 
-    <section class="profile-panel">
-      <img src="https://c.animaapp.com/m91lm1h7eKpzaT/img/pfp.png" alt="Profile Picture" class="profile-image" />
-
-      <div class="user-info-panel">
-        <div class="item-lined">
-          <i class="bi bi-person icon"></i>
-          <div class="text">
-            <div class="top-text">{{ user.username }}</div>
-            <div class="bottom-text">username</div>
-          </div>
-        </div>
-
-        <div class="item-lined">
-          <i class="bi bi-at icon"></i>
-          <div class="text">
-            <div class="top-text">{{ user.email }}</div>
-            <div class="bottom-text">email</div>
-          </div>
-        </div>
-
-        <div class="item-lined">
-          <i class="bi bi-telephone icon"></i>
-          <div class="text">
-            <div class="top-text">{{ user.phone_number }}</div>
-            <div class="bottom-text">phone</div>
-          </div>
-        </div>
-
-        <div class="item">
-          <i class="bi bi-info-circle icon"></i>
-          <div class="text">
-            <div class="top-text">{{ user.bio || 'No bio added yet.' }}</div>
-            <div class="bottom-text">bio</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-     Settings Panel 
-    <section class="settings-panel">
-      <div class="on-off-panel">
-        <div class="on-off-item">
-          <div class="on-off-text">Public Account:</div>
-          <button class="on-off-button" (click)="togglePublicAccount()">
-            {{ user.is_public ? '✓' : '✕' }}
-          </button>
-        </div>
-        <div class="on-off-item">
-          <div class="on-off-text">Kids Mode:</div>
-          <button class="on-off-button" (click)="toggleKidsMode()">
-            {{ user.safe_mode ? '✓' : '✕' }}
-          </button>
-        </div>
-        <div class="on-off-item">
-          <div class="on-off-text">Dark Mode:</div>
-          <button class="on-off-button" (click)="toggleDarkMode()">
-            {{ darkMode ? '✓' : '✕' }}
-          </button>
-        </div>
-      </div>
-
-      <div class="edit-panel">
-        <div class="edit-item">
-          <div class="edit-text">Change email</div>
-          <i class="bi bi-pencil-square edit-icon"></i>
-        </div>
-        <div class="edit-item">
-          <div class="edit-text">Change password</div>
-          <i class="bi bi-pencil-square edit-icon"></i>
-        </div>
-        <div class="edit-item">
-          <div class="edit-text">Change phone</div>
-          <i class="bi bi-pencil-square edit-icon"></i>
-        </div>
-      </div>
-    </section>
-
-     Logout Button
-    <div class="logout-panel">
-      <button class="logout-btn">Log out</button>
-    </div>
-  </div>
-</div>
--->
-
 <app-base-ui
   [title]="'Your Profile'"
   [titleOn]="true"
@@ -266,24 +16,24 @@
         <div class="item-lined">
           <i class="bi bi-person icon"></i>
           <div class="text">
-            <div class="top-text">{{ user.username }}</div>
-            <div class="bottom-text">username</div>
+            <div class="top-text">{{ user.username || 'Username not set.' }}</div>
+            <div class="bottom-text">Username</div>
           </div>
         </div>
 
         <div class="item-lined">
           <i class="bi bi-at icon"></i>
           <div class="text">
-            <div class="top-text">{{ user.email }}</div>
-            <div class="bottom-text">email</div>
+            <div class="top-text">{{ user.email || 'Email not set.' }}</div>
+            <div class="bottom-text">Email</div>
           </div>
         </div>
 
         <div class="item-lined">
           <i class="bi bi-telephone icon"></i>
           <div class="text">
-            <div class="top-text">{{ user.phone_number }}</div>
-            <div class="bottom-text">phone</div>
+            <div class="top-text">{{ user.phone_Number || 'Phone not set.' }}</div>
+            <div class="bottom-text">Phone</div>
           </div>
         </div>
 
@@ -291,7 +41,7 @@
           <i class="bi bi-info-circle icon"></i>
           <div class="text">
             <div class="top-text">{{ user.bio || 'No bio added yet.' }}</div>
-            <div class="bottom-text">bio</div>
+            <div class="bottom-text">Bio</div>
           </div>
         </div>
       </div>
@@ -302,7 +52,7 @@
       <div class="on-off-panel">
         <div class="on-off-item">
           <div class="on-off-text">Public Account:</div>
-          <button class="on-off-button" (click)="togglePublicAccount()">{{ user.is_public ? '✓' : '✕' }}</button>
+          <button class="on-off-button" (click)="togglePublicAccount()">{{ user.is_Public ? '✓' : '✕' }}</button>
         </div>
         <div class="on-off-item">
           <div class="on-off-text">Kids Mode:</div>
@@ -316,23 +66,51 @@
 
       <div class="edit-panel">
         <div class="edit-item">
-          <div class="edit-text">Change email</div>
-          <i class="bi bi-pencil-square edit-icon"></i>
+          <div class="edit-text">Change profile information:</div>
+          <i class="bi bi-pencil-square edit-icon" (click)="this.panelVisible = true"></i>
         </div>
-        <div class="edit-item">
-          <div class="edit-text">Change password</div>
-          <i class="bi bi-pencil-square edit-icon"></i>
+        <div>
+          <button class="save-btn btn-danger" (click)="this.save()">Save profile changes</button>
         </div>
-        <div class="edit-item">
-          <div class="edit-text">Change phone</div>
-          <i class="bi bi-pencil-square edit-icon"></i>
+        <div>
+          <button class="logout-btn btn-danger" (click)="this.logout()">Log out</button>
         </div>
       </div>
     </section>
-
-    <!-- Logout -->
-    <div class="logout-panel">
-      <button class="logout-btn btn-danger">Log out</button>
-    </div>
   </div>
+</div>
+
+<div class="overlay" *ngIf="panelVisible" (click)="closePanel()"></div>
+
+<div class="side-panel" *ngIf="panelVisible">
+  <h2>Change user profile</h2>
+  <form [formGroup]="form">
+    <label>
+      Username:
+      <input type="text" formControlName="username" required>
+    </label>
+    <label>
+      E-mail:
+      <input type="email" formControlName="email" required>
+    </label>
+    <label>
+      Phone:
+      <input type="tel" formControlName="phone">
+    </label>
+    <label>
+      Current password:
+      <input type="password" formControlName="curPassword" required>
+    </label>
+    <label>
+      Password:
+      <input type="password" formControlName="password" required>
+    </label>
+    <label>
+      Bio:
+      <textarea formControlName="bio"></textarea>
+    </label>
+    <label class="errorMessage">
+      {{ this.errorMessage }}
+    </label>
+  </form>
 </div>

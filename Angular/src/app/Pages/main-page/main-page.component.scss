@@ -16,6 +16,7 @@ body {
   margin: 0;
   background-color: $primary-bg;
   color: $font-color;
+  z-index: 101;
 }
 
 .app-container {
@@ -66,8 +67,8 @@ body {
 .chat-list {
   flex: 1;
   overflow-y: auto;
-  padding-bottom: 70px;
-  max-height: calc(100vh - 120px); /* Adjusts to available space minus header/footer */
+  padding-bottom: 7px;
+  max-height: 70vh;
 }
 
 .chat-item {
@@ -183,7 +184,7 @@ body {
 .messages-container {
   flex-grow: 1;
   overflow-y: auto; /* Uses browser's scrollbar */
-  max-height: calc(100vh - 140px);  /* Adjust to leave space for header and input */
+  max-height: 70vh;
   padding: 16px;
   display: flex;
   flex-direction: column;

@@ -43,7 +43,7 @@ export class PublicChatsPageComponent {
   private refresh(): void {
     this.chatService.getAllPublicChats().pipe(
       catchError(err => {
-        console.error('Nepodařilo se načíst chaty', err);
+        console.error('Faileed to load chats', err);
         return of([]);
       })
     ).subscribe(result => this.publicChats = result);

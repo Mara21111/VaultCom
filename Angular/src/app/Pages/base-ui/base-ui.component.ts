@@ -1,6 +1,8 @@
 import { NgIf } from '@angular/common';
 import { Component, input, Input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { User } from '../../models/User';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-base-ui',
@@ -20,4 +22,13 @@ export class BaseUiComponent {
   @Input() adminMenuOn: boolean = false;
   @Input() closeOn: boolean = false;
   @Input() closeRoute: string = 'test'
+
+  user: User = new User;
+
+  constructor(private userService: UserService) {
+  }
+
+  ngOnInit() {
+    this.userService.getFromToken().subscribe(result => this.user = result);
+  }
 }

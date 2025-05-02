@@ -30,16 +30,45 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(user));
         }
 
-        [HttpPut("edit-user")]
-        public JsonResult EditUser(User user)
+        [HttpPut("edit-user-{id}")]
+        public IActionResult EditUser(int id, User user)
         {
-            context.User.Where(x => x.Id == user.Id).First().Username = user.Username;
+            User us = context.User.Find(id);
+
+            if (us == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            if (this.context.User.Any(x => x.Username == user.Username && x.Id != id))
+            {
+                return Conflict("Username already in user");
+            }
+
+            if (this.context.User.Any(x => x.Phone_Number == user.Phone_Number && x.Id != id))
+            {
+                return Conflict("Phone number already in user");
+            }
+
+            if (this.context.User.Any(x => x.Email == user.Email && x.Id != id))
+            {
+                return Conflict("Email already in user");
+            }
+
+            us.Phone_Number = user.Phone_Number;
+            us.Email = user.Email;
+            us.Username = user.Username;
+            us.Bio = user.Bio;
+            us.Password = user.Password;
+
+            /*context.User.Where(x => x.Id == user.Id).First().Username = user.Username;
             context.User.Where(x => x.Id == user.Id).First().Email = user.Email;
             context.User.Where(x => x.Id == user.Id).First().Password = user.Password;
+            context.User.Where(x => x.Id == user.Id).First().Phone_Number = user.Phone_Number;*/
 
             context.SaveChanges();
 
-            return new JsonResult(Ok(user));
+            return Ok(us);
         }
 
         [HttpDelete("delete-user")]

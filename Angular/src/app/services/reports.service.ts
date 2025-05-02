@@ -17,4 +17,17 @@ export class ReportsService {
   public getAllUserId(id: number): Observable<Report_log[]> {
     return this.http.get<Report_log[]>('http://localhost:5000/api/Reports/get-all-reports-user-id?Id=' + id);
   }
+
+  public userReportCount(id: number): Observable<number> {
+    return this.http.get<number>('http://localhost:5000/api/Reports/reportsCount-user-' + id);
+  }
+
+  public getAllUserReportsCount(): Observable<userReportCount[]>{
+    return this.http.get<userReportCount[]>('http://localhost:5000/api/Reports/reportsCount-AllUsers')
+  }
+}
+
+export class userReportCount {
+  userId: number;
+  count: number;
 }

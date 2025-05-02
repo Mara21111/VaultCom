@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Bcpg;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
@@ -92,6 +93,21 @@ namespace WebApplication1.Controllers
         public IActionResult GetAllUserId(int Id)
         {
             return Ok(this.context.Report_Log.Where(x => x.User_Id == Id));
+        }
+
+        [HttpGet("reportsCount-user-{id}")]
+        public IActionResult GetUserReportsCount(int id)
+        {
+            return Ok(this.context.Report_Log.Where(x => x.User_Id == id).Count());
+        }
+
+        [HttpGet("reportsCount-AllUsers")]
+        public IActionResult GetAllUserReportsCount()
+        {
+            var counts = context.Report_Log.GroupBy(x => x.User_Id)
+                .Select(x => new { UserId = x.Key, Count = x.Count() }).ToList();
+
+            return Ok(counts);
         }
     }
 }

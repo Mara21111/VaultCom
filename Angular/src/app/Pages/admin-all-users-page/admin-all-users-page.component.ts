@@ -5,6 +5,7 @@ import { NgFor } from '@angular/common';
 import { BaseUiComponent } from "../base-ui/base-ui.component";
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/User';
+import { ReportsService } from '../../services/reports.service';
 
 @Component({
   selector: 'app-admin-all-users-page',
@@ -16,19 +17,30 @@ import { User } from '../../models/User';
 export class AdminAllUsersPageComponent {
 
   users: User[] = [];
+  reportCount: userReportCount[] = [];
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router, private reportService: ReportsService) {
   }
 
-  ngOnInit(){
+  public ngOnInit(){
     this.refresh();
   }
 
-  goToUser(id: number): void{
+  public goToUser(id: number): void{
     this.router.navigate(['/admin-user-info/', id])
   }
 
-  refresh(): void{
+  public refresh(): void{
     this.userService.getAll().subscribe(result => this.users = result);
+    this.reportService.getAllUserReportsCount().subscribe(result => this.reportCount = result);
   }
+
+  public getReportsCount(id: number): number{
+    return this.reportCount.find(x => x.userId == id)?.count ?? 0;
+  }
+}
+
+export class userReportCount {
+  userId: number;
+  count: number;
 }
