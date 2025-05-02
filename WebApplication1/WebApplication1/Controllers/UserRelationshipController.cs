@@ -86,7 +86,7 @@ namespace WebApplication1.Controllers
             rel.Is_Friend = true;
             context.SaveChanges();
 
-            User_Relationship rel2 = CreateRelationship(requestor_id, acceptor_id);
+            User_Relationship rel2 = CreateRelationship(acceptor_id, requestor_id);
             rel2.Is_Friend = true;
 
             context.User_Relationship.Add(rel2);
