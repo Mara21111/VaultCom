@@ -554,18 +554,18 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "AcceptRequest",
-    "RelativePath": "api/UserRelationship/accept-request-from{acceptor_id}-to{requestor_id}",
+    "RelativePath": "api/UserRelationship/accept-request-from{reciever_id}-to{sender_id}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "acceptor_id",
+        "Name": "reciever_id",
         "Type": "System.Int32",
         "IsRequired": true
       },
       {
-        "Name": "requestor_id",
+        "Name": "sender_id",
         "Type": "System.Int32",
         "IsRequired": true
       }
@@ -591,18 +591,18 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "CancelRequest",
-    "RelativePath": "api/UserRelationship/cancel-request-from{id}-to{other_id}",
+    "RelativePath": "api/UserRelationship/cancel-request-from{sender_id}-to{reciever_id}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "sender_id",
         "Type": "System.Int32",
         "IsRequired": true
       },
       {
-        "Name": "other_id",
+        "Name": "reciever_id",
         "Type": "System.Int32",
         "IsRequired": true
       }
@@ -733,18 +733,18 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "RejectRequest",
-    "RelativePath": "api/UserRelationship/reject-request-from{rejector_id}-to{requestor_id}",
+    "RelativePath": "api/UserRelationship/reject-request-from{reciever_id}-to{sender_id}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "rejector_id",
+        "Name": "reciever_id",
         "Type": "System.Int32",
         "IsRequired": true
       },
       {
-        "Name": "requestor_id",
+        "Name": "sender_id",
         "Type": "System.Int32",
         "IsRequired": true
       }

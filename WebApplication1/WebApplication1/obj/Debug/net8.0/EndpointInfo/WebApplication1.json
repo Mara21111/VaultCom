@@ -900,14 +900,14 @@
         }
       }
     },
-    "/api/UserRelationship/accept-request-from{acceptor_id}-to{requestor_id}": {
+    "/api/UserRelationship/accept-request-from{reciever_id}-to{sender_id}": {
       "post": {
         "tags": [
           "UserRelationship"
         ],
         "parameters": [
           {
-            "name": "acceptor_id",
+            "name": "reciever_id",
             "in": "path",
             "required": true,
             "schema": {
@@ -916,7 +916,7 @@
             }
           },
           {
-            "name": "requestor_id",
+            "name": "sender_id",
             "in": "path",
             "required": true,
             "schema": {
@@ -932,14 +932,14 @@
         }
       }
     },
-    "/api/UserRelationship/reject-request-from{rejector_id}-to{requestor_id}": {
+    "/api/UserRelationship/reject-request-from{reciever_id}-to{sender_id}": {
       "post": {
         "tags": [
           "UserRelationship"
         ],
         "parameters": [
           {
-            "name": "rejector_id",
+            "name": "reciever_id",
             "in": "path",
             "required": true,
             "schema": {
@@ -948,7 +948,7 @@
             }
           },
           {
-            "name": "requestor_id",
+            "name": "sender_id",
             "in": "path",
             "required": true,
             "schema": {
@@ -964,14 +964,14 @@
         }
       }
     },
-    "/api/UserRelationship/cancel-request-from{id}-to{other_id}": {
+    "/api/UserRelationship/cancel-request-from{sender_id}-to{reciever_id}": {
       "post": {
         "tags": [
           "UserRelationship"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "sender_id",
             "in": "path",
             "required": true,
             "schema": {
@@ -980,7 +980,7 @@
             }
           },
           {
-            "name": "other_id",
+            "name": "reciever_id",
             "in": "path",
             "required": true,
             "schema": {

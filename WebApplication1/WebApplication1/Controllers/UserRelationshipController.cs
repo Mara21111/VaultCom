@@ -48,19 +48,19 @@ namespace WebApplication1.Controllers
         }
 
 
-        [HttpPost("send-request-from{sender_id}-to{other_id}")]
-        public JsonResult SendRequest(int sender_id, int other_id)
+        [HttpPost("send-request-from{sender_id}-to{reciever_id}")]
+        public JsonResult SendRequest(int sender_id, int reciever_id)
         {
             User_Relationship? rel = new();
 
-            if (!Exists(sender_id, other_id))
+            if (!Exists(sender_id, reciever_id))
             {
-                rel = CreateRelationship(sender_id, other_id);
+                rel = CreateRelationship(sender_id, reciever_id);
                 rel.Pending = true;
                 context.User_Relationship.Add(rel);
                 context.SaveChanges();
             }
-            rel = context.User_Relationship.Find(GetID(sender_id, other_id));
+            rel = context.User_Relationship.Find(GetID(sender_id, reciever_id));
             
             if (rel.Is_Friend)
             {
@@ -140,6 +140,22 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(rel));
         }
 
+        [HttpPost("unfriend-{friend_user_id}-from-{user_id}")]
+        public JsonResult UnfriendUser(int user_id, int friend_user_id)
+        {
+            if (!Exists(user_id, friend_user_id))
+            {
+                return new JsonResult(BadRequest($"relation from user {user_id} to {friend_user_id} does not exist"));
+            }
+            User_Relationship? rel = context.User_Relationship.Find(GetID(user_id, friend_user_id));
+
+            rel.Pending = false;
+            RemoveFromDatabaseIfDefault(rel);
+
+            context.SaveChanges();
+            return new JsonResult(Ok(rel));
+        }
+
         // UDELAT ToggleUserFlag JAKO PREFAB PRO VESKERY TOGGLY
         /*[HttpPost("toggle-user-flag-of-user{other_id}")]
         public JsonResult ToggleUserFlag(int id, int other_id, string flagName)
@@ -187,19 +203,19 @@ namespace WebApplication1.Controllers
         }*/
 
 
-        [HttpPost("toggle-block-user-{other_id}")]
-        public JsonResult ToggleBlockUser(int id, int other_id)
+        [HttpPost("toggle-{user_id}-block-{blocked_user_id}")]
+        public JsonResult ToggleBlockUser(int user_id, int blocked_user_id)
         {
             User_Relationship? rel = new();
-            if (!Exists(id, other_id))
+            if (!Exists(user_id, blocked_user_id))
             {
-                rel = CreateRelationship(id, other_id);
+                rel = CreateRelationship(user_id, blocked_user_id);
                 rel.Is_Blocked = true;
                 context.User_Relationship.Add(rel);
             }
             else
             {
-                rel = context.User_Relationship.Find(GetID(id, other_id));
+                rel = context.User_Relationship.Find(GetID(user_id, blocked_user_id));
                 rel.Is_Blocked = !rel.Is_Blocked;
             }
 
@@ -209,18 +225,18 @@ namespace WebApplication1.Controllers
             return new JsonResult(rel);
         }
 
-        [HttpPost("toggle-mute-user-{other_id}")]
-        public JsonResult ToggleMuteUser(int id, int other_id)
+        [HttpPost("toggle-{user_id}-mute-{muted_user_id}")]
+        public JsonResult ToggleMuteUser(int user_id, int muted_user_id)
         {
             User_Relationship? rel = new();
-            if (!Exists(id, other_id))
+            if (!Exists(user_id, muted_user_id))
             {
-                rel = CreateRelationship(id, other_id);
+                rel = CreateRelationship(user_id, muted_user_id);
                 rel.Is_Muted = true;
                 context.Add(rel);
             }
 
-            rel = context.User_Relationship.Find(GetID(id, other_id));
+            rel = context.User_Relationship.Find(GetID(user_id, muted_user_id));
             rel.Is_Muted = !rel.Is_Muted;
 
             RemoveFromDatabaseIfDefault(rel);
@@ -229,18 +245,18 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(rel));
         }
 
-        [HttpPost("change-nickname-from{id}-to{other_id}")]
-        public JsonResult ChangeNickname(int id, int other_id, string nickname)
+        [HttpPost("change-{user_id}-nickname-of-{friend_user_id}")]
+        public JsonResult ChangeNickname(int user_id, int friend_user_id, string nickname)
         {
-            if (!Exists(id, other_id))
+            if (!Exists(user_id, friend_user_id))
             {
-                return new JsonResult(BadRequest($"relation from user {id} to {other_id} does not exist"));
+                return new JsonResult(BadRequest($"relation from user {user_id} to {friend_user_id} does not exist"));
             }
-            User_Relationship rel = context.User_Relationship.Find(GetID(id, other_id));
+            User_Relationship rel = context.User_Relationship.Find(GetID(user_id, friend_user_id));
 
             if (!rel.Is_Friend)
             {
-                return new JsonResult(BadRequest($"users {id} and {other_id} aren't friends"));
+                return new JsonResult(BadRequest($"users {user_id} and {friend_user_id} aren't friends"));
             }
             rel.Nickname = nickname;
 
@@ -252,7 +268,7 @@ namespace WebApplication1.Controllers
         [HttpGet("friends-of-user{id}")]
         public IActionResult GetFriends(int id)
         {
-            List<int> user_ids = context.User_Relationship.Where(x => x.Friend_User_Id == id && x.Is_Friend).Select(x => x.Friend_User_Id).ToList();
+            List<int> user_ids = context.User_Relationship.Where(x => x.Friend_User_Id == id && x.Is_Friend).Select(x => x.User_Id).ToList();
             return Ok(context.User.Where(x => user_ids.Contains(x.Id)).ToList());
         }
 
