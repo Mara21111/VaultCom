@@ -1,13 +1,13 @@
 export class Message
 {
     id: number;
-    chat_id: number;
-    user_id: number;
-    previous_message_id: number;
+    chat_Id: number;
+    user_Id: number;
+    previous_Message_Id: number;
     content: string;
-    url_link: string;
+    url_Link: string;
     time: Date;
-    is_edited: boolean;
-    is_single_use: boolean;
-    is_pinned: boolean;
+    is_Edited: boolean;
+    is_Single_Use: boolean;
+    is_Pinned: boolean;
 }

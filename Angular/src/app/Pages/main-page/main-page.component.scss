@@ -33,7 +33,7 @@ body {
 }
 
 .sidebar {
-  width: 350px;
+  width: 20vw;
   background-color: $sidebar-bg;
   display: flex;
   flex-direction: column;
@@ -111,11 +111,11 @@ body {
   background-color: $input-bg;
   border-top: 1px solid #3a434a;
   z-index: 10;
+  width: 20vw;
 }
 
 .mode-toggle {
   left: 0;
-  width: 300px;
   gap: 10px;
 }
 
@@ -145,6 +145,7 @@ body {
   flex-direction: column;
   position: relative;
   height: 100%;
+  max-width: 80vw;
 }
 
 .chat-header {
@@ -179,12 +180,17 @@ body {
   font-size: 1.2rem;
   cursor: pointer;
   padding: 6px;
+
+  &.active{
+    color: #596072;
+  }
 }
 
 .messages-container {
   flex-grow: 1;
   overflow-y: auto; /* Uses browser's scrollbar */
   max-height: 70vh;
+  max-width: 80vw;
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -195,12 +201,16 @@ body {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  max-width: 60%;
+  max-width: 50%;
+
+  &.loginUser{
+  margin-left: auto;
+  }
 }
 
 .message-avatar {
-  width: 36px;
-  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
   border-radius: 50%;
   background-color: #777;
   color: #fff;
@@ -216,6 +226,10 @@ body {
   border-radius: 12px;
   color: $font-color;
   font-size: 0.95rem;
+
+  &.loginUser {
+    background-color: #33394e;
+  }
 }
 
 .message-sender {
@@ -231,8 +245,7 @@ body {
 }
 
 .message-footer {
-  left: 300px;
-  width: calc(100% - 300px);
+  width: 80vw;
   gap: 10px;
 }
 

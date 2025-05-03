@@ -49,15 +49,15 @@ export class DataService {
 
           this.messages.push({
             id: i,
-            chat_id: 1,
-            user_id: 1,
-            previous_message_id: 0,
+            chat_Id: 1,
+            user_Id: 1,
+            previous_Message_Id: 0,
             content: 'test' + i,
-            url_link: '',
+            url_Link: '',
             time: new Date(),
-            is_edited: false,
-            is_single_use: false,
-            is_pinned: false
+            is_Edited: false,
+            is_Single_Use: false,
+            is_Pinned: false
           });
 
         }

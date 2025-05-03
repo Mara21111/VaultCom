@@ -19,7 +19,7 @@ export class ReportsService {
   }
 
   public userReportCount(id: number): Observable<number> {
-    return this.http.get<number>('http://localhost:5000/api/Reports/reportsCount-user-' + id);
+    return this.http.get<number>('http://localhost:5000/api/Reports/reportsCount-user' + id);
   }
 
   public getAllUserReportsCount(): Observable<userReportCount[]>{

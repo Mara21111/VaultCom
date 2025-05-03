@@ -8,11 +8,11 @@
 
         public int User_Id { get; set; }
 
-        public int Previous_Message_Id { get; set; }
+        public int? Previous_Message_Id { get; set; }
 
         public string Content { get; set; }
 
-        public string URL_Link { get; set; }
+        public string? URL_Link { get; set; }
 
         public DateTime Time {  get; set; }
 
