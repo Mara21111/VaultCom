@@ -48,19 +48,19 @@ namespace WebApplication1.Controllers
         }
 
 
-        [HttpPost("send-request-from{sender_id}-to{other_id}")]
-        public JsonResult SendRequest(int sender_id, int other_id)
+        [HttpPost("send-request-from{sender_id}-to{reciever_id}")]
+        public JsonResult SendRequest(int sender_id, int reciever_id)
         {
             User_Relationship? rel = new();
 
-            if (!Exists(sender_id, other_id))
+            if (!Exists(sender_id, reciever_id))
             {
-                rel = CreateRelationship(sender_id, other_id);
+                rel = CreateRelationship(sender_id, reciever_id);
                 rel.Pending = true;
                 context.User_Relationship.Add(rel);
                 context.SaveChanges();
             }
-            rel = context.User_Relationship.Find(GetID(sender_id, other_id));
+            rel = context.User_Relationship.Find(GetID(sender_id, reciever_id));
             
             if (rel.Is_Friend)
             {
@@ -73,18 +73,18 @@ namespace WebApplication1.Controllers
         }
 
         // fixnout ze v jsonu vraci nejakej server error, ale jinak funguje
-        [HttpPost("accept-request-from{acceptor_id}-to{requestor_id}")]
-        public JsonResult AcceptRequest(int acceptor_id, int requestor_id) 
+        [HttpPost("accept-request-from{reciever_id}-to{sender_id}")]
+        public JsonResult AcceptRequest(int reciever_id, int sender_id) 
         {
-            if (!Exists(requestor_id, acceptor_id))
+            if (!Exists(sender_id, reciever_id))
             {
-                return new JsonResult(BadRequest($"relation from user {requestor_id} to {acceptor_id} does not exist"));
+                return new JsonResult(BadRequest($"relation from user {sender_id} to {reciever_id} does not exist"));
             }
-            User_Relationship? rel = context.User_Relationship.Find(GetID(requestor_id, acceptor_id));
+            User_Relationship? rel = context.User_Relationship.Find(GetID(sender_id, reciever_id));
             
             if (!rel.Pending)
             {
-                return new JsonResult(BadRequest($"there is no pending request from user {requestor_id}"));
+                return new JsonResult(BadRequest($"there is no pending request from user {sender_id}"));
             }
 
             rel.Pending = false;
@@ -92,15 +92,15 @@ namespace WebApplication1.Controllers
             context.SaveChanges();
 
             User_Relationship? rel2 = new();
-            if (!Exists(acceptor_id, requestor_id))
+            if (!Exists(reciever_id, sender_id))
             {
-                rel2 = CreateRelationship(acceptor_id, requestor_id);
+                rel2 = CreateRelationship(reciever_id, sender_id);
                 rel2.Is_Friend = true;
                 context.User_Relationship.Add(rel2);
             }
             else
             {
-                rel2 = context.User_Relationship.Find(GetID(acceptor_id, requestor_id));
+                rel2 = context.User_Relationship.Find(GetID(reciever_id, sender_id));
                 rel2.Is_Friend = true;
             }
 
@@ -108,14 +108,46 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(rel), Ok(rel2));
         }
 
-        [HttpPost("reject-request-from{rejector_id}-to{requestor_id}")]
-        public JsonResult RejectRequest(int rejector_id, int requestor_id)
+        [HttpPost("reject-request-from{reciever_id}-to{sender_id}")]
+        public JsonResult RejectRequest(int reciever_id, int sender_id)
         {
-            if (!Exists(requestor_id, rejector_id))
+            if (!Exists(sender_id, reciever_id))
             {
-                return new JsonResult(BadRequest($"relation from user {requestor_id} to {rejector_id} does not exist"));
+                return new JsonResult(BadRequest($"relation from user {sender_id} to {reciever_id} does not exist"));
             }
-            User_Relationship? rel = context.User_Relationship.Find(GetID(requestor_id, rejector_id));
+            User_Relationship? rel = context.User_Relationship.Find(GetID(sender_id, reciever_id));
+
+            rel.Pending = false;
+            RemoveFromDatabaseIfDefault(rel);
+
+            context.SaveChanges();
+            return new JsonResult(Ok(rel));
+        }
+
+        [HttpPost("cancel-request-from{sender_id}-to{reciever_id}")]
+        public JsonResult CancelRequest(int sender_id, int reciever_id)
+        {
+            if (!Exists(sender_id, reciever_id))
+            {
+                return new JsonResult(BadRequest($"relation from user {sender_id} to {reciever_id} does not exist"));
+            }
+            User_Relationship? rel = context.User_Relationship.Find(GetID(sender_id, reciever_id));
+
+            rel.Pending = false;
+            RemoveFromDatabaseIfDefault(rel);
+
+            context.SaveChanges();
+            return new JsonResult(Ok(rel));
+        }
+
+        [HttpPost("unfriend-{friend_user_id}-from-{user_id}")]
+        public JsonResult UnfriendUser(int user_id, int friend_user_id)
+        {
+            if (!Exists(user_id, friend_user_id))
+            {
+                return new JsonResult(BadRequest($"relation from user {user_id} to {friend_user_id} does not exist"));
+            }
+            User_Relationship? rel = context.User_Relationship.Find(GetID(user_id, friend_user_id));
 
             rel.Pending = false;
             RemoveFromDatabaseIfDefault(rel);
@@ -171,19 +203,19 @@ namespace WebApplication1.Controllers
         }*/
 
 
-        [HttpPost("toggle-block-user-{other_id}")]
-        public JsonResult ToggleBlockUser(int id, int other_id)
+        [HttpPost("toggle-{user_id}-block-{blocked_user_id}")]
+        public JsonResult ToggleBlockUser(int user_id, int blocked_user_id)
         {
             User_Relationship? rel = new();
-            if (!Exists(id, other_id))
+            if (!Exists(user_id, blocked_user_id))
             {
-                rel = CreateRelationship(id, other_id);
+                rel = CreateRelationship(user_id, blocked_user_id);
                 rel.Is_Blocked = true;
                 context.User_Relationship.Add(rel);
             }
             else
             {
-                rel = context.User_Relationship.Find(GetID(id, other_id));
+                rel = context.User_Relationship.Find(GetID(user_id, blocked_user_id));
                 rel.Is_Blocked = !rel.Is_Blocked;
             }
 
@@ -193,21 +225,40 @@ namespace WebApplication1.Controllers
             return new JsonResult(rel);
         }
 
-        [HttpPost("toggle-mute-user-{other_id}")]
-        public JsonResult ToggleMuteUser(int id, int other_id)
+        [HttpPost("toggle-{user_id}-mute-{muted_user_id}")]
+        public JsonResult ToggleMuteUser(int user_id, int muted_user_id)
         {
             User_Relationship? rel = new();
-            if (!Exists(id, other_id))
+            if (!Exists(user_id, muted_user_id))
             {
-                rel = CreateRelationship(id, other_id);
+                rel = CreateRelationship(user_id, muted_user_id);
                 rel.Is_Muted = true;
                 context.Add(rel);
             }
 
-            rel = context.User_Relationship.Find(GetID(id, other_id));
+            rel = context.User_Relationship.Find(GetID(user_id, muted_user_id));
             rel.Is_Muted = !rel.Is_Muted;
 
             RemoveFromDatabaseIfDefault(rel);
+
+            context.SaveChanges();
+            return new JsonResult(Ok(rel));
+        }
+
+        [HttpPost("change-{user_id}-nickname-of-{friend_user_id}")]
+        public JsonResult ChangeNickname(int user_id, int friend_user_id, string nickname)
+        {
+            if (!Exists(user_id, friend_user_id))
+            {
+                return new JsonResult(BadRequest($"relation from user {user_id} to {friend_user_id} does not exist"));
+            }
+            User_Relationship rel = context.User_Relationship.Find(GetID(user_id, friend_user_id));
+
+            if (!rel.Is_Friend)
+            {
+                return new JsonResult(BadRequest($"users {user_id} and {friend_user_id} aren't friends"));
+            }
+            rel.Nickname = nickname;
 
             context.SaveChanges();
             return new JsonResult(Ok(rel));
@@ -217,7 +268,7 @@ namespace WebApplication1.Controllers
         [HttpGet("friends-of-user{id}")]
         public IActionResult GetFriends(int id)
         {
-            List<int> user_ids = context.User_Relationship.Where(x => x.Friend_User_Id == id && x.Is_Friend).Select(x => x.Friend_User_Id).ToList();
+            List<int> user_ids = context.User_Relationship.Where(x => x.Friend_User_Id == id && x.Is_Friend).Select(x => x.User_Id).ToList();
             return Ok(context.User.Where(x => user_ids.Contains(x.Id)).ToList());
         }
 
@@ -228,7 +279,7 @@ namespace WebApplication1.Controllers
             return Ok(context.User.Where(x => user_ids.Contains(x.Id)).ToList());
         }
 
-        [HttpGet("pending-requests-of-user{id}")]
+        [HttpGet("pending-requests-from-user{id}")]
         public IActionResult GetPendingRequestsOut(int id)
         {
             List<int> user_ids = context.User_Relationship.Where(x => x.User_Id == id).Select(x => x.Friend_User_Id).ToList();

@@ -554,18 +554,18 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "AcceptRequest",
-    "RelativePath": "api/UserRelationship/accept-request-from{acceptor_id}-to{requestor_id}",
+    "RelativePath": "api/UserRelationship/accept-request-from{reciever_id}-to{sender_id}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "acceptor_id",
+        "Name": "reciever_id",
         "Type": "System.Int32",
         "IsRequired": true
       },
       {
-        "Name": "requestor_id",
+        "Name": "sender_id",
         "Type": "System.Int32",
         "IsRequired": true
       }
@@ -582,6 +582,27 @@
     "Parameters": [
       {
         "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "CancelRequest",
+    "RelativePath": "api/UserRelationship/cancel-request-from{sender_id}-to{reciever_id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sender_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "reciever_id",
         "Type": "System.Int32",
         "IsRequired": true
       }
@@ -637,6 +658,32 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "ChangeNickname",
+    "RelativePath": "api/UserRelationship/change-nickname-from{id}-to{other_id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "other_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "nickname",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "GetMutedUsers",
     "RelativePath": "api/UserRelationship/muted-users-of-user{id}",
     "HttpMethod": "GET",
@@ -653,7 +700,23 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
-    "Method": "GetPendingRequests",
+    "Method": "GetPendingRequestsOut",
+    "RelativePath": "api/UserRelationship/pending-requests-from-user{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "GetPendingRequestsIn",
     "RelativePath": "api/UserRelationship/pending-requests-to-user{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -670,18 +733,18 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "RejectRequest",
-    "RelativePath": "api/UserRelationship/reject-request-from{rejector_id}-to{requestor_id}",
+    "RelativePath": "api/UserRelationship/reject-request-from{reciever_id}-to{sender_id}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "rejector_id",
+        "Name": "reciever_id",
         "Type": "System.Int32",
         "IsRequired": true
       },
       {
-        "Name": "requestor_id",
+        "Name": "sender_id",
         "Type": "System.Int32",
         "IsRequired": true
       }

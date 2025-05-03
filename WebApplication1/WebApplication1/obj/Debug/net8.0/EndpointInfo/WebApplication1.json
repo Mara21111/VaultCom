@@ -900,14 +900,14 @@
         }
       }
     },
-    "/api/UserRelationship/accept-request-from{acceptor_id}-to{requestor_id}": {
+    "/api/UserRelationship/accept-request-from{reciever_id}-to{sender_id}": {
       "post": {
         "tags": [
           "UserRelationship"
         ],
         "parameters": [
           {
-            "name": "acceptor_id",
+            "name": "reciever_id",
             "in": "path",
             "required": true,
             "schema": {
@@ -916,7 +916,7 @@
             }
           },
           {
-            "name": "requestor_id",
+            "name": "sender_id",
             "in": "path",
             "required": true,
             "schema": {
@@ -932,14 +932,14 @@
         }
       }
     },
-    "/api/UserRelationship/reject-request-from{rejector_id}-to{requestor_id}": {
+    "/api/UserRelationship/reject-request-from{reciever_id}-to{sender_id}": {
       "post": {
         "tags": [
           "UserRelationship"
         ],
         "parameters": [
           {
-            "name": "rejector_id",
+            "name": "reciever_id",
             "in": "path",
             "required": true,
             "schema": {
@@ -948,7 +948,39 @@
             }
           },
           {
-            "name": "requestor_id",
+            "name": "sender_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserRelationship/cancel-request-from{sender_id}-to{reciever_id}": {
+      "post": {
+        "tags": [
+          "UserRelationship"
+        ],
+        "parameters": [
+          {
+            "name": "sender_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "reciever_id",
             "in": "path",
             "required": true,
             "schema": {
@@ -1026,6 +1058,45 @@
         }
       }
     },
+    "/api/UserRelationship/change-nickname-from{id}-to{other_id}": {
+      "post": {
+        "tags": [
+          "UserRelationship"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "other_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "nickname",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/UserRelationship/friends-of-user{id}": {
       "get": {
         "tags": [
@@ -1050,6 +1121,29 @@
       }
     },
     "/api/UserRelationship/pending-requests-to-user{id}": {
+      "get": {
+        "tags": [
+          "UserRelationship"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserRelationship/pending-requests-from-user{id}": {
       "get": {
         "tags": [
           "UserRelationship"
