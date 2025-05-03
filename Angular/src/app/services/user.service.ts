@@ -20,7 +20,7 @@ export class UserService {
   }
 
   public getById(id: number): Observable<User>{
-    return this.http.get<User>('http://localhost:5000/api/User/user-' + id);
+    return this.http.get<User>('http://localhost:5000/api/User/user' + id);
   }
 
   public getFromToken(): Observable<User>{

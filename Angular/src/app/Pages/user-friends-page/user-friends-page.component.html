@@ -18,9 +18,9 @@
           <div class="col-header">Actions</div>
         </div>
         <div class="table-body">
-          <div class="table-row" *ngFor="let item of data.users">
-            <div class="col">{{ item.username }}</div>
-            <div class="col">{{ item.bio }}</div>
+          <div class="table-row" *ngFor="let item of requests">
+            <div class="col">{{ getUsername(item.id) }}</div>
+            <div class="col">{{ getBio(item.id) }}</div>
             <div class="col action-buttons">
               <button class="btn btn-success">Accept</button>
               <button class="btn btn-danger">Reject</button>
@@ -38,9 +38,9 @@
           <div class="col-header">Nickname</div>
         </div>
         <div class="table-body">
-          <div class="table-row" *ngFor="let item of data.users">
-            <div class="col">{{ item.username }}</div>
-            <div class="col">{{ item.bio }}</div>
+          <div class="table-row" *ngFor="let item of friends">
+            <div class="col">{{ getUsername(item.id) }}</div>
+            <div class="col">{{ getBio(item.id) }}</div>
             <div class="col">Nickname Here</div>
           </div>
         </div>
