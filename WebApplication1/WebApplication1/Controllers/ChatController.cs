@@ -9,15 +9,65 @@ namespace WebApplication1.Controllers
     {
         private MyContext context = new MyContext();
 
-        [HttpPost("create-chat")]
-        public JsonResult CreateChat(Chat chat)
+        [HttpPost("create-public-chat")]
+        public JsonResult CreatePublicChat(string name, int creator_id, string desc)
         {
+            if (!context.User.Find(creator_id).Is_Admin)
+            {
+                return new JsonResult(BadRequest("chat creator isn't admin"));
+            }
+            if (context.Chat.Where(x => x.Name == name).Any())
+            {
+                return new JsonResult(BadRequest("this name already exists"));
+            }
+
+            var chat = new Chat()
+            {
+                Is_Public = true,
+                Creator_Id = creator_id,
+                Name = name,
+                Description = desc
+            };
             context.Chat.Add(chat);
             context.SaveChanges();
 
-            context.User_Chat.Add(new User_Chat() { User_Id = chat.Creator_Id, Chat_Id = chat.Id, Muted_Chat = false} );
+            chat = context.Chat.Last(); //aby to melo to id po tom sejvu coz jinak to ↓↓ tady nefacha tady (v groupchatech je to samy)
+            context.User_Chat.Add(new User_Chat() { User_Id = creator_id, Chat_Id = chat.Id, Muted_Chat = false });
             context.SaveChanges();
 
+            return new JsonResult(Ok(chat));
+        }
+
+        // predat sem neco jako "34;66;2" -> znamena ze se tam pridaj useri 34 66 a 2
+        [HttpPost("create-group-chat")]
+        public JsonResult CreateChat(int creator_id, string ids_string)
+        {
+            List<string> split_ids = ids_string.Split(';').ToList();
+            List<int> user_ids = new List<int>();
+            foreach (var item in split_ids)
+            {
+                user_ids.Add(Convert.ToInt32(item));
+            }
+
+            var chat = new Chat()
+            {
+                Is_Public = false,
+                Creator_Id = creator_id,
+                Name = $"{context.User.Find(creator_id).Username}'s gruop chat",
+                Description = ""
+            };
+
+            context.Chat.Add(chat);
+            context.SaveChanges();
+
+            chat = context.Chat.OrderBy(x => x.Id).Last();
+            context.User_Chat.Add(new User_Chat() { User_Id = creator_id, Chat_Id = chat.Id, Muted_Chat = false });
+            foreach (var user_id in user_ids)
+            {
+                context.User_Chat.Add(new User_Chat() { User_Id = user_id, Chat_Id = chat.Id, Muted_Chat = false });
+            }
+
+            context.SaveChanges();
             return new JsonResult(Ok(chat));
         }
 

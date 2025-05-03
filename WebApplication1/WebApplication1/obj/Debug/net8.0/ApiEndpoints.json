@@ -38,15 +38,46 @@
   {
     "ContainingType": "WebApplication1.Controllers.ChatController",
     "Method": "CreateChat",
-    "RelativePath": "api/Chat/create-chat",
+    "RelativePath": "api/Chat/create-group-chat",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "chat",
-        "Type": "WebApplication1.Models.Chat",
-        "IsRequired": true
+        "Name": "creator_id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "ids_string",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ChatController",
+    "Method": "CreatePublicChat",
+    "RelativePath": "api/Chat/create-public-chat",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "creator_id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "desc",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -127,22 +158,6 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.MessageController",
-    "Method": "CreateMessage",
-    "RelativePath": "api/Message/create-message",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "message",
-        "Type": "WebApplication1.Models.Message",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebApplication1.Controllers.MessageController",
     "Method": "EditMessageContent",
     "RelativePath": "api/Message/edit-message-content",
     "HttpMethod": "PUT",
@@ -205,6 +220,37 @@
       {
         "Name": "text",
         "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.MessageController",
+    "Method": "SendMessage",
+    "RelativePath": "api/Message/send-message",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user_id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "chat_id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "content",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "reply_to",
+        "Type": "System.Int32",
         "IsRequired": false
       }
     ],
@@ -537,6 +583,22 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.UserChatController",
+    "Method": "GetPublicChatsOfUser",
+    "RelativePath": "api/UserChat/public-chats-user{id}-is-in",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserChatController",
     "Method": "GetUsersInChat",
     "RelativePath": "api/UserChat/users-in-chat{id}",
     "HttpMethod": "GET",
@@ -554,7 +616,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "AcceptRequest",
-    "RelativePath": "api/UserRelationship/accept-request-from{reciever_id}-to{sender_id}",
+    "RelativePath": "api/UserRelationship/accept-request-from{sender_id}-to{reciever_id}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -733,7 +795,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "RejectRequest",
-    "RelativePath": "api/UserRelationship/reject-request-from{reciever_id}-to{sender_id}",
+    "RelativePath": "api/UserRelationship/reject-request-from{sender_id}-to{reciever_id}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

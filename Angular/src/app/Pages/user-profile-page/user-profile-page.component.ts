@@ -62,7 +62,7 @@ export class UserProfilePageComponent {
     this.panelVisible = false;
     this.updateUser();
   }
-
+  
   updateUser() {
     this.user.username = this.form.value.username;
     this.user.email = this.form.value.email;

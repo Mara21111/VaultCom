@@ -10,6 +10,6 @@ namespace WebApplication1.Controllers
     {
         private MyContext context = new MyContext();
 
-        // az bude fungovat vytvareni message
+        // az bude fungovat vytvareni message   
     }
 }

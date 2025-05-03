@@ -36,30 +36,64 @@
         }
       }
     },
-    "/api/Chat/create-chat": {
+    "/api/Chat/create-public-chat": {
       "post": {
         "tags": [
           "Chat"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Chat"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Chat"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Chat"
-              }
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "creator_id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "desc",
+            "in": "query",
+            "schema": {
+              "type": "string"
             }
           }
-        },
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Chat/create-group-chat": {
+      "post": {
+        "tags": [
+          "Chat"
+        ],
+        "parameters": [
+          {
+            "name": "creator_id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "ids_string",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -194,30 +228,44 @@
         }
       }
     },
-    "/api/Message/create-message": {
+    "/api/Message/send-message": {
       "post": {
         "tags": [
           "Message"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Message"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Message"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Message"
-              }
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "chat_id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "content",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reply_to",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -868,6 +916,29 @@
         }
       }
     },
+    "/api/UserChat/public-chats-user{id}-is-in": {
+      "get": {
+        "tags": [
+          "UserChat"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/UserRelationship/send-request-from{sender_id}-to{reciever_id}": {
       "post": {
         "tags": [
@@ -900,7 +971,7 @@
         }
       }
     },
-    "/api/UserRelationship/accept-request-from{reciever_id}-to{sender_id}": {
+    "/api/UserRelationship/accept-request-from{sender_id}-to{reciever_id}": {
       "post": {
         "tags": [
           "UserRelationship"
@@ -932,7 +1003,7 @@
         }
       }
     },
-    "/api/UserRelationship/reject-request-from{reciever_id}-to{sender_id}": {
+    "/api/UserRelationship/reject-request-from{sender_id}-to{reciever_id}": {
       "post": {
         "tags": [
           "UserRelationship"
@@ -1291,31 +1362,6 @@
   },
   "components": {
     "schemas": {
-      "Chat": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "is_Public": {
-            "type": "boolean"
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "creator_Id": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
       "LoginModel": {
         "type": "object",
         "properties": {

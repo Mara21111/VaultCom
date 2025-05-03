@@ -42,6 +42,10 @@
           "Children": [
             {
               "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Bookmark",
               "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
             },
             {
@@ -89,6 +93,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Message.cs",
+              "DocumentMoniker": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Models\\Message.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Models\\Message.cs",
+              "ToolTip": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Models\\Message.cs",
+              "RelativeToolTip": "WebApplication1\\Models\\Message.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAA7wBAAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-03T21:28:35.196Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "MessageController.cs",
               "DocumentMoniker": "C:\\GitHub\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\MessageController.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\MessageController.cs",

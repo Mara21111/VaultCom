@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
 using static System.Net.Mime.MediaTypeNames;
@@ -11,26 +12,49 @@ namespace WebApplication1.Controllers
     {
         private MyContext context = new MyContext();
 
-        [HttpPost("create-message")]
-        public JsonResult CreateMessage(Message message)
+        private bool IsLinkRegex(string content)
         {
-            if (context.User.Find(message.User_Id) == null)
+            return Regex.IsMatch(content, @"^(https?://)?www(\.[a-zA-Z0-9]{2,})+(/[a-zA-Z0-9_\-/]*)?$");
+        }
+
+        private Message CreateMesage(int user_id, int chat_id, string content, int reply_to)
+        {
+            return new()
+            {
+                User_Id = user_id,
+                Chat_Id = chat_id,
+                Content = content,
+                URL_Link = IsLinkRegex(content) ? content : "",
+                Is_Edited = false,
+                Is_Pinned = false,
+                Is_Single_Use = false,
+                Time = DateTime.UtcNow,
+                Previous_Message_Id = reply_to
+            };
+        }
+
+        [HttpPost("send-message")]
+        public JsonResult SendMessage(int user_id, int chat_id, string content, int reply_to)
+        {
+            Message msg = CreateMesage(user_id, chat_id, content, reply_to);
+
+            if (context.User.Find(msg.User_Id) == null)
             {
                 return new JsonResult(BadRequest("this user doesn't exist"));
             }
-            else if (context.Chat.Find(message.Chat_Id) == null)
+            else if (context.Chat.Find(msg.Chat_Id) == null)
             {
                 return new JsonResult(BadRequest("this chat doesn't exist"));
             }
-            else if (!context.User_Chat.Where(x => x.User_Id == message.User_Id && x.Chat_Id == message.Chat_Id).Any())
+            else if (!context.User_Chat.Where(x => x.User_Id == msg.User_Id && x.Chat_Id == msg.Chat_Id).Any())
             {
-                return new JsonResult(BadRequest($"{message.User_Id} user isn't in {message.Chat_Id} chat"));
+                return new JsonResult(BadRequest($"{msg.User_Id} user isn't in {msg.Chat_Id} chat"));
             }
 
-            context.Message.Add(message);
+            context.Message.Add(msg);
             context.SaveChanges();
 
-            return new JsonResult(Ok(message));
+            return new JsonResult(Ok(msg));
         }
 
         [HttpDelete("remove-message")]

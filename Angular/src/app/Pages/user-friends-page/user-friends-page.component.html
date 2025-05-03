@@ -19,11 +19,11 @@
         </div>
         <div class="table-body">
           <div class="table-row" *ngFor="let item of requests">
-            <div class="col">{{ item.username }}</div>
-            <div class="col">{{ item.bio }}</div>
+            <div class="col">{{ getUsername(item.id) }}</div>
+            <div class="col">{{ getBio(item.id) }}</div>
             <div class="col action-buttons">
-              <button class="btn btn-success">Accept</button>
-              <button class="btn btn-danger">Reject</button>
+              <button class="btn btn-success" (click)="acceptRequest(item.id)">Accept</button>
+              <button class="btn btn-danger" (click)="rejectRequest(item.id)">Reject</button>
             </div>
           </div>
         </div>
@@ -39,8 +39,8 @@
         </div>
         <div class="table-body">
           <div class="table-row" *ngFor="let item of friends">
-            <div class="col">{{ item.username }}</div>
-            <div class="col">{{ item.bio }}</div>
+            <div class="col">{{ getUsername(item.id) }}</div>
+            <div class="col">{{ getBio(item.id) }}</div>
             <div class="col">Nickname Here</div>
           </div>
         </div>

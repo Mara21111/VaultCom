@@ -73,7 +73,7 @@ namespace WebApplication1.Controllers
         }
 
         // fixnout ze v jsonu vraci nejakej server error, ale jinak funguje
-        [HttpPost("accept-request-from{reciever_id}-to{sender_id}")]
+        [HttpPost("accept-request-from{sender_id}-to{reciever_id}")]
         public JsonResult AcceptRequest(int reciever_id, int sender_id) 
         {
             if (!Exists(sender_id, reciever_id))
@@ -108,7 +108,7 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(rel), Ok(rel2));
         }
 
-        [HttpPost("reject-request-from{reciever_id}-to{sender_id}")]
+        [HttpPost("reject-request-from{sender_id}-to{reciever_id}")]
         public JsonResult RejectRequest(int reciever_id, int sender_id)
         {
             if (!Exists(sender_id, reciever_id))
@@ -275,14 +275,14 @@ namespace WebApplication1.Controllers
         [HttpGet("pending-requests-to-user{id}")]
         public IActionResult GetPendingRequestsIn(int id)
         {
-            List<int> user_ids = context.User_Relationship.Where(x => x.Friend_User_Id == id).Select(x => x.User_Id).ToList();
+            List<int> user_ids = context.User_Relationship.Where(x => x.Friend_User_Id == id && x.Pending).Select(x => x.User_Id).ToList();
             return Ok(context.User.Where(x => user_ids.Contains(x.Id)).ToList());
         }
 
         [HttpGet("pending-requests-from-user{id}")]
         public IActionResult GetPendingRequestsOut(int id)
         {
-            List<int> user_ids = context.User_Relationship.Where(x => x.User_Id == id).Select(x => x.Friend_User_Id).ToList();
+            List<int> user_ids = context.User_Relationship.Where(x => x.User_Id == id && x.Pending).Select(x => x.Friend_User_Id).ToList();
             return Ok(context.User.Where(x => user_ids.Contains(x.Id)).ToList());
         }
 
