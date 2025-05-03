@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 using System.Linq;
@@ -28,81 +29,93 @@ namespace WebApplication1.Controllers
             };
         }
 
+        private int GetID(int id1, int id2)
+            => context.User_Relationship.Where(x => x.User_Id == id1 && x.Friend_User_Id == id2).First().Id;
+
         private bool Exists(int id1, int id2)
         {
             return context.User_Relationship.Where(x => x.User_Id == id1 && x.Friend_User_Id == id2).Any();
         }
 
 
-        [HttpPost("create-relationship(uselessquestionmark)")]
-        public JsonResult PostRelationship(User_Relationship rel)
-        {
-            context.User_Relationship.Add(rel);
-            context.SaveChanges();
-
-            return new JsonResult(Ok(rel));
-        }
-
-        [HttpPost("send-request-from-({sender_id})-to-({other_id})")]
+        [HttpPost("send-request-from{sender_id}-to{other_id}")]
         public JsonResult SendRequest(int sender_id, int other_id)
         {
-            User_Relationship rel = new User_Relationship();
+            User_Relationship? rel = new();
 
             if (!Exists(sender_id, other_id))
             {
                 rel = CreateRelationship(sender_id, other_id);
                 rel.Pending = true;
                 context.User_Relationship.Add(rel);
+                context.SaveChanges();
             }
-            else
+            rel = context.User_Relationship.Find(GetID(sender_id, other_id));
+            
+            if (rel.Is_Friend)
             {
-                rel = context.User_Relationship.Where(x =>
-                x.User_Id == sender_id && x.Friend_User_Id == other_id).First();
-                rel.Pending = true;
+                return new JsonResult(BadRequest("users are friends already"));
             }
 
+            rel.Pending = true;
             context.SaveChanges();
-
             return new JsonResult(Ok(rel));
         }
 
-        [HttpPost("accept-request-from-({acceptor_id})-to-({requestor_id})")]
-        public JsonResult AcceptRequest(int acceptor_id, int requestor_id)
+        // fixnout ze v jsonu vraci nejakej server error, ale jinak funguje
+        [HttpPost("accept-request-from{acceptor_id}-to{requestor_id}")]
+        public JsonResult AcceptRequest(int acceptor_id, int requestor_id) 
         {
             if (!Exists(requestor_id, acceptor_id))
             {
-                return new JsonResult(BadRequest($"neexistuje relace od {requestor_id} do {acceptor_id}"));
+                return new JsonResult(BadRequest($"relation from user {requestor_id} to {acceptor_id} does not exist"));
             }
-
-            int id = context.User_Relationship.Where(x => x.User_Id == requestor_id && x.Friend_User_Id == acceptor_id).First().Id;
-            User_Relationship? rel = context.User_Relationship.Find(id);
+            User_Relationship? rel = context.User_Relationship.Find(GetID(requestor_id, acceptor_id));
             
             if (!rel.Pending)
             {
-                return new JsonResult(BadRequest("neni pending"));
+                return new JsonResult(BadRequest($"there is no pending request from user {requestor_id}"));
             }
 
             rel.Pending = false;
             rel.Is_Friend = true;
             context.SaveChanges();
 
-            User_Relationship rel2 = CreateRelationship(acceptor_id, requestor_id);
-            rel2.Is_Friend = true;
+            User_Relationship? rel2 = new();
+            if (!Exists(acceptor_id, requestor_id))
+            {
+                rel2 = CreateRelationship(acceptor_id, requestor_id);
+                rel2.Is_Friend = true;
+                context.User_Relationship.Add(rel2);
+            }
+            else
+            {
+                rel2 = context.User_Relationship.Find(GetID(acceptor_id, requestor_id));
+                rel2.Is_Friend = true;
+            }
 
-            context.User_Relationship.Add(rel2);
             context.SaveChanges();
-
             return new JsonResult(Ok(rel), Ok(rel2));
         }
 
-        [HttpGet("get-friends-of-user({id})")]
+        /*[HttpPost("reject-request-from{rejector_id}-to{requestor_id}")]
+        public JsonResult RejectRequest(int rejector_id, int requestor_id)
+        {
+            if (!Exists(requestor_id, rejector_id))
+            {
+                return new JsonResult(BadRequest($"relation from user {requestor_id} to {rejector_id} does not exist"));
+            }
+            User_Relationship? rel = context.User_Relationship.Find(GetID(requestor_id, rejector_id));
+        }*/
+
+        [HttpGet("get-friends-of-user{id}")]
         public IActionResult GetFriends(int id)
         {
             List<int> user_ids = context.User_Relationship.Where(x => x.Friend_User_Id == id && x.Is_Friend).Select(x => x.User_Id).ToList();
             return Ok(context.User.Where(x => user_ids.Contains(x.Id)).ToList());
         }
 
-        [HttpGet("pending-requests-to-user({id})")]
+        [HttpGet("pending-requests-to-user{id}")]
         public IActionResult GetPendingRequests(int id)
         {
             List<int> user_ids = context.User_Relationship.Where(x => x.Friend_User_Id == id).Select(x => x.User_Id).ToList();

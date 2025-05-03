@@ -86,19 +86,19 @@ namespace WebApplication1.Controllers
         [HttpGet("get-all-reports")]
         public IActionResult GetAll()
         {
-            return Ok(this.context.Report_Log);
+            return Ok(context.Report_Log);
         }
 
         [HttpGet("get-all-reports-user-id")]
         public IActionResult GetAllUserId(int Id)
         {
-            return Ok(this.context.Report_Log.Where(x => x.User_Id == Id));
+            return Ok(context.Report_Log.Where(x => x.User_Id == Id));
         }
 
-        [HttpGet("reportsCount-user-{id}")]
+        [HttpGet("reportsCount-user{id}")]
         public IActionResult GetUserReportsCount(int id)
         {
-            return Ok(this.context.Report_Log.Where(x => x.User_Id == id).Count());
+            return Ok(context.Report_Log.Where(x => x.User_Id == id).Count());
         }
 
         [HttpGet("reportsCount-AllUsers")]

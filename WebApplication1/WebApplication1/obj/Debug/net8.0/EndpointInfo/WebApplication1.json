@@ -147,7 +147,7 @@
         }
       }
     },
-    "/api/Chat/chat({id})": {
+    "/api/Chat/chat{id}": {
       "get": {
         "tags": [
           "Chat"
@@ -558,7 +558,7 @@
         }
       }
     },
-    "/api/Reports/reportsCount-user-{id}": {
+    "/api/Reports/reportsCount-user{id}": {
       "get": {
         "tags": [
           "Reports"
@@ -624,7 +624,7 @@
         }
       }
     },
-    "/api/User/edit-user({id})": {
+    "/api/User/edit-user{id}": {
       "put": {
         "tags": [
           "User"
@@ -697,7 +697,7 @@
         }
       }
     },
-    "/api/User/user({id})": {
+    "/api/User/user{id}": {
       "get": {
         "tags": [
           "User"
@@ -857,38 +857,7 @@
         }
       }
     },
-    "/api/UserRelationship/create-relationship(uselessquestionmark)": {
-      "post": {
-        "tags": [
-          "UserRelationship"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/User_Relationship"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/User_Relationship"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/User_Relationship"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/UserRelationship/send-request-from-({sender_id})-to-({other_id})": {
+    "/api/UserRelationship/send-request-from{sender_id}-to{other_id}": {
       "post": {
         "tags": [
           "UserRelationship"
@@ -920,7 +889,7 @@
         }
       }
     },
-    "/api/UserRelationship/accept-request-from-({acceptor_id})-to-({requestor_id})": {
+    "/api/UserRelationship/accept-request-from{acceptor_id}-to{requestor_id}": {
       "post": {
         "tags": [
           "UserRelationship"
@@ -952,7 +921,7 @@
         }
       }
     },
-    "/api/UserRelationship/get-friends-of-user({id})": {
+    "/api/UserRelationship/get-friends-of-user{id}": {
       "get": {
         "tags": [
           "UserRelationship"
@@ -975,7 +944,7 @@
         }
       }
     },
-    "/api/UserRelationship/pending-requests-to-user({id})": {
+    "/api/UserRelationship/pending-requests-to-user{id}": {
       "get": {
         "tags": [
           "UserRelationship"
@@ -1221,40 +1190,6 @@
           },
           "muted_Chat": {
             "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "User_Relationship": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "user_Id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "friend_User_Id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "is_Blocked": {
-            "type": "boolean"
-          },
-          "is_Muted": {
-            "type": "boolean"
-          },
-          "is_Friend": {
-            "type": "boolean"
-          },
-          "pending": {
-            "type": "boolean"
-          },
-          "nickname": {
-            "type": "string",
-            "nullable": true
           }
         },
         "additionalProperties": false

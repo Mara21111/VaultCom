@@ -30,7 +30,7 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(user));
         }
 
-        [HttpPut("edit-user({id})")]
+        [HttpPut("edit-user{id}")]
         public IActionResult EditUser(int id, User user)
         {
             User us = context.User.Find(id);
@@ -89,7 +89,7 @@ namespace WebApplication1.Controllers
         }
 
 
-        [HttpGet("user({id})")]
+        [HttpGet("user{id}")]
         public IActionResult GetUser(int id)
         {
             return Ok(context.User.FirstOrDefault(x => x.Id == id));

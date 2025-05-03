@@ -112,7 +112,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.ChatController",
     "Method": "GetChat",
-    "RelativePath": "api/Chat/chat({id})",
+    "RelativePath": "api/Chat/chat{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -344,7 +344,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.ReportsController",
     "Method": "GetUserReportsCount",
-    "RelativePath": "api/Reports/reportsCount-user-{id}",
+    "RelativePath": "api/Reports/reportsCount-user{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -433,7 +433,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserController",
     "Method": "EditUser",
-    "RelativePath": "api/User/edit-user({id})",
+    "RelativePath": "api/User/edit-user{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -484,7 +484,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserController",
     "Method": "GetUser",
-    "RelativePath": "api/User/user({id})",
+    "RelativePath": "api/User/user{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -548,7 +548,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "AcceptRequest",
-    "RelativePath": "api/UserRelationship/accept-request-from-({acceptor_id})-to-({requestor_id})",
+    "RelativePath": "api/UserRelationship/accept-request-from{acceptor_id}-to{requestor_id}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -568,22 +568,6 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
-    "Method": "PostRelationship",
-    "RelativePath": "api/UserRelationship/create-relationship(uselessquestionmark)",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "rel",
-        "Type": "WebApplication1.Models.User_Relationship",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "GetAll",
     "RelativePath": "api/UserRelationship/get-all",
     "HttpMethod": "GET",
@@ -595,7 +579,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "GetFriends",
-    "RelativePath": "api/UserRelationship/get-friends-of-user({id})",
+    "RelativePath": "api/UserRelationship/get-friends-of-user{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -611,7 +595,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "GetPendingRequests",
-    "RelativePath": "api/UserRelationship/pending-requests-to-user({id})",
+    "RelativePath": "api/UserRelationship/pending-requests-to-user{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -627,7 +611,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "SendRequest",
-    "RelativePath": "api/UserRelationship/send-request-from-({sender_id})-to-({other_id})",
+    "RelativePath": "api/UserRelationship/send-request-from{sender_id}-to{other_id}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
