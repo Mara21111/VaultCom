@@ -964,6 +964,38 @@
         }
       }
     },
+    "/api/UserRelationship/cancel-request-from{id}-to{other_id}": {
+      "post": {
+        "tags": [
+          "UserRelationship"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "other_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/UserRelationship/toggle-block-user-{other_id}": {
       "post": {
         "tags": [
@@ -1026,6 +1058,45 @@
         }
       }
     },
+    "/api/UserRelationship/change-nickname-from{id}-to{other_id}": {
+      "post": {
+        "tags": [
+          "UserRelationship"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "other_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "nickname",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/UserRelationship/friends-of-user{id}": {
       "get": {
         "tags": [
@@ -1050,6 +1121,29 @@
       }
     },
     "/api/UserRelationship/pending-requests-to-user{id}": {
+      "get": {
+        "tags": [
+          "UserRelationship"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserRelationship/pending-requests-from-user{id}": {
       "get": {
         "tags": [
           "UserRelationship"
