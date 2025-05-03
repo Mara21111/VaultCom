@@ -149,7 +149,7 @@ namespace WebApplication1.Controllers
             }
             User_Relationship? rel = context.User_Relationship.Find(GetID(user_id, friend_user_id));
 
-            rel.Pending = false;
+            rel.Is_Friend = false;
             RemoveFromDatabaseIfDefault(rel);
 
             context.SaveChanges();
