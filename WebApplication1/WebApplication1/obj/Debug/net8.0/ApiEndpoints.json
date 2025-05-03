@@ -516,7 +516,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserChatController",
     "Method": "GetChatsOfUser",
-    "RelativePath": "api/UserChat/user({id})s-chats",
+    "RelativePath": "api/UserChat/user{id}s-chats",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -532,7 +532,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserChatController",
     "Method": "GetUsersInChat",
-    "RelativePath": "api/UserChat/users-in-chat({id})",
+    "RelativePath": "api/UserChat/users-in-chat{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -610,6 +610,27 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "RejectRequest",
+    "RelativePath": "api/UserRelationship/reject-request-from{rejector_id}-to{requestor_id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "rejector_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "requestor_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "SendRequest",
     "RelativePath": "api/UserRelationship/send-request-from{sender_id}-to{other_id}",
     "HttpMethod": "POST",
@@ -620,6 +641,27 @@
         "Name": "sender_id",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "other_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "ToggleBlockUser",
+    "RelativePath": "api/UserRelationship/toggle-block-user-{other_id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
       },
       {
         "Name": "other_id",

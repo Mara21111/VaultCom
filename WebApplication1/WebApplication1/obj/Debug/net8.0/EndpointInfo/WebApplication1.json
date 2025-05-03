@@ -811,7 +811,7 @@
         }
       }
     },
-    "/api/UserChat/users-in-chat({id})": {
+    "/api/UserChat/users-in-chat{id}": {
       "get": {
         "tags": [
           "UserChat"
@@ -834,7 +834,7 @@
         }
       }
     },
-    "/api/UserChat/user({id})s-chats": {
+    "/api/UserChat/user{id}s-chats": {
       "get": {
         "tags": [
           "UserChat"
@@ -906,6 +906,69 @@
           },
           {
             "name": "requestor_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserRelationship/reject-request-from{rejector_id}-to{requestor_id}": {
+      "post": {
+        "tags": [
+          "UserRelationship"
+        ],
+        "parameters": [
+          {
+            "name": "rejector_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "requestor_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserRelationship/toggle-block-user-{other_id}": {
+      "post": {
+        "tags": [
+          "UserRelationship"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "other_id",
             "in": "path",
             "required": true,
             "schema": {
