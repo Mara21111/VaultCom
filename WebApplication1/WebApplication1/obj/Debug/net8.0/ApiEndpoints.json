@@ -516,7 +516,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserChatController",
     "Method": "GetChatsOfUser",
-    "RelativePath": "api/UserChat/user{id}s-chats",
+    "RelativePath": "api/UserChat/chats-user{id}-is-in",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

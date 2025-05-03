@@ -68,19 +68,10 @@ namespace WebApplication1.Controllers
             }
         }
 
-
-
-        [HttpGet("get-all-messages")]
-        public IActionResult GetAllMessages()
+        [HttpGet("get-messages-from-chat{id}")]
+        public IActionResult GetMessages(int id)
         {
-            if (context.Message.Count() == 0)
-            {
-                throw new Exception("No messages found");
-            }
-            else
-            {
-                return Ok(context.Message);
-            }
+            return Ok(context.Message.Where(x => x.Chat_Id == id));
         }
     }
 }

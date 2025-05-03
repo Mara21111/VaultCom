@@ -834,7 +834,7 @@
         }
       }
     },
-    "/api/UserChat/user{id}s-chats": {
+    "/api/UserChat/chats-user{id}-is-in": {
       "get": {
         "tags": [
           "UserChat"

@@ -37,6 +37,14 @@ namespace WebApplication1.Controllers
             return context.User_Relationship.Where(x => x.User_Id == id1 && x.Friend_User_Id == id2).Any();
         }
 
+        private void RemoveFromDatabaseIfDefault(User_Relationship rel)
+        {
+            if (rel.Is_Friend || rel.Is_Muted || rel.Is_Blocked || rel.Pending)
+                return;
+
+            context.User_Relationship.Remove(rel);
+        }
+
 
         [HttpPost("send-request-from{sender_id}-to{other_id}")]
         public JsonResult SendRequest(int sender_id, int other_id)
@@ -108,11 +116,7 @@ namespace WebApplication1.Controllers
             User_Relationship? rel = context.User_Relationship.Find(GetID(requestor_id, rejector_id));
 
             rel.Pending = false;
-            // basically smazat prazdny relation
-            if (!rel.Is_Friend && !rel.Is_Blocked && !rel.Is_Muted)
-            {
-                context.User_Relationship.Remove(rel);
-            }
+            RemoveFromDatabaseIfDefault(rel);
 
             context.SaveChanges();
             return new JsonResult(Ok(rel));
@@ -126,16 +130,33 @@ namespace WebApplication1.Controllers
             {
                 rel = CreateRelationship(id, other_id);
                 rel.Is_Blocked = true;
+                context.Add(rel);
             }
-            else if (rel.Is_Blocked && !rel.Is_Friend && !rel.Is_Muted)
+
+            rel = context.User_Relationship.Find(GetID(id, other_id));
+            rel.Is_Blocked = !rel.Is_Blocked;
+
+            RemoveFromDatabaseIfDefault(rel);
+
+            context.SaveChanges();
+            return new JsonResult(Ok(rel));
+        }
+
+        [HttpPost("mute-block-user-{other_id}")]
+        public JsonResult MuteToggleUser(int id, int other_id)
+        {
+            User_Relationship? rel = new();
+            if (!Exists(id, other_id))
             {
-                context.User_Relationship.Remove(context.User_Relationship.Find(GetID(id, other_id)));
+                rel = CreateRelationship(id, other_id);
+                rel.Is_Blocked = true;
+                context.Add(rel);
             }
-            else
-            {
-                rel = context.User_Relationship.Find(GetID(id, other_id));
-                rel.Is_Blocked = !rel.Is_Blocked;
-            }
+
+            rel = context.User_Relationship.Find(GetID(id, other_id));
+            rel.Is_Blocked = !rel.Is_Blocked;
+
+            RemoveFromDatabaseIfDefault(rel);
 
             context.SaveChanges();
             return new JsonResult(Ok(rel));
