@@ -35,5 +35,12 @@ namespace WebApplication1.Controllers
             List<int> chat_ids = context.User_Chat.Where(x => x.User_Id == id).Select(x => x.Chat_Id).ToList();
             return Ok(context.Chat.Where(x => chat_ids.Contains(x.Id)).ToList());
         }
+
+        [HttpGet("public-chats-user{id}-is-in")]
+        public IActionResult GetPublicChatsOfUser(int id)
+        {
+            List<int> chat_ids = context.User_Chat.Where(x => x.User_Id == id).Select(x => x.Chat_Id).ToList();
+            return Ok(context.Chat.Where(x => x.Is_Public && chat_ids.Contains(x.Id)).ToList());
+        }
     }
 }

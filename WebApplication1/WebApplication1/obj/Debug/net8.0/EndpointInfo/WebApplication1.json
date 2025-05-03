@@ -228,30 +228,44 @@
         }
       }
     },
-    "/api/Message/create-message": {
+    "/api/Message/send-message": {
       "post": {
         "tags": [
           "Message"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Message"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Message"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Message"
-              }
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "chat_id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "content",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reply_to",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -880,6 +894,29 @@
       }
     },
     "/api/UserChat/chats-user{id}-is-in": {
+      "get": {
+        "tags": [
+          "UserChat"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserChat/public-chats-user{id}-is-in": {
       "get": {
         "tags": [
           "UserChat"
