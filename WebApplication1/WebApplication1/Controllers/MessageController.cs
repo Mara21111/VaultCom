@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using WebApplication1.Models;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -58,52 +59,56 @@ namespace WebApplication1.Controllers
         }
 
         [HttpDelete("remove-message")]
-        public JsonResult RemoveMessage(Message message)
+        public JsonResult RemoveMessage(int message_id, int user_id)
         {
-            try
+            Message? msg = context.Message.Find(message_id);
+            User? user = context.User.Find(user_id);
+            if (msg == null)
             {
-                context.Message.Remove(message);
-
-                context.SaveChanges();
-
-                return new JsonResult(Ok(message));
+                return new JsonResult(BadRequest($"message id:{message_id} doesn't exist"));
             }
-            catch
+            if (user == null)
             {
-                throw new Exception("Reaction could not be removed because it does not exist");
+                return new JsonResult(BadRequest($"user id:{message_id} doesn't exist"));
             }
+            if (msg.User_Id != user_id && !user.Is_Admin)
+            {
+                return new JsonResult(BadRequest("user isn't admin nor are they creator of the message"));
+            }
+            context.Message.Remove(msg);
+            context.SaveChanges();
+            return new JsonResult(Ok(msg));
         }
 
         [HttpPut("edit-message-content")]
-        public JsonResult EditMessageContent(int id, string content)
+        public JsonResult EditMessageContent(int message_id, int user_id, string new_content)
         {
-            try
+            Message? msg = context.Message.Find(message_id);
+            User? user = context.User.Find(user_id);
+            if (msg == null)
             {
-                context.Message.Where(x => x.Id == id).First().Content = content;
-
-                context.SaveChanges();
-
-                return new JsonResult(Ok(context.Message.Where(x => x.Id == id)));
+                return new JsonResult(BadRequest($"message id:{message_id} doesn't exist"));
             }
-            catch
+            if (user == null)
             {
-                throw new Exception("Message not found");
+                return new JsonResult(BadRequest($"user id:{message_id} doesn't exist"));
             }
+            if (msg.User_Id != user_id)
+            {
+                return new JsonResult(BadRequest("user isn't creator of the message"));
+            }
+            msg.Content = new_content;
+            context.SaveChanges();
+            return new JsonResult(Ok(msg));
         }
 
         [HttpGet("search-for-message")]
-        public IActionResult SearchForMessage(string text)
+        public IActionResult SearchForMessage(string search_prompt, int chat_id)
         {
-            try
-            {
-                return Ok(context.Message.Where(x => x.Content.StartsWith(text)));
-            }
-            catch
-            {
-                return null;
-            }
+            return new JsonResult(context.Message.Where(x => x.Chat_Id == chat_id && x.Content.Contains(search_prompt)).ToList());
         }
 
+        // todo
         [HttpGet("get-messages-from-chat{id}")]
         public IActionResult GetMessages(int id)
         {

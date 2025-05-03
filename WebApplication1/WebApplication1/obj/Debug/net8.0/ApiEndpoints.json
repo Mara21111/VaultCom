@@ -165,12 +165,17 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "message_id",
         "Type": "System.Int32",
         "IsRequired": false
       },
       {
-        "Name": "content",
+        "Name": "user_id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "new_content",
         "Type": "System.String",
         "IsRequired": false
       }
@@ -202,9 +207,14 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "message",
-        "Type": "WebApplication1.Models.Message",
-        "IsRequired": true
+        "Name": "message_id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "user_id",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -218,8 +228,13 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "text",
+        "Name": "search_prompt",
         "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "chat_id",
+        "Type": "System.Int32",
         "IsRequired": false
       }
     ],
