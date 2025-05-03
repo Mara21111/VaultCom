@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Ocsp;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using WebApplication1.Models;
 
@@ -122,6 +124,53 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(rel));
         }
 
+        // UDELAT ToggleUserFlag JAKO PREFAB PRO VESKERY TOGGLY
+        /*[HttpPost("toggle-user-flag-of-user{other_id}")]
+        public JsonResult ToggleUserFlag(int id, int other_id, string flagName)
+        {
+            DebugLog("testgdfgsdgdfgfdgdsf");
+            var result = Flag(id, other_id, flagName);
+            return new JsonResult(Ok(result));
+        }
+
+        private User_Relationship Flag(int id, int other_id, string flagName)
+        {
+            User_Relationship? rel;
+
+            if (!Exists(id, other_id))
+            {
+                rel = CreateRelationship(id, other_id);
+                SetFlag(rel, flagName, true);
+                context.User_Relationship.Add(rel);
+                context.SaveChanges();
+            }
+            rel = context.User_Relationship.Find(GetID(id, other_id));
+
+            SetFlag(rel, flagName, !GetFlag(rel, flagName).Value);
+
+            RemoveFromDatabaseIfDefault(rel);
+            context.SaveChanges();
+
+            return rel;
+        }
+
+        private bool? GetFlag(User_Relationship rel, string propName)
+        {
+            var prop = typeof(User_Relationship).GetProperty(propName);
+            return prop?.PropertyType == typeof(bool) ? 
+                (bool?)prop.GetValue(rel) : null;
+        }
+
+        private void SetFlag(User_Relationship rel, string propName, bool value)
+        {
+            var prop = typeof(User_Relationship).GetProperty(propName);
+            if (prop?.PropertyType == typeof(bool) && prop.CanWrite)
+            {
+                prop.SetValue(rel, value);
+            }
+        }*/
+
+
         [HttpPost("toggle-block-user-{other_id}")]
         public JsonResult ToggleBlockUser(int id, int other_id)
         {
@@ -130,31 +179,33 @@ namespace WebApplication1.Controllers
             {
                 rel = CreateRelationship(id, other_id);
                 rel.Is_Blocked = true;
-                context.Add(rel);
+                context.User_Relationship.Add(rel);
+            }
+            else
+            {
+                rel = context.User_Relationship.Find(GetID(id, other_id));
+                rel.Is_Blocked = !rel.Is_Blocked;
             }
 
-            rel = context.User_Relationship.Find(GetID(id, other_id));
-            rel.Is_Blocked = !rel.Is_Blocked;
-
             RemoveFromDatabaseIfDefault(rel);
-
             context.SaveChanges();
-            return new JsonResult(Ok(rel));
+
+            return new JsonResult(rel);
         }
 
-        [HttpPost("mute-block-user-{other_id}")]
-        public JsonResult MuteToggleUser(int id, int other_id)
+        [HttpPost("toggle-mute-user-{other_id}")]
+        public JsonResult ToggleMuteUser(int id, int other_id)
         {
             User_Relationship? rel = new();
             if (!Exists(id, other_id))
             {
                 rel = CreateRelationship(id, other_id);
-                rel.Is_Blocked = true;
+                rel.Is_Muted = true;
                 context.Add(rel);
             }
 
             rel = context.User_Relationship.Find(GetID(id, other_id));
-            rel.Is_Blocked = !rel.Is_Blocked;
+            rel.Is_Muted = !rel.Is_Muted;
 
             RemoveFromDatabaseIfDefault(rel);
 
@@ -163,10 +214,10 @@ namespace WebApplication1.Controllers
         }
 
 
-        [HttpGet("get-friends-of-user{id}")]
+        [HttpGet("friends-of-user{id}")]
         public IActionResult GetFriends(int id)
         {
-            List<int> user_ids = context.User_Relationship.Where(x => x.Friend_User_Id == id && x.Is_Friend).Select(x => x.User_Id).ToList();
+            List<int> user_ids = context.User_Relationship.Where(x => x.Friend_User_Id == id && x.Is_Friend).Select(x => x.Friend_User_Id).ToList();
             return Ok(context.User.Where(x => user_ids.Contains(x.Id)).ToList());
         }
 
@@ -177,10 +228,34 @@ namespace WebApplication1.Controllers
             return Ok(context.User.Where(x => user_ids.Contains(x.Id)).ToList());
         }
 
+        [HttpGet("muted-users-of-user{id}")]
+        public IActionResult GetMutedUsers(int id)
+        {
+            List<int> user_ids = context.User_Relationship.Where(x => x.Is_Muted && x.User_Id == id).Select(x => x.Friend_User_Id).ToList();
+            return Ok(context.User.Where(x => user_ids.Contains(x.Id)).ToList());
+        }
+
+        [HttpGet("blocked-users-of-user{id}")]
+        public IActionResult GetBlockedUsers(int id)
+        {
+            List<int> user_ids = context.User_Relationship.Where(x => x.Is_Blocked && x.User_Id == id).Select(x => x.Friend_User_Id).ToList();
+            return Ok(context.User.Where(x => user_ids.Contains(x.Id)).ToList());
+        }
+
         [HttpGet("get-all")]
         public IActionResult GetAll()
         {
             return Ok(context.User_Relationship);
+        }
+
+        [HttpGet("get-relation")]
+        public IActionResult GetRelationship(int id1, int id2)
+        {
+            if (!Exists(id1, id2))
+            {
+                return BadRequest("this relationship does not exist");
+            }
+            return Ok(context.User_Relationship.Where(x => x.User_Id == id1 && x.Friend_User_Id == id2).First());
         }
     }
 }

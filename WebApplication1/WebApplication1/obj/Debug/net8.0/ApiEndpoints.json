@@ -37,22 +37,6 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.ChatController",
-    "Method": "GetChat",
-    "RelativePath": "api/Chat/chat{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebApplication1.Controllers.ChatController",
     "Method": "CreateChat",
     "RelativePath": "api/Chat/create-chat",
     "HttpMethod": "POST",
@@ -126,6 +110,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "WebApplication1.Controllers.ChatController",
+    "Method": "GetChat",
+    "RelativePath": "api/Chat/chat{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WebApplication1.Controllers.MessageController",
     "Method": "CreateMessage",
     "RelativePath": "api/Message/create-message",
@@ -164,12 +164,18 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.MessageController",
-    "Method": "GetAllMessages",
-    "RelativePath": "api/Message/get-all-messages",
+    "Method": "GetMessages",
+    "RelativePath": "api/Message/get-messages-from-chat{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -568,6 +574,38 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "GetBlockedUsers",
+    "RelativePath": "api/UserRelationship/blocked-users-of-user{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "GetFriends",
+    "RelativePath": "api/UserRelationship/friends-of-user{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "GetAll",
     "RelativePath": "api/UserRelationship/get-all",
     "HttpMethod": "GET",
@@ -578,8 +616,29 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
-    "Method": "GetFriends",
-    "RelativePath": "api/UserRelationship/get-friends-of-user{id}",
+    "Method": "GetRelationship",
+    "RelativePath": "api/UserRelationship/get-relation",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id1",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "id2",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "GetMutedUsers",
+    "RelativePath": "api/UserRelationship/muted-users-of-user{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -654,6 +713,27 @@
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "ToggleBlockUser",
     "RelativePath": "api/UserRelationship/toggle-block-user-{other_id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "other_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "ToggleMuteUser",
+    "RelativePath": "api/UserRelationship/toggle-mute-user-{other_id}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

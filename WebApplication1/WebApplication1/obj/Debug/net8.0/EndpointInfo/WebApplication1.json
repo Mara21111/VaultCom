@@ -306,10 +306,21 @@
         }
       }
     },
-    "/api/Message/get-all-messages": {
+    "/api/Message/get-messages-from-chat{id}": {
       "get": {
         "tags": [
           "Message"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -984,7 +995,38 @@
         }
       }
     },
-    "/api/UserRelationship/get-friends-of-user{id}": {
+    "/api/UserRelationship/toggle-mute-user-{other_id}": {
+      "post": {
+        "tags": [
+          "UserRelationship"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "other_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserRelationship/friends-of-user{id}": {
       "get": {
         "tags": [
           "UserRelationship"
@@ -1030,10 +1072,86 @@
         }
       }
     },
+    "/api/UserRelationship/muted-users-of-user{id}": {
+      "get": {
+        "tags": [
+          "UserRelationship"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserRelationship/blocked-users-of-user{id}": {
+      "get": {
+        "tags": [
+          "UserRelationship"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/UserRelationship/get-all": {
       "get": {
         "tags": [
           "UserRelationship"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserRelationship/get-relation": {
+      "get": {
+        "tags": [
+          "UserRelationship"
+        ],
+        "parameters": [
+          {
+            "name": "id1",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id2",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "responses": {
           "200": {
