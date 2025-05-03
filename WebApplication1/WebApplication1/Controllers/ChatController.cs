@@ -13,7 +13,9 @@ namespace WebApplication1.Controllers
         public JsonResult CreateChat(Chat chat)
         {
             context.Chat.Add(chat);
+            context.SaveChanges();
 
+            context.User_Chat.Add(new User_Chat() { User_Id = chat.Creator_Id, Chat_Id = chat.Id, Muted_Chat = false} );
             context.SaveChanges();
 
             return new JsonResult(Ok(chat));

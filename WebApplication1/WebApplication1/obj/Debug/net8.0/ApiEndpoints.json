@@ -659,18 +659,18 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "ChangeNickname",
-    "RelativePath": "api/UserRelationship/change-nickname-from{id}-to{other_id}",
+    "RelativePath": "api/UserRelationship/change-{user_id}-nickname-of-{friend_user_id}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "user_id",
         "Type": "System.Int32",
         "IsRequired": true
       },
       {
-        "Name": "other_id",
+        "Name": "friend_user_id",
         "Type": "System.Int32",
         "IsRequired": true
       },
@@ -754,7 +754,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "SendRequest",
-    "RelativePath": "api/UserRelationship/send-request-from{sender_id}-to{other_id}",
+    "RelativePath": "api/UserRelationship/send-request-from{sender_id}-to{reciever_id}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -765,7 +765,7 @@
         "IsRequired": true
       },
       {
-        "Name": "other_id",
+        "Name": "reciever_id",
         "Type": "System.Int32",
         "IsRequired": true
       }
@@ -775,18 +775,18 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "ToggleBlockUser",
-    "RelativePath": "api/UserRelationship/toggle-block-user-{other_id}",
+    "RelativePath": "api/UserRelationship/toggle-{user_id}-block-{blocked_user_id}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "user_id",
         "Type": "System.Int32",
-        "IsRequired": false
+        "IsRequired": true
       },
       {
-        "Name": "other_id",
+        "Name": "blocked_user_id",
         "Type": "System.Int32",
         "IsRequired": true
       }
@@ -796,18 +796,39 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "ToggleMuteUser",
-    "RelativePath": "api/UserRelationship/toggle-mute-user-{other_id}",
+    "RelativePath": "api/UserRelationship/toggle-{user_id}-mute-{muted_user_id}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "user_id",
         "Type": "System.Int32",
-        "IsRequired": false
+        "IsRequired": true
       },
       {
-        "Name": "other_id",
+        "Name": "muted_user_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "UnfriendUser",
+    "RelativePath": "api/UserRelationship/unfriend-{friend_user_id}-from-{user_id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "friend_user_id",
         "Type": "System.Int32",
         "IsRequired": true
       }

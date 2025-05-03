@@ -36,6 +36,7 @@ namespace WebApplication1
             //modelBuilder.Entity<User_Relationship>().HasNoKey();
 
             modelBuilder.Entity<Report_Log>().HasKey(x => x.Id);
+            modelBuilder.Entity<Message>().HasKey(x => x.Id);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -868,7 +868,7 @@
         }
       }
     },
-    "/api/UserRelationship/send-request-from{sender_id}-to{other_id}": {
+    "/api/UserRelationship/send-request-from{sender_id}-to{reciever_id}": {
       "post": {
         "tags": [
           "UserRelationship"
@@ -884,7 +884,7 @@
             }
           },
           {
-            "name": "other_id",
+            "name": "reciever_id",
             "in": "path",
             "required": true,
             "schema": {
@@ -996,22 +996,23 @@
         }
       }
     },
-    "/api/UserRelationship/toggle-block-user-{other_id}": {
+    "/api/UserRelationship/unfriend-{friend_user_id}-from-{user_id}": {
       "post": {
         "tags": [
           "UserRelationship"
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "query",
+            "name": "user_id",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
             }
           },
           {
-            "name": "other_id",
+            "name": "friend_user_id",
             "in": "path",
             "required": true,
             "schema": {
@@ -1027,22 +1028,23 @@
         }
       }
     },
-    "/api/UserRelationship/toggle-mute-user-{other_id}": {
+    "/api/UserRelationship/toggle-{user_id}-block-{blocked_user_id}": {
       "post": {
         "tags": [
           "UserRelationship"
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "query",
+            "name": "user_id",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
             }
           },
           {
-            "name": "other_id",
+            "name": "blocked_user_id",
             "in": "path",
             "required": true,
             "schema": {
@@ -1058,14 +1060,14 @@
         }
       }
     },
-    "/api/UserRelationship/change-nickname-from{id}-to{other_id}": {
+    "/api/UserRelationship/toggle-{user_id}-mute-{muted_user_id}": {
       "post": {
         "tags": [
           "UserRelationship"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "user_id",
             "in": "path",
             "required": true,
             "schema": {
@@ -1074,7 +1076,39 @@
             }
           },
           {
-            "name": "other_id",
+            "name": "muted_user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserRelationship/change-{user_id}-nickname-of-{friend_user_id}": {
+      "post": {
+        "tags": [
+          "UserRelationship"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "friend_user_id",
             "in": "path",
             "required": true,
             "schema": {

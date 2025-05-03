@@ -14,8 +14,20 @@ namespace WebApplication1.Controllers
         [HttpPost("create-message")]
         public JsonResult CreateMessage(Message message)
         {
-            context.Message.Add(message);
+            if (context.User.Find(message.User_Id) == null)
+            {
+                return new JsonResult(BadRequest("this user doesn't exist"));
+            }
+            else if (context.Chat.Find(message.Chat_Id) == null)
+            {
+                return new JsonResult(BadRequest("this chat doesn't exist"));
+            }
+            else if (!context.User_Chat.Where(x => x.User_Id == message.User_Id && x.Chat_Id == message.Chat_Id).Any())
+            {
+                return new JsonResult(BadRequest($"{message.User_Id} user isn't in {message.Chat_Id} chat"));
+            }
 
+            context.Message.Add(message);
             context.SaveChanges();
 
             return new JsonResult(Ok(message));
