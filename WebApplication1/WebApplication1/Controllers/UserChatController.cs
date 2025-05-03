@@ -29,7 +29,7 @@ namespace WebApplication1.Controllers
             return Ok(context.User.Where(x => user_ids.Contains(x.Id)).ToList());
         }
 
-        [HttpGet("user{id}s-chats")]
+        [HttpGet("chats-user{id}-is-in")]
         public IActionResult GetChatsOfUser(int id)
         {
             List<int> chat_ids = context.User_Chat.Where(x => x.User_Id == id).Select(x => x.Chat_Id).ToList();

@@ -98,7 +98,7 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(rel), Ok(rel2));
         }
 
-        /*[HttpPost("reject-request-from{rejector_id}-to{requestor_id}")]
+        [HttpPost("reject-request-from{rejector_id}-to{requestor_id}")]
         public JsonResult RejectRequest(int rejector_id, int requestor_id)
         {
             if (!Exists(requestor_id, rejector_id))
@@ -106,7 +106,41 @@ namespace WebApplication1.Controllers
                 return new JsonResult(BadRequest($"relation from user {requestor_id} to {rejector_id} does not exist"));
             }
             User_Relationship? rel = context.User_Relationship.Find(GetID(requestor_id, rejector_id));
-        }*/
+
+            rel.Pending = false;
+            // basically smazat prazdny relation
+            if (!rel.Is_Friend && !rel.Is_Blocked && !rel.Is_Muted)
+            {
+                context.User_Relationship.Remove(rel);
+            }
+
+            context.SaveChanges();
+            return new JsonResult(Ok(rel));
+        }
+
+        [HttpPost("toggle-block-user-{other_id}")]
+        public JsonResult ToggleBlockUser(int id, int other_id)
+        {
+            User_Relationship? rel = new();
+            if (!Exists(id, other_id))
+            {
+                rel = CreateRelationship(id, other_id);
+                rel.Is_Blocked = true;
+            }
+            else if (rel.Is_Blocked && !rel.Is_Friend && !rel.Is_Muted)
+            {
+                context.User_Relationship.Remove(context.User_Relationship.Find(GetID(id, other_id)));
+            }
+            else
+            {
+                rel = context.User_Relationship.Find(GetID(id, other_id));
+                rel.Is_Blocked = !rel.Is_Blocked;
+            }
+
+            context.SaveChanges();
+            return new JsonResult(Ok(rel));
+        }
+
 
         [HttpGet("get-friends-of-user{id}")]
         public IActionResult GetFriends(int id)
