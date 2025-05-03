@@ -585,7 +585,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "AcceptRequest",
-    "RelativePath": "api/UserRelationship/accept-request-from{reciever_id}-to{sender_id}",
+    "RelativePath": "api/UserRelationship/accept-request-from{sender_id}-to{reciever_id}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -764,7 +764,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "RejectRequest",
-    "RelativePath": "api/UserRelationship/reject-request-from{reciever_id}-to{sender_id}",
+    "RelativePath": "api/UserRelationship/reject-request-from{sender_id}-to{reciever_id}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

@@ -20,8 +20,7 @@ export class ReportsPageComponent {
   data: Report_log[] = [];
   users: User[] = [];
 
-  public constructor(private reportsService: ReportsService, private userService: UserService, private router: Router)
-  {
+  public constructor(private reportsService: ReportsService, private userService: UserService, private router: Router) {
     this.reportsService.getAll().subscribe(result => this.data = result)
     this.userService.getAll().subscribe(result => this.users = result)
   }

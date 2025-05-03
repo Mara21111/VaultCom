@@ -25,10 +25,13 @@ export class UserFriendsPageComponent {
   public constructor(private service: UserRelationshipService, private userService: UserService, private router: Router) {  }
 
   public acceptRequest(sender_id: number) {
+    console.log(this.getUsername(sender_id))
+    console.log(sender_id)
     this.service.acceptRequest(sender_id, this.user.id);
   }
 
   public rejectRequest(sender_id: number) {
+    console.log(this.getUsername(sender_id))
     this.service.acceptRequest(sender_id, this.user.id);
   }
 

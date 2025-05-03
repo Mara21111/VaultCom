@@ -934,7 +934,7 @@
         }
       }
     },
-    "/api/UserRelationship/accept-request-from{reciever_id}-to{sender_id}": {
+    "/api/UserRelationship/accept-request-from{sender_id}-to{reciever_id}": {
       "post": {
         "tags": [
           "UserRelationship"
@@ -966,7 +966,7 @@
         }
       }
     },
-    "/api/UserRelationship/reject-request-from{reciever_id}-to{sender_id}": {
+    "/api/UserRelationship/reject-request-from{sender_id}-to{reciever_id}": {
       "post": {
         "tags": [
           "UserRelationship"

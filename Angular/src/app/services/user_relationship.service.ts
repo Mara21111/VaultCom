@@ -32,7 +32,7 @@ export class UserRelationshipService {
   }
 
   public acceptRequest(sender_id: number, reciever_id: number): Observable<void> {
-    return this.http.post<void>('http://localhost:5000/api/UserRelationship/accept-request-from' + sender_id + '-to' + reciever_id, '')
+    return this.http.post<void>('http://localhost:5000/api/UserRelationship/accept-request-from' + sender_id + '-to' + reciever_id, sender_id)
   }
 
   public rejectRequest(sender_id: number, reciever_id: number): Observable<void> {
