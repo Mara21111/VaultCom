@@ -275,14 +275,14 @@ namespace WebApplication1.Controllers
         [HttpGet("pending-requests-to-user{id}")]
         public IActionResult GetPendingRequestsIn(int id)
         {
-            List<int> user_ids = context.User_Relationship.Where(x => x.Friend_User_Id == id).Select(x => x.User_Id).ToList();
+            List<int> user_ids = context.User_Relationship.Where(x => x.Friend_User_Id == id && x.Pending).Select(x => x.User_Id).ToList();
             return Ok(context.User.Where(x => user_ids.Contains(x.Id)).ToList());
         }
 
         [HttpGet("pending-requests-from-user{id}")]
         public IActionResult GetPendingRequestsOut(int id)
         {
-            List<int> user_ids = context.User_Relationship.Where(x => x.User_Id == id).Select(x => x.Friend_User_Id).ToList();
+            List<int> user_ids = context.User_Relationship.Where(x => x.User_Id == id && x.Pending).Select(x => x.Friend_User_Id).ToList();
             return Ok(context.User.Where(x => user_ids.Contains(x.Id)).ToList());
         }
 
