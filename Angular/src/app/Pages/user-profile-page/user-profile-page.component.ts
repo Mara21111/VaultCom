@@ -82,5 +82,4 @@ export class UserProfilePageComponent {
   logout() {
     this.authService.logout();
   }
-
 }

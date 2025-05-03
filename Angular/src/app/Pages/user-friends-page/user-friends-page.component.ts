@@ -17,7 +17,7 @@ export class UserFriendsPageComponent {
 
   requests: User[] = [];
   friends: User[] = [];
-
+/*
   public constructor(private service: UserRelationshipService, private router: Router) {
     this.service.getAllFriends().subscribe(result => this.friends = result)
     this.service.getAllIncomingRequests().subscribe(result => this.friends = result)
@@ -33,5 +33,5 @@ export class UserFriendsPageComponent {
 
   public goToUser(user_id: number) {
     this.router.navigate(['/user-info/', user_id])
-  }
+  }*/
 }

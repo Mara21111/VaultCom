@@ -5,7 +5,6 @@ import { NgIf, CommonModule } from '@angular/common';
 import { BaseUiComponent } from "../base-ui/base-ui.component";
 import { UserService } from '../../services/user.service';
 import { ReportsService } from '../../services/reports.service';
-import { Report_log } from '../../models/Report_log';
 
 @Component({
   selector: 'app-admin-user-info-page',
@@ -16,7 +15,7 @@ import { Report_log } from '../../models/Report_log';
 })
 export class AdminUserInfoPageComponent {
 
-  user: User;
+  user: User = new User();
   reportCount: number;
 
   constructor(private route: ActivatedRoute, private userService: UserService, private reportService: ReportsService) {

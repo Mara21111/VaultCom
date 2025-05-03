@@ -22,6 +22,10 @@ export class UserChatService {
     return this.http.delete<void>('http://localhost:5000/api/Chat/delete-chat')
   }
 
+  public chatsUserIsIn(id: number): Observable<Chat[]> {
+    return this.http.get<Chat[]>('http://localhost:5000/api/UserChat/chats-user' + id + '-is-in')
+  }
+
   public newPublicChat(name: string): Chat {
     let chat = new Chat();
     chat.id = 0;
