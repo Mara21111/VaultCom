@@ -37,6 +37,22 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.ChatController",
+    "Method": "GetChat",
+    "RelativePath": "api/Chat/chat{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ChatController",
     "Method": "CreateChat",
     "RelativePath": "api/Chat/create-chat",
     "HttpMethod": "POST",
@@ -105,22 +121,6 @@
         "Name": "newChatName",
         "Type": "System.String",
         "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebApplication1.Controllers.ChatController",
-    "Method": "GetChat",
-    "RelativePath": "api/Chat/chat{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
       }
     ],
     "ReturnTypes": []
