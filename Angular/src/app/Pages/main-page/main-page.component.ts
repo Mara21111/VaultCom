@@ -23,10 +23,11 @@ export class MainPageComponent {
   @ViewChild('scrollMe') private myScrollContainer!: ElementRef;
 
   user: User = new User;
-  allUser: User[] = [];
+  activeChatUsers: User[] = [];
   public_chats: boolean = false;
   pinnedMessages: boolean = false;
-  chats: Chat[] = [];
+  userChats: Chat[] = [];
+  publicChats: Chat[] = [];
   activeChat: Chat = new Chat;
   allMessages: Message[] = [];
   newMessage: Message = new Message;
@@ -43,10 +44,8 @@ export class MainPageComponent {
   ngOnInit() {
     this.userService.getFromToken().subscribe(result => {
       this.user = result;
-      this.userChatService.chatsUserIsIn(this.user.id).subscribe(chats => this.chats = chats);
+      this.userChatService.chatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
     });
-
-    this.userService.getAll().subscribe(users => this.allUser = users);
   }
 
   ngAfterViewInit() {
@@ -54,7 +53,7 @@ export class MainPageComponent {
   }
   
   ngAfterViewChecked() {
-    this.scrollToBottom(); // zavolá se po každém vykreslení
+    this.scrollToBottom();
   }
   
   private scrollToBottom(): void {
@@ -71,17 +70,30 @@ export class MainPageComponent {
 
   changeActiveChat(chat: Chat){
     this.activeChat = chat;
+    this.userChatService.usersInChat(chat.id).subscribe(result => this.activeChatUsers = result);
     this.refreshMessages();
   }
 
   changeChatsToPublic(){
     this.public_chats = true;
-    this.chatService.getAllPublicChats().subscribe(result => this.chats = result)
+    this.activeChat = new Chat;
+    this.allMessages = [];
+    this.chatService.getAllPublicChats().subscribe(result => this.publicChats = result)
   }
 
   changeChatsToPrivate(){
     this.public_chats = false;
-    this.userChatService.chatsUserIsIn(this.user.id).subscribe(chats => this.chats = chats);
+    this.activeChat = new Chat;
+    this.allMessages = [];
+    this.userChatService.chatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
+  }
+
+  getChats(): Chat[]{
+    if (!this.public_chats){
+      return this.userChats;
+    }else{
+      return this.publicChats;
+    }
   }
 
   sendMessage(){
@@ -100,7 +112,7 @@ export class MainPageComponent {
   }
 
   getUsername(userId: number): string {
-    const user = this.allUser.find(u => u.id === userId);
+    const user = this.activeChatUsers.find(u => u.id === userId);
     return user ? user.username : 'Unknown';
   }
 
@@ -112,5 +124,26 @@ export class MainPageComponent {
     else{
       return this.allMessages;
     }
+  }
+
+  isUserInPublicChat(chatId: number): Boolean{
+    return this.userChats.find(x => x.id == chatId) ? true : false;
+  }
+
+  addUserToPublicChat(chatId: number){
+    if (!this.isUserInPublicChat(chatId)){
+      let link = this.userChatService.newLink(this.user.id, chatId)
+      this.userChatService.createLink(link).subscribe(response => {
+        this.changeChatsToPrivate();
+        this.activeChat = this.publicChats.find(x => x.id = chatId)?? new Chat;
+        this.refreshMessages();
+      });
+    }else{
+      this.userChatService.deteleLink(this.user.id, chatId).subscribe(response => {
+        this.changeChatsToPrivate();
+        this.allMessages = [];
+      });
+    }
+
   }
 }

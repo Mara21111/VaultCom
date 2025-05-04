@@ -274,3 +274,31 @@ body {
     background-color: $btn-hover;
   }
 }
+
+.on-off-text {
+  flex: 1;
+  font-size: 1rem;
+  color: #700a0a;
+}
+    
+.on-off-button {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ffffff;
+  border-radius: 4px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: $btn-hover;
+    border-color: $btn-hover;
+    color: white;
+  }
+}

@@ -25,10 +25,10 @@ export class ChatService {
   public newPublicChat(name: string): Chat {
     let chat = new Chat();
     chat.id = 0;
-    chat.is_public = true;
+    chat.is_Public = true;
     chat.name = name;
     chat.description = '';
-    chat.creator_id = 1;
+    chat.creator_Id = 1;
     return chat;
   }
 }

@@ -22,6 +22,15 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(user_chat));
         }
 
+        [HttpDelete("delete-user{userId}-chat{chatId}-link")]
+        public JsonResult DeleteUserChat(int userId, int chatId)
+        {
+            context.User_Chat.Remove(context.User_Chat.Where(x => x.User_Id == userId && x.Chat_Id == chatId).First());
+            context.SaveChanges();
+
+            return new JsonResult(Ok("Remove completed"));
+        }
+
         /*[HttpPost("exit-chat")]
         public JsonResult ExitChat(int user_id, int chat_id)
         {
@@ -50,6 +59,18 @@ namespace WebApplication1.Controllers
         {
             List<int> chat_ids = context.User_Chat.Where(x => x.User_Id == id).Select(x => x.Chat_Id).ToList();
             return Ok(context.Chat.Where(x => x.Is_Public && chat_ids.Contains(x.Id)).ToList());
+        }
+
+        [HttpGet("chat{id}-links")]
+        public IActionResult GetUsersLinks(int id)
+        {
+            return Ok(context.User_Chat.Where(x => x.Chat_Id == id));
+        }
+
+        [HttpGet("is-user{userId}-in-chat{chatId}")]
+        public IActionResult GetUserInChat(int userId, int chatId)
+        {
+            return Ok(context.User_Chat.Any(x => x.User_Id == userId && x.Chat_Id == chatId));
         }
     }
 }

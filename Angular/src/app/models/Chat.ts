@@ -1,8 +1,8 @@
 export class Chat
 {
     id: number;
-    is_public: boolean;
+    is_Public: boolean;
     name: string;
     description: string;
-    creator_id: number;
+    creator_Id: number;
 }
