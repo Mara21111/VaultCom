@@ -31,6 +31,7 @@ export class MainPageComponent {
   activeChat: Chat = new Chat;
   allMessages: Message[] = [];
   newMessage: Message = new Message;
+  searchMessage: string = '';
 
   constructor(private userService: UserService,
     private chatService: ChatService,
@@ -145,5 +146,9 @@ export class MainPageComponent {
       });
     }
 
+  }
+
+  searchForMessage() {
+    
   }
 }
