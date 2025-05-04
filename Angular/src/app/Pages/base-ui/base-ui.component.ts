@@ -4,6 +4,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { User } from '../../models/User';
 import { UserService } from '../../services/user.service';
 import { FormsModule } from '@angular/forms';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-base-ui',
@@ -29,7 +30,9 @@ export class BaseUiComponent {
   searchValue: string = '';
   user: User = new User;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+    private authService: AuthenticationService
+  ) {
   }
 
   ngOnInit() {
@@ -39,5 +42,9 @@ export class BaseUiComponent {
   onSeachChange(value: string){
     this.searchValue = value;
     this.searchChanged.emit(value);
+  }
+
+  logout(){
+    this.authService.logout();
   }
 }

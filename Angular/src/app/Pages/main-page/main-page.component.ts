@@ -11,6 +11,8 @@ import { UserChatService } from '../../services/user_chat.service';
 import { Message } from '../../models/Message';
 import { MessageService } from '../../services/message.service';
 import { catchError } from 'rxjs';
+import { ReportsService } from '../../services/reports.service';
+import { Report_log } from '../../models/Report_log';
 
 @Component({
   selector: 'app-main-page',
@@ -26,6 +28,7 @@ export class MainPageComponent {
   activeChatUsers: User[] = [];
   public_chats: boolean = false;
   pinnedMessages: boolean = false;
+  showChatInfo: boolean = false;
   userChats: Chat[] = [];
   publicChats: Chat[] = [];
   activeChat: Chat = new Chat;
@@ -37,7 +40,8 @@ export class MainPageComponent {
   constructor(private userService: UserService,
     private chatService: ChatService,
     private userChatService: UserChatService,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    private reportsService: ReportsService) {
       this.newMessage.is_Edited = false;
       this.newMessage.is_Pinned = false;
       this.newMessage.is_Single_Use = false;
@@ -156,7 +160,21 @@ export class MainPageComponent {
 
   }
 
-  searchForMessage() {
-    
+  chatInfo(){
+    this.showChatInfo = !this.showChatInfo;
+    console.log(this.activeChatUsers)
+  }
+
+  muteUser(user: User){
+
+  }
+
+  reportUser(user: User){
+    let report = new Report_log;
+    report.user_Id = this.user.id;
+    report.reported_User_Id = user.id;
+    report.message = 'Zatim takhle natvrdo'
+
+    this.reportsService.createReport(report).subscribe();
   }
 }
