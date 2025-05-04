@@ -9,12 +9,9 @@
   [closeRoute]="'/admin-menu'">
 </app-base-ui>
 
-
 <div class="main-container">
   <div class="users-container">
     <div class="content-area">
-
-      <!-- All Users -->
       <section class="panel users-panel">
         <div class="table-header">
           <div class="col-header">Username</div>
@@ -29,13 +26,10 @@
           </div>
         </div>
       </section>
-
     </div>
   </div>
 </div>
 
-
-<!-- User Info Side Panel -->
 <div class="overlay" *ngIf="panelVisible" (click)="closePanel()"></div>
 
 <div class="side-panel" *ngIf="panelVisible">
@@ -70,7 +64,16 @@
   </div>
 
   <div class="button-group">
-    <button class="action-button timeout-button">Time-out</button>
-    <button class="action-button ban-button">Ban</button>
+    <button class="action-button timeout-button" (click)="onTimeoutClick()">Time-out</button>
+    <button class="action-button ban-button" (click)="onBanClick()">Ban</button>
+  </div>
+
+  <div *ngIf="isTimeoutOrBanSelected" class="datetime-picker">
+    <label for="datetime">Select Date and Time:</label>
+    <input type="datetime-local" [(ngModel)]="selectedDateTime" class="form-control">
+    <div class="button-group">
+      <button class="btn btn-primary" (click)="onConfirm()">Confirm</button>
+      <button class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+    </div>
   </div>
 </div>

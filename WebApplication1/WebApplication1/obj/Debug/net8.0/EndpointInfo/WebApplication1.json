@@ -1177,6 +1177,52 @@
         }
       }
     },
+    "/api/UserChat/users-in-chat-user-{id}": {
+      "get": {
+        "tags": [
+          "UserChat"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserChat/online-users-in-chat-user-{id}": {
+      "get": {
+        "tags": [
+          "UserChat"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/UserRelationship/send-request-from{sender_id}-to{reciever_id}": {
       "post": {
         "tags": [

@@ -715,6 +715,22 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.UserChatController",
+    "Method": "OnlineUsersInChatCount",
+    "RelativePath": "api/UserChat/online-users-in-chat-user-{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserChatController",
     "Method": "GetPublicChatsOfUser",
     "RelativePath": "api/UserChat/public-chats-user{id}-is-in",
     "HttpMethod": "GET",
@@ -739,6 +755,22 @@
     "Parameters": [
       {
         "Name": "chat_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserChatController",
+    "Method": "UsersInChatCount",
+    "RelativePath": "api/UserChat/users-in-chat-user-{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
       }
