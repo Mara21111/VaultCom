@@ -60,7 +60,7 @@
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\UserChatController.cs",
               "ToolTip": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\UserChatController.cs",
               "RelativeToolTip": "WebApplication1\\Controllers\\UserChatController.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAcwCEAAAAmAAAAAAAAAA==",
+              "ViewState": "AgIAABkAAAAAAAAAAAA4wCYAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-04T04:29:24.821Z",
               "EditorCaption": ""
@@ -73,11 +73,7 @@
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\ChatController.cs",
               "ToolTip": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\ChatController.cs",
               "RelativeToolTip": "WebApplication1\\Controllers\\ChatController.cs",
-<<<<<<< Updated upstream
-              "ViewState": "AgIAAHAAAAAAAAAAAAAUwHkAAAAiAAAAAAAAAA==",
-=======
-              "ViewState": "AgIAAF8AAAAAAAAAAAAIwHYAAAAMAAAAAAAAAA==",
->>>>>>> Stashed changes
+              "ViewState": "AgIAAK4AAAAAAAAAAAAqwLYAAABrAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-04T04:13:15.039Z",
               "EditorCaption": ""
@@ -102,9 +98,10 @@
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\MessageController.cs",
               "ToolTip": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\MessageController.cs",
               "RelativeToolTip": "WebApplication1\\Controllers\\MessageController.cs",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAYwDQAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAYwGsAAACAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-03T14:24:12.64Z"
+              "WhenOpened": "2025-05-03T14:24:12.64Z",
+              "EditorCaption": ""
             }
           ]
         }

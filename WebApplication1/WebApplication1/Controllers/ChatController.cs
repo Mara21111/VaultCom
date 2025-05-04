@@ -175,5 +175,12 @@ namespace WebApplication1.Controllers
         {
             return Ok(context.Chat.Where(x => x.Is_Public == true));
         }
+
+        [HttpGet("seach-for-chat-{prompt}-{user_id}")]
+        public IActionResult SearchForChat(string prompt, int user_id)
+        {
+            var chat_id = context.User_Chat.Where(x => x.User_Id == user_id).Select(x => x.Id);
+            return new JsonResult(context.Chat.Where(x => chat_id.Contains(x.Id) && x.Name.Contains(prompt)).ToList());
+        }
     }
 }

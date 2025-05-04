@@ -36,6 +36,7 @@ namespace WebApplication1.Controllers
         {
             var links = context.User_Chat.Where(x => x.Chat_Id == chat_id);
             context.User_Chat.RemoveRange(links);
+            context.SaveChanges();
             return new JsonResult(Ok("remoed all users from chat id:" + chat_id));
         }
 
