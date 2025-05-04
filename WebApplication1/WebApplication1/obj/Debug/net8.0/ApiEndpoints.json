@@ -48,22 +48,6 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.ChatController",
-    "Method": "GetChat",
-    "RelativePath": "api/Chat/chat{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebApplication1.Controllers.ChatController",
     "Method": "CreateGroupChat",
     "RelativePath": "api/Chat/create-group-chat",
     "HttpMethod": "POST",
@@ -168,6 +152,22 @@
         "Name": "new_name",
         "Type": "System.String",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ChatController",
+    "Method": "GetChat",
+    "RelativePath": "api/Chat/chat{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -625,38 +625,6 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.UserChatController",
-    "Method": "GetUsersLinks",
-    "RelativePath": "api/UserChat/chat{id}-links",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebApplication1.Controllers.UserChatController",
-    "Method": "GetChatsOfUser",
-    "RelativePath": "api/UserChat/chats-user{id}-is-in",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebApplication1.Controllers.UserChatController",
     "Method": "CreateUserChat",
     "RelativePath": "api/UserChat/create-user-chat-link",
     "HttpMethod": "POST",
@@ -686,6 +654,38 @@
       },
       {
         "Name": "chatId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserChatController",
+    "Method": "GetUsersLinks",
+    "RelativePath": "api/UserChat/chat{id}-links",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserChatController",
+    "Method": "GetChatsOfUser",
+    "RelativePath": "api/UserChat/chats-user{id}-is-in",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
       }
@@ -853,32 +853,6 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
-    "Method": "ChangeNickname",
-    "RelativePath": "api/UserRelationship/change-{user_id}-nickname-of-{friend_user_id}",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "user_id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "friend_user_id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "nickname",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "GetFriends",
     "RelativePath": "api/UserRelationship/friends-of-user{id}",
     "HttpMethod": "GET",
@@ -919,6 +893,32 @@
       {
         "Name": "id2",
         "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "ChangeNickname",
+    "RelativePath": "api/UserRelationship/change-{user_id}-nickname-of-{friend_user_id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "friend_user_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "nickname",
+        "Type": "System.String",
         "IsRequired": false
       }
     ],

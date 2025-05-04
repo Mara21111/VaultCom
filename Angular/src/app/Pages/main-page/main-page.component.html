@@ -16,10 +16,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <div class="search-container">
-        <input type="text" class="form-control search-input" placeholder="Search">
-        <button class="search-btn btn btn-dark btn-icon">
-          <i class="bi bi-search"></i>
-        </button>
+        <input type="text" class="form-control search-input" placeholder="Search" [(ngModel)]="this.searchChat">
         <button class="new-chat-btn btn btn-dark btn-icon">
           <i class="fas fa-plus"></i>
         </button>
@@ -52,7 +49,9 @@
           <button class="chat-action" [ngClass]="{'active': this.pinnedMessages}">
             <i class="fas fa-thumbtack" (click)="this.pinnedMessages = !this.pinnedMessages"></i>
           </button>
-          <button class="chat-action"><i class="fas fa-search"></i></button>
+          <div class="search-container">
+            <input type="text" class="form-control search-input" placeholder="Search" [(ngModel)]="this.searchMessage">
+          </div>
         </div>
       </div>
 

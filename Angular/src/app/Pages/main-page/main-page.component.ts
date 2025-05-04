@@ -31,6 +31,7 @@ export class MainPageComponent {
   activeChat: Chat = new Chat;
   allMessages: Message[] = [];
   newMessage: Message = new Message;
+  searchChat: string = '';
   searchMessage: string = '';
 
   constructor(private userService: UserService,
@@ -45,11 +46,7 @@ export class MainPageComponent {
   ngOnInit() {
     this.userService.getFromToken().subscribe(result => {
       this.user = result;
-      if (this.searchMessage = '') {
-        this.userChatService.chatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
-      } else {
-        this.userChatService
-      }
+      this.userChatService.chatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
     });
   }
 
@@ -94,11 +91,16 @@ export class MainPageComponent {
   }
 
   getChats(): Chat[]{
-    if (!this.public_chats){
-      return this.userChats;
-    }else{
-      return this.publicChats;
+    const chats = this.public_chats ? this.publicChats : this.userChats;
+
+    if (!this.searchChat?.trim()) {
+      return chats;
     }
+  
+    const query = this.searchChat.toLowerCase();
+    return chats.filter(chat =>
+      chat.name.toLowerCase().includes(query)
+    );
   }
 
   sendMessage(){
@@ -109,7 +111,6 @@ export class MainPageComponent {
     this.newMessage.user_Id = this.user.id;
     this.newMessage.chat_Id = this.activeChat.id;
     this.newMessage.time = new Date;
-    console.log(this.newMessage);
     this.messageService.createMessage(this.newMessage).pipe(
           catchError(error =>{throw error})
         ).subscribe(_ => this.refreshMessages());
@@ -122,13 +123,16 @@ export class MainPageComponent {
   }
 
   messages(): Message[]{
+    const messages = this.pinnedMessages ? this.allMessages.filter(m => m.is_Pinned === true) : this.allMessages;
 
-    if (this.pinnedMessages){
-      return this.allMessages.filter(m => m.is_Pinned === true);
+    if (!this.searchMessage?.trim()) {
+      return messages;
     }
-    else{
-      return this.allMessages;
-    }
+  
+    const query = this.searchMessage.toLowerCase();
+    return messages.filter(message =>
+      message.content.toLowerCase().includes(query)
+    );
   }
 
   isUserInPublicChat(chatId: number): Boolean{

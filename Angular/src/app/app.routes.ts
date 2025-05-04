@@ -11,18 +11,20 @@ import { UserProfilePageComponent } from './Pages/user-profile-page/user-profile
 import { MainPageComponent } from './Pages/main-page/main-page.component';
 import { BaseUiComponent } from './Components/base-ui/base-ui.component';
 import { DatabaseStatsComponent } from './Pages/database-stats/database-stats.component';
+import { authenticationGuard } from './authentication.guard';
+import { adminGuard } from './admin.guard';
 
 export const routes: Routes = [
   { path: '', component: LoginPageComponent},
   { path: 'register', component: RegisterComponent},
-  { path: 'admin-all-users', component: AdminAllUsersPageComponent},
-  { path: 'admin-menu', component: AdminMenuPageComponent},
-  { path: 'admin-user-info/:id', component: AdminUserInfoPageComponent},
-  { path: 'public-chats', component: PublicChatsPageComponent},
-  { path: 'reports', component: ReportsPageComponent},
-  { path: 'user-friends', component: UserFriendsPageComponent},
-  { path: 'user-profile', component: UserProfilePageComponent},
-  { path: 'main', component: MainPageComponent},
-  { path: 'base', component: BaseUiComponent},
-  { path: 'database-stats', component: DatabaseStatsComponent}
+  { path: 'admin-all-users', component: AdminAllUsersPageComponent, canActivate: [authenticationGuard, adminGuard]},
+  { path: 'admin-menu', component: AdminMenuPageComponent, canActivate: [authenticationGuard, adminGuard]},
+  { path: 'admin-user-info/:id', component: AdminUserInfoPageComponent, canActivate: [authenticationGuard, adminGuard]},
+  { path: 'public-chats', component: PublicChatsPageComponent, canActivate: [authenticationGuard, adminGuard]},
+  { path: 'reports', component: ReportsPageComponent, canActivate: [authenticationGuard, adminGuard]},
+  { path: 'user-friends', component: UserFriendsPageComponent, canActivate: [authenticationGuard]},
+  { path: 'user-profile', component: UserProfilePageComponent, canActivate: [authenticationGuard]},
+  { path: 'main', component: MainPageComponent, canActivate: [authenticationGuard]},
+  { path: 'base', component: BaseUiComponent, canActivate: [authenticationGuard, adminGuard]},
+  { path: 'database-stats', component: DatabaseStatsComponent, canActivate: [authenticationGuard, adminGuard]}
 ];
