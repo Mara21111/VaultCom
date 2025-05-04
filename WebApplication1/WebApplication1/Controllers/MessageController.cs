@@ -35,10 +35,8 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost("send-message")]
-        public JsonResult SendMessage(int user_id, int chat_id, string content, int reply_to)
+        public JsonResult SendMessage(Message msg)
         {
-            Message msg = CreateMesage(user_id, chat_id, content, reply_to);
-
             if (context.User.Find(msg.User_Id) == null)
             {
                 return new JsonResult(BadRequest("this user doesn't exist"));
