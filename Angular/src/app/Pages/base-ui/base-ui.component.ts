@@ -1,13 +1,14 @@
 import { NgIf } from '@angular/common';
-import { Component, input, Input } from '@angular/core';
+import { Component, input, Input, Output, EventEmitter } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { User } from '../../models/User';
 import { UserService } from '../../services/user.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-base-ui',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgIf],
+  imports: [RouterLink, RouterLinkActive, NgIf, FormsModule],
   templateUrl: './base-ui.component.html',
   styleUrl: './base-ui.component.scss'
 })
@@ -23,6 +24,9 @@ export class BaseUiComponent {
   @Input() closeOn: boolean = false;
   @Input() closeRoute: string = 'test'
 
+  @Output() searchChanged = new EventEmitter<string>();
+
+  searchValue: string = '';
   user: User = new User;
 
   constructor(private userService: UserService) {
@@ -30,5 +34,10 @@ export class BaseUiComponent {
 
   ngOnInit() {
     this.userService.getFromToken().subscribe(result => this.user = result);
+  }
+
+  onSeachChange(value: string){
+    this.searchValue = value;
+    this.searchChanged.emit(value);
   }
 }
