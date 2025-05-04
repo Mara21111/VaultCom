@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
@@ -8,6 +9,16 @@ namespace WebApplication1.Controllers
     public class ChatController : ControllerBase
     {
         private MyContext context = new MyContext();
+
+        private Chat CreateChat(int user_id, string name)
+        {
+            return new()
+            {
+                Creator_Id = user_id,
+                Name = name,
+                Is_Public = false
+            };
+        }
 
         [HttpPost("create-public-chat")]
         public JsonResult CreatePublicChat(string name, int creator_id, string desc)
@@ -21,13 +32,9 @@ namespace WebApplication1.Controllers
                 return new JsonResult(BadRequest("this name already exists"));
             }
 
-            var chat = new Chat()
-            {
-                Is_Public = true,
-                Creator_Id = creator_id,
-                Name = name,
-                Description = desc
-            };
+            var chat = CreateChat(creator_id, name);
+            chat.Is_Public = true;
+
             context.Chat.Add(chat);
             context.SaveChanges();
 
@@ -40,7 +47,7 @@ namespace WebApplication1.Controllers
 
         // predat sem neco jako "34;66;2" -> znamena ze se tam pridaj useri 34 66 a 2
         [HttpPost("create-group-chat")]
-        public JsonResult CreateChat(int creator_id, string ids_string)
+        public JsonResult CreateGroupChat(int creator_id, string ids_string)
         {
             List<string> split_ids = ids_string.Split(';').ToList();
             List<int> user_ids = new List<int>();
@@ -71,23 +78,34 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(chat));
         }
 
-        [HttpDelete("delete-chat")]
-        public JsonResult DeleteChat(int ID)
+        [HttpPost("cerate-dm")]
+        public JsonResult CreateDM(int user_id, int other_id)
         {
-            try
+            if (context.User.Find(user_id) is null || context.User.Find(other_id) is null)
             {
-                Chat chat = context.Chat.Where(x => x.Id == ID).FirstOrDefault();
-
-                context.Chat.Remove(chat);
-
-                context.SaveChanges();
-
-                return new JsonResult(Ok(chat));
+                return new JsonResult(BadRequest("something went wrong..."));
             }
-            catch
+
+            var chat = new Chat()
             {
-                throw new Exception("Reaction could not be removed because it does not exist");
-            }
+                Is_Public = false
+            };
+
+            context.Chat.Add(chat);
+            context.SaveChanges();
+
+            chat = context.Chat.Last();
+            context.User_Chat.Add(new() { Chat_Id = chat.Id, User_Id = user_id });
+            context.User_Chat.Add(new() { Chat_Id = chat.Id, User_Id = other_id });
+            context.SaveChanges();
+            return new JsonResult(Ok(chat));
+        }
+
+        [HttpDelete("delete-chat")]
+        public JsonResult DeleteChat(int chat_id, int user_id)
+        {
+            var chat = context.Chat.Find(chat_id);
+            return new JsonResult(BadRequest("not implemented"));
         }
 
         [HttpPut("edit-name")]

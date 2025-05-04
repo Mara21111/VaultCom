@@ -114,5 +114,18 @@ namespace WebApplication1.Controllers
         {
             return Ok(context.Message.Where(x => x.Chat_Id == id));
         }
+
+        [HttpGet("get-user-messages-in-chat")]
+        public IActionResult GetUserMessagesFromChat(int user_id, int chat_id)
+        {
+            return Ok(context.Message.Where(x => x.Chat_Id == chat_id && x.User_Id == user_id));
+        }
+
+        [HttpGet("get-user-messages-in-public-chats")]
+        public IActionResult GetUserMessagesFromPublicChats(int user_id)
+        {
+            return Ok(context.Message.Where(x => x.User_Id == user_id &&
+                context.Chat.Find(x.Chat_Id).Is_Public));
+        }
     }
 }

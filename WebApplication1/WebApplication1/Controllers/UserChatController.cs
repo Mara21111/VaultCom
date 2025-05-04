@@ -22,6 +22,15 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(user_chat));
         }
 
+        /*[HttpPost("exit-chat")]
+        public JsonResult ExitChat(int user_id, int chat_id)
+        {
+            context.User_Chat.Remove();
+            context.SaveChanges();
+
+            return new JsonResult(Ok(user_chat));
+        }*/
+
         [HttpGet("users-in-chat{id}")]
         public IActionResult GetUsersInChat(int id)
         {
