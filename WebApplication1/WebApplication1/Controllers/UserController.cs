@@ -60,6 +60,8 @@ namespace WebApplication1.Controllers
             us.Username = user.Username;
             us.Bio = user.Bio;
             us.Password = user.Password;
+            us.Is_Public = user.Is_Public;
+            us.Safe_Mode = user.Safe_Mode;
 
             /*context.User.Where(x => x.Id == user.Id).First().Username = user.Username;
             context.User.Where(x => x.Id == user.Id).First().Email = user.Email;

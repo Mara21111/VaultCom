@@ -796,19 +796,14 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "AcceptRequest",
-    "RelativePath": "api/UserRelationship/accept-request-from{sender_id}-to{reciever_id}",
+    "RelativePath": "api/UserRelationship/accept-friend-request",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "reciever_id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "sender_id",
-        "Type": "System.Int32",
+        "Name": "rel",
+        "Type": "WebApplication1.Models.User_Relationship",
         "IsRequired": true
       }
     ],
@@ -833,19 +828,14 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "CancelRequest",
-    "RelativePath": "api/UserRelationship/cancel-request-from{sender_id}-to{reciever_id}",
+    "RelativePath": "api/UserRelationship/cancel-friend-request",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "sender_id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "reciever_id",
-        "Type": "System.Int32",
+        "Name": "rel",
+        "Type": "WebApplication1.Models.User_Relationship",
         "IsRequired": true
       }
     ],
@@ -894,6 +884,22 @@
         "Name": "id2",
         "Type": "System.Int32",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "GetRelationshipByID",
+    "RelativePath": "api/UserRelationship/get-relation-by-id-{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -975,19 +981,14 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "RejectRequest",
-    "RelativePath": "api/UserRelationship/reject-request-from{sender_id}-to{reciever_id}",
+    "RelativePath": "api/UserRelationship/reject-friend-request",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "reciever_id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "sender_id",
-        "Type": "System.Int32",
+        "Name": "rel",
+        "Type": "WebApplication1.Models.User_Relationship",
         "IsRequired": true
       }
     ],
@@ -996,19 +997,14 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "SendRequest",
-    "RelativePath": "api/UserRelationship/send-request-from{sender_id}-to{reciever_id}",
+    "RelativePath": "api/UserRelationship/send-friend-request",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "sender_id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "reciever_id",
-        "Type": "System.Int32",
+        "Name": "rel",
+        "Type": "WebApplication1.Models.User_Relationship",
         "IsRequired": true
       }
     ],

@@ -6,7 +6,8 @@
   [titleOn]="true"
   [searchOn]="true"
   [closeOn]="true"
-  [closeRoute]="'/admin-menu'">
+  [closeRoute]="'/admin-menu'"
+  (searchChanged)="onSearchChanged($event)">
 </app-base-ui>
 
 
@@ -20,7 +21,7 @@
           <div class="col-header">Report count</div>
         </div>
         <div class="table-body">
-          <div class="table-row" (click)="this.goToUser(item.id)" *ngFor="let item of users" style="cursor: pointer;">
+          <div class="table-row" (click)="this.goToUser(item.id)" *ngFor="let item of this.getUsers()" style="cursor: pointer;">
             <div class="col username">{{ item.username }}</div>
             <div class="col">{{ item.email }}</div>
             <div class="col">{{ this.getReportsCount(item.id) }}</div>
