@@ -33,6 +33,10 @@ export class UserChatService {
     return this.http.get<boolean>('http://localhost:5000/api/UserChat/is-user' + userId + '-in-chat' + chatId)
   }
 
+  public searchForChat(prompt: string, user_id: number): Observable<void> {
+    return this.http.get<void>('http://localhost:5000/api/UserChat/search-for-chat-' + prompt + '-' + user_id)
+  }
+
   public newLink(userId: number, chatId: number): User_chat {
     let link = new User_chat();
     

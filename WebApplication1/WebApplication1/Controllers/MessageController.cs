@@ -50,7 +50,7 @@ namespace WebApplication1.Controllers
                 return new JsonResult(BadRequest($"{msg.User_Id} user isn't in {msg.Chat_Id} chat"));
             }
 
-            msg.Time = DateTime.UtcNow;
+            msg.Time = DateTime.Now;
             context.Message.Add(msg);
             context.SaveChanges();
 

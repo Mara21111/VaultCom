@@ -19,6 +19,7 @@ export class ReportsService {
   }
 
   public userReportCount(id: number): Observable<number> {
+    console.log(id);
     return this.http.get<number>('http://localhost:5000/api/Reports/reportsCount-user' + id);
   }
 

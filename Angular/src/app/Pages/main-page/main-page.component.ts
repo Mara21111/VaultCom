@@ -45,7 +45,11 @@ export class MainPageComponent {
   ngOnInit() {
     this.userService.getFromToken().subscribe(result => {
       this.user = result;
-      this.userChatService.chatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
+      if (this.searchMessage = '') {
+        this.userChatService.chatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
+      } else {
+        this.userChatService
+      }
     });
   }
 
@@ -104,7 +108,7 @@ export class MainPageComponent {
 
     this.newMessage.user_Id = this.user.id;
     this.newMessage.chat_Id = this.activeChat.id;
-    this.newMessage.time = new Date();
+    this.newMessage.time = new Date;
     console.log(this.newMessage);
     this.messageService.createMessage(this.newMessage).pipe(
           catchError(error =>{throw error})

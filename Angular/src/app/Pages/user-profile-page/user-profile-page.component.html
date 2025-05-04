@@ -80,6 +80,7 @@
   </div>
 </div>
 
+<!-- 
 <div class="overlay" *ngIf="panelVisible" (click)="closePanel()"></div>
 
 <div class="side-panel" *ngIf="panelVisible">
@@ -112,5 +113,56 @@
     <label class="errorMessage">
       {{ this.errorMessage }}
     </label>
+  </form>
+</div>
+-->
+
+<!-- Overlay -->
+<div class="overlay" *ngIf="panelVisible" (click)="closePanel()"></div>
+
+<!-- Side Panel -->
+<div class="side-panel" *ngIf="panelVisible">
+  <button class="close-button" (click)="closePanel()" aria-label="Close panel">&times;</button>
+  <h2>Change User Profile</h2>
+
+  <form [formGroup]="form">
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input id="username" type="text" formControlName="username" required />
+    </div>
+
+    <div class="form-group">
+      <label for="email">E-mail:</label>
+      <input id="email" type="email" formControlName="email" required />
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone:</label>
+      <input id="phone" type="tel" formControlName="phone" />
+    </div>
+
+    <div class="form-group">
+      <label for="curPassword">Current Password:</label>
+      <input id="curPassword" type="password" formControlName="curPassword" required />
+    </div>
+
+    <div class="form-group">
+      <label for="password">New Password:</label>
+      <input id="password" type="password" formControlName="password" required />
+    </div>
+
+    <div class="form-group">
+      <label for="bio">Bio:</label>
+      <textarea id="bio" formControlName="bio"></textarea>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="save-button" (click)="closePanel()">Save</button>
+      <button type="button" class="cancel-button" (click)="closePanel()">Cancel</button>
+    </div>
   </form>
 </div>

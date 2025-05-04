@@ -173,6 +173,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "WebApplication1.Controllers.ChatController",
+    "Method": "SearchForChat",
+    "RelativePath": "api/Chat/seach-for-chat-{prompt}-{user_id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "prompt",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "user_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WebApplication1.Controllers.MessageController",
     "Method": "GetMessages",
     "RelativePath": "api/Message/all-messages-in-chat-{chat_id}",
@@ -265,24 +286,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "user_id",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "chat_id",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "content",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "reply_to",
-        "Type": "System.Int32",
-        "IsRequired": false
+        "Name": "msg",
+        "Type": "WebApplication1.Models.Message",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -717,6 +723,22 @@
     "Parameters": [
       {
         "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserChatController",
+    "Method": "RemoveUsersFromChat",
+    "RelativePath": "api/UserChat/remove-users-from-chat-{chat_id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "chat_id",
         "Type": "System.Int32",
         "IsRequired": true
       }

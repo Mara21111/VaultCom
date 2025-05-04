@@ -316,13 +316,22 @@
     }
       */
 
+      $overlay-color: rgba(0, 0, 0, 0.5);
+      $panel-width: 400px;
+      $max-width: 90%;
+      $panel-bg-color: $body-bg;
+      $panel-text-color: #dadada;
+      $panel-hover-color: $panel-hover;
+      $error-color: #fa0404;
+      $button-radius: $btn-radius;
+      
       .overlay {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: $overlay-color;
         z-index: 9999;
       }
       
@@ -330,94 +339,100 @@
         position: fixed;
         top: 0;
         right: 0;
-        width: 400px;
-        max-width: 90%;
+        width: $panel-width;
+        max-width: $max-width;
         height: 100%;
-        background-color: $body-bg;
-        border-radius: $btn-radius 0 0 $btn-radius;
-        color: #dadada;
+        background-color: $panel-bg-color;
+        color: $panel-text-color;
         padding: 30px 20px;
         box-shadow: -2px 0 10px rgba(0, 0, 0, 0.6);
+        border-radius: $button-radius 0 0 $button-radius;
         z-index: 10000;
         overflow-y: auto;
-      }
       
-      .close-button {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        font-size: 28px;
-        color: #fff;
-        background: none;
-        border: none;
-        cursor: pointer;
-      }
+        .close-button {
+          position: absolute;
+          top: 10px;
+          right: 15px;
+          font-size: 28px;
+          color: #fff;
+          background: none;
+          border: none;
+          cursor: pointer;
+        }
       
-      form {
-        display: flex;
-        flex-direction: column;
+        h2 {
+          margin-top: 0;
+          font-size: 1.5rem;
+          color: #fff;
+        }
       
-        .form-group {
-          margin-bottom: 20px;
+        form {
+          display: flex;
+          flex-direction: column;
       
-          label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
-            color: #ccc;
-          }
+          .form-group {
+            margin-bottom: 20px;
       
-          input,
-          textarea {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid $panel-hover;
-            border-radius: $btn-radius;
-            background-color: $panel-bg;
-            color: #fff;
-            font-size: 16px;
+            label {
+              display: block;
+              margin-bottom: 6px;
+              font-weight: bold;
+              color: #ccc;
+            }
       
-            &:focus {
-              border-color: lighten($panel-hover, 15%);
-              outline: none;
+            input,
+            textarea {
+              width: 100%;
+              padding: 10px;
+              border: 2px solid $panel-hover-color;
+              border-radius: $button-radius;
+              background-color: $panel-bg-color;
+              color: #fff;
+              font-size: 16px;
+      
+              &:focus {
+                border-color: lighten($panel-hover-color, 15%);
+                outline: none;
+              }
             }
           }
-        }
       
-        .error-message {
-          color: #fa0404;
-          font-size: 16px;
-          font-weight: bold;
-          text-align: center;
-          margin-bottom: 20px;
-          background-color: lighten($panel-hover, 10%);
-          padding: 10px;
-          border-radius: $btn-radius;
-        }
-      
-        .button-group {
-          display: flex;
-          justify-content: flex-end;
-          gap: 10px;
-      
-          .save-button,
-          .cancel-button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: $btn-radius;
-            cursor: pointer;
+          .error-message {
+            color: $error-color;
+            font-size: 16px;
             font-weight: bold;
-            font-size: 14px;
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: lighten($panel-hover-color, 10%);
+            padding: 10px;
+            border-radius: $button-radius;
           }
       
-          .save-button {
-            background-color: $panel-hover;
-            color: white;
-          }
+          .button-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
       
-          .cancel-button {
-            background-color: darken($panel-bg, 10%);
-            color: white;
+            .save-button,
+            .cancel-button {
+              padding: 10px 20px;
+              border: none;
+              border-radius: $button-radius;
+              cursor: pointer;
+              font-weight: bold;
+              font-size: 14px;
+            }
+      
+            .save-button {
+              background-color: $panel-hover-color;
+              color: white;
+            }
+      
+            .cancel-button {
+              background-color: darken($panel-bg-color, 10%);
+              color: white;
+            }
           }
         }
       }
