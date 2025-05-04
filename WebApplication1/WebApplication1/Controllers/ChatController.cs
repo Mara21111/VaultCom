@@ -116,6 +116,8 @@ namespace WebApplication1.Controllers
                 return new JsonResult(BadRequest("cannot delete chat"));
             }*/
 
+            new UserChatController().RemoveUsersFromChat(chat_id);
+
             context.Chat.Remove(chat);
             context.SaveChanges();
             return new JsonResult(Ok(chat));

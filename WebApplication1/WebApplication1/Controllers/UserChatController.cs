@@ -31,6 +31,14 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok("Remove completed"));
         }
 
+        [HttpDelete("remove-users-from-chat-{chat_id}")]
+        public JsonResult RemoveUsersFromChat(int chat_id)
+        {
+            var links = context.User_Chat.Where(x => x.Chat_Id == chat_id);
+            context.User_Chat.RemoveRange(links);
+            return new JsonResult(Ok("remoed all users from chat id:" + chat_id));
+        }
+
         /*[HttpPost("exit-chat")]
         public JsonResult ExitChat(int user_id, int chat_id)
         {
