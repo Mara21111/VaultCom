@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { User } from '../../models/User';
 import { CommonModule, NgIf } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { BaseUiComponent } from "../base-ui/base-ui.component";
+import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
 import { UserService } from '../../services/user.service';
+import { ReportsService } from '../../services/reports.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication.service';
 
@@ -25,7 +26,7 @@ export class UserProfilePageComponent {
 
   user: User = new User;
 
-  constructor(private userService: UserService, private fb: FormBuilder, private authService: AuthenticationService){
+  constructor(private userService: UserService, private reportsService: ReportsService, private fb: FormBuilder, private authService: AuthenticationService){
   }
 
   ngOnInit(){

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { BaseUiComponent } from "../base-ui/base-ui.component";
+import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
 
 @Component({
   selector: 'app-admin-menu-page',

@@ -1,48 +1,3 @@
-<!-- Bootstrap & Icons --> <!--
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet" />
-
-<app-base-ui
-[title]="'Reports'"
-[titleOn]="true"
-[searchOn]="true"
-[closeOn]="true"
-[closeRoute]="'/admin-menu'">
-</app-base-ui>
-
---><!-- Page Wrapper --><!--
-<div class="d-flex flex-column vh-100 bg-dark text-white overflow-hidden">
-  --><!-- Reports Table Area --><!--
-  <div class="reports-container overflow-auto">
-    <div class="table-container">
-      <table class="reports-table table text-white">
-        <thead>
-          <tr>
-            <th>User</th>
-            <th>Reported user</th>
-            <th>Reason</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of data.reports">
-            <td class="text-white">{{ item.user_id }}</td>
-            <td class="text-white">{{ item.reported_user_id }}</td>
-            <td class="text-white">{{ item.message }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  --><!-- Fixed Bottom Buttons --><!--
-  <div class="action-buttons">
-    <button class="btn btn-ban">Ban</button>
-    <button class="btn btn-mute">Mute</button>
-    <button class="btn btn-ignore">Ignore</button>
-  </div>
-</div>
--->
-
 <app-base-ui
   [title]="'Reports'"
   [titleOn]="true"
@@ -50,39 +5,6 @@
   [closeOn]="true"
   [closeRoute]="'/admin-menu'">
 </app-base-ui>
-
-<!--<div class="reports-wrapper d-flex flex-column vh-100 bg-dark text-white overflow-hidden">-->
-  
-  <!-- Reports Table Area -->
-  <!--<div class="reports-container overflow-auto">
-    <div class="table-container">
-      <table class="reports-table table text-white">
-        <thead>
-          <tr>
-            <th>User</th>
-            <th>Reported user</th>
-            <th>Reason</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of data.reports">
-            <td>{{ item.user_id }}</td>
-            <td>{{ item.reported_user_id }}</td>
-            <td>{{ item.message }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>-->
-
-  <!-- Bottom Action Buttons -->
-  <!--<div class="action-buttons">
-    <button class="btn btn-danger">Ban</button>
-    <button class="btn btn-accent">Mute</button>
-    <button class="btn btn-warning">Ignore</button>
-  </div>
-</div>-->
-
 
 <div class="main-container">
   <div class="reports-container">
@@ -103,13 +25,14 @@
           </div>
         </div>
       </section>
-
-      <div class="action-buttons">
-        <button class="btn btn-danger">Ban</button>
-        <button class="btn btn-accent">Mute</button>
-        <button class="btn btn-warning">Ignore</button>
-      </div>
-
     </div>
   </div>
 </div>
+
+  <app-side-panel
+    *ngIf="panelVisible"
+    (close)="closePanel()"
+    [user]="selectedUser"
+    [reportsCount]="reportsCount"
+    [showActionButtons]="true">
+  </app-side-panel>

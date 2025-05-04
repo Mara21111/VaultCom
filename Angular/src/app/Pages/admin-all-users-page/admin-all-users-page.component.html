@@ -9,6 +9,7 @@
   [closeRoute]="'/admin-menu'">
 </app-base-ui>
 
+
 <div class="main-container">
   <div class="users-container">
     <div class="content-area">
@@ -30,50 +31,9 @@
   </div>
 </div>
 
-<div class="overlay" *ngIf="panelVisible" (click)="closePanel()"></div>
-
-<div class="side-panel" *ngIf="panelVisible">
-  <button class="close-button" (click)="closePanel()" aria-label="Close panel">&times;</button>
-  <h2>User Info</h2>
-
-  <div class="info-group">
-    <div class="info-row">
-      <span class="info-label">Username:</span>
-      <span class="info-value">{{ selectedUser?.username }}</span>
-    </div>
-    <div class="info-row">
-      <span class="info-label">Email:</span>
-      <span class="info-value">{{ selectedUser?.email }}</span>
-    </div>
-    <div class="info-row">
-      <span class="info-label">Phone:</span>
-      <span class="info-value">{{ selectedUser?.phone_Number || 'not set' }}</span>
-    </div>
-    <div class="info-row">
-      <span class="info-label">Date Created:</span>
-      <span class="info-value">{{ selectedUser?.created_At }}</span>
-    </div>
-    <div class="info-row">
-      <span class="info-label">Ban Ends:</span>
-      <span class="info-value">{{ selectedUser?.ban_End }}</span>
-    </div>
-    <div class="info-row">
-      <span class="info-label">Reports Count:</span>
-      <span class="info-value">{{ reportCount }}</span>
-    </div>
-  </div>
-
-  <div class="button-group">
-    <button class="action-button timeout-button" (click)="onTimeoutClick()">Time-out</button>
-    <button class="action-button ban-button" (click)="onBanClick()">Ban</button>
-  </div>
-
-  <div *ngIf="isTimeoutOrBanSelected" class="datetime-picker">
-    <label for="datetime">Select Date and Time:</label>
-    <input type="datetime-local" [(ngModel)]="selectedDateTime" class="form-control">
-    <div class="button-group">
-      <button class="btn btn-primary" (click)="onConfirm()">Confirm</button>
-      <button class="btn btn-secondary" (click)="onCancel()">Cancel</button>
-    </div>
-  </div>
-</div>
+<app-side-panel
+  *ngIf="panelVisible"
+  (close)="closePanel()"
+  [user]="selectedUser"
+  [showActionButtons]="true">
+</app-side-panel>

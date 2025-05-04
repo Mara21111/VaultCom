@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { NgFor } from '@angular/common';
-import { BaseUiComponent } from "../base-ui/base-ui.component";
+import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
 import { FormsModule } from '@angular/forms';
 import { Chat } from '../../models/Chat';
 import { User } from '../../models/User';

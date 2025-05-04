@@ -9,7 +9,7 @@ import { ReportsPageComponent } from './Pages/reports-page/reports-page.componen
 import { UserFriendsPageComponent } from './Pages/user-friends-page/user-friends-page.component';
 import { UserProfilePageComponent } from './Pages/user-profile-page/user-profile-page.component';
 import { MainPageComponent } from './Pages/main-page/main-page.component';
-import { BaseUiComponent } from './Pages/base-ui/base-ui.component';
+import { BaseUiComponent } from './Components/base-ui/base-ui.component';
 import { DatabaseStatsComponent } from './Pages/database-stats/database-stats.component';
 
 export const routes: Routes = [

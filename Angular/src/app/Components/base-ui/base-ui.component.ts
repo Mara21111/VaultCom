@@ -1,8 +1,8 @@
 import { NgIf } from '@angular/common';
 import { Component, input, Input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { User } from '../../models/User';
 import { UserService } from '../../services/user.service';
+import { User } from '../../models/User';
 
 @Component({
   selector: 'app-base-ui',
