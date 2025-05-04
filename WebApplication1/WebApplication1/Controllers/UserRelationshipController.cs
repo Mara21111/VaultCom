@@ -62,6 +62,7 @@ namespace WebApplication1.Controllers
                 return new JsonResult(BadRequest("users are friends already"));
             }
 
+            rel = CreateRelationship(rel.User_Id, rel.Friend_User_Id);
             rel.Pending = true;
             context.SaveChanges();
             return new JsonResult(Ok(rel));
@@ -80,6 +81,7 @@ namespace WebApplication1.Controllers
                 return new JsonResult(BadRequest($"there is no pending request from user {rel.User_Id}"));
             }
 
+            rel = CreateRelationship(rel.User_Id, rel.Friend_User_Id);
             rel.Pending = false;
             rel.Is_Friend = true;
             context.SaveChanges();
@@ -109,6 +111,7 @@ namespace WebApplication1.Controllers
                 return new JsonResult(BadRequest($"relation from user {rel.User_Id} to {rel.Friend_User_Id} does not exist"));
             }
 
+            rel = CreateRelationship(rel.User_Id, rel.Friend_User_Id);
             rel.Pending = false;
             RemoveFromDatabaseIfDefault(rel);
 
@@ -124,6 +127,7 @@ namespace WebApplication1.Controllers
                 return new JsonResult(BadRequest($"relation from user {rel.User_Id} to {rel.Friend_User_Id} does not exist"));
             }
 
+            rel = CreateRelationship(rel.User_Id, rel.Friend_User_Id);
             rel.Pending = false;
             RemoveFromDatabaseIfDefault(rel);
 
