@@ -36,7 +36,7 @@
         }
       }
     },
-    "/api/Chat/create-public-chat": {
+    "/api/Chat/create-public-chat-{name}-{creator_id}-{desc}": {
       "post": {
         "tags": [
           "Chat"
@@ -44,14 +44,16 @@
         "parameters": [
           {
             "name": "name",
-            "in": "query",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string"
             }
           },
           {
             "name": "creator_id",
-            "in": "query",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -59,7 +61,8 @@
           },
           {
             "name": "desc",
-            "in": "query",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string"
             }
@@ -101,6 +104,36 @@
         }
       }
     },
+    "/api/Chat/cerate-dm": {
+      "post": {
+        "tags": [
+          "Chat"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "other_id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Chat/delete-chat": {
       "delete": {
         "tags": [
@@ -108,7 +141,15 @@
         ],
         "parameters": [
           {
-            "name": "ID",
+            "name": "chat_id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "user_id",
             "in": "query",
             "schema": {
               "type": "integer",
@@ -130,7 +171,7 @@
         ],
         "parameters": [
           {
-            "name": "chatId",
+            "name": "chat_id",
             "in": "query",
             "schema": {
               "type": "integer",
@@ -138,7 +179,15 @@
             }
           },
           {
-            "name": "newChatName",
+            "name": "user_id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "new_name",
             "in": "query",
             "schema": {
               "type": "string"
@@ -159,7 +208,7 @@
         ],
         "parameters": [
           {
-            "name": "chatId",
+            "name": "chat_id",
             "in": "query",
             "schema": {
               "type": "integer",
@@ -167,7 +216,15 @@
             }
           },
           {
-            "name": "newChatDescription",
+            "name": "user_id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "new_desc",
             "in": "query",
             "schema": {
               "type": "string"
@@ -196,18 +253,6 @@
               "format": "int32"
             }
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Chat/all-chats": {
-      "get": {
-        "tags": [
-          "Chat"
         ],
         "responses": {
           "200": {
@@ -340,7 +385,7 @@
         }
       }
     },
-    "/api/Message/search-for-message": {
+    "/api/Message/search-in-chat-{search_prompt}-{chat_id}": {
       "get": {
         "tags": [
           "Message"
@@ -348,14 +393,16 @@
         "parameters": [
           {
             "name": "search_prompt",
-            "in": "query",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string"
             }
           },
           {
             "name": "chat_id",
-            "in": "query",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -369,14 +416,69 @@
         }
       }
     },
-    "/api/Message/get-messages-from-chat{id}": {
+    "/api/Message/all-messages-in-chat-{chat_id}": {
       "get": {
         "tags": [
           "Message"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Message/user-messages-in-chat-{user_id}-{chat_id}": {
+      "get": {
+        "tags": [
+          "Message"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Message/user-messages-in-public-chats-{user_id}": {
+      "get": {
+        "tags": [
+          "Message"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
             "in": "path",
             "required": true,
             "schema": {

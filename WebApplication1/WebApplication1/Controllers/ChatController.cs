@@ -20,7 +20,7 @@ namespace WebApplication1.Controllers
             };
         }
 
-        [HttpPost("create-public-chat")]
+        [HttpPost("create-public-chat-{name}-{creator_id}-{desc}")]
         public JsonResult CreatePublicChat(string name, int creator_id, string desc)
         {
             if (!context.User.Find(creator_id).Is_Admin)
@@ -105,41 +105,60 @@ namespace WebApplication1.Controllers
         public JsonResult DeleteChat(int chat_id, int user_id)
         {
             var chat = context.Chat.Find(chat_id);
-            return new JsonResult(BadRequest("not implemented"));
+            var user = context.User.Find(user_id);
+
+            if (chat is null)
+            {
+                return new JsonResult(BadRequest("chat doesn't exist"));
+            }
+            if (!user.Is_Admin && user.Id != chat.Creator_Id)
+            {
+                return new JsonResult(BadRequest("cannot delete chat"));
+            }
+
+            context.Chat.Remove(chat);
+            context.SaveChanges();
+            return new JsonResult(Ok(chat));
         }
 
         [HttpPut("edit-name")]
-        public JsonResult EditChatName(int chatId, string newChatName)
+        public JsonResult EditChatName(int chat_id, int user_id, string new_name)
         {
-            try
-            {
-                context.Chat.Where(x => x.Id == chatId).First().Name = newChatName;
+            var chat = context.Chat.Find(chat_id);
+            var user = context.User.Find(user_id);
 
-                context.SaveChanges();
-
-                return new JsonResult(Ok(context.Chat.Where(x => x.Id == chatId).First()));
-            }
-            catch
+            if (chat is null)
             {
-                throw new Exception("Reaction could not be removed because it does not exist");
+                return new JsonResult(BadRequest("chat doesn't exist"));
             }
+            if (user.Id != chat.Creator_Id)
+            {
+                return new JsonResult(BadRequest("no permissions for this action"));
+            }
+
+            chat.Name = new_name;
+            context.SaveChanges();
+            return new JsonResult(Ok(chat));
         }
 
         [HttpPut("edit-description")]
-        public JsonResult EditChatDescription(int chatId, string newChatDescription)
+        public JsonResult EditChatDescription(int chat_id, int user_id, string new_desc)
         {
-            try
-            {
-                context.Chat.Where(x => x.Id == chatId).First().Description = newChatDescription;
+            var chat = context.Chat.Find(chat_id);
+            var user = context.User.Find(user_id);
 
-                context.SaveChanges();
-
-                return new JsonResult(Ok(context.Chat.Where(x => x.Id == chatId).First()));
-            }
-            catch
+            if (chat is null)
             {
-                throw new Exception("Reaction could not be removed because it does not exist");
+                return new JsonResult(BadRequest("chat doesn't exist"));
             }
+            if (user.Id != chat.Creator_Id)
+            {
+                return new JsonResult(BadRequest("no permissions for this action"));
+            }
+
+            chat.Description = new_desc;
+            context.SaveChanges();
+            return new JsonResult(Ok(chat));
         }
 
         [HttpGet("chat{id}")]
@@ -148,12 +167,6 @@ namespace WebApplication1.Controllers
             return Ok(context.Chat.Where(x => x.Id == id));
         }
 
-
-        [HttpGet("all-chats")]
-        public IActionResult GetAllChats()
-        {
-            return Ok(context.Chat);
-        }
 
         [HttpGet("all-public-chats")]
         public IActionResult GetAllPublicChats()

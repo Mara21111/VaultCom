@@ -98,30 +98,31 @@ namespace WebApplication1.Controllers
                 return new JsonResult(BadRequest("user isn't creator of the message"));
             }
             msg.Content = new_content;
+            if (IsLinkRegex(new_content)) msg.URL_Link = new_content;
             context.SaveChanges();
             return new JsonResult(Ok(msg));
         }
 
-        [HttpGet("search-for-message")]
+        [HttpGet("search-in-chat-{search_prompt}-{chat_id}")]
         public IActionResult SearchForMessage(string search_prompt, int chat_id)
         {
             return new JsonResult(context.Message.Where(x => x.Chat_Id == chat_id && x.Content.Contains(search_prompt)).ToList());
         }
 
         // todo
-        [HttpGet("get-messages-from-chat{id}")]
-        public IActionResult GetMessages(int id)
+        [HttpGet("all-messages-in-chat-{chat_id}")]
+        public IActionResult GetMessages(int chat_id)
         {
-            return Ok(context.Message.Where(x => x.Chat_Id == id));
+            return Ok(context.Message.Where(x => x.Chat_Id == chat_id));
         }
 
-        [HttpGet("get-user-messages-in-chat")]
+        [HttpGet("user-messages-in-chat-{user_id}-{chat_id}")]
         public IActionResult GetUserMessagesFromChat(int user_id, int chat_id)
         {
             return Ok(context.Message.Where(x => x.Chat_Id == chat_id && x.User_Id == user_id));
         }
 
-        [HttpGet("get-user-messages-in-public-chats")]
+        [HttpGet("user-messages-in-public-chats-{user_id}")]
         public IActionResult GetUserMessagesFromPublicChats(int user_id)
         {
             return Ok(context.Message.Where(x => x.User_Id == user_id &&
