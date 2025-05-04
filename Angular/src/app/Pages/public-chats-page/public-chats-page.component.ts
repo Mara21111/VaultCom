@@ -4,7 +4,9 @@ import { NgFor } from '@angular/common';
 import { BaseUiComponent } from "../base-ui/base-ui.component";
 import { FormsModule } from '@angular/forms';
 import { Chat } from '../../models/Chat';
+import { User } from '../../models/User';
 import { ChatService } from '../../services/chat.service';
+import { UserService } from '../../services/user.service';
 import { catchError, of } from 'rxjs';
 
 @Component({
@@ -18,16 +20,18 @@ import { catchError, of } from 'rxjs';
 export class PublicChatsPageComponent {
 
   publicChats: Chat[] = [];
+  user: User = new User;
+  chatName: string = "";
 
-  constructor(private chatService: ChatService) {
+  constructor(private chatService: ChatService, private userService: UserService) {
   }
 
   ngOnInit(): void  {
     this.refresh();
+    this.userService.getFromToken().subscribe(result => {
+      this.user = result; console.log(this.user.id)
+    });
   }
-
-
-  chatName: string = "";
 
   public createChat(): void {
     let newChat = this.chatService.newPublicChat(this.chatName);
@@ -36,8 +40,8 @@ export class PublicChatsPageComponent {
     this.chatName = '';
   }
 
-  public deleleteChat(id: number): void {
-    this.chatService.deleteChat(id).subscribe(_ => this.refresh());
+  public deleleteChat(chat_id: number): void {
+    this.chatService.deleteChat(chat_id, this.user.id).subscribe(_ => this.refresh());
   }
 
   private refresh(): void {

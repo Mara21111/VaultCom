@@ -15,11 +15,11 @@ export class ChatService {
   }
 
   public createChat(chat: Chat): Observable<Chat> {
-    return this.http.post<Chat>('http://localhost:5000/api/Chat/create-chat', chat)
+    return this.http.post<Chat>('http://localhost:5000/api/Chat/create-public-chat', chat)
   }
 
-  public deleteChat(id: number): Observable<void> {
-    return this.http.delete<void>('http://localhost:5000/api/Chat/delete-chat?ID=' + id)
+  public deleteChat(chat_id: number, user_id: number): Observable<void> {
+    return this.http.delete<void>('http://localhost:5000/api/Chat/delete-chat-' + chat_id + '-' + user_id)
   }
 
   public newPublicChat(name: string): Chat {

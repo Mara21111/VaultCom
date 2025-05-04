@@ -20,26 +20,25 @@ namespace WebApplication1.Controllers
             };
         }
 
-        [HttpPost("create-public-chat-{name}-{creator_id}-{desc}")]
-        public JsonResult CreatePublicChat(string name, int creator_id, string desc)
+        [HttpPost("create-public-chat")]
+        public JsonResult CreatePublicChat(Chat chat)
         {
-            if (!context.User.Find(creator_id).Is_Admin)
+            /*if (!context.User.Find(creator_id).Is_Admin)
             {
                 return new JsonResult(BadRequest("chat creator isn't admin"));
             }
             if (context.Chat.Where(x => x.Name == name).Any())
             {
                 return new JsonResult(BadRequest("this name already exists"));
-            }
+            }*/
 
-            var chat = CreateChat(creator_id, name);
+            //var chat = CreateChat(creator_id, name);
             chat.Is_Public = true;
 
             context.Chat.Add(chat);
             context.SaveChanges();
 
-            chat = context.Chat.Last(); //aby to melo to id po tom sejvu coz jinak to ↓↓ tady nefacha tady (v groupchatech je to samy)
-            context.User_Chat.Add(new User_Chat() { User_Id = creator_id, Chat_Id = chat.Id, Muted_Chat = false });
+            context.User_Chat.Add(new User_Chat() { User_Id = chat.Creator_Id, Chat_Id = chat.Id, Muted_Chat = false });
             context.SaveChanges();
 
             return new JsonResult(Ok(chat));
@@ -101,12 +100,13 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(chat));
         }
 
-        [HttpDelete("delete-chat")]
+        [HttpDelete("delete-chat-{chat_id}-{user_id}")]
         public JsonResult DeleteChat(int chat_id, int user_id)
         {
             var chat = context.Chat.Find(chat_id);
             var user = context.User.Find(user_id);
 
+            /*
             if (chat is null)
             {
                 return new JsonResult(BadRequest("chat doesn't exist"));
@@ -114,7 +114,7 @@ namespace WebApplication1.Controllers
             if (!user.Is_Admin && user.Id != chat.Creator_Id)
             {
                 return new JsonResult(BadRequest("cannot delete chat"));
-            }
+            }*/
 
             context.Chat.Remove(chat);
             context.SaveChanges();
