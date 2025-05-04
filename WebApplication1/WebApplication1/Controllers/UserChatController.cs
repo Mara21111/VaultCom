@@ -81,5 +81,17 @@ namespace WebApplication1.Controllers
         {
             return Ok(context.User_Chat.Any(x => x.User_Id == userId && x.Chat_Id == chatId));
         }
+
+        [HttpGet("users-in-chat-user-{id}")]
+        public IActionResult UsersInChatCount(int id)
+        {
+            return Ok(context.User_Chat.Where(x => x.Chat_Id == id).Count());
+        }
+
+        [HttpGet("online-users-in-chat-user-{id}")]
+        public IActionResult OnlineUsersInChatCount(int id)
+        {
+            return Ok(0);
+        }
     }
 }
