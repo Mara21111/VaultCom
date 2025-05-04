@@ -17,10 +17,10 @@ export class DataService {
         for (let i = 1; i <= 20; i++) {
           this.chats.push({
             id: i,
-            is_public: true,
+            is_Public: true,
             name: 'test' + i,
             description: '',
-            creator_id: 1
+            creator_Id: 1
           });
 
           this.users.push({

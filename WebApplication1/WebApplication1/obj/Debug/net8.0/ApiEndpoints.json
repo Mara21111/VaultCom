@@ -37,7 +37,28 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.ChatController",
-    "Method": "CreateChat",
+    "Method": "CreateDM",
+    "RelativePath": "api/Chat/cerate-dm",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user_id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "other_id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ChatController",
+    "Method": "CreateGroupChat",
     "RelativePath": "api/Chat/create-group-chat",
     "HttpMethod": "POST",
     "IsController": true,
@@ -91,7 +112,12 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "ID",
+        "Name": "chat_id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "user_id",
         "Type": "System.Int32",
         "IsRequired": false
       }
@@ -194,6 +220,43 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.MessageController",
+    "Method": "GetUserMessagesFromChat",
+    "RelativePath": "api/Message/get-user-messages-in-chat",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user_id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "chat_id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.MessageController",
+    "Method": "GetUserMessagesFromPublicChats",
+    "RelativePath": "api/Message/get-user-messages-in-public-chats",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user_id",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -582,6 +645,43 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.UserChatController",
+    "Method": "DeleteUserChat",
+    "RelativePath": "api/UserChat/delete-user{userId}-chat{chatId}-link",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "chatId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserChatController",
+    "Method": "GetUsersLinks",
+    "RelativePath": "api/UserChat/chat{id}-links",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserChatController",
     "Method": "GetChatsOfUser",
     "RelativePath": "api/UserChat/chats-user{id}-is-in",
     "HttpMethod": "GET",
@@ -590,6 +690,27 @@
     "Parameters": [
       {
         "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserChatController",
+    "Method": "GetUserInChat",
+    "RelativePath": "api/UserChat/is-user{userId}-in-chat{chatId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "chatId",
         "Type": "System.Int32",
         "IsRequired": true
       }
