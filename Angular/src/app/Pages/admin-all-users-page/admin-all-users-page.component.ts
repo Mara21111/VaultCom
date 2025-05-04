@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { FormsModule } from '@angular/forms';
@@ -18,6 +18,7 @@ import { ReportsService } from '../../services/reports.service';
   styleUrl: './admin-all-users-page.component.scss'
 })
 export class AdminAllUsersPageComponent {
+  @ViewChild(BaseUiComponent) baseComp!: BaseUiComponent;
 
   users: User[] = [];
   selectedUser: User = new User;
@@ -26,12 +27,14 @@ export class AdminAllUsersPageComponent {
 
   isTimeoutOrBanSelected: boolean = false;
   selectedDateTime: string = '';
+  searchValue: string = '';
 
   constructor(private userService: UserService, private router: Router, private reportService: ReportsService) {
   }
 
   public ngOnInit() {
     this.refresh();
+    this.searchValue = this.baseComp?.searchValue;
   }
 
   public goToUser(user_id: number): void{
@@ -53,6 +56,23 @@ export class AdminAllUsersPageComponent {
   closePanel() {
     this.panelVisible = false;
   }
+
+  onSearchChanged(value: string) {
+    this.searchValue = value;
+  }
+
+  public getUsers(): User[]{
+      const chats = this.users;
+  
+      if (!this.searchValue?.trim()) {
+        return chats;
+      }
+  
+      const query = this.searchValue.toLowerCase();
+      return chats.filter(user =>
+        user.username.toLowerCase().includes(query)
+      );
+    }
 }
 
 export class userReportCount {

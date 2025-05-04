@@ -3,7 +3,8 @@
   [titleOn]="true"
   [searchOn]="true"
   [closeOn]="true"
-  [closeRoute]="'/admin-menu'">
+  [closeRoute]="'/admin-menu'"
+  (searchChanged)="onSearchChanged($event)">
 </app-base-ui>
 
 <div class="main-container">
@@ -18,7 +19,7 @@
           <div class="col-header">Reason</div>
         </div>
         <div class="table-body">
-          <div class="table-row" (click)="this.goToUser(item.reported_User_Id)" *ngFor="let item of data" style="cursor: pointer;">
+          <div class="table-row" (click)="this.goToUser(item.reported_User_Id)" *ngFor="let item of this.getReports()" style="cursor: pointer;">
             <div class="col username">{{ getUsername(item.user_Id) }}</div>
             <div class="col">{{ getUsername(item.reported_User_Id) }}</div>
             <div class="col">{{ item.message }}</div>

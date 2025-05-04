@@ -1,13 +1,16 @@
-import { NgIf } from '@angular/common';
-import { Component, input, Input } from '@angular/core';
+import { CommonModule, NgIf } from '@angular/common';
+import { Component, input, Input, Output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/User';
+import { EventEmitter } from '@angular/core';
+import { AuthenticationService } from '../../services/authentication.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-base-ui',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgIf],
+  imports: [RouterLink, RouterLinkActive, NgIf, FormsModule],
   templateUrl: './base-ui.component.html',
   styleUrl: './base-ui.component.scss'
 })
@@ -25,10 +28,25 @@ export class BaseUiComponent {
 
   user: User = new User;
 
-  constructor(private userService: UserService) {
+  @Output() searchChanged = new EventEmitter<string>();
+
+  searchValue: string = '';
+
+  constructor(private userService: UserService,
+    private authService: AuthenticationService
+  ) {
   }
 
   ngOnInit() {
     this.userService.getFromToken().subscribe(result => this.user = result);
+  }
+
+  onSeachChange(value: string){
+    this.searchValue = value;
+    this.searchChanged.emit(value);
+  }
+
+  logout(){
+    this.authService.logout();
   }
 }

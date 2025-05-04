@@ -26,6 +26,10 @@ export class ReportsService {
   public getAllUserReportsCount(): Observable<userReportCount[]>{
     return this.http.get<userReportCount[]>('http://localhost:5000/api/Reports/reportsCount-AllUsers')
   }
+
+  public createReport(report: Report_log): Observable<Report_log> {
+    return this.http.post<Report_log>('http://localhost:5000/api/Reports/create-report', report)
+  }
 }
 
 export class userReportCount {

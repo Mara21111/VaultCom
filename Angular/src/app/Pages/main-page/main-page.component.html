@@ -43,9 +43,10 @@
 
     <!-- Chat Window -->
     <div class="chat-window">
-      <div class="chat-header">
+      <div class="chat-header" *ngIf="this.activeChat.id">
+        <button class="message-avatar" (click)="this.chatInfo()">{{ this.activeChat.name?.charAt(0) }}</button>
         <div class="chat-title">{{ activeChat.name }}</div>
-        <div class="chat-actions">
+        <div class="chat-actions" *ngIf="!this.showChatInfo">
           <button class="chat-action" [ngClass]="{'active': this.pinnedMessages}">
             <i class="fas fa-thumbtack" (click)="this.pinnedMessages = !this.pinnedMessages"></i>
           </button>
@@ -55,9 +56,9 @@
         </div>
       </div>
 
-      <div class="messages-container" #scrollMe style="overflow-y: auto;">
+      <div class="messages-container" #scrollMe style="overflow-y: auto;" *ngIf="!this.showChatInfo">
         <div class="message" *ngFor="let item of this.messages()" [ngClass]="{'loginUser': item.user_Id === this.user.id}">
-          <div class="message-avatar" style="background-color: #e74c3c;">{{ this.getUsername(item.user_Id).charAt(0) }}</div>
+          <div class="message-avatar">{{ this.getUsername(item.user_Id).charAt(0) }}</div>
           <div class="message-content" [ngClass]="{'loginUser': item.user_Id === this.user.id}">
             <div class="message-sender">{{ this.getUsername(item.user_Id) }}</div>
             {{ item.content }}
@@ -69,6 +70,24 @@
           </div>
         </div>
       </div>
+
+      <div class="user-info-wrapper">
+        <div class="user-list" *ngIf="this.showChatInfo">
+          <div *ngFor="let user of this.activeChatUsers" class="user-card">
+            <div class="user-info">
+              <h3>{{ user.username }} <span *ngIf="user.id !== this.user.id">(Nickname)</span></h3>
+              <p><strong>Phone:</strong> {{ user.phone_Number }}</p>
+              <p><strong>Email:</strong> {{ user.email }}</p>
+              <p><strong>Bio:</strong> {{ user.bio }}</p>
+            </div>
+      
+          <div class="user-actions">
+            <button (click)="muteUser(user)" class="btn mute">Mute</button>
+            <button (click)="reportUser(user)" class="btn ban">Report</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
       <form class="form-log-in" *ngIf="!this.public_chats">
         <div class="footer-bar message-footer">

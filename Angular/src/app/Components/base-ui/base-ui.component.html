@@ -23,7 +23,7 @@
         <!-- Title and Close Button -->
         <div class="d-flex align-items-center ms-4">
           <div class="title fs-4" *ngIf="titleOn">{{ title }}</div>
-          <button class="action-btn btn p-2 close" routerLink="{{closeRoute}}" routerLinkActive="active" *ngIf="closeOn">
+          <button class="action-btn btn p-2 close" routerLink="{{ this.closeRoute }}" routerLinkActive="active" *ngIf="closeOn">
             <i class="bi bi-x-lg"></i>
           </button>
           <button class="action-btn btn p-2 friends" routerLink="/user-friends" routerLinkActive="active" *ngIf="friendsOn">
@@ -32,7 +32,7 @@
           <button class="action-btn btn p-2 profile" routerLink="/user-profile" routerLinkActive="active" *ngIf="profileOn">
             <i class="fas fa-user"></i>
           </button>
-          <button class="action-btn btn p-2 logout" routerLink="/" routerLinkActive="active" *ngIf="logOutOn">
+          <button class="action-btn btn p-2 logout" (click)="this.logout()" *ngIf="logOutOn">
             <i class="bi bi-box-arrow-right"></i>
         </button>
         </div>
