@@ -1,8 +1,9 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { DataService } from '../../services/data.service';
-import { BaseUiComponent } from "../base-ui/base-ui.component";
+import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
+import { SidePanelComponent } from '../../Components/side-panel/side-panel.component';
 import { User } from '../../models/User';
 import { UserRelationshipService } from '../../services/user_relationship.service';
 import { UserService } from '../../services/user.service';
@@ -10,7 +11,7 @@ import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-user-friends-page',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgFor, BaseUiComponent],
+  imports: [RouterLink, RouterLinkActive, NgFor, NgIf, BaseUiComponent, SidePanelComponent],
   templateUrl: './user-friends-page.component.html',
   styleUrl: './user-friends-page.component.scss'
 })
@@ -21,6 +22,9 @@ export class UserFriendsPageComponent {
   friends: User[] = [];
   users: User[] = [];
   user: User = new User;
+  panelVisible = false;
+  selectedUser = new User;
+  reportsCount = 0;
 
   public constructor(private service: UserRelationshipService, private userService: UserService, private router: Router) {  }
 
@@ -36,7 +40,8 @@ export class UserFriendsPageComponent {
   }
 
   public goToUser(user_id: number) {
-    this.router.navigate(['/user-info/', user_id])
+    this.userService.getById(user_id).subscribe(result => this.selectedUser = result)
+    this.panelVisible = true;
   }
 
   ngOnInit() {
@@ -56,5 +61,9 @@ export class UserFriendsPageComponent {
   getBio(userId: number): string {
     const user = this.users.find(u => u.id === userId);
     return user ? user.bio : '---';
+  }
+
+  closePanel() {
+    this.panelVisible = false;
   }
 }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { User } from '../../models/User';
 import { NgIf, CommonModule } from '@angular/common';
-import { BaseUiComponent } from "../base-ui/base-ui.component";
+import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
 import { UserService } from '../../services/user.service';
 import { ReportsService } from '../../services/reports.service';
 

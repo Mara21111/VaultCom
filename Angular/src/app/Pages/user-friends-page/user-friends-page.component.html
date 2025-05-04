@@ -18,7 +18,7 @@
           <div class="col-header">Actions</div>
         </div>
         <div class="table-body">
-          <div class="table-row" *ngFor="let item of requests">
+          <div class="table-row" *ngFor="let item of requests" (click)="goToUser(item.id)">
             <div class="col">{{ getUsername(item.id) }}</div>
             <div class="col">{{ getBio(item.id) }}</div>
             <div class="col action-buttons">
@@ -38,7 +38,7 @@
           <div class="col-header">Nickname</div>
         </div>
         <div class="table-body">
-          <div class="table-row" *ngFor="let item of friends">
+          <div class="table-row" *ngFor="let item of friends" (click)="goToUser(item.id)">
             <div class="col">{{ getUsername(item.id) }}</div>
             <div class="col">{{ getBio(item.id) }}</div>
             <div class="col">Nickname Here</div>
@@ -49,3 +49,11 @@
     </div>
   </div>
 </div>
+
+<app-side-panel
+*ngIf="panelVisible"
+(close)="closePanel()"
+[user]="selectedUser"
+[reportsCount]="reportsCount"
+[showActionButtons]="true">
+</app-side-panel>
