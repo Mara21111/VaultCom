@@ -11,20 +11,24 @@
       "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\userchatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:1:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\joker\\desktop\\vaultcom\\webapplication1\\webapplication1\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:1:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:2:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\joker\\desktop\\vaultcom\\webapplication1\\webapplication1\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:2:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\joker\\desktop\\vaultcom\\webapplication1\\webapplication1\\controllers\\messagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\messagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\joker\\desktop\\vaultcom\\webapplication1\\webapplication1\\models\\message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\models\\message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\joker\\desktop\\vaultcom\\webapplication1\\webapplication1\\models\\urhelpmodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\models\\urhelpmodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:2:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\joker\\desktop\\vaultcom\\webapplication1\\webapplication1\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:2:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:1:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\joker\\desktop\\vaultcom\\webapplication1\\webapplication1\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:1:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\joker\\desktop\\vaultcom\\webapplication1\\webapplication1\\models\\message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\models\\message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,11 +38,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "URHelpModule.cs",
+              "DocumentMoniker": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Models\\URHelpModule.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Models\\URHelpModule.cs",
+              "ToolTip": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Models\\URHelpModule.cs",
+              "RelativeToolTip": "WebApplication1\\Models\\URHelpModule.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-05T19:07:59.254Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -48,14 +65,14 @@
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\UserRelationshipController.cs",
               "ToolTip": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\UserRelationshipController.cs",
               "RelativeToolTip": "WebApplication1\\Controllers\\UserRelationshipController.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAWwFMAAABGAAAAAAAAAA==",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAmwDYBAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-04T20:38:03.247Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "Message.cs",
               "DocumentMoniker": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Models\\Message.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Models\\Message.cs",
@@ -67,7 +84,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "ChatController.cs",
               "DocumentMoniker": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\ChatController.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\ChatController.cs",
@@ -75,7 +92,8 @@
               "RelativeToolTip": "WebApplication1\\Controllers\\ChatController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T04:29:24.821Z"
+              "WhenOpened": "2025-05-04T04:29:24.821Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -85,7 +103,7 @@
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\UserChatController.cs",
               "ToolTip": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\UserChatController.cs",
               "RelativeToolTip": "WebApplication1\\Controllers\\UserChatController.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAuwGEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAcwGEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-04T04:13:15.039Z",
               "EditorCaption": ""
@@ -98,21 +116,23 @@
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\MessageController.cs",
               "ToolTip": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\MessageController.cs",
               "RelativeToolTip": "WebApplication1\\Controllers\\MessageController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAQwGIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-03T21:28:35.196Z"
+              "WhenOpened": "2025-05-03T21:28:35.196Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "ChatController.cs",
               "DocumentMoniker": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\ChatController.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\ChatController.cs",
               "ToolTip": "C:\\Users\\Joker\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\ChatController.cs",
               "RelativeToolTip": "WebApplication1\\Controllers\\ChatController.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAmwB4AAAAmAAAAAAAAAA==",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAwwB4AAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-03T21:28:35.196Z"
+              "WhenOpened": "2025-05-03T21:28:35.196Z",
+              "EditorCaption": ""
             }
           ]
         }
