@@ -17,12 +17,12 @@ namespace WebApplication1.Controllers
     {
         private MyContext context = new MyContext();
 
-        private User_Relationship CreateRelationship(int id1, int id2)
+        private User_Relationship CreateRelationship(URHelpModule help_module)
         {
             return new User_Relationship()
             {
-                User_Id = id1,
-                Friend_User_Id = id2,
+                User_Id = help_module.sender_id,
+                Friend_User_Id = help_module.reciever_id,
                 Is_Blocked = false,
                 Is_Muted = false,
                 Is_Friend = false,
@@ -31,12 +31,12 @@ namespace WebApplication1.Controllers
             };
         }
 
-        private int GetID(int id1, int id2)
-            => context.User_Relationship.Where(x => x.User_Id == id1 && x.Friend_User_Id == id2).First().Id;
+        private int GetID(URHelpModule help_module)
+            => context.User_Relationship.Where(x => x.User_Id == help_module.sender_id && x.Friend_User_Id == help_module.reciever_id).First().Id;
 
-        private bool Exists(int id1, int id2)
+        private bool Exists(URHelpModule help_module)
         {
-            return context.User_Relationship.Where(x => x.User_Id == id1 && x.Friend_User_Id == id2).Any();
+            return context.User_Relationship.Where(x => x.User_Id == help_module.sender_id && x.Friend_User_Id == help_module.reciever_id).Any();
         }
 
         private void RemoveFromDatabaseIfDefault(User_Relationship rel)
@@ -45,89 +45,88 @@ namespace WebApplication1.Controllers
                 return;
 
             context.User_Relationship.Remove(rel);
+            context.SaveChanges();
         }
 
 
         [HttpPost("send-friend-request")]
-        public JsonResult SendRequest(User_Relationship rel)
+        public JsonResult SendRequest(URHelpModule help_module)
         {
-            if (!Exists(rel.User_Id, rel.Friend_User_Id))
+            User_Relationship? rel;
+            if (!Exists(help_module))
             {
+                rel = CreateRelationship(help_module);
                 rel.Pending = true;
                 context.User_Relationship.Add(rel);
                 context.SaveChanges();
+                return new JsonResult(Ok(rel));
+            }
+
+            rel = context.User_Relationship.Find(GetID(help_module));
+            User_Relationship? rel_reverse = context.User_Relationship.Find(GetID(help_module.Reverse()));
+
+            if (rel_reverse.Is_Friend)
+            {
+                rel_reverse.Is_Friend = true;
+                context.SaveChanges();
+                return new JsonResult(Ok(rel));
             }
             if (rel.Is_Friend)
             {
                 return new JsonResult(BadRequest("users are friends already"));
             }
 
-            rel = CreateRelationship(rel.User_Id, rel.Friend_User_Id);
             rel.Pending = true;
             context.SaveChanges();
             return new JsonResult(Ok(rel));
         }
 
-        // fixnout ze v jsonu vraci nejakej server error, ale jinak funguje
         [HttpPost("accept-friend-request")]
-        public JsonResult AcceptRequest(User_Relationship rel) 
+        public JsonResult AcceptRequest(URHelpModule help_module)
         {
-            if (!Exists(rel.User_Id, rel.Friend_User_Id))
+            User_Relationship? rel;
+            if (!Exists(help_module))
             {
-                return new JsonResult(BadRequest($"relation from user {rel.User_Id} to {rel.Friend_User_Id} does not exist"));
+                return new JsonResult(BadRequest($"relation from user {help_module.sender_id} to {help_module.reciever_id} does not exist"));
             }
+
+            rel = context.User_Relationship.Find(GetID(help_module));
             if (!rel.Pending)
             {
                 return new JsonResult(BadRequest($"there is no pending request from user {rel.User_Id}"));
             }
 
-            rel = CreateRelationship(rel.User_Id, rel.Friend_User_Id);
             rel.Pending = false;
             rel.Is_Friend = true;
             context.SaveChanges();
 
             User_Relationship? rel2 = new();
-            if (!Exists(rel.Friend_User_Id, rel.User_Id))
+            if (!Exists(help_module.Reverse()))
             {
-                rel2 = CreateRelationship(rel.Friend_User_Id, rel.User_Id);
+                rel2 = CreateRelationship(help_module.Reverse());
                 rel2.Is_Friend = true;
                 context.User_Relationship.Add(rel2);
             }
             else
             {
-                rel2 = context.User_Relationship.Find(GetID(rel.Friend_User_Id, rel.User_Id));
+                rel2 = context.User_Relationship.Find(GetID(help_module.Reverse()));
                 rel2.Is_Friend = true;
             }
-
-            context.SaveChanges();
-            return new JsonResult(Ok(rel), Ok(rel2));
-        }
-
-        [HttpPost("reject-friend-request")]
-        public JsonResult RejectRequest(User_Relationship rel)
-        {
-            if (!Exists(rel.User_Id, rel.Friend_User_Id))
-            {
-                return new JsonResult(BadRequest($"relation from user {rel.User_Id} to {rel.Friend_User_Id} does not exist"));
-            }
-
-            rel = CreateRelationship(rel.User_Id, rel.Friend_User_Id);
-            rel.Pending = false;
-            RemoveFromDatabaseIfDefault(rel);
 
             context.SaveChanges();
             return new JsonResult(Ok(rel));
         }
 
         [HttpPost("cancel-friend-request")]
-        public JsonResult CancelRequest(User_Relationship rel)
+        public JsonResult CancelRequest(URHelpModule help_module)
         {
-            if (!Exists(rel.User_Id, rel.Friend_User_Id))
+            User_Relationship? rel;
+            if (!Exists(help_module))
             {
-                return new JsonResult(BadRequest($"relation from user {rel.User_Id} to {rel.Friend_User_Id} does not exist"));
+                return new JsonResult(BadRequest($"relation from user {help_module.sender_id} to {help_module.reciever_id} does not exist"));
             }
 
-            rel = CreateRelationship(rel.User_Id, rel.Friend_User_Id);
+            rel = context.User_Relationship.Find(GetID(help_module));
             rel.Pending = false;
             RemoveFromDatabaseIfDefault(rel);
 
@@ -135,15 +134,16 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(rel));
         }
 
-        [HttpPost("unfriend-{friend_user_id}-from-{user_id}")]
-        public JsonResult UnfriendUser(int user_id, int friend_user_id)
+        [HttpPost("unfriend-user")]
+        public JsonResult UnfriendUser(URHelpModule help_module)
         {
-            if (!Exists(user_id, friend_user_id))
+            User_Relationship? rel;
+            if (!Exists(help_module))
             {
-                return new JsonResult(BadRequest($"relation from user {user_id} to {friend_user_id} does not exist"));
+                return new JsonResult(BadRequest($"relation from user {help_module.sender_id} to {help_module.reciever_id} does not exist"));
             }
-            User_Relationship? rel = context.User_Relationship.Find(GetID(user_id, friend_user_id));
 
+            rel = context.User_Relationship.Find(GetID(help_module));
             rel.Is_Friend = false;
             RemoveFromDatabaseIfDefault(rel);
 
@@ -198,7 +198,7 @@ namespace WebApplication1.Controllers
         }*/
 
 
-        [HttpPost("toggle-{user_id}-block-{blocked_user_id}")]
+        /*[HttpPost("toggle-{user_id}-block-{blocked_user_id}")]
         public JsonResult ToggleBlockUser(int user_id, int blocked_user_id)
         {
             User_Relationship? rel = new();
@@ -257,7 +257,7 @@ namespace WebApplication1.Controllers
 
             context.SaveChanges();
             return new JsonResult(Ok(rel));
-        }
+        }*/
 
 
         [HttpGet("friends-of-user{id}")]
@@ -302,13 +302,13 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet("get-relation")]
-        public IActionResult GetRelationship(int id1, int id2)
+        public IActionResult GetRelationship(URHelpModule help_module)
         {
-            if (!Exists(id1, id2))
+            if (!Exists(help_module))
             {
                 return BadRequest("this relationship does not exist");
             }
-            return Ok(context.User_Relationship.Where(x => x.User_Id == id1 && x.Friend_User_Id == id2).First());
+            return Ok(context.User_Relationship.Find(GetID(help_module)));
         }
 
         [HttpGet("get-relation-by-id-{id}")]

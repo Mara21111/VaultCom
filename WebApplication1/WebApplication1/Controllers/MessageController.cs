@@ -18,22 +18,6 @@ namespace WebApplication1.Controllers
             return Regex.IsMatch(content, @"^(https?://)?www(\.[a-zA-Z0-9]{2,})+(/[a-zA-Z0-9_\-/]*)?$");
         }
 
-        private Message CreateMesage(int user_id, int chat_id, string content, int reply_to)
-        {
-            return new()
-            {
-                User_Id = user_id,
-                Chat_Id = chat_id,
-                Content = content,
-                URL_Link = IsLinkRegex(content) ? content : "",
-                Is_Edited = false,
-                Is_Pinned = false,
-                Is_Single_Use = false,
-                Time = DateTime.UtcNow,
-                Previous_Message_Id = reply_to
-            };
-        }
-
         [HttpPost("send-message")]
         public JsonResult SendMessage(Message msg)
         {
@@ -50,6 +34,9 @@ namespace WebApplication1.Controllers
                 return new JsonResult(BadRequest($"{msg.User_Id} user isn't in {msg.Chat_Id} chat"));
             }
 
+            msg.Is_Pinned = false;
+            msg.Is_Edited = true;
+            msg.Is_Single_Use = false;
             msg.Time = DateTime.Now;
             context.Message.Add(msg);
             context.SaveChanges();
@@ -96,6 +83,8 @@ namespace WebApplication1.Controllers
             {
                 return new JsonResult(BadRequest("user isn't creator of the message"));
             }
+
+            msg.Is_Edited = true;
             msg.Content = new_content;
             if (IsLinkRegex(new_content)) msg.URL_Link = new_content;
             context.SaveChanges();
@@ -108,7 +97,6 @@ namespace WebApplication1.Controllers
             return new JsonResult(context.Message.Where(x => x.Chat_Id == chat_id && x.Content.Contains(search_prompt)).ToList());
         }
 
-        // todo
         [HttpGet("all-messages-in-chat-{chat_id}")]
         public IActionResult GetMessages(int chat_id)
         {
@@ -127,5 +115,24 @@ namespace WebApplication1.Controllers
             return Ok(context.Message.Where(x => x.User_Id == user_id &&
                 context.Chat.Find(x.Chat_Id).Is_Public));
         }
+
+        // nevim co s tim nechce se mi to mazat
+        /*
+
+        private Message CreateMesage(int user_id, int chat_id, string content, int reply_to)
+        {
+            return new()
+            {
+                User_Id = user_id,
+                Chat_Id = chat_id,
+                Content = content,
+                URL_Link = IsLinkRegex(content) ? content : "",
+                Is_Edited = false,
+                Is_Pinned = false,
+                Is_Single_Use = false,
+                Time = DateTime.UtcNow,
+                Previous_Message_Id = reply_to
+            };
+        }*/
     }
 }
