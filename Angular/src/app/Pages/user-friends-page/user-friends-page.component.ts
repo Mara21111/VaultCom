@@ -7,6 +7,7 @@ import { SidePanelComponent } from '../../Components/side-panel/side-panel.compo
 import { User } from '../../models/User';
 import { UserRelationshipService } from '../../services/user_relationship.service';
 import { UserService } from '../../services/user.service';
+import { URHelpModule } from '../../models/URHelpModule';
 
 @Component({
   selector: 'app-user-friends-page',
@@ -31,12 +32,18 @@ export class UserFriendsPageComponent {
   public acceptRequest(sender_id: number) {
     console.log(this.getUsername(sender_id))
     console.log(sender_id)
-    this.service.acceptRequest(sender_id, this.user.id);
+    let URHelp = new URHelpModule;
+    URHelp.sender_id = sender_id;
+    URHelp.reciever_id = this.user.id;
+    this.service.acceptRequest(URHelp);
   }
 
-  public rejectRequest(sender_id: number) {
+  public cancelRequest(sender_id: number) {
     console.log(this.getUsername(sender_id))
-    this.service.acceptRequest(sender_id, this.user.id);
+    let URHelp = new URHelpModule;
+    URHelp.sender_id = sender_id;
+    URHelp.reciever_id = this.user.id;
+    this.service.cancelRequest(URHelp);
   }
 
   public goToUser(user_id: number) {
@@ -56,11 +63,6 @@ export class UserFriendsPageComponent {
   getUsername(userId: number): string {
     const user = this.users.find(u => u.id === userId);
     return user ? user.username : 'Unknown';
-  }
-
-  getBio(userId: number): string {
-    const user = this.users.find(u => u.id === userId);
-    return user ? user.bio : '---';
   }
 
   closePanel() {

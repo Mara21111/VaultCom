@@ -29,6 +29,7 @@ export class MainPageComponent {
   public_chats: boolean = false;
   pinnedMessages: boolean = false;
   showChatInfo: boolean = false;
+  reportPopup: boolean = false;
   userChats: Chat[] = [];
   publicChats: Chat[] = [];
   activeChat: Chat = new Chat;
@@ -36,6 +37,8 @@ export class MainPageComponent {
   newMessage: Message = new Message;
   searchChat: string = '';
   searchMessage: string = '';
+  reportReason: string = '';
+  reportUserId: number = 0;
 
   constructor(private userService: UserService,
     private chatService: ChatService,
@@ -82,16 +85,20 @@ export class MainPageComponent {
 
   changeChatsToPublic(){
     this.public_chats = true;
-    this.activeChat = new Chat;
-    this.allMessages = [];
+    this.setChats();
     this.chatService.getAllPublicChats().subscribe(result => this.publicChats = result)
   }
 
   changeChatsToPrivate(){
     this.public_chats = false;
+    this.setChats();
+    this.userChatService.chatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
+  }
+
+  setChats(){
+    this.showChatInfo = false;
     this.activeChat = new Chat;
     this.allMessages = [];
-    this.userChatService.chatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
   }
 
   getChats(): Chat[]{
@@ -114,7 +121,6 @@ export class MainPageComponent {
 
     this.newMessage.user_Id = this.user.id;
     this.newMessage.chat_Id = this.activeChat.id;
-    this.newMessage.time = new Date;
     this.messageService.createMessage(this.newMessage).pipe(
           catchError(error =>{throw error})
         ).subscribe(_ => this.refreshMessages());
@@ -157,7 +163,6 @@ export class MainPageComponent {
         this.allMessages = [];
       });
     }
-
   }
 
   chatInfo(){
@@ -169,12 +174,24 @@ export class MainPageComponent {
 
   }
 
-  reportUser(user: User){
+  reportUser(){
     let report = new Report_log;
     report.user_Id = this.user.id;
-    report.reported_User_Id = user.id;
-    report.message = 'Zatim takhle natvrdo'
+    report.reported_User_Id = this.reportUserId;
+    report.message = this.reportReason;
+    this.reportPopup = false;
 
     this.reportsService.createReport(report).subscribe();
+  }
+
+  showReportPopup(reportUserId: number){
+    this.reportPopup = true;
+    this.reportUserId = reportUserId;
+  }
+
+  cancelReport(){
+    this.reportPopup = false;
+    this.reportReason = '';
+    this.reportUserId = 0;
   }
 }

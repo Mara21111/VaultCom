@@ -13,7 +13,6 @@
 
   <div class="content">
     
-    <!-- Sidebar -->
     <div class="sidebar">
       <div class="search-container">
         <input type="text" class="form-control search-input" placeholder="Search" [(ngModel)]="this.searchChat">
@@ -34,14 +33,12 @@
         </div>
       </div>
 
-      <!-- Sticky Public/Private Toggle -->
       <div class="footer-bar mode-toggle">
         <div class="mode-button" [ngClass]="{'active': !public_chats}" (click)="changeChatsToPrivate()">Private</div>
         <div class="mode-button" [ngClass]="{'active': public_chats}" (click)="changeChatsToPublic()">Public</div>
       </div>
     </div>
 
-    <!-- Chat Window -->
     <div class="chat-window">
       <div class="chat-header" *ngIf="this.activeChat.id">
         <button class="message-avatar" (click)="this.chatInfo()">{{ this.activeChat.name?.charAt(0) }}</button>
@@ -81,9 +78,9 @@
               <p><strong>Bio:</strong> {{ user.bio }}</p>
             </div>
       
-          <div class="user-actions">
-            <button (click)="muteUser(user)" class="btn mute">Mute</button>
-            <button (click)="reportUser(user)" class="btn ban">Report</button>
+          <div class="user-actions" *ngIf="user.id !== this.user.id">
+            <button (click)="this.muteUser(user)" class="btn mute">Mute</button>
+            <button (click)="this.showReportPopup(user.id)" class="btn ban">Report</button>
           </div>
         </div>
       </div>
@@ -91,12 +88,23 @@
 
       <form class="form-log-in" *ngIf="!this.public_chats">
         <div class="footer-bar message-footer">
-          <input type="text" class="message-input" placeholder="Write message" name="msg" [(ngModel)]="newMessage.content" required>
+          <input type="text" class="message-input" placeholder="Write message" name="msg" [(ngModel)]="this.newMessage.content" required>
           <button class="btn btn-dark btn-icon send-button" (click)="this.sendMessage()">
             <i class="fas fa-paper-plane"></i>
           </button>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<div id="reportPopup" class="popup-overlay" *ngIf="this.reportPopup">
+  <div class="popup">
+    <h2>Report user</h2>
+    <textarea id="reportReason" placeholder="Insert reason..." [(ngModel)]="this.reportReason"></textarea>
+    <div class="popup-actions">
+      <button (click)="this.reportUser()">Report</button>
+      <button (click)="this.cancelReport()">Cancel</button>
     </div>
   </div>
 </div>

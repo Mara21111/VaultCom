@@ -108,6 +108,14 @@ $danger: #e74c3c;
         &:hover {
           background-color: darken($danger, 10%);
         }
+
+        &.active {
+          background-color: darken($danger, $amount: 20%);
+        }
+      }
+
+      &.active {
+        background-color: darken($color: gray, $amount: 20%);
       }
     }
   }

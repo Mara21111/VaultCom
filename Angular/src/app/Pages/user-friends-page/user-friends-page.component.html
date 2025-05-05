@@ -6,10 +6,14 @@
 </app-base-ui>
 
 <div class="main-container">
+  <div class="add-friend-wrapper">
+    <div>
+      ahoj
+    </div>
+  </div>
   <div class="friends-container">
     <div class="content-area">
 
-      <!-- Friend Requests -->
       <section class="panel friends-panel">
         <div class="section-title">Friend Requests</div>
         <div class="table-header">
@@ -19,17 +23,16 @@
         </div>
         <div class="table-body">
           <div class="table-row" *ngFor="let item of requests" (click)="goToUser(item.id)">
-            <div class="col">{{ getUsername(item.id) }}</div>
-            <div class="col">{{ getBio(item.id) }}</div>
+            <div class="col">{{ item?.username }}</div>
+            <div class="col">{{ item?.bio }}</div>
             <div class="col action-buttons">
               <button class="btn btn-success" (click)="acceptRequest(item.id)">Accept</button>
-              <button class="btn btn-danger" (click)="rejectRequest(item.id)">Reject</button>
+              <button class="btn btn-danger" (click)="cancelRequest(item.id)">Reject</button>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Friends List -->
       <section class="panel friends-panel">
         <div class="section-title">Your Friends</div>
         <div class="table-header">
@@ -39,8 +42,8 @@
         </div>
         <div class="table-body">
           <div class="table-row" *ngFor="let item of friends" (click)="goToUser(item.id)">
-            <div class="col">{{ getUsername(item.id) }}</div>
-            <div class="col">{{ getBio(item.id) }}</div>
+            <div class="col">{{ item?.username }}</div>
+            <div class="col">{{ item?.bio }}</div>
             <div class="col">Nickname Here</div>
           </div>
         </div>
@@ -54,6 +57,5 @@
 *ngIf="panelVisible"
 (close)="closePanel()"
 [user]="selectedUser"
-[reportsCount]="reportsCount"
 [showActionButtons]="true">
 </app-side-panel>

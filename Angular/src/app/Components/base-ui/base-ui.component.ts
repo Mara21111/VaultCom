@@ -1,6 +1,6 @@
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, input, Input, Output } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/User';
 import { EventEmitter } from '@angular/core';
@@ -33,7 +33,8 @@ export class BaseUiComponent {
   searchValue: string = '';
 
   constructor(private userService: UserService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private router: Router
   ) {
   }
 
@@ -48,5 +49,6 @@ export class BaseUiComponent {
 
   logout(){
     this.authService.logout();
+    this.router.navigate([ '/' ])
   }
 }

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../models/User'
+import { URHelpModule } from '../models/URHelpModule';
 
 @Injectable({
   providedIn: 'root'
@@ -23,35 +24,31 @@ export class UserRelationshipService {
     return this.http.get<User[]>('http://localhost:5000/api/UserRelationship/pending-requests-from-user' + user_id)
   }
 
-  public sendRequest(sender_id: number, reciever_id: number): Observable<void> {
-    return this.http.post<void>('http://localhost:5000/api/UserRelationship/send-request-from' + sender_id + '-to' + reciever_id, '')
+  public sendRequest(URHepl: URHelpModule): Observable<URHelpModule> {
+    return this.http.post<URHelpModule>('http://localhost:5000/api/UserRelationship/send-request', URHepl)
   }
 
-  public cancelRequest(sender_id: number, reciever_id: number): Observable<void> {
-    return this.http.post<void>('http://localhost:5000/api/UserRelationship/cancel-request-from' + sender_id + '-to' + reciever_id, '')
+  public cancelRequest(URHepl: URHelpModule): Observable<URHelpModule> {
+    return this.http.post<URHelpModule>('http://localhost:5000/api/UserRelationship/cancel-request', URHepl)
   }
 
-  public acceptRequest(sender_id: number, reciever_id: number): Observable<void> {
-    return this.http.post<void>('http://localhost:5000/api/UserRelationship/accept-request-from' + sender_id + '-to' + reciever_id, sender_id)
+  public acceptRequest(URHepl: URHelpModule): Observable<URHelpModule> {
+    return this.http.post<URHelpModule>('http://localhost:5000/api/UserRelationship/accept-request', URHepl)
   }
 
-  public rejectRequest(sender_id: number, reciever_id: number): Observable<void> {
-    return this.http.post<void>('http://localhost:5000/api/UserRelationship/reject-request-from' + sender_id + '-to' + reciever_id, '')
+  public toggleBlockUser(URHepl: URHelpModule): Observable<URHelpModule> {
+    return this.http.post<URHelpModule>('http://localhost:5000/api/UserRelationship/toggle-block', URHepl)
   }
 
-  public toggleBlockUser(user_id: number, blocked_user_id: number): Observable<void> {
-    return this.http.post<void>('http://localhost:5000/api/UserRelationship/toggle-' + user_id + '-block-' + blocked_user_id, '')
+  public toggleMuteUser(URHepl: URHelpModule): Observable<URHelpModule> {
+    return this.http.post<URHelpModule>('http://localhost:5000/api/UserRelationship/toggle-mute', URHepl)
   }
 
-  public toggleMuteUser(user_id: number, muted_user_id: number): Observable<void> {
-    return this.http.post<void>('http://localhost:5000/api/UserRelationship/toggle-' + user_id + '-mute-' + muted_user_id, '')
+  public changeNickname(URHepl: URHelpModule): Observable<URHelpModule> {
+    return this.http.post<URHelpModule>('http://localhost:5000/api/UserRelationship/change-nickname', URHepl)
   }
 
-  public changeNickname(user_id: number, friend_id: number): Observable<void> {
-    return this.http.post<void>('http://localhost:5000/api/UserRelationship/change-' + user_id + '-nickname-of-' + friend_id, '')
-  }
-
-  public unfriendUser(user_id: number, friend_id: number): Observable<void> {
-    return this.http.post<void>('http://localhost:5000/api/UserRelationship/unfriend-' + friend_id + '-from-' + user_id, '')
+  public unfriendUser(URHepl: URHelpModule): Observable<URHelpModule> {
+    return this.http.post<URHelpModule>('http://localhost:5000/api/UserRelationship/unfriend-from', URHepl)
   }
 }

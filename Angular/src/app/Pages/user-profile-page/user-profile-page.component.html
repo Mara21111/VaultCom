@@ -8,7 +8,6 @@
 <div class="profile-wrapper animate-fade-in">
   <div class="profile-container animate-slide-up">
     
-    <!-- Profile Info -->
     <section class="profile-panel common-panel">
       <img src="https://c.animaapp.com/m91lm1h7eKpzaT/img/pfp.png" alt="Profile Picture" class="profile-image" />
 
@@ -16,7 +15,7 @@
         <div class="item-lined">
           <i class="bi bi-person icon"></i>
           <div class="text">
-            <div class="top-text">{{ user.username || 'Username not set.' }}</div>
+            <div class="top-text">{{ this.user.username || 'Username not set.' }}</div>
             <div class="bottom-text">Username</div>
           </div>
         </div>
@@ -24,7 +23,7 @@
         <div class="item-lined">
           <i class="bi bi-at icon"></i>
           <div class="text">
-            <div class="top-text">{{ user.email || 'Email not set.' }}</div>
+            <div class="top-text">{{ this.user.email || 'Email not set.' }}</div>
             <div class="bottom-text">Email</div>
           </div>
         </div>
@@ -32,7 +31,7 @@
         <div class="item-lined">
           <i class="bi bi-telephone icon"></i>
           <div class="text">
-            <div class="top-text">{{ user.phone_Number || 'Phone not set.' }}</div>
+            <div class="top-text">{{ this.user.phone_Number || 'Phone not set.' }}</div>
             <div class="bottom-text">Phone</div>
           </div>
         </div>
@@ -40,27 +39,26 @@
         <div class="item">
           <i class="bi bi-info-circle icon"></i>
           <div class="text">
-            <div class="top-text">{{ user.bio || 'No bio added yet.' }}</div>
+            <div class="top-text">{{ this.user.bio || 'No bio added yet.' }}</div>
             <div class="bottom-text">Bio</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Settings Section -->
     <section class="settings-panel common-panel">
       <div class="on-off-panel">
         <div class="on-off-item">
           <div class="on-off-text">Public Account:</div>
-          <button class="on-off-button" (click)="togglePublicAccount()">{{ user.is_Public ? '✓' : '✕' }}</button>
+          <button class="on-off-button" (click)="this.togglePublicAccount()">{{ this.user.is_Public ? '✓' : '✕' }}</button>
         </div>
         <div class="on-off-item">
           <div class="on-off-text">Kids Mode:</div>
-          <button class="on-off-button" (click)="toggleKidsMode()">{{ user.safe_mode ? '✓' : '✕' }}</button>
+          <button class="on-off-button" (click)="this.toggleKidsMode()">{{ this.user.safe_mode ? '✓' : '✕' }}</button>
         </div>
         <div class="on-off-item">
           <div class="on-off-text">Dark Mode:</div>
-          <button class="on-off-button" (click)="toggleDarkMode()">{{ darkMode ? '✓' : '✕' }}</button>
+          <button class="on-off-button" (click)="this.toggleDarkMode()">{{ this.darkMode ? '✓' : '✕' }}</button>
         </div>
       </div>
 
@@ -80,49 +78,10 @@
   </div>
 </div>
 
-<!-- 
-<div class="overlay" *ngIf="panelVisible" (click)="closePanel()"></div>
+<div class="overlay" *ngIf="this.panelVisible" (click)="closePanel()"></div>
 
-<div class="side-panel" *ngIf="panelVisible">
-  <h2>Change user profile</h2>
-  <form [formGroup]="form">
-    <label>
-      Username:
-      <input type="text" formControlName="username" required>
-    </label>
-    <label>
-      E-mail:
-      <input type="email" formControlName="email" required>
-    </label>
-    <label>
-      Phone:
-      <input type="tel" formControlName="phone">
-    </label>
-    <label>
-      Current password:
-      <input type="password" formControlName="curPassword" required>
-    </label>
-    <label>
-      Password:
-      <input type="password" formControlName="password" required>
-    </label>
-    <label>
-      Bio:
-      <textarea formControlName="bio"></textarea>
-    </label>
-    <label class="errorMessage">
-      {{ this.errorMessage }}
-    </label>
-  </form>
-</div>
--->
-
-<!-- Overlay -->
-<div class="overlay" *ngIf="panelVisible" (click)="closePanel()"></div>
-
-<!-- Side Panel -->
-<div class="side-panel" *ngIf="panelVisible">
-  <button class="close-button" (click)="closePanel()" aria-label="Close panel">&times;</button>
+<div class="side-panel" *ngIf="this.panelVisible">
+  <button class="close-button" (click)="this.closePanel()" aria-label="Close panel">&times;</button>
   <h2>Change User Profile</h2>
 
   <form [formGroup]="form">
@@ -156,13 +115,13 @@
       <textarea id="bio" formControlName="bio"></textarea>
     </div>
 
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
+    <div *ngIf="this.errorMessage" class="error-message">
+      {{ this.errorMessage }}
     </div>
 
     <div class="button-group">
-      <button type="submit" class="save-button" (click)="closePanel()">Save</button>
-      <button type="button" class="cancel-button" (click)="closePanel()">Cancel</button>
+      <button type="submit" class="save-button" (click)="this.save()">Save</button>
+      <button type="button" class="cancel-button" (click)="this.closePanel()">Cancel</button>
     </div>
   </form>
 </div>
