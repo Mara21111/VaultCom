@@ -59,7 +59,7 @@ namespace WebApplication1.Controllers
             {
                 Is_Public = false,
                 Creator_Id = creator_id,
-                Name = $"{context.User.Find(creator_id).Username}'s gruop chat",
+                Name = $"{context.User.Find(creator_id).Username}'s group chat",
                 Description = ""
             };
 

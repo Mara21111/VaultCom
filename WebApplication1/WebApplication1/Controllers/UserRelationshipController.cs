@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Ocsp;
+using System;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
@@ -112,7 +113,21 @@ namespace WebApplication1.Controllers
                 rel2 = context.User_Relationship.Find(GetID(help_module.Reverse()));
                 rel2.Is_Friend = true;
             }
+            context.SaveChanges();
 
+            var dm = new Chat()
+            {
+                Name = $"{context.User.Find(help_module.sender_id).Username}-{context.User.Find(help_module.reciever_id).Username}",
+                Is_Public = false,
+                Creator_Id = help_module.reciever_id,
+                Description = "desc"
+            };
+            context.Chat.Add(dm);
+            context.SaveChanges();
+
+            dm = context.Chat.OrderBy(x => x.Id).Last();
+            context.User_Chat.Add(new() { Chat_Id = dm.Id, User_Id = help_module.sender_id });
+            context.User_Chat.Add(new() { Chat_Id = dm.Id, User_Id = help_module.reciever_id });
             context.SaveChanges();
             return new JsonResult(Ok(rel));
         }
