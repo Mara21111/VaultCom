@@ -25,17 +25,22 @@ export class UserRelationshipService {
   }
 
   public sendRequest(URHepl: URHelpModule): Observable<URHelpModule> {
-    return this.http.post<URHelpModule>('http://localhost:5000/api/UserRelationship/send-request', URHepl)
+    return this.http.post<URHelpModule>('http://localhost:5000/api/UserRelationship/send-friend-request', URHepl)
   }
 
   public cancelRequest(URHepl: URHelpModule): Observable<URHelpModule> {
-    return this.http.post<URHelpModule>('http://localhost:5000/api/UserRelationship/cancel-request', URHepl)
+    return this.http.post<URHelpModule>('http://localhost:5000/api/UserRelationship/cancel-friend-request', URHepl)
   }
 
   public acceptRequest(URHepl: URHelpModule): Observable<URHelpModule> {
-    return this.http.post<URHelpModule>('http://localhost:5000/api/UserRelationship/accept-request', URHepl)
+    return this.http.post<URHelpModule>('http://localhost:5000/api/UserRelationship/accept-friend-request', URHepl)
   }
 
+  public unfriendUser(URHepl: URHelpModule): Observable<URHelpModule> {
+    return this.http.post<URHelpModule>('http://localhost:5000/api/UserRelationship/unfriend-user', URHepl)
+  }
+
+  /*
   public toggleBlockUser(URHepl: URHelpModule): Observable<URHelpModule> {
     return this.http.post<URHelpModule>('http://localhost:5000/api/UserRelationship/toggle-block', URHepl)
   }
@@ -47,8 +52,6 @@ export class UserRelationshipService {
   public changeNickname(URHepl: URHelpModule): Observable<URHelpModule> {
     return this.http.post<URHelpModule>('http://localhost:5000/api/UserRelationship/change-nickname', URHepl)
   }
+*/
 
-  public unfriendUser(URHepl: URHelpModule): Observable<URHelpModule> {
-    return this.http.post<URHelpModule>('http://localhost:5000/api/UserRelationship/unfriend-from', URHepl)
-  }
 }

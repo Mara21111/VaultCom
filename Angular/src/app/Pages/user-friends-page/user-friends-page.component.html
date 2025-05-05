@@ -6,15 +6,18 @@
 </app-base-ui>
 
 <div class="main-container">
-  <div class="add-friend-wrapper">
-    <div>
-      ahoj
-    </div>
+  <div class="add-user-bar">
+    <input
+      [(ngModel)]="this.newFriendUsername"
+      placeholder="Insert username"
+      type="text"
+    />
+    <button (click)="this.addFriend()">Add</button>
   </div>
   <div class="friends-container">
     <div class="content-area">
 
-      <section class="panel friends-panel">
+      <section class="panel friends-panel" *ngIf="requests">
         <div class="section-title">Friend Requests</div>
         <div class="table-header">
           <div class="col-header">Username</div>
@@ -22,8 +25,8 @@
           <div class="col-header">Actions</div>
         </div>
         <div class="table-body">
-          <div class="table-row" *ngFor="let item of requests" (click)="goToUser(item.id)">
-            <div class="col">{{ item?.username }}</div>
+          <div class="table-row" *ngFor="let item of requests">
+            <div class="col" (click)="goToUser(item.id)">{{ item?.username }}</div>
             <div class="col">{{ item?.bio }}</div>
             <div class="col action-buttons">
               <button class="btn btn-success" (click)="acceptRequest(item.id)">Accept</button>
@@ -59,3 +62,10 @@
 [user]="selectedUser"
 [showActionButtons]="true">
 </app-side-panel>
+
+<div class="popup-backdrop" *ngIf="showPopup">
+  <div class="popup">
+    <p>{{ popupMessage }}</p>
+    <button (click)="closePopup()">Close</button>
+  </div>
+</div>
