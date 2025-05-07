@@ -8,7 +8,8 @@ using System;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
-using WebApplication1.Models;
+using WebApplication1.Models.Data;
+using WebApplication1.Models.DTO;
 
 namespace WebApplication1.Controllers
 {
@@ -16,9 +17,9 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class UserRelationshipController : ControllerBase
     {
-        private MyContext context = new MyContext();
+        /*private MyContext context = new MyContext();
 
-        private User_Relationship CreateRelationship(URHelpModule help_module)
+        private User_Relationship CreateRelationship(User_Relationship_DTO help_module)
         {
             return new User_Relationship()
             {
@@ -32,10 +33,10 @@ namespace WebApplication1.Controllers
             };
         }
 
-        private int GetID(URHelpModule help_module)
+        private int GetID(User_Relationship_DTO help_module)
             => context.User_Relationship.Where(x => x.User_Id == help_module.sender_id && x.Friend_User_Id == help_module.reciever_id).First().Id;
 
-        private bool Exists(URHelpModule help_module)
+        private bool Exists(User_Relationship_DTO help_module)
         {
             return context.User_Relationship.Where(x => x.User_Id == help_module.sender_id && x.Friend_User_Id == help_module.reciever_id).Any();
         }
@@ -51,7 +52,7 @@ namespace WebApplication1.Controllers
 
 
         [HttpPost("send-friend-request")]
-        public JsonResult SendRequest(URHelpModule help_module)
+        public JsonResult SendRequest(User_Relationship_DTO help_module)
         {
             User_Relationship? rel;
             if (!Exists(help_module))
@@ -83,7 +84,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost("accept-friend-request")]
-        public JsonResult AcceptRequest(URHelpModule help_module)
+        public JsonResult AcceptRequest(User_Relationship_DTO help_module)
         {
             User_Relationship? rel;
             if (!Exists(help_module))
@@ -133,7 +134,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost("cancel-friend-request")]
-        public JsonResult CancelRequest(URHelpModule help_module)
+        public JsonResult CancelRequest(User_Relationship_DTO help_module)
         {
             User_Relationship? rel;
             if (!Exists(help_module))
@@ -150,7 +151,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost("unfriend-user")]
-        public JsonResult UnfriendUser(URHelpModule help_module)
+        public JsonResult UnfriendUser(User_Relationship_DTO help_module)
         {
             User_Relationship? rel;
             if (!Exists(help_module))
@@ -275,7 +276,7 @@ namespace WebApplication1.Controllers
         }*/
 
 
-        [HttpGet("friends-of-user{id}")]
+        /*[HttpGet("friends-of-user{id}")]
         public IActionResult GetFriends(int id)
         {
             List<int> user_ids = context.User_Relationship.Where(x => x.Friend_User_Id == id && x.Is_Friend).Select(x => x.User_Id).ToList();
@@ -317,7 +318,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet("get-relation")]
-        public IActionResult GetRelationship(URHelpModule help_module)
+        public IActionResult GetRelationship(User_Relationship_DTO help_module)
         {
             if (!Exists(help_module))
             {
@@ -330,6 +331,6 @@ namespace WebApplication1.Controllers
         public IActionResult GetRelationshipByID(int id)
         {
             return Ok(context.User_Relationship.Find(id));
-        }
+        }*/
     }
 }

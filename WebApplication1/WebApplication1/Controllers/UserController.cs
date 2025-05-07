@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Models;
 using System.Linq;
+using WebApplication1.Models.Data;
+using WebApplication1.Models.DTO;
+using WebApplication1.Services.Implementations;
+using WebApplication1.Services.Interfaces;
 
 namespace WebApplication1.Controllers
 {
@@ -9,9 +12,23 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private MyContext context = new MyContext();
+        //private MyContext context = new MyContext();
 
+        private readonly IUserService userService;
+
+        public UserController(IUserService userService)
+        {
+            this.userService = userService;
+        }
         [HttpPost("create-user")]
+        public async Task<IActionResult> CreateUser([FromBody] User_DTO createUserDto)
+        {
+            var newUser = await userService.CreateUserAsync(createUserDto);
+            return Ok(newUser);
+            //return CreatedAtAction(nameof(GetUser), new { id = newUser.Id }, newUser);
+        }
+
+        /*[HttpPost("create-user")]
         public JsonResult CreateUser(User user)
         {
             if (context.User.Where(x => x.Username == user.Username).Any())
@@ -28,9 +45,9 @@ namespace WebApplication1.Controllers
             context.SaveChanges();
 
             return new JsonResult(Ok(user));
-        }
+        }*/
 
-        [HttpPut("edit-user{id}")]
+        /*[HttpPut("edit-user{id}")]
         public IActionResult EditUser(int id, User user)
         {
             User us = context.User.Find(id);
@@ -68,7 +85,7 @@ namespace WebApplication1.Controllers
             context.User.Where(x => x.Id == user.Id).First().Password = user.Password;
             context.User.Where(x => x.Id == user.Id).First().Phone_Number = user.Phone_Number;*/
 
-            context.SaveChanges();
+            /*context.SaveChanges();
 
             return Ok(us);
         }
@@ -136,6 +153,6 @@ namespace WebApplication1.Controllers
         public IActionResult GetOnlineUsers()
         {
             return Ok(context.User.Where(x => x.Status == 2).Select(user => new { user.Id, user.Username }).ToList());
-        }
+        }*/
     }
 }

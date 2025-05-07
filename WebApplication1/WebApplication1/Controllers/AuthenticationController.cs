@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Models;
+using WebApplication1.Models.Data;
 using WebApplication1.Services;
 
 namespace WebApplication1.Controllers
@@ -8,7 +8,7 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        private TokenService tokenService = new TokenService();
+        /*private TokenService tokenService = new TokenService();
         private MyContext context = new MyContext();
 
         [HttpPost("login_post")]
@@ -24,6 +24,6 @@ namespace WebApplication1.Controllers
             }
 
             return Unauthorized(new { message = "Invalid username or password" });
-        }
+        }*/
     }
 }

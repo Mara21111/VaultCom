@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace WebApplication1.Models
+namespace WebApplication1.Models.Data
 {
     public class User_Chat
     {

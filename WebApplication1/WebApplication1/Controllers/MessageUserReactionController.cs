@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Models;
+using WebApplication1.Models.Data;
 
 
 namespace WebApplication1.Controllers
@@ -8,7 +8,7 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class MessageUserReactionController : Controller
     {
-        private MyContext context = new MyContext();
+        /*private MyContext context = new MyContext();
 
         [HttpPost("reaction-add")]
         public JsonResult AddReaction(Message_User_Reaction reaction)
@@ -43,6 +43,6 @@ namespace WebApplication1.Controllers
             {
                 throw new Exception("Reaction could not be removed because it does not exist");
             }
-        }
+        }*/
     }
 }

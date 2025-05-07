@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
-using WebApplication1.Models;
+using WebApplication1.Models.Data;
 
 namespace WebApplication1.Controllers
 {
@@ -11,7 +11,7 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class UserChatController : ControllerBase
     {
-        private MyContext context = new MyContext();
+        /*private MyContext context = new MyContext();
 
         [HttpPost("create-user-chat-link")]
         public JsonResult CreateUserChat(User_Chat user_chat)
@@ -49,7 +49,7 @@ namespace WebApplication1.Controllers
             return new JsonResult(Ok(user_chat));
         }*/
 
-        [HttpGet("users-in-chat{id}")]
+        /*[HttpGet("users-in-chat{id}")]
         public IActionResult GetUsersInChat(int id)
         {
             List<int> user_ids = context.User_Chat.Where(x => x.Chat_Id == id).Select(x => x.User_Id).ToList();
@@ -92,6 +92,6 @@ namespace WebApplication1.Controllers
         public IActionResult OnlineUsersInChatCount(int id)
         {
             return Ok(0);
-        }
+        }*/
     }
 }

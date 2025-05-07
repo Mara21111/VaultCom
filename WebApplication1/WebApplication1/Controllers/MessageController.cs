@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using WebApplication1.Models;
+using WebApplication1.Models.Data;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace WebApplication1.Controllers
@@ -11,7 +11,7 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class MessageController : ControllerBase
     {
-        private MyContext context = new MyContext();
+        /*private MyContext context = new MyContext();
 
         private bool IsLinkRegex(string content)
         {

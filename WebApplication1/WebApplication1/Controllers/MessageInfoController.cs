@@ -9,7 +9,7 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class MessageInfoController : ControllerBase
     {
-        private MyContext context = new MyContext();
+        /*private MyContext context = new MyContext();
 
         [HttpPut("mark-as-seen")]
         public JsonResult MarkMessageAsSeen(int messageId)
@@ -26,6 +26,6 @@ namespace WebApplication1.Controllers
             {
                 throw new Exception("Message couldnt be marekd as seen.");
             }
-        }
+        }*/
     }
 }

@@ -1,6 +1,6 @@
 ﻿using JWT.Algorithms;
 using JWT.Builder;
-using WebApplication1.Models;
+using WebApplication1.Models.Data;
 
 namespace WebApplication1.Services
 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
+using WebApplication1.Models.Data;
 
 namespace WebApplication1.Controllers
 {
@@ -8,7 +9,7 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class ChatController : ControllerBase
     {
-        private MyContext context = new MyContext();
+        /*private MyContext context = new MyContext();
 
         private Chat CreateChat(int user_id, string name)
         {
@@ -22,7 +23,7 @@ namespace WebApplication1.Controllers
 
         [HttpPost("create-public-chat")]
         public JsonResult CreatePublicChat(Chat chat)
-        {
+        {*/
             /*if (!context.User.Find(creator_id).Is_Admin)
             {
                 return new JsonResult(BadRequest("chat creator isn't admin"));
@@ -33,7 +34,7 @@ namespace WebApplication1.Controllers
             }*/
 
             //var chat = CreateChat(creator_id, name);
-            chat.Is_Public = true;
+            /*chat.Is_Public = true;
 
             context.Chat.Add(chat);
             context.SaveChanges();
@@ -116,7 +117,7 @@ namespace WebApplication1.Controllers
                 return new JsonResult(BadRequest("cannot delete chat"));
             }*/
 
-            new UserChatController().RemoveUsersFromChat(chat_id);
+            /*new UserChatController().RemoveUsersFromChat(chat_id);
 
             context.Chat.Remove(chat);
             context.SaveChanges();
@@ -181,6 +182,6 @@ namespace WebApplication1.Controllers
         {
             var chat_id = context.User_Chat.Where(x => x.User_Id == user_id).Select(x => x.Id);
             return new JsonResult(context.Chat.Where(x => chat_id.Contains(x.Id) && x.Name.Contains(prompt)).ToList());
-        }
+        }*/
     }
 }

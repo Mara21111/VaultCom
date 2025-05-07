@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Org.BouncyCastle.Bcpg;
-using WebApplication1.Models;
+using WebApplication1.Models.Data;
 
 namespace WebApplication1.Controllers
 {
@@ -8,7 +8,7 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class ReportsController : ControllerBase
     {
-        private MyContext context = new MyContext();
+        /*private MyContext context = new MyContext();
 
         [HttpPost("create-report")]
         public JsonResult CreateReport(Report_Log report)
@@ -108,6 +108,6 @@ namespace WebApplication1.Controllers
                 .Select(x => new { UserId = x.Key, Count = x.Count() }).ToList();
 
             return Ok(counts);
-        }
+        }*/
     }
 }

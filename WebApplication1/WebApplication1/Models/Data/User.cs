@@ -1,6 +1,6 @@
 ﻿using Org.BouncyCastle.Asn1.Mozilla;
 
-namespace WebApplication1.Models
+namespace WebApplication1.Models.Data
 {
     public class User
     {
