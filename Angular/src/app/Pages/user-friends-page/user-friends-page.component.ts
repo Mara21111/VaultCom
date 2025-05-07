@@ -1,7 +1,6 @@
-import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { DataService } from '../../services/data.service';
+import { NgFor, NgIf } from '@angular/common';
+import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
 import { SidePanelComponent } from '../../Components/side-panel/side-panel.component';
 import { User } from '../../models/User';
@@ -9,7 +8,6 @@ import { UserRelationshipService } from '../../services/user_relationship.servic
 import { UserService } from '../../services/user.service';
 import { URHelpModule } from '../../models/URHelpModule';
 import { FormsModule } from '@angular/forms';
-import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-user-friends-page',
@@ -28,24 +26,19 @@ export class UserFriendsPageComponent {
   selectedUser = new User;
   panelVisible = false;
   showPopup: boolean = false;
+  requestsCount: number = 0;
   reportsCount = 0;
   newFriendUsername = '';
   popupMessage = '';
 
-  public constructor(private service: UserRelationshipService, private userService: UserService, private router: Router) {  }
+  public constructor(private service: UserRelationshipService, private userService: UserService) {  }
 
   public acceptRequest(sender_id: number) {
-    let URHelp = new URHelpModule;
-    URHelp.sender_id = sender_id;
-    URHelp.reciever_id = this.user.id;
-    this.service.acceptRequest(URHelp).subscribe(_ => this.refresh());
+    this.service.acceptRequest(this.createURHelp(sender_id, this.user.id)).subscribe(_ => this.refresh());
   }
 
   public cancelRequest(sender_id: number) {
-    let URHelp = new URHelpModule;
-    URHelp.sender_id = sender_id;
-    URHelp.reciever_id = this.user.id;
-    this.service.cancelRequest(URHelp).subscribe(_ => this.refresh());
+    this.service.cancelRequest(this.createURHelp(sender_id, this.user.id)).subscribe(_ => this.refresh());
   }
 
   public goToUser(user_id: number) {
@@ -58,6 +51,7 @@ export class UserFriendsPageComponent {
       this.user = result; console.log(this.user.id);
       this.userService.getAll().subscribe(result => this.users = result);
       this.refresh();
+      this.reportsCount = this.requests.length;
     });
   }
 
@@ -76,25 +70,21 @@ export class UserFriendsPageComponent {
   }
 
   addFriend() {
-    const username = this.newFriendUsername.trim();
+    this.newFriendUsername = this.newFriendUsername.trim();
   
-    if (!username) {
+    if (!this.newFriendUsername) {
       alert('Insert username');
       return;
     }
 
-    let reciever_id: number = this.users.find(u => u.username === username)?.id ?? 0;
+    let reciever_id: number = this.users.find(u => u.username === this.newFriendUsername)?.id ?? 0;
   
     if (reciever_id === 0) {
-      this.popupMessage = 'Invalid name: ' + username;
+      this.popupMessage = 'Invalid name: ' + this.newFriendUsername;
       this.showPopup = true;
     }
     else{
-      let URHelp = new URHelpModule;
-      URHelp.sender_id = this.user.id;
-      URHelp.reciever_id = reciever_id;
-  
-      this.service.sendRequest(URHelp).subscribe(_ => {
+      this.service.sendRequest(this.createURHelp(this.user.id, reciever_id)).subscribe(_ => {
         this.refresh();
         this.popupMessage = 'Request sent successfully';
         this.showPopup = true;
@@ -106,5 +96,13 @@ export class UserFriendsPageComponent {
   closePopup() {
     this.showPopup = false;
     this.popupMessage = '';
+  }
+
+  createURHelp(sender_id: number, reciever_id: number): URHelpModule
+  {
+      let URHelp = new URHelpModule;
+      URHelp.sender_id = sender_id;
+      URHelp.reciever_id = reciever_id;
+      return URHelp;
   }
 }
