@@ -1,4 +1,4 @@
-﻿namespace WebApplication1.Services.Implementations
+﻿namespace WebApplication1.Models.DTO
 {
     public class ServiceResult
     {

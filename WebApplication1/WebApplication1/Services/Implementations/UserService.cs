@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Ocsp;
+using Org.BouncyCastle.Asn1.X509;
 using WebApplication1.Models.Data;
 using WebApplication1.Models.DTO;
 using WebApplication1.Services.Interfaces;
@@ -17,7 +19,35 @@ namespace WebApplication1.Services.Implementations
             this.context = context;
         }
 
-        public async Task<ServiceResult> CreateUserAsync(User_DTO dto)
+        private object MapUserToDTO(User user)
+        {
+            if (user.Is_Public)
+            {
+                return new PublicUserDataDTO
+                {
+                    Username = user.Username,
+                    Bio = user.Bio,
+                    Created_At = user.Created_At,
+                    Timeout_End = user.Timeout_End,
+                    Ban_End = user.Ban_End,
+                    Email = user.Email,
+                    Safe_Mode = user.Safe_Mode,
+                };
+            }
+            else
+            {
+                return new BaseUserDataDTO
+                {
+                    Username = user.Username,
+                    Bio = user.Bio,
+                    Created_At = user.Created_At,
+                    Timeout_End = user.Timeout_End,
+                    Ban_End = user.Ban_End
+                };
+            }
+        }
+
+        public async Task<ServiceResult> CreateUserAsync(CreateUserDTO dto)
         {
             if (await context.User.AnyAsync(x => x.Username == dto.Username))
             {
@@ -46,9 +76,98 @@ namespace WebApplication1.Services.Implementations
             };
 
             context.User.Add(user);
-            await context.SaveChangesAsync();
 
+            await context.SaveChangesAsync();
             return new ServiceResult { Success = true, Data = user };
+        }
+
+        public async Task<ServiceResult> EditUserAsync(EditUserDTO dto)
+        {
+            User? requestor = context.User.Find(dto.RequestorId);
+            User? target = context.User.Find(dto.TargetId);
+            if (requestor == null || target == null)
+            {
+                return new ServiceResult { Success = false, ErrorMessage = "User does not exist", ErrorCode = 404 };
+            }
+            if (dto.RequestorId != dto.TargetId)
+            {
+                return new ServiceResult { Success = false, ErrorMessage = "Cannot change other user info", ErrorCode = 403 };
+            }
+            if (await context.User.AnyAsync(x => x.Username == dto.Username && x.Id != dto.TargetId))
+            {
+                return new ServiceResult { Success = false, ErrorMessage = "Username is already taken", ErrorCode = 409 };
+            }
+            if (await context.User.AnyAsync(x => x.Email == dto.Email && x.Id != dto.TargetId))
+            {
+                return new ServiceResult { Success = false, ErrorMessage = "Email already exists", ErrorCode = 409 };
+            }
+
+            target.Username = dto.Username;
+            target.Email = dto.Email;
+            target.Password = dto.Password;
+            target.Bio = dto.Bio;
+
+            await context.SaveChangesAsync();
+            return new ServiceResult { Success = true, Data = target };
+        }
+
+        public async Task<ServiceResult> DeleteUserAsync(RequestDTO dto)
+        {
+            User? requestor = context.User.Find(dto.RequestorId);
+            User? target = context.User.Find(dto.TargetId);
+            if (requestor == null || target == null)
+            {
+                return new ServiceResult { Success = false, ErrorMessage = "User does not exist", ErrorCode = 404 };
+            }
+            if (!requestor.Is_Admin && dto.RequestorId != dto.TargetId)
+            {
+                return new ServiceResult { Success = false, ErrorMessage = "Does not have perission to delete account", ErrorCode = 403 };
+            }
+
+            context.User.Remove(target);
+
+            await context.SaveChangesAsync();
+            return new ServiceResult { Success = true, Data = target };
+        }
+
+        public async Task<ServiceResult> GetUsers(UserFilterDTO? filter = null)
+        {
+            IQueryable<User> query = context.User;
+
+            if (filter != null)
+            {
+                if (filter.Banned.HasValue)
+                    query = query.Where(x => x.Ban_End.HasValue == filter.Banned);
+                if (filter.TimeOut.HasValue)
+                    query = query.Where(x => x.Timeout_End.HasValue == filter.TimeOut);
+                if (filter.Status.HasValue)
+                    query = query.Where(x => x.Status == filter.Status);
+            }
+
+            var users = await query.ToListAsync();
+            var userDTOs = users.Select(MapUserToDTO).ToList();
+
+            return new ServiceResult { Success = true, Data = userDTOs };
+        }
+
+        public async Task<ServiceResult> GetAllUsersAdminViewAsync()
+        {
+            var users = await context.User.ToListAsync();
+
+            return new ServiceResult { Success = true, Data = users };
+        }
+
+        public async Task<ServiceResult> GetUserAsync(int id)
+        {
+            User? user = await context.User.FindAsync(id);
+            if (user == null)
+            {
+                return new ServiceResult { Success = false, ErrorMessage = "User does not exist", ErrorCode = 404 };
+            }
+
+            var dto = MapUserToDTO(user);
+            
+            return new ServiceResult { Success = true, Data = dto };
         }
     }
 }
