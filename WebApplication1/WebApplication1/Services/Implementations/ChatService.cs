@@ -19,7 +19,7 @@ namespace WebApplication1.Services.Implementations
             this.context = context;
         }
 
-        public async Task<ServiceResult> CreateChatAsync(CreateChatDTO dto)
+        public async Task<ServiceResult> CreatePublicChatAsync(CreateChatDTO dto)
         {
             if (!context.User.Find(dto.CreatorId).Is_Admin)
             {
