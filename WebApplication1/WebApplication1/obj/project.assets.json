@@ -2935,25 +2935,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\blindovskyiartem\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\xambl\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\blindovskyiartem\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "projectUniqueName": "C:\\Users\\xambl\\OneDrive\\Робочий стіл\\VaultCom\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
       "projectName": "WebApplication1",
-      "projectPath": "C:\\Users\\blindovskyiartem\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
-      "packagesPath": "C:\\Users\\blindovskyiartem\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\blindovskyiartem\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\obj\\",
+      "projectPath": "C:\\Users\\xambl\\OneDrive\\Робочий стіл\\VaultCom\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "packagesPath": "C:\\Users\\xambl\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\xambl\\OneDrive\\Робочий стіл\\VaultCom\\WebApplication1\\WebApplication1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\blindovskyiartem\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\xambl\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

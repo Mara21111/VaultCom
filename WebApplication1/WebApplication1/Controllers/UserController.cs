@@ -14,18 +14,26 @@ namespace WebApplication1.Controllers
     {
         //private MyContext context = new MyContext();
 
-        private readonly IUserService userService;
+        private readonly IUserService _userService;
 
         public UserController(IUserService userService)
         {
-            this.userService = userService;
+            _userService = userService;
         }
+
         [HttpPost("create-user")]
         public async Task<IActionResult> CreateUser([FromBody] User_DTO createUserDto)
         {
-            var newUser = await userService.CreateUserAsync(createUserDto);
-            return Ok(newUser);
-            //return CreatedAtAction(nameof(GetUser), new { id = newUser.Id }, newUser);
+            var result = await _userService.CreateUserAsync(createUserDto);
+
+            if (!result.Success)
+            {
+                if (result.ErrorCode == 409)
+                    return Conflict(result.ErrorMessage);
+                return BadRequest(result.ErrorMessage);
+            }
+
+            return Ok(result.Data);
         }
 
         /*[HttpPost("create-user")]

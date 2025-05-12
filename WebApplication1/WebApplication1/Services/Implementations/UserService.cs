@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models.Data;
 using WebApplication1.Models.DTO;
 using WebApplication1.Services.Interfaces;
@@ -14,8 +17,16 @@ namespace WebApplication1.Services.Implementations
             this.context = context;
         }
 
-        public async Task<User> CreateUserAsync(User_DTO dto)
+        public async Task<ServiceResult> CreateUserAsync(User_DTO dto)
         {
+            if (await context.User.AnyAsync(x => x.Username == dto.Username))
+            {
+                return new ServiceResult { Success = false, ErrorMessage = "Username is already taken", ErrorCode = 409 };
+            }
+            if (await context.User.AnyAsync(x => x.Email == dto.Email))
+            {
+                return new ServiceResult { Success = false, ErrorMessage = "Email already exists", ErrorCode = 409 };
+            }
             var user = new User
             {
                 Username = dto.Username,
@@ -36,7 +47,8 @@ namespace WebApplication1.Services.Implementations
 
             context.User.Add(user);
             await context.SaveChangesAsync();
-            return user;
+
+            return new ServiceResult { Success = true, Data = user };
         }
     }
 }
