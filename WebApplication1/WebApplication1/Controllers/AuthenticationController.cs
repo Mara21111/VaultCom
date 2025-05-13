@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models.Data;
+using WebApplication1.Models.DTO;
 using WebApplication1.Services;
+using WebApplication1.Services.Interfaces;
 
 namespace WebApplication1.Controllers
 {
@@ -8,22 +11,24 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        /*private TokenService tokenService = new TokenService();
-        private MyContext context = new MyContext();
+        private readonly Services.Interfaces.IAuthenticationService _authService;
 
-        [HttpPost("login_post")]
-        public IActionResult Login(LoginModel loginModel)
+        public AuthenticationController(Services.Interfaces.IAuthenticationService authService)
         {
-            var user = context.User.FirstOrDefault(x => x.Username == loginModel.Username);
+            _authService = authService;
+        }
 
-            if (user != null && loginModel.Password == user.Password)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDTO loginDto)
+        {
+            var result = await _authService.LoginAsync(loginDto);
+
+            if (result.Success)
             {
-                string token = this.tokenService.Create(user);
-
-                return Ok(new { token = token });
+                return Ok(new { token = result.Token });
             }
 
-            return Unauthorized(new { message = "Invalid username or password" });
-        }*/
+            return Unauthorized(new { message = result.Message });
+        }
     }
 }
