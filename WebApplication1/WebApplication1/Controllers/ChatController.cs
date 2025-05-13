@@ -24,6 +24,17 @@ namespace WebApplication1.Controllers
             return result.Success ? Ok(result.Data) : BadRequest(result.ErrorMessage);
         }
 
+        [HttpPost("create-public-chat")]
+        public Task<IActionResult> CreatePublicChat([FromBody] CreatePublicChatDTO dto)
+            => HandleService(() => _chatService.CreatePublicChatAsync(dto));
+
+        [HttpPost("create-group-chat")]
+        public Task<IActionResult> CreateGroupChat([FromBody] CreateGroupChatDTO dto)
+            => HandleService(() => _chatService.CreateGroupChatAsync(dto));
+
+        [HttpPost("get-all-chats")]
+        public Task<IActionResult> GetAllChat()
+            => HandleService(() => _chatService.GetChats(null));
 
         /*private MyContext context = new MyContext();
 

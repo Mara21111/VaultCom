@@ -134,7 +134,7 @@ namespace WebApplication1.Services.Implementations
         {
             IQueryable<User> query = context.User;
 
-            if (filter != null)
+            if (filter is not null)
             {
                 if (filter.Banned.HasValue)
                     query = query.Where(x => x.Ban_End.HasValue == filter.Banned);

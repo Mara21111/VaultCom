@@ -16,7 +16,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IUserService, UserService>(); 
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IChatService, ChatService>();
 
 builder.Services.AddDbContext<MyContext>(options =>
     options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));

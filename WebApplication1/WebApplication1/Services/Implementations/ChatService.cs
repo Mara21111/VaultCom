@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,8 +19,7 @@ namespace WebApplication1.Services.Implementations
         {
             this.context = context;
         }
-
-        public async Task<ServiceResult> CreatePublicChatAsync(CreateChatDTO dto)
+        public async Task<ServiceResult> CreatePublicChatAsync(CreatePublicChatDTO dto)
         {
             if (!context.User.Find(dto.CreatorId).Is_Admin)
             {
@@ -33,16 +33,53 @@ namespace WebApplication1.Services.Implementations
             var chat = new Chat
             {
                 Name = dto.Title,
-                Description = dto.Desc,
                 Creator_Id = dto.CreatorId,
+                Description = dto.Desc,
                 Is_Public = true
             };
 
             context.Chat.Add(chat);
             await context.SaveChangesAsync();
+
+            return new ServiceResult { Success = true, Data = dto };
+        }
+
+        public async Task<ServiceResult> CreateGroupChatAsync(CreateGroupChatDTO dto)
+        {
+            var chat = new Chat
+            {
+                Name = dto.Title,
+                Creator_Id = dto.CreatorId,
+                Is_Public = false,
+                Description = ""
+            };
+
+            context.Chat.Add(chat);
+            await context.SaveChangesAsync();
+
             // spojit je s userchat propojenim
 
             return new ServiceResult { Success = true, Data = dto };
+        }
+
+        public async Task<ServiceResult> GetChats(ChatFilterDTO? dto)
+        {
+            IQueryable<Chat> query = context.Chat;
+
+            if (dto is not null)
+            {
+                if (dto.IsPublic.HasValue)
+                    query = query.Where(x => x.Is_Public == dto.IsPublic);
+                if (dto.IsIn.HasValue && dto.RequestorId.HasValue)
+                {
+                    List<int> chat_ids = context.User_Chat.Where(x => x.User_Id == dto.RequestorId).Select(x => x.Chat_Id).ToList();
+                    query = query.Where(x => chat_ids.Contains(x.Id));
+                }
+            }
+
+            var users = await query.ToListAsync();
+
+            return new ServiceResult { Success = true, Data = users };
         }
     }
 }
