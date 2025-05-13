@@ -3,11 +3,11 @@ import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { catchError } from 'rxjs';
-import { NgIf } from '@angular/common';
+import { NgIf, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-login-page',
-  imports: [NgIf, ReactiveFormsModule, RouterLink, RouterLinkActive ],
+  imports: [NgIf, NgClass, ReactiveFormsModule, RouterLink, RouterLinkActive ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss'
 })
@@ -34,6 +34,9 @@ export class LoginPageComponent {
 
     this.authentication.login(this.form.value).pipe(catchError(error => {
         this.errorMessage = true;
+        setTimeout(() => {
+          this.errorMessage = false;
+        }, 500);
         throw error;
       })
     ).subscribe(result => this.router.navigate([ '/main' ]));

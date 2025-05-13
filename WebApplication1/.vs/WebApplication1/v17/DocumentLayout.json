@@ -130,6 +130,7 @@
             },
             {
               "$type": "Document",
+<<<<<<< Updated upstream
               "DocumentIndex": 3,
               "Title": "ChatDTOscs.cs",
               "DocumentMoniker": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Models\\DTO\\ChatDTOscs.cs",
@@ -137,6 +138,15 @@
               "ToolTip": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Models\\DTO\\ChatDTOscs.cs",
               "RelativeToolTip": "WebApplication1\\Models\\DTO\\ChatDTOscs.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAIwA8AAAAEAAAAAAAAAA==",
+=======
+              "DocumentIndex": 0,
+              "Title": "UserDTOs.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Models\\DTO\\UserDTOs.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Models\\DTO\\UserDTOs.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Models\\DTO\\UserDTOs.cs",
+              "RelativeToolTip": "WebApplication1\\Models\\DTO\\UserDTOs.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAYwA0AAAAFAAAAAAAAAA==",
+>>>>>>> Stashed changes
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-12T12:45:04.611Z",
               "EditorCaption": ""
