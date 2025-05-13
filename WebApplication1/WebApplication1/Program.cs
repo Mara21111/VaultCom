@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System.IO;
 using WebApplication1;
+using WebApplication1.Services;
 using WebApplication1.Services.Implementations;
 using WebApplication1.Services.Interfaces;
 
@@ -16,8 +17,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<MyContext>();
+
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IChatService, ChatService>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<TokenService>();
 
 builder.Services.AddDbContext<MyContext>(options =>
     options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
