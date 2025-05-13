@@ -38,14 +38,14 @@ export class AdminAllUsersPageComponent {
   }
 
   public goToUser(user_id: number): void{
-    this.userService.getById(user_id).subscribe(userdata => {
+    this.userService.getUser(user_id).subscribe(userdata => {
       this.selectedUser = userdata;
       this.panelVisible = true;
     })
   }
 
   public refresh(): void{
-    this.userService.getAll().subscribe(result => this.users = result);
+    this.userService.getAllUsersAdminView().subscribe(result => this.users = result);
     this.reportService.getAllUserReportsCount().subscribe(result => this.reportCounts = result);
   }
 
@@ -63,11 +63,11 @@ export class AdminAllUsersPageComponent {
 
   public getUsers(): User[]{
       const chats = this.users;
-  
+
       if (!this.searchValue?.trim()) {
         return chats;
       }
-  
+
       const query = this.searchValue.toLowerCase();
       return chats.filter(user =>
         user.username.toLowerCase().includes(query)

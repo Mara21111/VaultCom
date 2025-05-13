@@ -60,11 +60,11 @@ export class MainPageComponent {
   ngAfterViewInit() {
     this.scrollToBottom();
   }
-  
+
   ngAfterViewChecked() {
     this.scrollToBottom();
   }
-  
+
   private scrollToBottom(): void {
     try {
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
@@ -107,7 +107,7 @@ export class MainPageComponent {
     if (!this.searchChat?.trim()) {
       return chats;
     }
-  
+
     const query = this.searchChat.toLowerCase();
     return chats.filter(chat =>
       chat.name.toLowerCase().includes(query)
@@ -138,7 +138,7 @@ export class MainPageComponent {
     if (!this.searchMessage?.trim()) {
       return messages;
     }
-  
+
     const query = this.searchMessage.toLowerCase();
     return messages.filter(message =>
       message.content.toLowerCase().includes(query)
@@ -146,7 +146,7 @@ export class MainPageComponent {
   }
 
   isUserInPublicChat(chatId: number): Boolean{
-    return this.userChats.find(x => x.id == chatId) ? true : false;
+    return !!this.userChats.find(x => x.id == chatId);
   }
 
   addUserToPublicChat(chatId: number){

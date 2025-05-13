@@ -16,3 +16,19 @@ export class User
     ban_End: Date;
     safe_mode: boolean;
 }
+
+export class CreateUserDTO
+{
+  Username: string;
+  Email: string;
+  Password: string;
+  Bio: string;
+}
+
+export class EditUserDTO
+{
+  Username: string;
+  Email: string;
+  Password: string;
+  Bio: string;
+}

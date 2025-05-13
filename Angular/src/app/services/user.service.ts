@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../models/User';
+import { User, CreateUserDTO, EditUserDTO } from '../models/User';
 import { AuthenticationService } from './authentication.service';
 
 @Injectable({
@@ -11,27 +11,48 @@ export class UserService {
 
   public constructor(private http: HttpClient, private authService: AuthenticationService) {}
 
-  public createUser(user: User): Observable<User> {
-    return this.http.post<User>('http://localhost:5000/api/User/create-user', user);
+  public createUser(createUser: CreateUserDTO): Observable<CreateUserDTO> {
+    return this.http.post<CreateUserDTO>('http://localhost:5000/api/User/create-user', createUser);
   }
 
-  public getAll(): Observable<User[]> {
-    return this.http.get<User[]>('http://localhost:5000/api/User/all-users');
+  public editUser(editUser: User): Observable<User>{
+    return this.http.put<User>('http://localhost:5000/api/User/edit-user', editUser)
   }
 
-  public getById(id: number): Observable<User>{
-    return this.http.get<User>('http://localhost:5000/api/User/user' + id);
+  public deleteUser(deletingUserId: number, deletedUserId: number): Observable<void> {
+    return this.http.delete<void>('http://localhost:5000/api/User/delete-user' + deletingUserId + '-' + deletedUserId)
+  }
+
+  public getAllUsersAdminView(): Observable<User[]> {
+    return this.http.get<User[]>('http://localhost:5000/api/User/get-all-users-admin-view');
+  }
+
+  public getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>('http://localhost:5000/api/User/get-all-users');
+  }
+
+  public getTimeoutedUsers(): Observable<User[]> {
+    return this.http.get<User[]>('http://localhost:5000/api/User/get-timeouted-users');
+  }
+
+  public getGoodUsers(): Observable<User[]> {
+    return this.http.get<User[]>('http://localhost:5000/api/User/get-good-users');
+  }
+
+  public getOnlineUsers(): Observable<User[]> {
+    return this.http.get<User[]>('http://localhost:5000/api/User/get-online-users');
+  }
+
+  public getUser(id: number): Observable<User>{
+    return this.http.get<User>('http://localhost:5000/api/User/get-user-' + id);
   }
 
   public getFromToken(): Observable<User>{
-    let id = this.authService.getUserIdFromToken() ?? 0;
-
-    return this.getById(id);
+    let id= this.authService.getUserIdFromToken() ?? 0;
+    return this.getUser(id);
   }
 
-  public editUser(user: User): Observable<User>{
-    return this.http.put<User>('http://localhost:5000/api/User/edit-user-' + user.id, user)
-  }
+
 
   public getNewUser(): User{
     let user = new User;
