@@ -20,6 +20,14 @@
           <div class="button-group">
             <button type="submit" class="button">Sign In</button>
           </div>
+          <div class="button-group">
+            <button type="submit" class="button" [disabled]="isLoading">
+              <ng-container *ngIf="!isLoading">Log In</ng-container>
+              <ng-container *ngIf="isLoading">
+                <span class="spinner"></span> Logging In...
+              </ng-container>
+            </button>
+          </div>
           <div class="error-message" *ngIf="errorMessage">
             Přihlášení se nezdařilo. Zkontroluj přihlašovací údaje.
           </div>

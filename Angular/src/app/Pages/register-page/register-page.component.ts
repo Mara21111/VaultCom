@@ -1,24 +1,29 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { User, CreateUserDTO } from '../../models/User';
 import { catchError } from 'rxjs';
 import { AuthenticationService } from '../../services/authentication.service';
+import { NgIf, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-register-page',
-  imports: [ReactiveFormsModule, RouterOutlet],
+  imports: [ReactiveFormsModule, RouterLink, RouterLinkActive, RouterOutlet, NgIf, NgClass],
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.scss'
 })
 export class RegisterComponent {
 
+  @ViewChild('usernameInput') usernameInput!: ElementRef;
+  @ViewChild('emailInput') emailInput!: ElementRef;
+
   form: FormGroup;
   errorMessage: boolean = false;
+  errorText: string = '';
   user: User;
   rPassword: string;
+  isLoading: boolean = false;
 
   public constructor (private fb: FormBuilder, private router: Router, private userService: UserService, private authService: AuthenticationService) {
     this.form = this.fb.group({
@@ -31,7 +36,7 @@ export class RegisterComponent {
     this.user = this.userService.getNewUser();
   }
 
-  public save(): void {
+  /*public save(): void {
     this.GetValues();
     this.errorMessage = false;
 
@@ -62,6 +67,77 @@ export class RegisterComponent {
         throw error;
       })
     ).subscribe(result => this.router.navigate([ '/main' ]));
+  }*/
+
+  public save(): void {
+    this.GetValues();
+    this.errorMessage = false;
+    this.errorText = '';
+    this.isLoading = true;
+
+    if (this.user.username === '') {
+      this.errorText = 'Zadejte uživatelské jméno.';
+      this.errorMessage = true;
+      this.isLoading = false;
+      this.triggerShake();  // Zaklepání všech polí
+      return;
+    }
+
+    if (this.user.password !== this.rPassword) {
+      this.errorText = 'Hesla se neshodují.';
+      this.errorMessage = true;
+      this.isLoading = false;
+      this.triggerShake();  // Zaklepání hesla
+      return;
+    }
+
+    const cto: CreateUserDTO = {
+      Username: this.user.username,
+      Email: this.user.email,
+      Password: this.user.password,
+      Bio: this.user.bio
+    };
+
+    // Služba pro vytvoření uživatele
+    this.userService.createUser(cto).pipe(
+      catchError(error => {
+        if (error.status === 400) {  // Pokud uživatel nebo email již existuje
+          this.errorText = 'Uživatel nebo email již existuje.';
+          this.errorMessage = true;
+          this.isLoading = false;
+          this.triggerShake();  // Zaklepání username a emailu
+        } else {
+          this.errorText = 'Registrace selhala.';
+          this.errorMessage = true;
+          this.isLoading = false;
+        }
+        throw error;
+      })
+    ).subscribe(() => {
+      // Po úspěšné registraci se pokusíme přihlásit
+      this.authService.login(new Credentials(this.form.value.username, this.form.value.password)).pipe(
+        catchError(error => {
+          this.errorText = 'Přihlášení po registraci selhalo.';
+          this.errorMessage = true;
+          this.isLoading = false;
+          this.triggerShake();  // Zaklepání username a hesla
+          throw error;
+        })
+      ).subscribe(result => {
+        this.router.navigate(['/main']);
+        this.isLoading = false;
+      });
+    });
+  }
+
+  triggerShake(): void {
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach((input: any) => {
+      input.classList.add('shake-error');
+      setTimeout(() => {
+        input.classList.remove('shake-error');
+      }, 500);
+    });
   }
 
   public GetValues(): void{

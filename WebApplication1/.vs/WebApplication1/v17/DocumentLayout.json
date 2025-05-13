@@ -3,6 +3,9 @@
   "WorkspaceRootPath": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Admin\\AppData\\Local\\Temp\\.vsdbgsrc\\3f39b457a3b2254505a013cf5a93189a5ae0282290dfa91f8d025389ce8b75bc\\CancellationTokenSource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\admin\\desktop\\vaultcom\\webapplication1\\webapplication1\\services\\interfaces\\ichatservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\services\\interfaces\\ichatservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -134,7 +137,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -142,7 +145,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
+              "Title": "CancellationTokenSource.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\AppData\\Local\\Temp\\.vsdbgsrc\\3f39b457a3b2254505a013cf5a93189a5ae0282290dfa91f8d025389ce8b75bc\\CancellationTokenSource.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\3f39b457a3b2254505a013cf5a93189a5ae0282290dfa91f8d025389ce8b75bc\\CancellationTokenSource.cs",
+              "ToolTip": "C:\\Users\\Admin\\AppData\\Local\\Temp\\.vsdbgsrc\\3f39b457a3b2254505a013cf5a93189a5ae0282290dfa91f8d025389ce8b75bc\\CancellationTokenSource.cs [Jen pro \u010Dten\u00ED]",
+              "RelativeToolTip": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\3f39b457a3b2254505a013cf5a93189a5ae0282290dfa91f8d025389ce8b75bc\\CancellationTokenSource.cs [Jen pro \u010Dten\u00ED]",
+              "ViewState": "AgIAAIYCAAAAAAAAAAAswJMCAAACAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T08:52:34.805Z",
+              "EditorCaption": " [Jen pro \u010Dten\u00ED]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "AuthenticationService.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Implementations\\AuthenticationService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Implementations\\AuthenticationService.cs",
@@ -154,7 +170,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "IAuthenticationService.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Interfaces\\IAuthenticationService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Interfaces\\IAuthenticationService.cs",
@@ -162,25 +178,24 @@
               "RelativeToolTip": "WebApplication1\\Services\\Interfaces\\IAuthenticationService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-13T07:59:45.636Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-13T07:59:45.636Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "IChatService.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Interfaces\\IChatService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Interfaces\\IChatService.cs",
               "ToolTip": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Interfaces\\IChatService.cs",
               "RelativeToolTip": "WebApplication1\\Services\\Interfaces\\IChatService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-13T07:59:45.641Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "UserChatDTOs.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Models\\DTO\\UserChatDTOs.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Models\\DTO\\UserChatDTOs.cs",
@@ -192,7 +207,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "AuthenticationController.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\AuthenticationController.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\AuthenticationController.cs",
@@ -204,7 +219,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "ChatDTOscs.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Models\\DTO\\ChatDTOscs.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Models\\DTO\\ChatDTOscs.cs",
@@ -216,7 +231,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Program.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Program.cs",
@@ -224,12 +239,11 @@
               "RelativeToolTip": "WebApplication1\\Program.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-13T07:59:45.654Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-13T07:59:45.654Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "LoginDTO.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Models\\DTO\\LoginDTO.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Models\\DTO\\LoginDTO.cs",
@@ -241,7 +255,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "ChatService.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Implementations\\ChatService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Implementations\\ChatService.cs",
@@ -253,7 +267,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "MessageInfoService.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Implementations\\MessageInfoService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Implementations\\MessageInfoService.cs",
@@ -265,7 +279,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "UserChatService.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Implementations\\UserChatService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Implementations\\UserChatService.cs",
@@ -277,7 +291,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "MessageService.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Implementations\\MessageService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Implementations\\MessageService.cs",
@@ -289,7 +303,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "ChatController.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\ChatController.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\ChatController.cs",
@@ -301,7 +315,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "UserController.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\UserController.cs",
@@ -313,7 +327,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "UserService.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Implementations\\UserService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Implementations\\UserService.cs",
@@ -325,7 +339,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "IUserService.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Interfaces\\IUserService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Interfaces\\IUserService.cs",
@@ -337,7 +351,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "IUserChatService.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Interfaces\\IUserChatService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Interfaces\\IUserChatService.cs",
@@ -349,7 +363,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "IMessageInfoService.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Interfaces\\IMessageInfoService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Interfaces\\IMessageInfoService.cs",
@@ -361,7 +375,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "SecuredAttribute.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\SecuredAttribute.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\SecuredAttribute.cs",
@@ -373,7 +387,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "ReportService.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Implementations\\ReportService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Implementations\\ReportService.cs",
@@ -385,7 +399,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "MessageInfoController.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\MessageInfoController.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\MessageInfoController.cs",
@@ -397,7 +411,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "IReportService.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Interfaces\\IReportService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Interfaces\\IReportService.cs",
@@ -409,7 +423,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "IUserRelationshipService.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Interfaces\\IUserRelationshipService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Interfaces\\IUserRelationshipService.cs",
@@ -421,7 +435,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "UserRelationshipService.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Implementations\\UserRelationshipService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Implementations\\UserRelationshipService.cs",
@@ -433,7 +447,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "MessageUserReactionService.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Implementations\\MessageUserReactionService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Implementations\\MessageUserReactionService.cs",
@@ -445,7 +459,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "ServiceResult.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Models\\DTO\\ServiceResult.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Models\\DTO\\ServiceResult.cs",
@@ -457,7 +471,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "IMessageUserReactionService.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Interfaces\\IMessageUserReactionService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Interfaces\\IMessageUserReactionService.cs",
@@ -469,7 +483,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "IMessageService.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Interfaces\\IMessageService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Interfaces\\IMessageService.cs",
@@ -481,7 +495,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "UserRelationshipDTOs.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Models\\DTO\\UserRelationshipDTOs.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Models\\DTO\\UserRelationshipDTOs.cs",
@@ -493,7 +507,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "UserDTOs.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Models\\DTO\\UserDTOs.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Models\\DTO\\UserDTOs.cs",
@@ -505,7 +519,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Models\\Data\\User.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Models\\Data\\User.cs",

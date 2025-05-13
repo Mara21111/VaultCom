@@ -19,6 +19,7 @@ export class LoginPageComponent {
 
   form: FormGroup;
   errorMessage: boolean = false;
+  isLoading: boolean = false;
 
   public constructor(
               private authentication: AuthenticationService,
@@ -31,9 +32,7 @@ export class LoginPageComponent {
   }
 
   public save(): void {
-    console.log('usernameInput:', this.usernameInput);
-    console.log('passwordInput:', this.passwordInput);
-
+    this.isLoading = true;
     this.errorMessage = false;
 
     console.log('Trying to log in with:', this.form.value);
@@ -41,11 +40,12 @@ export class LoginPageComponent {
     this.authentication.login(this.form.value).pipe(catchError(error => {
         this.errorMessage = true;
         this.triggerShake();
+        this.isLoading = false;
         throw error;
       })
     ).subscribe(result => this.router.navigate([ '/main' ]));
+    this.isLoading = false;
   }
-
 
   private triggerShake(): void {
     const inputs = [this.usernameInput.nativeElement, this.passwordInput.nativeElement];

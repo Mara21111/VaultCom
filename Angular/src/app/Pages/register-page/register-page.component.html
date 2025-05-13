@@ -11,26 +11,34 @@
         <form class="form-register" [formGroup]="form" (submit)="save()">
           <div class="input-field">
             <label for="name" class="label">Name</label>
-            <input class="input" formControlName="username" placeholder="Enter your name">
+            <input #usernameInput class="input" formControlName="username" placeholder="Enter your name" required>
           </div>
           <div class="input-field">
             <label for="email" class="label">Email</label>
-            <input class="input" formControlName="email" placeholder="Enter your email/telephone number">
+            <input #emailInput class="input" formControlName="email" placeholder="Enter your email/telephone number" required>
           </div>
           <div class="input-field">
             <label for="password" class="label">Password</label>
-            <input class="input" type="password" formControlName="password" placeholder="Enter your password">
+            <input class="input" type="password" formControlName="password" placeholder="Enter your password" required>
           </div>
           <div class="input-field">
             <label for="confirmPassword" class="label">Repeat Password</label>
             <input class="input" type="password" formControlName="rPassword" placeholder="Re-enter your password" required>
           </div>
+
           <div class="button-group">
-            <button type="submit" class="button">Register</button>
+            <button type="submit" class="button" [disabled]="isLoading">
+              <ng-container *ngIf="!isLoading">Register</ng-container>
+              <ng-container *ngIf="isLoading">
+                <span class="spinner"></span> Registering...
+              </ng-container>
+            </button>
           </div>
 
+          <div class="error-message" *ngIf="errorMessage">{{ errorText }}</div>
+
           <div class="link-group">
-            <a class="text-link" routerLink="/login" routerLinkActive="active">Log in</a>
+            <a class="text-link" routerLink="/" routerLinkActive="active">Log in</a>
           </div>
         </form>
       </div>
