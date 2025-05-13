@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
@@ -14,6 +14,9 @@ import { NgIf, NgClass } from '@angular/common';
 
 export class LoginPageComponent {
 
+  @ViewChild('usernameInput') usernameInput!: ElementRef;
+  @ViewChild('passwordInput') passwordInput!: ElementRef;
+
   form: FormGroup;
   errorMessage: boolean = false;
 
@@ -28,17 +31,29 @@ export class LoginPageComponent {
   }
 
   public save(): void {
+    console.log('usernameInput:', this.usernameInput);
+    console.log('passwordInput:', this.passwordInput);
+
     this.errorMessage = false;
 
     console.log('Trying to log in with:', this.form.value);
 
     this.authentication.login(this.form.value).pipe(catchError(error => {
         this.errorMessage = true;
-        setTimeout(() => {
-          this.errorMessage = false;
-        }, 500);
+        this.triggerShake();
         throw error;
       })
     ).subscribe(result => this.router.navigate([ '/main' ]));
+  }
+
+
+  private triggerShake(): void {
+    const inputs = [this.usernameInput.nativeElement, this.passwordInput.nativeElement];
+    inputs.forEach(input => {
+      input.classList.remove('shake-error');
+      setTimeout(() => {
+        input.classList.add('shake-error');
+      }, 10);
+    });
   }
 }

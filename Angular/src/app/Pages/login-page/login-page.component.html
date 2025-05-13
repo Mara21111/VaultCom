@@ -11,14 +11,17 @@
         <form class="form-log-in" [formGroup]="form" (submit)="save()">
           <div class="input-field">
             <label for="email" class="label">Email/Username</label>
-            <input class="input form-control" formControlName="username" placeholder="Enter your email/username" [ngClass]="{'shake-error': errorMessage}" required>
+            <input #usernameInput class="input form-control" formControlName="username" placeholder="Enter your email/username" [ngClass]="{'shake-error': errorMessage}" required>
           </div>
           <div class="input-field">
             <label for="password" class="label">Password</label>
-            <input type="password" id="password" class="input form-control" formControlName="password" placeholder="Enter your password" [ngClass]="{'shake-error': errorMessage}" required>
+            <input #passwordInput type="password" id="password" class="input form-control" formControlName="password" placeholder="Enter your password" [ngClass]="{'shake-error': errorMessage}" required>
           </div>
           <div class="button-group">
             <button type="submit" class="button">Sign In</button>
+          </div>
+          <div class="error-message" *ngIf="errorMessage">
+            Přihlášení se nezdařilo. Zkontroluj přihlašovací údaje.
           </div>
           <div class="link-group">
             <a class="text-link" routerLink="/register" routerLinkActive="active">Forgot password?</a>

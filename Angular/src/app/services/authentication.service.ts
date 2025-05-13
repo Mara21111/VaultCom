@@ -11,7 +11,7 @@ export class AuthenticationService {
   constructor(private http: HttpClient) {}
 
   public login(credentials: Credentials): Observable<AuthenticationResult> {
-    return this.http.post<AuthenticationResult>('http://localhost:5000/api/Authentication/login_post', credentials).pipe(
+    return this.http.post<AuthenticationResult>('http://localhost:5000/api/Authentication/login', credentials).pipe(
       tap(result => this.setToken(result.token))
     );
   }

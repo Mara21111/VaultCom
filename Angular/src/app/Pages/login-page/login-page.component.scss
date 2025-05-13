@@ -143,12 +143,15 @@
     }
   }
 
-  .error-message {
-    color: red;
-    font-size: 12px;
-  }
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: -8px;
+  margin-bottom: 12px;
+  text-align: center;
+}
 
 .shake-error {
-  animation: shake 0.5s ease-in-out;
+  animation: shake 0.5s ease-in-out !important;
   border: 2px solid red !important;
 }
