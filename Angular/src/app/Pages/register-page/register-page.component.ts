@@ -3,7 +3,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
-import { User } from '../../models/User';
+import { User, CreateUserDTO } from '../../models/User';
 import { catchError } from 'rxjs';
 import { AuthenticationService } from '../../services/authentication.service';
 
@@ -14,12 +14,12 @@ import { AuthenticationService } from '../../services/authentication.service';
   styleUrl: './register-page.component.scss'
 })
 export class RegisterComponent {
-  
+
   form: FormGroup;
   errorMessage: boolean = false;
   user: User;
   rPassword: string;
-  
+
   public constructor (private fb: FormBuilder, private router: Router, private userService: UserService, private authService: AuthenticationService) {
     this.form = this.fb.group({
       username: '',
@@ -44,8 +44,15 @@ export class RegisterComponent {
       this.errorMessage = true;
       throw new Error('Password does not match');
     }
-    
-    this.userService.createUser(this.user).pipe(
+
+    const cto: CreateUserDTO = {
+      Username: this.user.username,
+      Email: this.user.email,
+      Password: this.user.password,
+      Bio: this.user.bio
+    }
+
+    this.userService.createUser(cto).pipe(
       catchError(error =>{throw error})
     ).subscribe(response => console.log(response));
 

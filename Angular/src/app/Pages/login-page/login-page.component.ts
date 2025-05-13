@@ -13,7 +13,7 @@ import { NgIf } from '@angular/common';
 })
 
 export class LoginPageComponent {
-  
+
   form: FormGroup;
   errorMessage: boolean = false;
 
@@ -32,8 +32,7 @@ export class LoginPageComponent {
 
     console.log('Trying to log in with:', this.form.value);
 
-    this.authentication.login(this.form.value).pipe(
-      catchError(error => {
+    this.authentication.login(this.form.value).pipe(catchError(error => {
         this.errorMessage = true;
         throw error;
       })

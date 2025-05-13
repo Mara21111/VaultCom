@@ -30,11 +30,11 @@ export class ReportsPageComponent {
   public constructor(private reportsService: ReportsService, private userService: UserService, private router: Router) {
     this.reportsService.getAll().subscribe(result => this.data = result)
     this.reportsService.userReportCount(this.selectedUser.id).subscribe(result => this.reportsCount = result)
-    this.userService.getAll().subscribe(result => this.users = result)
+    this.userService.getAllUsers().subscribe(result => this.users = result)
   }
 
   public goToUser(user_id: number): void{
-    this.userService.getById(user_id).subscribe(result => this.selectedUser = result)
+    this.userService.getUser(user_id).subscribe(result => this.selectedUser = result)
     this.panelVisible = true;
     console.log(this.panelVisible)
   }
@@ -50,17 +50,17 @@ export class ReportsPageComponent {
 
   public getReports(): Report_log[]{
       const reports = this.data;
-  
+
       if (!this.searchValue?.trim()) {
         return reports;
       }
-  
+
       const query = this.searchValue.toLowerCase();
       return reports.filter(report =>
         this.getUsername(report.user_Id).toLowerCase().includes(query)
       );
     }
-  
+
     onSearchChanged(value: string) {
       this.searchValue = value;
     }

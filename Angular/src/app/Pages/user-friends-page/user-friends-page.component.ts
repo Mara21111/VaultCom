@@ -42,14 +42,14 @@ export class UserFriendsPageComponent {
   }
 
   public goToUser(user_id: number) {
-    this.userService.getById(user_id).subscribe(result => this.selectedUser = result)
+    this.userService.getUser(user_id).subscribe(result => this.selectedUser = result)
     this.panelVisible = true;
   }
 
   ngOnInit() {
     this.userService.getFromToken().subscribe(result => {
       this.user = result; console.log(this.user.id);
-      this.userService.getAll().subscribe(result => this.users = result);
+      this.userService.getAllUsers().subscribe(result => this.users = result);
       this.refresh();
       this.reportsCount = this.requests.length;
     });
@@ -71,14 +71,14 @@ export class UserFriendsPageComponent {
 
   addFriend() {
     this.newFriendUsername = this.newFriendUsername.trim();
-  
+
     if (!this.newFriendUsername) {
       alert('Insert username');
       return;
     }
 
     let reciever_id: number = this.users.find(u => u.username === this.newFriendUsername)?.id ?? 0;
-  
+
     if (reciever_id === 0) {
       this.popupMessage = 'Invalid name: ' + this.newFriendUsername;
       this.showPopup = true;
