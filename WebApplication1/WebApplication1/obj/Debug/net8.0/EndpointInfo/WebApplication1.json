@@ -129,30 +129,31 @@
         }
       }
     },
-    "/api/User/delete-user": {
+    "/api/User/delete-user-{requestorId}-{targetId}": {
       "delete": {
         "tags": [
           "User"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestDTO"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestDTO"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestDTO"
-              }
+        "parameters": [
+          {
+            "name": "requestorId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "targetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -255,30 +256,31 @@
         }
       }
     },
-    "/api/User/get-self-user": {
+    "/api/User/get-self-user-{requestorId}-{targetId}": {
       "get": {
         "tags": [
           "User"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestDTO"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestDTO"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestDTO"
-              }
+        "parameters": [
+          {
+            "name": "requestorId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "targetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -355,20 +357,6 @@
           "password": {
             "type": "string",
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "RequestDTO": {
-        "type": "object",
-        "properties": {
-          "requestorId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "targetId": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false

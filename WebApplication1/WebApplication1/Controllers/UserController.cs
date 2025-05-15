@@ -38,9 +38,9 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> ToggleUserSetting([FromBody] UserToggleDTO dto)
             => HandleService(() => _userService.ToggleUserSettingAsync(dto));
 
-        [HttpDelete("delete-user")]
-        public Task<IActionResult> DeleteUser([FromBody] RequestDTO dto)
-            => HandleService(() => _userService.DeleteUserAsync(dto));
+        [HttpDelete("delete-user-{requestorId}-{targetId}")]
+        public Task<IActionResult> DeleteUser(int requestorId, int targetId)
+            => HandleService(() => _userService.DeleteUserAsync(requestorId, targetId));
 
         [HttpGet("get-all-users-admin-view")]
         public Task<IActionResult> GetAllUsersAdminView() =>
@@ -70,8 +70,8 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> GetUser(int id) =>
             HandleService(() => _userService.GetUserAsync(id));
 
-        [HttpGet("get-self-user")]
-        public Task<IActionResult> GetSelfUser([FromBody] RequestDTO dto)
-            => HandleService(() => _userService.GetSelfUserAsync(dto));
+        [HttpGet("get-self-user-{requestorId}-{targetId}")]
+        public Task<IActionResult> GetSelfUser(int requestorId, int targetId)
+            => HandleService(() => _userService.GetSelfUserAsync(requestorId, targetId));
     }
 }

@@ -34,14 +34,19 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserController",
     "Method": "DeleteUser",
-    "RelativePath": "api/User/delete-user",
+    "RelativePath": "api/User/delete-user-{requestorId}-{targetId}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "dto",
-        "Type": "WebApplication1.Models.DTO.RequestDTO",
+        "Name": "requestorId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "targetId",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -116,14 +121,19 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserController",
     "Method": "GetSelfUser",
-    "RelativePath": "api/User/get-self-user",
+    "RelativePath": "api/User/get-self-user-{requestorId}-{targetId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "dto",
-        "Type": "WebApplication1.Models.DTO.RequestDTO",
+        "Name": "requestorId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "targetId",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
