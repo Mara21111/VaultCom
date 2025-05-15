@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { UserService } from '../../services/user.service';
-import { User, CreateUserDTO } from '../../models/User';
+import { User, CreateUserDTO, LoginDTO } from '../../models/User';
 import { catchError } from 'rxjs';
 import { AuthenticationService } from '../../services/authentication.service';
 import { NgIf, NgClass } from '@angular/common';
@@ -115,7 +115,11 @@ export class RegisterComponent {
       })
     ).subscribe(() => {
       // Po úspěšné registraci se pokusíme přihlásit
-      this.authService.login(new Credentials(this.form.value.username, this.form.value.password)).pipe(
+      const dto = new LoginDTO();
+      dto.username = this.form.value.username;
+      dto.password = this.form.value.password;
+
+      this.authService.login(dto).pipe(
         catchError(error => {
           this.errorText = 'Přihlášení po registraci selhalo.';
           this.errorMessage = true;

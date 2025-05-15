@@ -32,3 +32,16 @@ export class EditUserDTO
   Password: string;
   Bio: string;
 }
+
+export class LoginDTO
+{
+  username: string;
+  password: string;
+}
+
+export class AuthResult
+{
+  success: boolean;
+  token: string;
+  message: string;
+}

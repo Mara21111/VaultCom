@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Observable, tap} from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
+import {  LoginDTO, AuthResult } from '../models/User';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) {}
 
-  public login(credentials: Credentials): Observable<AuthenticationResult> {
-    return this.http.post<AuthenticationResult>('http://localhost:5000/api/Authentication/login', credentials).pipe(
+  public login(loginDTO: LoginDTO): Observable<AuthResult> {
+    return this.http.post<AuthResult>('http://localhost:5000/api/Authentication/login', loginDTO).pipe(
       tap(result => this.setToken(result.token))
     );
   }
@@ -42,8 +43,10 @@ export class AuthenticationService {
 
     try {
       const decoded = jwtDecode<jwtPayload>(token);
+      console.log('decoded id ' + 0)
       return decoded.id || null
     } catch(e) {
+      console.log('Unable to decode token')
       console.error('Unable to decode token', e);
       return null;
     }
