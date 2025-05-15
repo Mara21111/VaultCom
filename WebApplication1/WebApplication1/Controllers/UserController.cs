@@ -34,6 +34,10 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> EditUser([FromBody] EditUserDTO dto)
             => HandleService(() => _userService.EditUserAsync(dto));
 
+        [HttpPost("toggle-user-setting")]
+        public Task<IActionResult> ToggleUserSetting([FromBody] UserToggleDTO dto)
+            => HandleService(() => _userService.ToggleUserSettingAsync(dto));
+
         [HttpDelete("delete-user")]
         public Task<IActionResult> DeleteUser([FromBody] RequestDTO dto)
             => HandleService(() => _userService.DeleteUserAsync(dto));
@@ -65,5 +69,9 @@ namespace WebApplication1.Controllers
         [HttpGet("get-user-{id}")]
         public Task<IActionResult> GetUser(int id) =>
             HandleService(() => _userService.GetUserAsync(id));
+
+        [HttpGet("get-self-user")]
+        public Task<IActionResult> GetSelfUser([FromBody] RequestDTO dto)
+            => HandleService(() => _userService.GetSelfUserAsync(dto));
     }
 }

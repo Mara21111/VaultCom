@@ -115,6 +115,22 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.UserController",
+    "Method": "GetSelfUser",
+    "RelativePath": "api/User/get-self-user",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "WebApplication1.Models.DTO.RequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserController",
     "Method": "GetTimeOutedUsers",
     "RelativePath": "api/User/get-timeouted-users",
     "HttpMethod": "GET",
@@ -134,6 +150,22 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserController",
+    "Method": "ToggleUserSetting",
+    "RelativePath": "api/User/toggle-user-setting",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "WebApplication1.Models.DTO.UserToggleDTO",
         "IsRequired": true
       }
     ],

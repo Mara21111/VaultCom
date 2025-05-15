@@ -8,8 +8,10 @@ namespace WebApplication1.Services.Interfaces
         Task<ServiceResult> CreateUserAsync(CreateUserDTO dto);
         Task<ServiceResult> GetAllUsersAdminViewAsync();
         Task<ServiceResult> EditUserAsync(EditUserDTO dto);
+        Task<ServiceResult> ToggleUserSettingAsync(UserToggleDTO dto);
         Task<ServiceResult> DeleteUserAsync(RequestDTO dto);
         Task<ServiceResult> GetUserAsync(int id);
         Task<ServiceResult> GetUsers(UserFilterDTO? filter);
+        Task<ServiceResult> GetSelfUserAsync(RequestDTO dto);
     }
 }

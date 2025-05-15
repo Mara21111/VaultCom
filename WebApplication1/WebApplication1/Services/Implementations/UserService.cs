@@ -113,6 +113,30 @@ namespace WebApplication1.Services.Implementations
             return new ServiceResult { Success = true, Data = target };
         }
 
+        public async Task<ServiceResult> ToggleUserSettingAsync(UserToggleDTO dto)
+        {
+            var requestor = await context.User.FindAsync(dto.RequestorId);
+            var target = await context.User.FindAsync(dto.TargetId);
+
+            if (requestor != target && !requestor.IsAdmin)
+            {
+                return new ServiceResult { Success = false, ErrorMessage = "Cannot change setting", ErrorCode = 403 };
+            }
+            if (dto.ValueName == "IsAdmin" && !requestor.IsAdmin)
+            {
+                return new ServiceResult { Success = false, ErrorMessage = "Denied admin access", ErrorCode = 403 };
+            }
+
+            var property = typeof(User).GetProperty(dto.ValueName);
+
+            property.SetValue(target, dto.Value);
+
+            await context.SaveChangesAsync();
+
+            return new ServiceResult { Success = true, Data = target };
+        }
+
+
         public async Task<ServiceResult> DeleteUserAsync(RequestDTO dto)
         {
             User? requestor = context.User.Find(dto.RequestorId);
@@ -170,6 +194,18 @@ namespace WebApplication1.Services.Implementations
             var dto = MapUserToDTO(user);
             
             return new ServiceResult { Success = true, Data = dto };
+        }
+
+        public async Task<ServiceResult> GetSelfUserAsync(RequestDTO dto)
+        {
+            if (dto.RequestorId != dto.TargetId)
+            {
+                return new ServiceResult { Success = false, ErrorMessage = "View denied", ErrorCode = 403 };
+            }
+
+            User user = await context.User.FindAsync(dto.TargetId);
+
+            return new ServiceResult { Success = true, Data = user };
         }
     }
 }

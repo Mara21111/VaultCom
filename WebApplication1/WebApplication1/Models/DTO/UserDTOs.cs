@@ -39,4 +39,9 @@
         public bool? TimeOut { get; set; }
         public int? Status { get; set; }
     }
+    public class UserToggleDTO : RequestDTO
+    {
+        public string ValueName { get; set; }
+        public bool Value { get; set; }
+    }
 }
