@@ -24,14 +24,14 @@
     {
         public string Username { get; set; }
         public string Bio { get; set; }
-        public DateTime Created_At { get; set; }
-        public DateTime? Timeout_End { get; set; }
-        public DateTime? Ban_End { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? TimeoutEnd { get; set; }
+        public DateTime? BanEnd { get; set; }
     }
     public class PublicUserDataDTO : BaseUserDataDTO
     {
         public string Email { get; set; }
-        public bool Safe_Mode { get; set; }
+        public bool SafeMode { get; set; }
     }
     public class UserFilterDTO
     {

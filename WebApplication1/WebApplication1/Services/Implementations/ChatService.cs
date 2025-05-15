@@ -1,11 +1,5 @@
 ﻿using System.Linq;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Asn1.Crmf;
-using Org.BouncyCastle.Asn1.Ocsp;
-using Org.BouncyCastle.Asn1.X509;
 using WebApplication1.Models.Data;
 using WebApplication1.Models.DTO;
 using WebApplication1.Services.Interfaces;
@@ -31,6 +25,35 @@ namespace WebApplication1.Services.Implementations
             await context.SaveChangesAsync();
 
             return new ServiceResult { Success = true, Data = dto };
+        }
+
+        public async Task<ServiceResult> GetChatsAsync(ChatFilterDTO? filter = null)
+        {
+            IQueryable<Chat> query = context.Chat;
+
+            if (filter is not null)
+            {
+                if (filter.IsIn.HasValue && filter.RequestorId.HasValue)
+                {
+                    int requestorId = filter.RequestorId.Value;
+                    if (filter.IsIn.Value)
+                        query = query.Where(x => context.UserChatRelationship
+                        .Any(r => r.UserId == requestorId && r.ChatId == x.Id));
+                    else
+                        query = query.Where(x => x.IsPublic && !context.UserChatRelationship
+                        .Any(r => r.UserId == requestorId && r.ChatId == x.Id));
+
+                    if (filter.IsMuted.HasValue)
+                        query = query.Where(x => context.UserChatRelationship
+                        .Any(r => r.UserId == requestorId && r.ChatId == x.Id && r.MutedChat == filter.IsMuted.Value));
+                }
+                if (filter.IsPublic.HasValue)
+                    query = query.Where(x => x.IsPublic);
+            }
+
+            var chats = await query.ToListAsync();
+
+            return new ServiceResult { Success = true, Data = chats };
         }
     }
 }

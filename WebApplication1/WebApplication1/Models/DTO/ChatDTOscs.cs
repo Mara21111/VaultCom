@@ -22,5 +22,6 @@
         public int? RequestorId {  get; set; }
         public bool? IsPublic { get; set; }
         public bool? IsIn { get; set; }
+        public bool? IsMuted { get; set; }
     }
 }
