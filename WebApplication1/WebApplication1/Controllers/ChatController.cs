@@ -26,7 +26,7 @@ namespace WebApplication1.Controllers
 
         [HttpPost("get-all-public-chats")]
         public Task<IActionResult> GetAllPublicChats()
-            => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsPublic = true }));
+            => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { Type = 1 }));
 
         [HttpPost("get-chats-user-{id}-is-in")]
         public Task<IActionResult> GetChatsUserIsIn(int id)
@@ -42,23 +42,23 @@ namespace WebApplication1.Controllers
 
         [HttpPost("get-public-chats-user-{id}-has-muted")]
         public Task<IActionResult> GetPublicChatsUserHasMuted(int id)
-            => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = true, RequestorId = id, IsPublic = true, IsMuted = true }));
+            => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = true, RequestorId = id, Type = 1, IsMuted = true }));
 
         [HttpPost("get-public-chats-user-{id}-has-not-muted")]
         public Task<IActionResult> GetPublicChatsUserHasNotMuted(int id)
-            => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = true, RequestorId = id, IsPublic = true, IsMuted = false }));
+            => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = true, RequestorId = id, Type = 1, IsMuted = false }));
 
         [HttpPost("get-group-chats-user-{id}-is-in")]
         public Task<IActionResult> GetGroupChatsUserIsIn(int id)
-            => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = true, RequestorId = id, IsPublic = true }));
+            => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = true, RequestorId = id, Type = 2 }));
 
         [HttpPost("get-group-chats-user-{id}-has-muted")]
         public Task<IActionResult> GetGroupChatsUserHasMuted(int id)
-            => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = true, RequestorId = id, IsPublic = false, IsMuted = true }));
+            => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = true, RequestorId = id, Type = 2, IsMuted = true }));
 
         [HttpPost("get-group-chats-user-{id}-has-not-muted")]
         public Task<IActionResult> GetGroupChatsUserHasNotMuted(int id)
-            => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = true, RequestorId = id, IsPublic = false, IsMuted = false }));
+            => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = true, RequestorId = id, Type = 2, IsMuted = false }));
 
     }
 }

@@ -2,7 +2,7 @@
 {
     public class CreateChatDTO
     {
-        public bool IsPublic { get; set; }
+        public int Type { get; set; }
         public int Id { get; set; }
     }
     public class CreatePublicChatDTO
@@ -19,9 +19,14 @@
     }
     public class ChatFilterDTO
     {
-        public int? RequestorId {  get; set; }
-        public bool? IsPublic { get; set; }
+        public int? RequestorId { get; set; }
+        public int? Type { get; set; }
         public bool? IsIn { get; set; }
         public bool? IsMuted { get; set; }
+    }
+    public class ChatGetterDTO
+    {
+        public int Id {  set; get; }
+        public string Title { set; get; }
     }
 }

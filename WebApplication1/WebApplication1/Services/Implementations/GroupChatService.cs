@@ -37,7 +37,7 @@ namespace WebApplication1.Services.Implementations
 
             await _chatService.CreateChat(new CreateChatDTO
             {
-                IsPublic = false,
+                Type = 2,
                 Id = chat.Id
             });
 

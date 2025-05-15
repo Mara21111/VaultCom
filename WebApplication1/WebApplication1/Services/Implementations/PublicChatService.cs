@@ -48,7 +48,7 @@ namespace WebApplication1.Services.Implementations
 
             await _chatService.CreateChat(new CreateChatDTO
             {
-                IsPublic = true,
+                Type = 0,
                 Id = publicChat.Id
             });
             var baseChat = await context.Chat.OrderByDescending(x => x.Id).FirstOrDefaultAsync();
