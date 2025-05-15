@@ -27,11 +27,11 @@ namespace WebApplication1.Services.Implementations
                 {
                     Username = user.Username,
                     Bio = user.Bio,
-                    Created_At = user.CreatedAt,
-                    Timeout_End = user.TimeoutEnd,
-                    Ban_End = user.BanEnd,
+                    CreatedAt = user.CreatedAt,
+                    TimeoutEnd = user.TimeoutEnd,
+                    BanEnd = user.BanEnd,
                     Email = user.Email,
-                    Safe_Mode = user.SafeMode,
+                    SafeMode = user.SafeMode,
                 };
             }
             else
@@ -40,9 +40,9 @@ namespace WebApplication1.Services.Implementations
                 {
                     Username = user.Username,
                     Bio = user.Bio,
-                    Created_At = user.CreatedAt,
-                    Timeout_End = user.TimeoutEnd,
-                    Ban_End = user.BanEnd
+                    CreatedAt = user.CreatedAt,
+                    TimeoutEnd = user.TimeoutEnd,
+                    BanEnd = user.BanEnd
                 };
             }
         }

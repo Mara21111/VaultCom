@@ -32,6 +32,144 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "WebApplication1.Controllers.ChatController",
+    "Method": "GetAllPublicChats",
+    "RelativePath": "api/Chat/get-all-public-chats",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ChatController",
+    "Method": "GetGroupChatsUserHasMuted",
+    "RelativePath": "api/Chat/get-group-chats-user-{id}-has-muted",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ChatController",
+    "Method": "GetGroupChatsUserHasNotMuted",
+    "RelativePath": "api/Chat/get-group-chats-user-{id}-has-not-muted",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ChatController",
+    "Method": "GetGroupChatsUserIsIn",
+    "RelativePath": "api/Chat/get-group-chats-user-{id}-is-in",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ChatController",
+    "Method": "GetChatsUserIsIn",
+    "RelativePath": "api/Chat/get-chats-user-{id}-is-in",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ChatController",
+    "Method": "GetPublicChatsUserHasMuted",
+    "RelativePath": "api/Chat/get-public-chats-user-{id}-has-muted",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ChatController",
+    "Method": "GetPublicChatsUserHasNotMuted",
+    "RelativePath": "api/Chat/get-public-chats-user-{id}-has-not-muted",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ChatController",
+    "Method": "GetPublicChatsUserIsIn",
+    "RelativePath": "api/Chat/get-public-chats-user-{id}-is-in",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ChatController",
+    "Method": "GetPublicChatsUserIsNotIn",
+    "RelativePath": "api/Chat/get-public-chats-user-{id}-is-not-in",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WebApplication1.Controllers.PublicChatController",
     "Method": "CreatePublicChat",
     "RelativePath": "api/PublicChat/create-public-chat",
