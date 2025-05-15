@@ -1,9 +1,7 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Asn1.Crmf;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Org.BouncyCastle.Asn1.X509;
 using WebApplication1.Models.Data;
@@ -12,22 +10,25 @@ using WebApplication1.Services.Interfaces;
 
 namespace WebApplication1.Services.Implementations
 {
-    public class ChatService : IChatService
+    public class UserChatRelationshipService : IUserChatRelationshipService
     {
         private readonly MyContext context;
 
-        public ChatService(MyContext context)
+        public UserChatRelationshipService(MyContext context)
         {
             this.context = context;
         }
 
-        public async Task<ServiceResult> CreateChat(CreateChatDTO dto)
+        public async Task<ServiceResult> CreateUserChatRelationAsync(UserChatRelationDTO dto)
         {
-            if (!await context.GroupChat.AnyAsync(x => x.Id == dto.Id))
+            var rel = new UserChatRelationship
             {
-                return new ServiceResult { Success = false, ErrorMessage = "ChatId does not exist in GroupChat table" };
-            }
-            context.Chat.Add(new Chat { IsPublic = dto.IsPublic, ChatId = dto.Id });
+                ChatId = dto.ChatId,
+                UserId = dto.UserId,
+                MutedChat = false
+            };
+
+            context.UserChatRelationship.Add(rel);
             await context.SaveChangesAsync();
 
             return new ServiceResult { Success = true, Data = dto };

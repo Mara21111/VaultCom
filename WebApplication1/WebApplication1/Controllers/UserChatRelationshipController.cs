@@ -9,7 +9,7 @@ namespace WebApplication1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserChatController : ControllerBase
+    public class UserChatRelationshipController : ControllerBase
     {
         /*private MyContext context = new MyContext();
 

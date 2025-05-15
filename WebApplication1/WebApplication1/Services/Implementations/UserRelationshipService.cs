@@ -18,7 +18,5 @@ namespace WebApplication1.Services.Implementations
         {
             this.context = context;
         }
-
-        
     }
 }

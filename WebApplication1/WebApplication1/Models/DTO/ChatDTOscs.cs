@@ -2,15 +2,19 @@
 {
     public class CreateChatDTO
     {
+        public bool IsPublic { get; set; }
+        public int Id { get; set; }
+    }
+    public class CreatePublicChatDTO
+    {
         public int CreatorId { get; set; }
         public string Title { get; set; }
-    }
-    public class CreatePublicChatDTO : CreateChatDTO
-    {
         public string Desc { get; set; }
     }
-    public class CreateGroupChatDTO : CreateChatDTO
+    public class CreateGroupChatDTO
     {
+        public int CreatorId { get; set; }
+        public string Title { get; set; }
         public List<int> UserIds { get; set; }
     }
     public class ChatFilterDTO

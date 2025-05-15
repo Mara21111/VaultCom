@@ -3,8 +3,8 @@ using WebApplication1.Models.DTO;
 
 namespace WebApplication1.Services.Interfaces
 {
-    public interface IUserChatService
+    public interface IGroupChatService
     {
-        
+        Task<ServiceResult> CreateGroupChatAsync(CreateGroupChatDTO dto);
     }
 }
