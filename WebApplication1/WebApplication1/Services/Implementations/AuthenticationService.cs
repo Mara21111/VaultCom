@@ -27,7 +27,10 @@ namespace WebApplication1.Services.Implementations
         {
             var user = _context.User.FirstOrDefault(x => x.Username == loginDto.Username);
 
-            if (user != null && loginDto.Password == user.Password)
+            var hasher = new PasswordHasher<User>();
+            var hsh = hasher.VerifyHashedPassword(user, user.Password, loginDto.Password);
+
+            if (user != null && hsh == PasswordVerificationResult.Success)
             {
                 var token = _tokenService.Create(user);
 

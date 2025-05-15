@@ -15,13 +15,49 @@ namespace WebApplication1.Services.Implementations
             this.context = context;
         }
 
+
+        public async Task<List<ChatGetterDTO>> GetChatGetterDTOsAsync(IQueryable<Chat> query)
+        {
+            var chatGetterDTOs = await query
+    .Select(chat => new ChatGetterDTO
+    {
+        Id = chat.Id,
+        Title = chat.Type == 1
+            ? (from pc in context.PublicChat
+               where pc.Id == chat.ChatId
+               select pc.Title).FirstOrDefault() ?? "Public Chat"
+            : chat.Type == 2
+                ? (from gc in context.GroupChat
+                   where gc.Id == chat.ChatId
+                   select gc.Title).FirstOrDefault() ?? "Group Chat"
+                : chat.Type == 3
+                    ? (from ur in context.UserRelationship
+                       where ur.User_Id == chat.Id
+                       select ur.Nickname).FirstOrDefault() ?? "Private DM"
+                    : "Unknown Chat"
+    })
+    .ToListAsync();
+
+            return chatGetterDTOs;
+        }
+
+        /*private async Task<object?> MapChatsAsync(Chat chat)
+        {
+            if (chat.IsPublic)
+            {
+                var publicChat = await context.PublicChat.FindAsync(chat.ChatId);
+                return publicChat;
+            }
+            else
+            {
+                var groupChat = await context.GroupChat.FindAsync(chat.ChatId);
+                return groupChat;
+            }
+        }*/
+
         public async Task<ServiceResult> CreateChat(CreateChatDTO dto)
         {
-            if (!await context.GroupChat.AnyAsync(x => x.Id == dto.Id))
-            {
-                return new ServiceResult { Success = false, ErrorMessage = "ChatId does not exist in GroupChat table" };
-            }
-            context.Chat.Add(new Chat { IsPublic = dto.IsPublic, ChatId = dto.Id });
+            context.Chat.Add(new Chat { Type = dto.Type, ChatId = dto.Id });
             await context.SaveChangesAsync();
 
             return new ServiceResult { Success = true, Data = dto };
@@ -40,20 +76,22 @@ namespace WebApplication1.Services.Implementations
                         query = query.Where(x => context.UserChatRelationship
                         .Any(r => r.UserId == requestorId && r.ChatId == x.Id));
                     else
-                        query = query.Where(x => x.IsPublic && !context.UserChatRelationship
+                        query = query.Where(x => x.Type == 1 && !context.UserChatRelationship
                         .Any(r => r.UserId == requestorId && r.ChatId == x.Id));
 
                     if (filter.IsMuted.HasValue)
                         query = query.Where(x => context.UserChatRelationship
                         .Any(r => r.UserId == requestorId && r.ChatId == x.Id && r.MutedChat == filter.IsMuted.Value));
                 }
-                if (filter.IsPublic.HasValue)
-                    query = query.Where(x => x.IsPublic);
+                if (filter.Type.HasValue)
+                    query = query.Where(x => x.Type == filter.Type.Value);
             }
 
             var chats = await query.ToListAsync();
+            //var mappedChats = chats.Select(MapChatsAsync).ToList();
+            var result = GetChatGetterDTOsAsync(query);
 
-            return new ServiceResult { Success = true, Data = chats };
+            return new ServiceResult { Success = true, Data = result };
         }
     }
 }

@@ -7,6 +7,7 @@ using Org.BouncyCastle.Asn1.X509;
 using WebApplication1.Models.Data;
 using WebApplication1.Models.DTO;
 using WebApplication1.Services.Interfaces;
+using System.Security.Cryptography;
 
 namespace WebApplication1.Services.Implementations
 {
@@ -62,17 +63,21 @@ namespace WebApplication1.Services.Implementations
                 Username = dto.Username,
                 Email = dto.Email,
                 Bio = dto.Bio ?? "no bio...",
-                Password = dto.Password,
                 IsAdmin = false,
                 CreatedAt = DateTime.Now,
                 BanEnd = null,
                 TimeoutEnd = null,
                 IsPublic = true,
-                PrivateKey = "",
-                PublicKey = "",
                 SafeMode = false,
                 Status = 1
             };
+
+            var hasher = new PasswordHasher<User>();
+            user.Password = hasher.HashPassword(user, dto.Password);
+
+            var rsa = RSA.Create(2048); // 2048 bit klic
+            user.PublicKey = Convert.ToBase64String(rsa.ExportSubjectPublicKeyInfo());
+            user.PrivateKey = Convert.ToBase64String(rsa.ExportPkcs8PrivateKey());
 
             if (dto.IsAdmin.HasValue)
                 user.IsAdmin = dto.IsAdmin.Value;
