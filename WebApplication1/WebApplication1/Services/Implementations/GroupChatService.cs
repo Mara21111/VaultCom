@@ -43,9 +43,9 @@ namespace WebApplication1.Services.Implementations
 
             var baseChat = await context.Chat.OrderByDescending(x => x.Id).FirstOrDefaultAsync();
 
+            dto.UserIds.Add(dto.CreatorId);
             foreach (var user in dto.UserIds)
             {
-
                 await _userChatRelationshipService.CreateUserChatRelationAsync(new UserChatRelationDTO
                 {
                     UserId = user,

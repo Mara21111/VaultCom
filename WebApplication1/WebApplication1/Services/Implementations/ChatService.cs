@@ -15,12 +15,22 @@ namespace WebApplication1.Services.Implementations
             this.context = context;
         }
 
+        private async Task<object?> MapChatsAsync(Chat chat)
+        {
+            if (chat.IsPublic)
+            {
+                var publicChat = await context.PublicChat.FindAsync(chat.ChatId);
+                return publicChat;
+            }
+            else
+            {
+                var groupChat = await context.GroupChat.FindAsync(chat.ChatId);
+                return groupChat;
+            }
+        }
+
         public async Task<ServiceResult> CreateChat(CreateChatDTO dto)
         {
-            if (!await context.GroupChat.AnyAsync(x => x.Id == dto.Id))
-            {
-                return new ServiceResult { Success = false, ErrorMessage = "ChatId does not exist in GroupChat table" };
-            }
             context.Chat.Add(new Chat { IsPublic = dto.IsPublic, ChatId = dto.Id });
             await context.SaveChangesAsync();
 
@@ -52,8 +62,9 @@ namespace WebApplication1.Services.Implementations
             }
 
             var chats = await query.ToListAsync();
+            var mappedChats = chats.Select(MapChatsAsync).ToList();
 
-            return new ServiceResult { Success = true, Data = chats };
+            return new ServiceResult { Success = true, Data = mappedChats };
         }
     }
 }

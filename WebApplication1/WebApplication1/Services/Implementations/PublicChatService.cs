@@ -15,17 +15,19 @@ namespace WebApplication1.Services.Implementations
     {
         private readonly MyContext context;
         private readonly IChatService _chatService;
+        private readonly IUserChatRelationshipService _userChatRelationshipService;
 
-        public PublicChatService(MyContext context, IChatService chatService)
+        public PublicChatService(MyContext context, IChatService chatService, IUserChatRelationshipService userChatRelationshipService)
         {
             this.context = context;
             _chatService = chatService;
+            _userChatRelationshipService = userChatRelationshipService;
         }
 
         public async Task<ServiceResult> CreatePublicChatAsync(CreatePublicChatDTO dto)
         {
-            var user = await context.User.FindAsync(dto.CreatorId);
-            if (user == null || !user.IsAdmin)
+            var creator = await context.User.FindAsync(dto.CreatorId);
+            if (creator == null || !creator.IsAdmin)
             {
                 return new ServiceResult { Success = false, ErrorMessage = "User is not admin", ErrorCode = 403 };
             }
@@ -35,20 +37,31 @@ namespace WebApplication1.Services.Implementations
                 return new ServiceResult { Success = false, ErrorMessage = "Public chat already exists", ErrorCode = 409 };
             }
 
-            var chat = new PublicChat
+            var publicChat = new PublicChat
             {
                 Title = dto.Title,
                 Description = dto.Desc
             };
 
-            context.PublicChat.Add(chat);
+            context.PublicChat.Add(publicChat);
             await context.SaveChangesAsync();
 
             await _chatService.CreateChat(new CreateChatDTO
             {
                 IsPublic = true,
-                Id = chat.Id
+                Id = publicChat.Id
             });
+            var baseChat = await context.Chat.OrderByDescending(x => x.Id).FirstOrDefaultAsync();
+
+            List<int> admins = await context.User.Where(x => x.IsAdmin).Select(x => x.Id).ToListAsync();
+            foreach (var admin in admins)
+            {
+                await _userChatRelationshipService.CreateUserChatRelationAsync(new UserChatRelationDTO
+                {
+                    UserId = admin,
+                    ChatId = baseChat.Id
+                });
+            }
 
             return new ServiceResult { Success = true, Data = dto };
         }
