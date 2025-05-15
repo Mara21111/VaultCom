@@ -11,6 +11,7 @@
         public string Email { get; set; }
         public string Password { get; set; }
         public string Bio { get; set; }
+        public bool? IsAdmin { get; set; }
     }
     public class EditUserDTO : RequestDTO
     {

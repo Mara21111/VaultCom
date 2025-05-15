@@ -21,17 +21,17 @@ namespace WebApplication1.Services.Implementations
 
         private object MapUserToDTO(User user)
         {
-            if (user.Is_Public)
+            if (user.IsPublic)
             {
                 return new PublicUserDataDTO
                 {
                     Username = user.Username,
                     Bio = user.Bio,
-                    Created_At = user.Created_At,
-                    Timeout_End = user.Timeout_End,
-                    Ban_End = user.Ban_End,
+                    Created_At = user.CreatedAt,
+                    Timeout_End = user.TimeoutEnd,
+                    Ban_End = user.BanEnd,
                     Email = user.Email,
-                    Safe_Mode = user.Safe_Mode,
+                    Safe_Mode = user.SafeMode,
                 };
             }
             else
@@ -40,9 +40,9 @@ namespace WebApplication1.Services.Implementations
                 {
                     Username = user.Username,
                     Bio = user.Bio,
-                    Created_At = user.Created_At,
-                    Timeout_End = user.Timeout_End,
-                    Ban_End = user.Ban_End
+                    Created_At = user.CreatedAt,
+                    Timeout_End = user.TimeoutEnd,
+                    Ban_End = user.BanEnd
                 };
             }
         }
@@ -63,17 +63,19 @@ namespace WebApplication1.Services.Implementations
                 Email = dto.Email,
                 Bio = dto.Bio ?? "no bio...",
                 Password = dto.Password,
-                Is_Admin = false,
-                Created_At = DateTime.Now,
-                Ban_End = null,
-                Timeout_End = null,
-                Is_Public = true,
-                Phone_Number = "",
-                Private_Key = "",
-                Public_Key = "",
-                Safe_Mode = false,
+                IsAdmin = false,
+                CreatedAt = DateTime.Now,
+                BanEnd = null,
+                TimeoutEnd = null,
+                IsPublic = true,
+                PrivateKey = "",
+                PublicKey = "",
+                SafeMode = false,
                 Status = 1
             };
+
+            if (dto.IsAdmin.HasValue)
+                user.IsAdmin = dto.IsAdmin.Value;
 
             context.User.Add(user);
 
@@ -119,7 +121,7 @@ namespace WebApplication1.Services.Implementations
             {
                 return new ServiceResult { Success = false, ErrorMessage = "User does not exist", ErrorCode = 404 };
             }
-            if (!requestor.Is_Admin && dto.RequestorId != dto.TargetId)
+            if (!requestor.IsAdmin && dto.RequestorId != dto.TargetId)
             {
                 return new ServiceResult { Success = false, ErrorMessage = "Does not have perission to delete account", ErrorCode = 403 };
             }
@@ -137,9 +139,9 @@ namespace WebApplication1.Services.Implementations
             if (filter is not null)
             {
                 if (filter.Banned.HasValue)
-                    query = query.Where(x => x.Ban_End.HasValue == filter.Banned);
+                    query = query.Where(x => x.BanEnd.HasValue == filter.Banned);
                 if (filter.TimeOut.HasValue)
-                    query = query.Where(x => x.Timeout_End.HasValue == filter.TimeOut);
+                    query = query.Where(x => x.TimeoutEnd.HasValue == filter.TimeOut);
                 if (filter.Status.HasValue)
                     query = query.Where(x => x.Status == filter.Status);
             }

@@ -3,14 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication1.Models.Data
 {
-    public class Report_Log
+    public class ReportLog
     {
-        [Key]
         public int Id { get; set; }
 
-        public int User_Id { get; set; }
+        public int UserId { get; set; }
 
-        public int Reported_User_Id { get; set; }
+        public int ReportedUserId { get; set; }
 
         public string Message { get; set; }
     }

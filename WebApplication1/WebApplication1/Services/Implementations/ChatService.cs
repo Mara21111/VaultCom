@@ -19,9 +19,9 @@ namespace WebApplication1.Services.Implementations
         {
             this.context = context;
         }
-        public async Task<ServiceResult> CreatePublicChatAsync(CreatePublicChatDTO dto)
+        /*public async Task<ServiceResult> CreatePublicChatAsync(CreatePublicChatDTO dto)
         {
-            if (!context.User.Find(dto.CreatorId).Is_Admin)
+            if (!context.User.Find(dto.CreatorId).IsAdmin)
             {
                 return new ServiceResult { Success = false, ErrorMessage = "User is not admin", ErrorCode = 403 };
             }
@@ -72,7 +72,7 @@ namespace WebApplication1.Services.Implementations
                     query = query.Where(x => x.Is_Public == dto.IsPublic);
                 if (dto.IsIn.HasValue && dto.RequestorId.HasValue)
                 {
-                    List<int> chat_ids = context.User_Chat.Where(x => x.User_Id == dto.RequestorId).Select(x => x.Chat_Id).ToList();
+                    List<int> chat_ids = context.User_Chat.Where(x => x.UserId == dto.RequestorId).Select(x => x.ChatId).ToList();
                     query = query.Where(x => chat_ids.Contains(x.Id));
                 }
             }
@@ -80,6 +80,6 @@ namespace WebApplication1.Services.Implementations
             var users = await query.ToListAsync();
 
             return new ServiceResult { Success = true, Data = users };
-        }
+        }*/
     }
 }

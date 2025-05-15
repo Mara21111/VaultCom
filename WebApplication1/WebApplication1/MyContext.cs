@@ -7,12 +7,12 @@ namespace WebApplication1
     {
         public DbSet<Chat> Chat { get; set; }
         public DbSet<Message> Message { get; set; }
-        public DbSet<Message_Info> Message_Info { get; set; }
-        public DbSet<Message_User_Reaction> Message_User_Reaction { get; set; }
+        public DbSet<MessageInfo> Message_Info { get; set; }
+        public DbSet<MessageUserReaction> Message_User_Reaction { get; set; }
         public DbSet<Reaction> Reaction { get; set; }
-        public DbSet<Report_Log> Report_Log { get; set; }
+        public DbSet<ReportLog> Report_Log { get; set; }
         public DbSet<User> User { get; set; }
-        public DbSet<User_Chat> User_Chat { get; set; }
+        public DbSet<UserChatRelationship> User_Chat { get; set; }
         public DbSet<User_Relationship> User_Relationship { get; set; }
 
         public MyContext(DbContextOptions<MyContext> options) : base(options)
@@ -24,10 +24,10 @@ namespace WebApplication1
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Message_Info>().HasNoKey();
-            modelBuilder.Entity<Message_User_Reaction>().HasNoKey();
+            modelBuilder.Entity<MessageInfo>().HasNoKey();
+            modelBuilder.Entity<MessageUserReaction>().HasNoKey();
 
-            modelBuilder.Entity<Report_Log>().HasKey(x => x.Id);
+            modelBuilder.Entity<ReportLog>().HasKey(x => x.Id);
             modelBuilder.Entity<Message>().HasKey(x => x.Id);
 
             base.OnModelCreating(modelBuilder);

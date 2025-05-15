@@ -16,48 +16,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "WebApplication1.Controllers.ChatController",
-    "Method": "CreateGroupChat",
-    "RelativePath": "api/Chat/create-group-chat",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "WebApplication1.Models.DTO.CreateGroupChatDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebApplication1.Controllers.ChatController",
-    "Method": "CreatePublicChat",
-    "RelativePath": "api/Chat/create-public-chat",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "WebApplication1.Models.DTO.CreatePublicChatDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebApplication1.Controllers.ChatController",
-    "Method": "GetAllChat",
-    "RelativePath": "api/Chat/get-all-chats",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "WebApplication1.Controllers.UserController",
     "Method": "CreateUser",
     "RelativePath": "api/User/create-user",

@@ -5,8 +5,8 @@ namespace WebApplication1.Services.Interfaces
 {
     public interface IChatService
     {
-        Task<ServiceResult> CreatePublicChatAsync(CreatePublicChatDTO dto);
-        Task<ServiceResult> CreateGroupChatAsync(CreateGroupChatDTO dto);
-        Task<ServiceResult> GetChats(ChatFilterDTO? dto);
+        /*Task<ServiceResult> CreatePublicChatAsync(CreatePublicChatDTO dto);
+        Task<ServiceResult> CreateGroupChatAsync(CreateGroupChatDTO dto);*/
+        //Task<ServiceResult> GetChats(ChatFilterDTO? dto);
     }
 }
