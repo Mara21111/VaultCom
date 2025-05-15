@@ -1,5 +1,4 @@
-export class UserRelationship
-{
+export class UserRelationship {
     id: number;
     user_id: number;
     friend_user_id: number;

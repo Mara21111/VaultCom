@@ -17,7 +17,7 @@
   <div class="friends-container">
     <div class="content-area">
 
-      <section class="panel friends-panel" *ngIf="requestsCount !== 0">
+      <section class="panel friends-panel" *ngIf="Requests.length !== 0">
         <div class="section-title">Friend Requests</div>
         <div class="table-header">
           <div class="col-header">Username</div>
@@ -25,12 +25,12 @@
           <div class="col-header">Actions</div>
         </div>
         <div class="table-body">
-          <div class="table-row" *ngFor="let item of requests">
-            <div class="col" (click)="goToUser(item.id)">{{ item?.username }}</div>
-            <div class="col">{{ item?.bio }}</div>
+          <div class="table-row" *ngFor="let user of Requests">
+            <div class="col" (click)="GoToUser(user.id)">{{ user?.username }}</div>
+            <div class="col">{{ user?.bio }}</div>
             <div class="col action-buttons">
-              <button class="btn btn-success" (click)="acceptRequest(item.id)">Accept</button>
-              <button class="btn btn-danger" (click)="cancelRequest(item.id)">Reject</button>
+              <button class="btn btn-success" (click)="AcceptRequest(user.id)">Accept</button>
+              <button class="btn btn-danger" (click)="RejectRequest(user.id)">Reject</button>
             </div>
           </div>
         </div>
@@ -44,9 +44,9 @@
           <div class="col-header">Nickname</div>
         </div>
         <div class="table-body">
-          <div class="table-row" *ngFor="let item of friends" (click)="goToUser(item.id)">
-            <div class="col">{{ item?.username }}</div>
-            <div class="col">{{ item?.bio }}</div>
+          <div class="table-row" *ngFor="let friend of Friends" (click)="GoToUser(item.id)">
+            <div class="col">{{ friend?.username }}</div>
+            <div class="col">{{ friend?.bio }}</div>
             <div class="col">Nickname Here</div>
           </div>
         </div>
@@ -57,15 +57,15 @@
 </div>
 
 <app-side-panel
-*ngIf="panelVisible"
+*ngIf="PanelVisible"
 (close)="closePanel()"
-[user]="selectedUser"
+[user]="SelectedUser"
 [showActionButtons]="true">
 </app-side-panel>
 
-<div class="popup-backdrop" *ngIf="showPopup">
+<div class="popup-backdrop" *ngIf="ShowPopup">
   <div class="popup">
-    <p>{{ popupMessage }}</p>
+    <p>{{ PopupMessage }}</p>
     <button (click)="closePopup()">Close</button>
   </div>
 </div>

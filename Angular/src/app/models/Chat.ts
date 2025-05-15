@@ -1,6 +1,6 @@
 export class Chat
 {
     Id: number;
-    IsPublic: boolean;
+    Type: number;
     ChatId: number;
 }

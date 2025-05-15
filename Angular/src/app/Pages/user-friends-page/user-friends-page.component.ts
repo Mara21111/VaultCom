@@ -18,52 +18,39 @@ import { FormsModule } from '@angular/forms';
 
 export class UserFriendsPageComponent {
 
-  requests: User[] = [];
-  friends: User[] = [];
-  users: User[] = [];
-  user: User = new User;
-  selectedUser = new User;
-  panelVisible = false;
-  showPopup: boolean = false;
-  requestsCount: number = 0;
-  reportsCount = 0;
-  newFriendUsername = '';
-  popupMessage = '';
+  public Requests: User[] = [];
+  public Friends: User[] = [];
+  public PanelVisible: boolean = false;
+  public ShowPopup: boolean = false;
+  public newFriendUsername: string = '';
+  public SelectedUser: User = new User;
+  public PopupMessage: string = '';
 
-  public constructor(private service: UserRelationshipService, private userService: UserService) {  }
+  private user: User = new User;
+  private users: User[] = [];
 
-  public acceptRequest(sender_id: number) {
+
+  private constructor(private relationshipService: UserRelationshipService, private userService: UserService) {
+
   }
 
-  public cancelRequest(sender_id: number) {
+  ngOnInit(): void {
+    this.userService.GetFromToken().subscribe(result => this.user = result)
+    this.relationshipService.GetAllFriendRequests(this.user.id).subscribe(result => this.Requests = result)
+    this.relationshipService.GetAllFriends(this.user.id).subscribe(result => this.Friends = result)
+    this.userService.GetAllUsers().subscribe(result => this.users = result)
   }
 
-  public goToUser(user_id: number) {
-    this.panelVisible = true;
+  public GoToUser(user_id: number): void {
+    this.PanelVisible = true;
   }
 
-  ngOnInit() {
-    this.userService.GetFromToken().subscribe(result => {
-      this.user = result; console.log(this.user.id);
-      this.userService.GetAllUsers().subscribe(result => this.users = result);
-      this.refresh();
-      this.reportsCount = this.requests.length;
-    });
-  }
-
-  refresh() {
-  }
-
-  getUsername(userId: number): string {
-    const user = this.users.find(u => u.id === userId);
+  public getUsername(user_id: number): string {
+    const user = this.users.find(user => user.id = user_id);
     return user ? user.username : 'Unknown';
   }
 
-  closePanel() {
-    this.panelVisible = false;
-  }
-
-  addFriend() {
+  public addFriend(): void {
     this.newFriendUsername = this.newFriendUsername.trim();
 
     if (!this.newFriendUsername) {
@@ -71,18 +58,34 @@ export class UserFriendsPageComponent {
       return;
     }
 
-    let reciever_id: number = this.users.find(u => u.username === this.newFriendUsername)?.id ?? 0;
+    let receiver_id: number = this.users.find(user => user.username === this.newFriendUsername)?.id ?? 0;
 
-    if (reciever_id === 0) {
-      this.popupMessage = 'Invalid name: ' + this.newFriendUsername;
-      this.showPopup = true;
-    }
-    else {
+    if (receiver_id === 0) {
+      this.PopupMessage = 'Invalid name: ' + this.newFriendUsername;
+      this.ShowPopup = true;
+    } else {
+      //tady 100% něco má bejt
     }
   }
 
-  closePopup() {
-    this.showPopup = false;
-    this.popupMessage = '';
+  public closePanel() {
+    this.PanelVisible = false;
+  }
+
+  public closePopup() {
+    this.ShowPopup = false;
+    this.PopupMessage = '';
+  }
+
+  public AcceptRequest(sender_id: number): void {
+
+  }
+
+  public RejectRequest(sender_id: number): void {
+
+  }
+
+  public CancelRequest(sender_id: number): void {
+
   }
 }
