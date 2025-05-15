@@ -137,15 +137,15 @@ namespace WebApplication1.Services.Implementations
         }
 
 
-        public async Task<ServiceResult> DeleteUserAsync(RequestDTO dto)
+        public async Task<ServiceResult> DeleteUserAsync(int requestorId, int targetId)
         {
-            User? requestor = context.User.Find(dto.RequestorId);
-            User? target = context.User.Find(dto.TargetId);
+            User? requestor = context.User.Find(requestorId);
+            User? target = context.User.Find(targetId);
             if (requestor == null || target == null)
             {
                 return new ServiceResult { Success = false, ErrorMessage = "User does not exist", ErrorCode = 404 };
             }
-            if (!requestor.IsAdmin && dto.RequestorId != dto.TargetId)
+            if (!requestor.IsAdmin && requestorId != targetId)
             {
                 return new ServiceResult { Success = false, ErrorMessage = "Does not have perission to delete account", ErrorCode = 403 };
             }
@@ -196,14 +196,14 @@ namespace WebApplication1.Services.Implementations
             return new ServiceResult { Success = true, Data = dto };
         }
 
-        public async Task<ServiceResult> GetSelfUserAsync(RequestDTO dto)
+        public async Task<ServiceResult> GetSelfUserAsync(int requestorId, int targetId)
         {
-            if (dto.RequestorId != dto.TargetId)
+            if (requestorId != targetId)
             {
                 return new ServiceResult { Success = false, ErrorMessage = "View denied", ErrorCode = 403 };
             }
 
-            User user = await context.User.FindAsync(dto.TargetId);
+            User user = await context.User.FindAsync(targetId);
 
             return new ServiceResult { Success = true, Data = user };
         }
