@@ -4,6 +4,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { catchError } from 'rxjs';
 import { NgIf, NgClass } from '@angular/common';
+import { LoginDTO } from '../../models/User';
 
 @Component({
   selector: 'app-login-page',
@@ -36,6 +37,7 @@ export class LoginPageComponent {
     this.errorMessage = false;
 
     console.log('Trying to log in with:', this.form.value);
+
 
     this.authentication.login(this.form.value).pipe(catchError(error => {
         this.errorMessage = true;

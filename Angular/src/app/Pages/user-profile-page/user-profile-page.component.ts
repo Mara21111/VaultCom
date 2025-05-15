@@ -39,7 +39,6 @@ export class UserProfilePageComponent {
         email: this.user.email,
         curPassword: '',
         password: '',
-        phone: this.user.phone_Number,
         bio: this.user.bio,
       });
     });
@@ -65,7 +64,7 @@ export class UserProfilePageComponent {
     this.panelVisible = false;
     this.updateUser();
   }
-  
+
   updateUser() {
     this.user.username = this.form.value.username;
     this.user.email = this.form.value.email;
