@@ -6,14 +6,13 @@
   [titleOn]="true"
   [searchOn]="true"
   [closeOn]="true"
-  [closeRoute]="'/admin-menu'"
-  (searchChanged)="onSearchChanged($event)">
+  [closeRoute]="'/admin-menu'">
 </app-base-ui>
 
   <div class="main-container">
     <div class="public-chats-container">
       <div class="content-area">
-  
+
         <!-- Public Chats -->
         <section class="panel public-chats-panel">
           <div class="table-header">
@@ -23,22 +22,22 @@
             <div class="col-header"></div>
           </div>
           <div class="table-body">
-            <div class="table-row" *ngFor="let item of this.getChats()">
-              <div class="col"><i class="bi bi-pencil-fill pencil-icon"></i>{{ item.name }}</div>
+            <div class="table-row" *ngFor="let item of Chats">
+              <div class="col"><i class="bi bi-pencil-fill pencil-icon"></i>{{ item.Title }}</div>
               <div class="col">256</div>
               <div class="col">58</div>
-              <div class="col"><button class="delete-button btn btn-danger" (click)="deleleteChat(item.id)">
+              <div class="col"><button class="delete-button btn btn-danger" (click)="DeleteChat(item.Id)">
                 <i class="bi bi-x"></i>
               </button></div>
             </div>
           </div>
         </section>
-        
+
 
         <div class="chat-input-container fixed-bottom p-3 bg-dark">
           <div class="d-flex justify-content-center align-items-center">
-            <input type="text" class="form-control chat-input text-center" id="newChatInput" placeholder="Enter new chat name..." aria-label="New Chat Name" name="chatName" [(ngModel)]="chatName">
-            <button class="add-button btn btn-primary ms-3" id="addChatButton" (click)="createChat()">ADD</button>
+            <input type="text" class="form-control chat-input text-center" id="newChatInput" placeholder="Enter new chat name..." aria-label="New Chat Name" name="chatName" [(ngModel)]="ChatName">
+            <button class="add-button btn btn-primary ms-3" id="addChatButton" (click)="CreateChat()">ADD</button>
           </div>
         </div>
       </div>

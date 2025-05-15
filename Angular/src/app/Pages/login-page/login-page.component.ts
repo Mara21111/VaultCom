@@ -4,7 +4,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { catchError } from 'rxjs';
 import { NgIf, NgClass } from '@angular/common';
-import { LoginDTO } from '../../models/User';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -23,12 +23,13 @@ export class LoginPageComponent {
   isLoading: boolean = false;
 
   public constructor(
-              private authentication: AuthenticationService,
-              private fb: FormBuilder,
-              private router: Router) {
+    private authentication: AuthenticationService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {
     this.form = this.fb.group({
-      username: '',
-      password: ''
+      Username: [''],
+      Password: ['']
     });
   }
 
@@ -43,10 +44,14 @@ export class LoginPageComponent {
         this.errorMessage = true;
         this.triggerShake();
         this.isLoading = false;
-        throw error;
+        return of(null);
       })
-    ).subscribe(result => this.router.navigate([ '/main' ]));
-    this.isLoading = false;
+    ).subscribe(result => {
+      if (result) {
+        this.router.navigate(['/main']);
+      }
+      this.isLoading = false; // ← přemístěno sem, a volá se vždy
+    });
   }
 
   private triggerShake(): void {

@@ -1,6 +1,5 @@
 import { Component, inject, ViewChild } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { DataService } from '../../services/data.service';
 import { FormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
 import { NgIf } from '@angular/common';
@@ -20,41 +19,42 @@ import { ReportsService } from '../../services/reports.service';
 export class AdminAllUsersPageComponent {
   @ViewChild(BaseUiComponent) baseComp!: BaseUiComponent;
 
-  users: User[] = [];
-  selectedUser: User = new User;
-  reportCounts: userReportCount[] = [];
-  panelVisible: boolean = false;
+  Users: User[] = [];
+  SelectedUser: User = new User;
+  ReportCounts: userReportCount[] = [];
+  PanelVisible: boolean = false;
 
   isTimeoutOrBanSelected: boolean = false;
   selectedDateTime: string = '';
   searchValue: string = '';
 
   constructor(private userService: UserService, private router: Router, private reportService: ReportsService) {
+
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.refresh();
     this.searchValue = this.baseComp?.searchValue;
   }
 
   public goToUser(user_id: number): void{
-    this.userService.getUser(user_id).subscribe(userdata => {
-      this.selectedUser = userdata;
-      this.panelVisible = true;
+    this.userService.GetUser(user_id).subscribe(result => {
+      this.SelectedUser = result;
+      this.PanelVisible = true;
     })
   }
 
   public refresh(): void{
-    this.userService.getAllUsersAdminView().subscribe(result => this.users = result);
-    this.reportService.getAllUserReportsCount().subscribe(result => this.reportCounts = result);
+    this.userService.GetAllUsersAdminView().subscribe(result => this.Users = result);
+    this.reportService.GetAllUserReportsCount().subscribe(result => this.ReportCounts = result);
   }
 
   public getReportsCount(id: number): number{
-    return this.reportCounts.find(x => x.userId == id)?.count ?? 0;
+    return this.ReportCounts.find(x => x.userId == id)?.count ?? 0;
   }
 
   closePanel() {
-    this.panelVisible = false;
+    this.PanelVisible = false;
   }
 
   onSearchChanged(value: string) {
@@ -62,7 +62,7 @@ export class AdminAllUsersPageComponent {
   }
 
   public getUsers(): User[]{
-      const chats = this.users;
+      const chats = this.Users;
 
       if (!this.searchValue?.trim()) {
         return chats;

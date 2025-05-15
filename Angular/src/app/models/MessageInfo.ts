@@ -1,5 +1,5 @@
 
-export class Message_info
+export class MessageInfo
 {
     id: number;
     user_id: number;

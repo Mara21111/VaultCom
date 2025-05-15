@@ -130,7 +130,7 @@
       }
     },
     "/api/User/edit-user": {
-      "post": {
+      "put": {
         "tags": [
           "User"
         ],
@@ -161,7 +161,7 @@
       }
     },
     "/api/User/toggle-user-setting": {
-      "post": {
+      "put": {
         "tags": [
           "User"
         ],

@@ -22,9 +22,9 @@ export class AdminUserInfoPageComponent {
   }
 
   ngOnInit() {
-    this.userService.getUser(this.route.snapshot.params['id']).subscribe(result => {
+    this.userService.GetUser(this.route.snapshot.params['id']).subscribe(result => {
         this.user = result;
-        this.reportService.userReportCount(this.user.id).subscribe(result => this.reportCount = result);
+        this.reportService.UserReportCount(this.user.id).subscribe(result => this.reportCount = result);
       })
   }
 }

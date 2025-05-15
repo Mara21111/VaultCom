@@ -1,4 +1,4 @@
-export class Message_user_reaction
+export class MessageUserReaction
 {
     id: number;
     user_id: number;

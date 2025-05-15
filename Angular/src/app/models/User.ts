@@ -1,5 +1,4 @@
-export class User
-{
+export class User {
     id: number;
     email: string;
     password: string;
@@ -17,31 +16,53 @@ export class User
     safe_mode: boolean;
 }
 
-export class CreateUserDTO
-{
+export class CreateUserDTO {
+  Username: string;
+  Email: string;
+  Password: string;
+  Bio: string;
+  IsAdmin: boolean;
+}
+
+export class EditUserDTO {
   Username: string;
   Email: string;
   Password: string;
   Bio: string;
 }
 
-export class EditUserDTO
-{
+export class BaseUserDataDTO {
   Username: string;
-  Email: string;
-  Password: string;
   Bio: string;
+  CreatedAt: Date;
+  BanEnd: Date | null;
+  TimeoutEnd: Date | null;
 }
 
-export class LoginDTO
-{
-  username: string;
-  password: string;
+export class PublicUserDataDTO {
+  Email: string;
+  SafeMode: boolean;
+}
+
+export class UserFilterDTO {
+  Banned: boolean | null;
+  TimedOut: boolean | null;
+  Status: number | null;
+}
+
+export class UserToggleDTO {
+  ValueName: string;
+  Value: boolean;
+}
+
+export class LoginDTO {
+  Username: string;
+  Password: string;
 }
 
 export class AuthResult
 {
-  success: boolean;
-  token: string;
-  message: string;
+  Success: boolean;
+  Token: string;
+  Message: string;
 }

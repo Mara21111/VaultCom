@@ -30,11 +30,11 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> CreateUser([FromBody] CreateUserDTO dto)
             => HandleService(() => _userService.CreateUserAsync(dto));
 
-        [HttpPost("edit-user")]
+        [HttpPut("edit-user")]
         public Task<IActionResult> EditUser([FromBody] EditUserDTO dto)
             => HandleService(() => _userService.EditUserAsync(dto));
 
-        [HttpPost("toggle-user-setting")]
+        [HttpPut("toggle-user-setting")]
         public Task<IActionResult> ToggleUserSetting([FromBody] UserToggleDTO dto)
             => HandleService(() => _userService.ToggleUserSettingAsync(dto));
 

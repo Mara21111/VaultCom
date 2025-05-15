@@ -1,4 +1,4 @@
-export class Report_log
+export class ReportLog
 {
     user_Id: number;
     reported_User_Id: number;

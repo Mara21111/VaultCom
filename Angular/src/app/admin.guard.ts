@@ -10,7 +10,7 @@ export const adminGuard: CanActivateFn = (route, state) => {
   const router = inject(Router)
   let user = new User;
 
-  return userService.getFromToken().pipe(
+  return userService.GetFromToken().pipe(
     map(user => {
       if (user && user.is_Admin) {
         return true;
