@@ -1,13 +1,12 @@
 import { Component, inject, ViewChild } from '@angular/core';
-import { DataService } from '../../services/data.service';
 import { NgFor } from '@angular/common';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
 import { FormsModule } from '@angular/forms';
 import { Chat } from '../../models/Chat';
 import { User } from '../../models/User';
-import { ChatService } from '../../services/chat.service';
+import { PublicChatService } from '../../services/public_chat.service';
 import { UserService } from '../../services/user.service';
-import { catchError, of } from 'rxjs';
+import { PublicChat } from '../../models/PublicChat';
 
 @Component({
   selector: 'app-public-chats-page',
@@ -18,58 +17,24 @@ import { catchError, of } from 'rxjs';
 })
 
 export class PublicChatsPageComponent {
-  @ViewChild(BaseUiComponent) baseComp!: BaseUiComponent;
+  ChatName: string;
+  Chats: PublicChat[];
 
-  publicChats: Chat[] = [];
-  user: User = new User;
-  chatName: string = '';
-  searchValue: string = '';
+  constructor(private chatService: PublicChatService, private userService: UserService) {
 
-  constructor(private chatService: ChatService, private userService: UserService) {
   }
 
-  ngOnInit(): void  {
-    this.refresh();
-    this.userService.getFromToken().subscribe(result => {
-      this.user = result; console.log(this.user.id)
+  ngOnInit() {
+    this.chatService.GetAllPublicChats().subscribe(result => {
+      this.Chats = result;
     });
-    this.searchValue = this.baseComp?.searchValue;
   }
 
-  public createChat(): void {
-    let newChat = this.chatService.newPublicChat(this.chatName);
+  CreateChat(): void {
 
-    this.chatService.createChat(newChat).subscribe(_ => this.refresh());
-    this.chatName = '';
   }
 
-  public deleleteChat(chat_id: number): void {
-    this.chatService.deleteChat(chat_id, this.user.id).subscribe(_ => this.refresh());
-  }
+  DeleteChat(chat_id: number): void {
 
-  private refresh(): void {
-    this.chatService.getAllPublicChats().pipe(
-      catchError(err => {
-        console.error('Failed to load chats', err);
-        return of([]);
-      })
-    ).subscribe(result => this.publicChats = result);
-  }
-
-  public getChats(): Chat[]{
-    const chats = this.publicChats
-
-    if (!this.searchValue?.trim()) {
-      return chats;
-    }
-
-    const query = this.searchValue.toLowerCase();
-    return chats.filter(chat =>
-      chat.name.toLowerCase().includes(query)
-    );
-  }
-
-  onSearchChanged(value: string) {
-    this.searchValue = value;
   }
 }

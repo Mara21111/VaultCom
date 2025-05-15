@@ -1,34 +1,34 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Report_log } from '../models/Report_log';
+import { ReportLog } from '../models/ReportLog';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportsService {
 
-  public constructor(private http: HttpClient) {}
+  public constructor(private http: HttpClient) {
 
-  public getAll(): Observable<Report_log[]> {
-    return this.http.get<Report_log[]>('http://localhost:5000/api/Reports/get-all-reports');
+  }
+  public GetAllReports(): Observable<ReportLog[]> {
+    return this.http.get<ReportLog[]>('http://localhost:5000/api/Reports/get-all-reports');
   }
 
-  public getAllUserId(id: number): Observable<Report_log[]> {
-    return this.http.get<Report_log[]>('http://localhost:5000/api/Reports/get-all-reports-user-id?Id=' + id);
+  public GetAllUserId(id: number): Observable<ReportLog[]> {
+    return this.http.get<ReportLog[]>('http://localhost:5000/api/Reports/get-all-reports-user-id?Id=' + id);
   }
 
-  public userReportCount(id: number): Observable<number> {
-    console.log(id);
+  public UserReportCount(id: number): Observable<number> {
     return this.http.get<number>('http://localhost:5000/api/Reports/reportsCount-user' + id);
   }
 
-  public getAllUserReportsCount(): Observable<userReportCount[]>{
+  public GetAllUserReportsCount(): Observable<userReportCount[]>{
     return this.http.get<userReportCount[]>('http://localhost:5000/api/Reports/reportsCount-AllUsers')
   }
 
-  public createReport(report: Report_log): Observable<Report_log> {
-    return this.http.post<Report_log>('http://localhost:5000/api/Reports/create-report', report)
+  public CreateReport(report: ReportLog): Observable<ReportLog> {
+    return this.http.post<ReportLog>('http://localhost:5000/api/Reports/create-report', report)
   }
 }
 

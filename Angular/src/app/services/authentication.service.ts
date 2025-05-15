@@ -13,7 +13,7 @@ export class AuthenticationService {
 
   public login(loginDTO: LoginDTO): Observable<AuthResult> {
     return this.http.post<AuthResult>('http://localhost:5000/api/Authentication/login', loginDTO).pipe(
-      tap(result => this.setToken(result.token))
+      tap(result => this.setToken(result.Token))
     );
   }
 

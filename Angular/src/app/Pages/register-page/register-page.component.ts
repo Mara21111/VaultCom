@@ -32,8 +32,6 @@ export class RegisterComponent {
       password: '',
       rPassword: ''
     })
-
-    this.user = this.userService.getNewUser();
   }
 
   /*public save(): void {
@@ -95,11 +93,12 @@ export class RegisterComponent {
       Username: this.user.username,
       Email: this.user.email,
       Password: this.user.password,
-      Bio: this.user.bio
+      Bio: this.user.bio,
+      IsAdmin: false
     };
 
     // Služba pro vytvoření uživatele
-    this.userService.createUser(cto).pipe(
+    this.userService.CreateUser(cto).pipe(
       catchError(error => {
         if (error.status === 400) {  // Pokud uživatel nebo email již existuje
           this.errorText = 'Uživatel nebo email již existuje.';
@@ -116,8 +115,8 @@ export class RegisterComponent {
     ).subscribe(() => {
       // Po úspěšné registraci se pokusíme přihlásit
       const dto = new LoginDTO();
-      dto.username = this.form.value.username;
-      dto.password = this.form.value.password;
+      dto.Username = this.form.value.username;
+      dto.Password = this.form.value.password;
 
       this.authService.login(dto).pipe(
         catchError(error => {

@@ -5,14 +5,15 @@ import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
 import { FormsModule } from '@angular/forms';
 import { User } from '../../models/User';
 import { UserService } from '../../services/user.service';
-import { ChatService } from '../../services/chat.service';
+import { PublicChatService } from '../../services/public_chat.service';
 import { Chat } from '../../models/Chat';
 import { UserChatService } from '../../services/user_chat.service';
 import { Message } from '../../models/Message';
 import { MessageService } from '../../services/message.service';
 import { catchError } from 'rxjs';
 import { ReportsService } from '../../services/reports.service';
-import { Report_log } from '../../models/Report_log';
+import { ReportLog } from '../../models/ReportLog';
+import {PublicChat} from '../../models/PublicChat';
 
 @Component({
   selector: 'app-main-page',
@@ -31,7 +32,7 @@ export class MainPageComponent {
   showChatInfo: boolean = false;
   reportPopup: boolean = false;
   userChats: Chat[] = [];
-  publicChats: Chat[] = [];
+  publicChats: PublicChat[] = [];
   activeChat: Chat = new Chat;
   allMessages: Message[] = [];
   newMessage: Message = new Message;
@@ -41,7 +42,7 @@ export class MainPageComponent {
   reportUserId: number = 0;
 
   constructor(private userService: UserService,
-    private chatService: ChatService,
+    private chatService: PublicChatService,
     private userChatService: UserChatService,
     private messageService: MessageService,
     private reportsService: ReportsService) {
@@ -51,9 +52,9 @@ export class MainPageComponent {
   }
 
   ngOnInit() {
-    this.userService.getFromToken().subscribe(result => {
+    this.userService.GetFromToken().subscribe(result => {
       this.user = result;
-      this.userChatService.chatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
+      this.userChatService.ChatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
     });
   }
 
@@ -74,25 +75,25 @@ export class MainPageComponent {
   }
 
   refreshMessages(){
-    this.messageService.getMessagesInChat(this.activeChat.id).subscribe(result => this.allMessages = result);
+    this.messageService.getMessagesInChat(this.activeChat.Id).subscribe(result => this.allMessages = result);
   }
 
   changeActiveChat(chat: Chat){
     this.activeChat = chat;
-    this.userChatService.usersInChat(chat.id).subscribe(result => this.activeChatUsers = result);
+    this.userChatService.UsersInChat(chat.Id).subscribe(result => this.activeChatUsers = result);
     this.refreshMessages();
   }
 
   changeChatsToPublic(){
     this.public_chats = true;
     this.setChats();
-    this.chatService.getAllPublicChats().subscribe(result => this.publicChats = result)
+    this.chatService.GetAllPublicChats().subscribe(result => this.publicChats = result)
   }
 
   changeChatsToPrivate(){
     this.public_chats = false;
     this.setChats();
-    this.userChatService.chatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
+    this.userChatService.ChatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
   }
 
   setChats(){
@@ -102,7 +103,8 @@ export class MainPageComponent {
   }
 
   getChats(): Chat[]{
-    const chats = this.public_chats ? this.publicChats : this.userChats;
+    /*const chats = this.public_chats ? this.publicChats : this.userChats;
+
 
     if (!this.searchChat?.trim()) {
       return chats;
@@ -110,17 +112,19 @@ export class MainPageComponent {
 
     const query = this.searchChat.toLowerCase();
     return chats.filter(chat =>
-      chat.name.toLowerCase().includes(query)
-    );
+      chat..toLowerCase().includes(query)
+    );*/
+
+    return this.userChats;
   }
 
   sendMessage(){
-    if(this.activeChat.id == null){
+    if(this.activeChat.Id == null){
       throw new Error("Chat not selected");
     }
 
     this.newMessage.user_Id = this.user.id;
-    this.newMessage.chat_Id = this.activeChat.id;
+    this.newMessage.chat_Id = this.activeChat.Id;
     this.messageService.createMessage(this.newMessage).pipe(
           catchError(error =>{throw error})
         ).subscribe(_ => this.refreshMessages());
@@ -146,19 +150,19 @@ export class MainPageComponent {
   }
 
   isUserInPublicChat(chatId: number): Boolean{
-    return !!this.userChats.find(x => x.id == chatId);
+    return !!this.userChats.find(x => x.Id == chatId);
   }
 
   addUserToPublicChat(chatId: number){
     if (!this.isUserInPublicChat(chatId)){
       let link = this.userChatService.newLink(this.user.id, chatId)
-      this.userChatService.createLink(link).subscribe(response => {
+      this.userChatService.CreateLink(link).subscribe(response => {
         this.changeChatsToPrivate();
-        this.activeChat = this.publicChats.find(x => x.id = chatId)?? new Chat;
+        //this.activeChat = this.publicChats.find(x => x.Id = chatId)?? new Chat;
         this.refreshMessages();
       });
     }else{
-      this.userChatService.deteleLink(this.user.id, chatId).subscribe(response => {
+      this.userChatService.DeleteLink(this.user.id, chatId).subscribe(response => {
         this.changeChatsToPrivate();
         this.allMessages = [];
       });
@@ -175,13 +179,13 @@ export class MainPageComponent {
   }
 
   reportUser(){
-    let report = new Report_log;
+    let report = new ReportLog;
     report.user_Id = this.user.id;
     report.reported_User_Id = this.reportUserId;
     report.message = this.reportReason;
     this.reportPopup = false;
 
-    this.reportsService.createReport(report).subscribe();
+    this.reportsService.CreateReport(report).subscribe();
   }
 
   showReportPopup(reportUserId: number){

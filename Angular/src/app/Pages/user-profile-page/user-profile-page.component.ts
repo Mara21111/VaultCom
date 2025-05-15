@@ -32,7 +32,7 @@ export class UserProfilePageComponent {
   }
 
   ngOnInit(){
-    this.userService.getFromToken().subscribe(result => {
+    this.userService.GetFromToken().subscribe(result => {
       this.user = result;
       this.form = this.fb.group({
         username: this.user.username,
@@ -76,7 +76,7 @@ export class UserProfilePageComponent {
     this.updateUser();
     this.errorMessage = '';
 
-    this.userService.editUser(this.user).subscribe({
+    this.userService.EditUser(this.user).subscribe({
       error: (err) => {this.errorMessage = err.error, this.panelVisible = true}
     });
   }

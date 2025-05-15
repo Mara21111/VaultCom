@@ -226,7 +226,7 @@
     "ContainingType": "WebApplication1.Controllers.UserController",
     "Method": "EditUser",
     "RelativePath": "api/User/edit-user",
-    "HttpMethod": "POST",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -339,7 +339,7 @@
     "ContainingType": "WebApplication1.Controllers.UserController",
     "Method": "ToggleUserSetting",
     "RelativePath": "api/User/toggle-user-setting",
-    "HttpMethod": "POST",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [

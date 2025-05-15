@@ -1,4 +1,4 @@
-export class User_relationship
+export class UserRelationship
 {
     id: number;
     user_id: number;
