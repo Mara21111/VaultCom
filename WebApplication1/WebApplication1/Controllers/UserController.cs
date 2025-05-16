@@ -70,8 +70,8 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> GetUser(int id) =>
             HandleService(() => _userService.GetUserAsync(id));
 
-        [HttpGet("get-self-user-{requestorId}-{targetId}")]
-        public Task<IActionResult> GetSelfUser(int requestorId, int targetId)
-            => HandleService(() => _userService.GetSelfUserAsync(requestorId, targetId));
+        [HttpGet("get-self-user-{id}")]
+        public Task<IActionResult> GetSelfUser(int id)
+            => HandleService(() => _userService.GetSelfUserAsync(id));
     }
 }

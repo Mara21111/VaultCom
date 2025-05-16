@@ -16,7 +16,7 @@ namespace WebApplication1.Services.Implementations
         }
 
 
-        public async Task<List<ChatGetterDTO>> GetChatGetterDTOsAsync(IQueryable<Chat> query)
+       /* public async Task<List<ChatGetterDTO>> GetChatGetterDTOsAsync(IQueryable<Chat> query)
         {
             var chatGetterDTOs = await query
     .Select(chat => new ChatGetterDTO
@@ -39,7 +39,7 @@ namespace WebApplication1.Services.Implementations
     .ToListAsync();
 
             return chatGetterDTOs;
-        }
+        }*/
 
         /*private async Task<object?> MapChatsAsync(Chat chat)
         {
@@ -63,7 +63,45 @@ namespace WebApplication1.Services.Implementations
             return new ServiceResult { Success = true, Data = dto };
         }
 
+        private async Task<ChatGetterDTO> MapChatToDTO(Chat chat, MyContext context)
+        {
+            string title = chat.Type switch
+            {
+                1 => (await context.PublicChat.FindAsync(chat.ChatId)).Title,
+                2 => (await context.GroupChat.FindAsync(chat.ChatId)).Title,
+                _ => (await context.PrivateChat.FindAsync(chat.ChatId)).UserAId.ToString()
+            };
+
+            return new ChatGetterDTO
+            {
+                Title = title,
+                Id = chat.Id
+            };
+        }
+
         public async Task<ServiceResult> GetChatsAsync(ChatFilterDTO? filter = null)
+        {
+            IQueryable<Chat> query = context.Chat;
+
+            if (filter != null)
+            {
+                //logic here
+            }
+
+            var chats = await query.ToListAsync();
+
+            var chatDTOs = new List<ChatGetterDTO>();
+            foreach (var chat in chats)
+            {
+                var dto = await MapChatToDTO(chat, context);
+                chatDTOs.Add(dto);
+            }
+
+            return new ServiceResult { Success = true, Data = chatDTOs };
+        }
+
+
+        /*public async Task<ServiceResult> GetChatsAsync(ChatFilterDTO? filter = null)
         {
             IQueryable<Chat> query = context.Chat;
 
@@ -92,6 +130,6 @@ namespace WebApplication1.Services.Implementations
             var result = GetChatGetterDTOsAsync(query);
 
             return new ServiceResult { Success = true, Data = result };
-        }
+        }*/
     }
 }

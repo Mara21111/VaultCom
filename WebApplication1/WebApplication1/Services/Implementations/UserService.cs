@@ -201,14 +201,9 @@ namespace WebApplication1.Services.Implementations
             return new ServiceResult { Success = true, Data = dto };
         }
 
-        public async Task<ServiceResult> GetSelfUserAsync(int requestorId, int targetId)
+        public async Task<ServiceResult> GetSelfUserAsync(int id)
         {
-            if (requestorId != targetId)
-            {
-                return new ServiceResult { Success = false, ErrorMessage = "View denied", ErrorCode = 403 };
-            }
-
-            User user = await context.User.FindAsync(targetId);
+            User user = await context.User.FindAsync(id);
 
             return new ServiceResult { Success = true, Data = user };
         }

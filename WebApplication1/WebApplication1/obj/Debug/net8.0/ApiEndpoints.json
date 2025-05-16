@@ -291,18 +291,13 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserController",
     "Method": "GetSelfUser",
-    "RelativePath": "api/User/get-self-user-{requestorId}-{targetId}",
+    "RelativePath": "api/User/get-self-user-{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "requestorId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "targetId",
+        "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
       }

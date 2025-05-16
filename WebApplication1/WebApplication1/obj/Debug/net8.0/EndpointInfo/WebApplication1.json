@@ -514,23 +514,14 @@
         }
       }
     },
-    "/api/User/get-self-user-{requestorId}-{targetId}": {
+    "/api/User/get-self-user-{id}": {
       "get": {
         "tags": [
           "User"
         ],
         "parameters": [
           {
-            "name": "requestorId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "targetId",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
