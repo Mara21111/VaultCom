@@ -53,13 +53,13 @@ export class UserService {
     return this.http.get<User>('http://localhost:5000/api/User/get-user-' + user_id);
   }
 
-  public GetSelfUser(requestor_id: number, sender_id: number): Observable<User> {
-    return this.http.get<User>('http://localhost:5000/api/User/get-self-user-' + requestor_id + '-' + sender_id);
+  public GetSelfUser(user_id: number): Observable<User> {
+    return this.http.get<User>('http://localhost:5000/api/User/get-self-user-' + user_id);
   }
 
   public GetFromToken(): Observable<User> {
     let id = this.authService.getUserIdFromToken() ?? 0;
     console.log('get from token ' + id);
-    return this.GetSelfUser(id, id);
+    return this.GetSelfUser(id);
   }
 }

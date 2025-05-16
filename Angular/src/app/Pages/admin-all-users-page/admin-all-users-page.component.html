@@ -21,10 +21,10 @@
           <div class="col-header">Report count</div>
         </div>
         <div class="table-body">
-          <div class="table-row" (click)="this.goToUser(item.id)" *ngFor="let item of this.getUsers()" style="cursor: pointer;">
-            <div class="col username">{{ item.username }}</div>
-            <div class="col">{{ item.email }}</div>
-            <div class="col">{{ this.getReportsCount(item.id) }}</div>
+          <div class="table-row" (click)="this.goToUser(item.Id)" *ngFor="let item of this.getUsers()" style="cursor: pointer;">
+            <div class="col username">{{ item.Username }}</div>
+            <div class="col">{{ item.Email }}</div>
+            <div class="col">{{ this.getReportsCount(item.Id) }}</div>
           </div>
         </div>
       </section>
@@ -33,8 +33,8 @@
 </div>
 
 <app-side-panel
-  *ngIf="panelVisible"
+  *ngIf="PanelVisible"
   (close)="closePanel()"
-  [user]="selectedUser"
+  [user]="SelectedUser"
   [showActionButtons]="true">
 </app-side-panel>

@@ -7,7 +7,7 @@ import { User } from '../../models/User';
 import { UserService } from '../../services/user.service';
 import { PublicChatService } from '../../services/public_chat.service';
 import { Chat } from '../../models/Chat';
-import { UserChatService } from '../../services/user_chat.service';
+import { UserChatService } from '../../services/chat.service';
 import { Message } from '../../models/Message';
 import { MessageService } from '../../services/message.service';
 import { catchError } from 'rxjs';
@@ -46,15 +46,14 @@ export class MainPageComponent {
     private userChatService: UserChatService,
     private messageService: MessageService,
     private reportsService: ReportsService) {
-      this.newMessage.is_Edited = false;
-      this.newMessage.is_Pinned = false;
-      this.newMessage.is_Single_Use = false;
+      this.newMessage.IsEdited = false;
+      this.newMessage.IsPinned = false;
   }
 
   ngOnInit() {
     this.userService.GetFromToken().subscribe(result => {
       this.user = result;
-      this.userChatService.ChatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
+      this.userChatService.ChatsUserIsIn(this.user.Id).subscribe(chats => this.userChats = chats);
     });
   }
 
@@ -93,7 +92,7 @@ export class MainPageComponent {
   changeChatsToPrivate(){
     this.public_chats = false;
     this.setChats();
-    this.userChatService.ChatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
+    this.userChatService.ChatsUserIsIn(this.user.Id).subscribe(chats => this.userChats = chats);
   }
 
   setChats(){
@@ -123,21 +122,21 @@ export class MainPageComponent {
       throw new Error("Chat not selected");
     }
 
-    this.newMessage.user_Id = this.user.id;
-    this.newMessage.chat_Id = this.activeChat.Id;
+    this.newMessage.UserId = this.user.Id;
+    this.newMessage.ChatId = this.activeChat.Id;
     this.messageService.createMessage(this.newMessage).pipe(
           catchError(error =>{throw error})
         ).subscribe(_ => this.refreshMessages());
-    this.newMessage.content = '';
+    this.newMessage.Content = '';
   }
 
   getUsername(userId: number): string {
-    const user = this.activeChatUsers.find(u => u.id === userId);
-    return user ? user.username : 'Unknown';
+    const user = this.activeChatUsers.find(u => u.Id === userId);
+    return user ? user.Username : 'Unknown';
   }
 
   messages(): Message[]{
-    const messages = this.pinnedMessages ? this.allMessages.filter(m => m.is_Pinned === true) : this.allMessages;
+    const messages = this.pinnedMessages ? this.allMessages.filter(m => m.IsPinned === true) : this.allMessages;
 
     if (!this.searchMessage?.trim()) {
       return messages;
@@ -145,7 +144,7 @@ export class MainPageComponent {
 
     const query = this.searchMessage.toLowerCase();
     return messages.filter(message =>
-      message.content.toLowerCase().includes(query)
+      message.Content.toLowerCase().includes(query)
     );
   }
 
@@ -155,14 +154,14 @@ export class MainPageComponent {
 
   addUserToPublicChat(chatId: number){
     if (!this.isUserInPublicChat(chatId)){
-      let link = this.userChatService.newLink(this.user.id, chatId)
+      let link = this.userChatService.newLink(this.user.Id, chatId)
       this.userChatService.CreateLink(link).subscribe(response => {
         this.changeChatsToPrivate();
         //this.activeChat = this.publicChats.find(x => x.Id = chatId)?? new Chat;
         this.refreshMessages();
       });
     }else{
-      this.userChatService.DeleteLink(this.user.id, chatId).subscribe(response => {
+      this.userChatService.DeleteLink(this.user.Id, chatId).subscribe(response => {
         this.changeChatsToPrivate();
         this.allMessages = [];
       });
@@ -180,9 +179,9 @@ export class MainPageComponent {
 
   reportUser(){
     let report = new ReportLog;
-    report.user_Id = this.user.id;
-    report.reported_User_Id = this.reportUserId;
-    report.message = this.reportReason;
+    report.UserId = this.user.Id;
+    report.ReportedUserId = this.reportUserId;
+    report.Message = this.reportReason;
     this.reportPopup = false;
 
     this.reportsService.CreateReport(report).subscribe();

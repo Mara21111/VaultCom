@@ -19,10 +19,10 @@
           <div class="col-header">Reason</div>
         </div>
         <div class="table-body">
-          <div class="table-row" (click)="this.goToUser(item.reported_User_Id)" *ngFor="let item of this.getReports()" style="cursor: pointer;">
-            <div class="col username">{{ getUsername(item.user_Id) }}</div>
-            <div class="col">{{ getUsername(item.reported_User_Id) }}</div>
-            <div class="col">{{ item.message }}</div>
+          <div class="table-row" (click)="this.goToUser(item.ReportedUserId)" *ngFor="let item of this.getReports()" style="cursor: pointer;">
+            <div class="col username">{{ getUsername(item.UserId) }}</div>
+            <div class="col">{{ getUsername(item.ReportedUserId) }}</div>
+            <div class="col">{{ item.Message }}</div>
           </div>
         </div>
       </section>

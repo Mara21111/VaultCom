@@ -39,7 +39,7 @@ export class BaseUiComponent {
   }
 
   ngOnInit() {
-    this.userService.getFromToken().subscribe(result => this.user = result);
+    this.userService.GetFromToken().subscribe(result => this.user = result);
   }
 
   onSeachChange(value: string){

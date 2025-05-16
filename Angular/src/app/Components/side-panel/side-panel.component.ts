@@ -28,9 +28,9 @@ export class SidePanelComponent {
     ){}
 
     ngOnInit(){
-      this.reportService.userReportCount(this.user?.id).subscribe(result => {this.reportsCount = result;
+      this.reportService.UserReportCount(this.user?.Id).subscribe(result => {this.reportsCount = result;
       });
-      this.userService.getFromToken().subscribe(result => this.activeUser = result);
+      this.userService.GetFromToken().subscribe(result => this.activeUser = result);
     }
 
     public onTimeoutClick(): void {

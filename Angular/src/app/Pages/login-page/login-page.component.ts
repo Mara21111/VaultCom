@@ -5,6 +5,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { catchError } from 'rxjs';
 import { NgIf, NgClass } from '@angular/common';
 import { of } from 'rxjs';
+import { LoginDTO } from '../../models/User';
 
 @Component({
   selector: 'app-login-page',
@@ -28,8 +29,8 @@ export class LoginPageComponent {
     private router: Router
   ) {
     this.form = this.fb.group({
-      Username: [''],
-      Password: ['']
+      Username: '',
+      Password: ''
     });
   }
 
@@ -37,10 +38,11 @@ export class LoginPageComponent {
     this.isLoading = true;
     this.errorMessage = false;
 
-    console.log('Trying to log in with:', this.form.value);
+    var loginDTO = new LoginDTO;
+    loginDTO.Password = this.form.value.Password;
+    loginDTO.Username = this.form.value.Username;
 
-
-    this.authentication.login(this.form.value).pipe(catchError(error => {
+    this.authentication.login(loginDTO).pipe(catchError(error => {
         this.errorMessage = true;
         this.triggerShake();
         this.isLoading = false;

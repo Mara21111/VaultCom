@@ -11,11 +11,11 @@
         <form class="form-log-in" [formGroup]="form" (submit)="save()">
           <div class="input-field">
             <label for="email" class="label">Email/Username</label>
-            <input #usernameInput class="input form-control" formControlName="username" placeholder="Enter your email/username" [ngClass]="{'shake-error': errorMessage}" required>
+            <input #usernameInput class="input form-control" formControlName="Username" placeholder="Enter your email/username" [ngClass]="{'shake-error': errorMessage}" required>
           </div>
           <div class="input-field">
             <label for="password" class="label">Password</label>
-            <input #passwordInput type="password" id="password" class="input form-control" formControlName="password" placeholder="Enter your password" [ngClass]="{'shake-error': errorMessage}" required>
+            <input #passwordInput type="password" id="password" class="input form-control" formControlName="Password" placeholder="Enter your password" [ngClass]="{'shake-error': errorMessage}" required>
           </div>
           <div class="button-group">
             <button type="submit" class="button" [disabled]="isLoading">

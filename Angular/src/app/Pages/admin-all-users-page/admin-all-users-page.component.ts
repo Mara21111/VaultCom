@@ -70,7 +70,7 @@ export class AdminAllUsersPageComponent {
 
       const query = this.searchValue.toLowerCase();
       return chats.filter(user =>
-        user.username.toLowerCase().includes(query)
+        user.Username.toLowerCase().includes(query)
       );
     }
 }

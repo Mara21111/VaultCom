@@ -1,19 +1,18 @@
 export class User {
-    id: number;
-    email: string;
-    password: string;
-    username: string;
-    phone_Number: string;
-    bio: string;
-    status: number;
-    is_Public: boolean;
-    is_Admin: boolean;
-    created_At: Date;
-    private_key: string;
-    public_key: string;
-    timeout_End: Date;
-    ban_End: Date;
-    safe_mode: boolean;
+    Id: number;
+    Email: string;
+    Password: string;
+    Username: string;
+    Bio: string;
+    Status: number;
+    IsPublic: boolean;
+    IsAdmin: boolean;
+    CreatedAt: Date;
+    PrivateKey: string;
+    PublicKey: string;
+    TimeoutEnd: Date;
+    BanEnd: Date;
+    SafeMode: boolean;
 }
 
 export class CreateUserDTO {
@@ -62,7 +61,7 @@ export class LoginDTO {
 
 export class AuthResult
 {
-  Success: boolean;
-  Token: string;
-  Message: string;
+  success: boolean;
+  token: string;
+  message: string;
 }

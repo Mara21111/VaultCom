@@ -28,7 +28,7 @@ export class ReportsPageComponent {
 
   public constructor(private reportsService: ReportsService, private userService: UserService, private router: Router) {
     this.reportsService.GetAllReports().subscribe(result => this.data = result)
-    this.reportsService.UserReportCount(this.selectedUser.id).subscribe(result => this.reportsCount = result)
+    this.reportsService.UserReportCount(this.selectedUser.Id).subscribe(result => this.reportsCount = result)
     this.userService.GetAllUsers().subscribe(result => this.users = result)
   }
 
@@ -39,8 +39,8 @@ export class ReportsPageComponent {
   }
 
   getUsername(userId: number): string {
-    const user = this.users.find(u => u.id === userId);
-    return user ? user.username : 'Unknown';
+    const user = this.users.find(u => u.Id === userId);
+    return user ? user.Username : 'Unknown';
   }
 
   closePanel() {
@@ -56,7 +56,7 @@ export class ReportsPageComponent {
 
       const query = this.searchValue.toLowerCase();
       return reports.filter(report =>
-        this.getUsername(report.user_Id).toLowerCase().includes(query)
+        this.getUsername(report.UserId).toLowerCase().includes(query)
       );
     }
 

@@ -22,12 +22,12 @@
       </div>
 
       <div class="chat-list">
-        <div class="chat-item" *ngFor="let item of this.getChats()" (click)="this.changeActiveChat(item)" [ngClass]="{'active': item.id === this.activeChat.id}">
-          <div class="message-avatar" style="background-color: #435466">{{ item.name.charAt(0) }}</div>
+        <div class="chat-item" *ngFor="let item of this.getChats()" (click)="this.changeActiveChat(item)" [ngClass]="{'active': item.Id === this.activeChat.Id}">
+          <div class="message-avatar" style="background-color: #435466"><!--{{ item.name.charAt(0) }}--></div>
           <div class="chat-info">
-            <div class="chat-name">{{ item.name }}
-              <button class="on-off-button" *ngIf="item.is_Public && this.public_chats" (click)="this.addUserToPublicChat(item.id)">
-                {{ this.isUserInPublicChat(item.id) ? '✓' : '' }}</button>
+            <div class="chat-name"><!--{{ item.name }}-->
+              <!--<button class="on-off-button" *ngIf="item.is_Public && this.public_chats" (click)="this.addUserToPublicChat(item.id)">
+                {{ this.isUserInPublicChat(item.id) ? '✓' : '' }}</button>-->
             </div>
           </div>
         </div>
@@ -40,9 +40,9 @@
     </div>
 
     <div class="chat-window">
-      <div class="chat-header" *ngIf="this.activeChat.id">
-        <button class="message-avatar" (click)="this.chatInfo()">{{ this.activeChat.name?.charAt(0) }}</button>
-        <div class="chat-title">{{ activeChat.name }}</div>
+      <div class="chat-header" *ngIf="this.activeChat.Id">
+        <button class="message-avatar" (click)="this.chatInfo()"><!--{{ this.activeChat.Name?.charAt(0) }}--></button>
+        <div class="chat-title"><!--{{ activeChat.name }}--></div>
         <div class="chat-actions" *ngIf="!this.showChatInfo">
           <button class="chat-action" [ngClass]="{'active': this.pinnedMessages}">
             <i class="fas fa-thumbtack" (click)="this.pinnedMessages = !this.pinnedMessages"></i>
@@ -54,15 +54,15 @@
       </div>
 
       <div class="messages-container" #scrollMe style="overflow-y: auto;" *ngIf="!this.showChatInfo">
-        <div class="message" *ngFor="let item of this.messages()" [ngClass]="{'loginUser': item.user_Id === this.user.id}">
-          <div class="message-avatar">{{ this.getUsername(item.user_Id).charAt(0) }}</div>
-          <div class="message-content" [ngClass]="{'loginUser': item.user_Id === this.user.id}">
-            <div class="message-sender">{{ this.getUsername(item.user_Id) }}</div>
-            {{ item.content }}
+        <div class="message" *ngFor="let item of this.messages()" [ngClass]="{'loginUser': item.UserId === this.user.Id}">
+          <div class="message-avatar">{{ this.getUsername(item.UserId).charAt(0) }}</div>
+          <div class="message-content" [ngClass]="{'loginUser': item.UserId === this.user.Id}">
+            <div class="message-sender">{{ this.getUsername(item.UserId) }}</div>
+            {{ item.Content }}
             <div class="message-time">
-              <i class="fas fa-thumbtack" *ngIf="item.is_Pinned && item.user_Id === this.user.id"></i>
-              {{ item.time | date: "short" }}
-              <i class="fas fa-thumbtack" *ngIf="item.is_Pinned && item.user_Id !== this.user.id"></i>
+              <i class="fas fa-thumbtack" *ngIf="item.IsPinned && item.UserId === this.user.Id"></i>
+              {{ item.Time | date: "short" }}
+              <i class="fas fa-thumbtack" *ngIf="item.IsPinned && item.UserId !== this.user.Id"></i>
             </div>
           </div>
         </div>
@@ -72,15 +72,14 @@
         <div class="user-list" *ngIf="this.showChatInfo">
           <div *ngFor="let user of this.activeChatUsers" class="user-card">
             <div class="user-info">
-              <h3>{{ user.username }} <span *ngIf="user.id !== this.user.id">(Nickname)</span></h3>
-              <p><strong>Phone:</strong> {{ user.phone_Number }}</p>
-              <p><strong>Email:</strong> {{ user.email }}</p>
-              <p><strong>Bio:</strong> {{ user.bio }}</p>
+              <h3>{{ user.Username }} <span *ngIf="user.Id !== this.user.Id">(Nickname)</span></h3>
+              <p><strong>Email:</strong> {{ user.Email }}</p>
+              <p><strong>Bio:</strong> {{ user.Bio }}</p>
             </div>
       
-          <div class="user-actions" *ngIf="user.id !== this.user.id">
+          <div class="user-actions" *ngIf="user.Id !== this.user.Id">
             <button (click)="this.muteUser(user)" class="btn mute">Mute</button>
-            <button (click)="this.showReportPopup(user.id)" class="btn ban">Report</button>
+            <button (click)="this.showReportPopup(user.Id)" class="btn ban">Report</button>
           </div>
         </div>
       </div>
@@ -88,7 +87,7 @@
 
       <form class="form-log-in" *ngIf="!this.public_chats">
         <div class="footer-bar message-footer">
-          <input type="text" class="message-input" placeholder="Write message" name="msg" [(ngModel)]="this.newMessage.content" required>
+          <input type="text" class="message-input" placeholder="Write message" name="msg" [(ngModel)]="this.newMessage.Content" required>
           <button class="btn btn-dark btn-icon send-button" (click)="this.sendMessage()">
             <i class="fas fa-paper-plane"></i>
           </button>

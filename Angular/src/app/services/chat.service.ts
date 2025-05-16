@@ -22,7 +22,7 @@ export class UserChatService {
   }
 
   public ChatsUserIsIn(id: number): Observable<Chat[]> {
-    return this.http.get<Chat[]>('http://localhost:5000/api/UserChat/chats-user' + id + '-is-in');
+    return this.http.get<Chat[]>('http://localhost:5000/api/UserChat/chats-user-' + id + '-is-in');
   }
 
   public UsersInChat(id: number): Observable<User[]> {

@@ -30,14 +30,14 @@ export class UserFriendsPageComponent {
   private users: User[] = [];
 
 
-  private constructor(private relationshipService: UserRelationshipService, private userService: UserService) {
+  constructor(private relationshipService: UserRelationshipService, private userService: UserService) {
 
   }
 
   ngOnInit(): void {
     this.userService.GetFromToken().subscribe(result => this.user = result)
-    this.relationshipService.GetAllFriendRequests(this.user.id).subscribe(result => this.Requests = result)
-    this.relationshipService.GetAllFriends(this.user.id).subscribe(result => this.Friends = result)
+    this.relationshipService.GetAllFriendRequests(this.user.Id).subscribe(result => this.Requests = result)
+    this.relationshipService.GetAllFriends(this.user.Id).subscribe(result => this.Friends = result)
     this.userService.GetAllUsers().subscribe(result => this.users = result)
   }
 
@@ -46,8 +46,8 @@ export class UserFriendsPageComponent {
   }
 
   public getUsername(user_id: number): string {
-    const user = this.users.find(user => user.id = user_id);
-    return user ? user.username : 'Unknown';
+    const user = this.users.find(user => user.Id = user_id);
+    return user ? user.Username : 'Unknown';
   }
 
   public addFriend(): void {
@@ -58,7 +58,7 @@ export class UserFriendsPageComponent {
       return;
     }
 
-    let receiver_id: number = this.users.find(user => user.username === this.newFriendUsername)?.id ?? 0;
+    let receiver_id: number = this.users.find(user => user.Username === this.newFriendUsername)?.Id ?? 0;
 
     if (receiver_id === 0) {
       this.PopupMessage = 'Invalid name: ' + this.newFriendUsername;

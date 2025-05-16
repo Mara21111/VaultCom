@@ -15,7 +15,7 @@
         <div class="item-lined">
           <i class="bi bi-person icon"></i>
           <div class="text">
-            <div class="top-text">{{ this.user.username || 'Username not set.' }}</div>
+            <div class="top-text">{{ this.user.Username || 'Username not set.' }}</div>
             <div class="bottom-text">Username</div>
           </div>
         </div>
@@ -23,7 +23,7 @@
         <div class="item-lined">
           <i class="bi bi-at icon"></i>
           <div class="text">
-            <div class="top-text">{{ this.user.email || 'Email not set.' }}</div>
+            <div class="top-text">{{ this.user.Email || 'Email not set.' }}</div>
             <div class="bottom-text">Email</div>
           </div>
         </div>
@@ -31,7 +31,7 @@
         <div class="item">
           <i class="bi bi-info-circle icon"></i>
           <div class="text">
-            <div class="top-text">{{ this.user.bio || 'No bio added yet.' }}</div>
+            <div class="top-text">{{ this.user.Bio || 'No bio added yet.' }}</div>
             <div class="bottom-text">Bio</div>
           </div>
         </div>
@@ -42,11 +42,11 @@
       <div class="on-off-panel">
         <div class="on-off-item">
           <div class="on-off-text">Public Account:</div>
-          <button class="on-off-button" (click)="this.togglePublicAccount()">{{ this.user.is_Public ? '✓' : '✕' }}</button>
+          <button class="on-off-button" (click)="this.togglePublicAccount()">{{ this.user.IsPublic ? '✓' : '✕' }}</button>
         </div>
         <div class="on-off-item">
           <div class="on-off-text">Kids Mode:</div>
-          <button class="on-off-button" (click)="this.toggleKidsMode()">{{ this.user.safe_mode ? '✓' : '✕' }}</button>
+          <button class="on-off-button" (click)="this.toggleKidsMode()">{{ this.user.SafeMode ? '✓' : '✕' }}</button>
         </div>
         <div class="on-off-item">
           <div class="on-off-text">Dark Mode:</div>
@@ -85,11 +85,6 @@
     <div class="form-group">
       <label for="email">E-mail:</label>
       <input id="email" type="email" formControlName="email" required />
-    </div>
-
-    <div class="form-group">
-      <label for="phone">Phone:</label>
-      <input id="phone" type="tel" formControlName="phone" />
     </div>
 
     <div class="form-group">
