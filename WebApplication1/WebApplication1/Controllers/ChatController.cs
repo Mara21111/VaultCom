@@ -34,11 +34,11 @@ namespace WebApplication1.Controllers
 
         [HttpPost("get-public-chats-user-{id}-is-in")]
         public Task<IActionResult> GetPublicChatsUserIsIn(int id)
-            => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = true, RequestorId = id, IsMuted = true }));
+            => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = true, RequestorId = id, Type = 1 }));
 
         [HttpPost("get-public-chats-user-{id}-is-not-in")]
         public Task<IActionResult> GetPublicChatsUserIsNotIn(int id)
-            => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = false, RequestorId = id }));
+            => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = false, RequestorId = id, Type = 1 }));
 
         [HttpPost("get-public-chats-user-{id}-has-muted")]
         public Task<IActionResult> GetPublicChatsUserHasMuted(int id)

@@ -50,6 +50,7 @@ namespace WebApplication1.Services.Implementations
 
         public async Task<ServiceResult> CreateUserAsync(CreateUserDTO dto)
         {
+            dto.Username = dto.Username.ToLower();
             if (await context.User.AnyAsync(x => x.Username == dto.Username))
             {
                 return new ServiceResult { Success = false, ErrorMessage = "Username is already taken", ErrorCode = 409 };
