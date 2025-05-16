@@ -5,6 +5,7 @@ namespace WebApplication1.Services.Interfaces
 {
     public interface IMessageService
     {
-        
+        Task<ServiceResult> SendMessageAsync(MessageDTO dto);
+        Task<ServiceResult> GetMessagesByChatAsync(int id);
     }
 }

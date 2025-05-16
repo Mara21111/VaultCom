@@ -4,16 +4,27 @@ using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 using WebApplication1.Models.Data;
+using WebApplication1.Models.DTO;
+using WebApplication1.Services.Interfaces;
 
 namespace WebApplication1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserChatRelationshipController : ControllerBase
+    public class UserChatRelationshipController : MainController
     {
-        /*private MyContext context = new MyContext();
+        private readonly IUserChatRelationshipService _UCRService;
 
-        [HttpPost("create-user-chat-link")]
+        public UserChatRelationshipController(IUserChatRelationshipService UCRService)
+        {
+            _UCRService = UCRService;
+        }
+
+        [HttpPost("join-public-chat")]
+        public Task<IActionResult> JoinPublicChat(UserChatRelationDTO dto)
+            => HandleService(() => _UCRService.JoinPublicChatAsync(dto));
+
+        /*[HttpPost("create-user-chat-link")]
         public JsonResult CreateUserChat(User_Chat user_chat)
         {
             context.User_Chat.Add(user_chat);
@@ -38,7 +49,7 @@ namespace WebApplication1.Controllers
             context.User_Chat.RemoveRange(links);
             context.SaveChanges();
             return new JsonResult(Ok("remoed all users from chat id:" + chat_id));
-        }
+        }*/
 
         /*[HttpPost("exit-chat")]
         public JsonResult ExitChat(int user_id, int chat_id)

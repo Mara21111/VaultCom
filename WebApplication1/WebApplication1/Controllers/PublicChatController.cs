@@ -9,19 +9,13 @@ namespace WebApplication1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PublicChatController : ControllerBase
+    public class PublicChatController : MainController
     {
         private readonly IPublicChatService _chatService;
 
         public PublicChatController(IPublicChatService chatService)
         {
             _chatService = chatService;
-        }
-
-        private async Task<IActionResult> HandleService(Func<Task<ServiceResult>> serviceCall)
-        {
-            var result = await serviceCall();
-            return result.Success ? Ok(result.Data) : BadRequest(result.ErrorMessage);
         }
 
         [HttpPost("create-public-chat")]

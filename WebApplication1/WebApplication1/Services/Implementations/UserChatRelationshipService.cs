@@ -33,5 +33,10 @@ namespace WebApplication1.Services.Implementations
 
             return new ServiceResult { Success = true, Data = dto };
         }
+
+        public async Task<ServiceResult> JoinPublicChatAsync(UserChatRelationDTO dto)
+        {
+            return await CreateUserChatRelationAsync(dto);
+        }
     }
 }

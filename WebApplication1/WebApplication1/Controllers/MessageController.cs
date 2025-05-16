@@ -3,14 +3,31 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using WebApplication1.Models.Data;
+using WebApplication1.Models.DTO;
+using WebApplication1.Services.Interfaces;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace WebApplication1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MessageController : ControllerBase
+    public class MessageController : MainController
     {
+        private readonly IMessageService _messageService;
+
+        public MessageController(IMessageService messageService)
+        {
+            _messageService = messageService;
+        }
+
+        [HttpPost("send-message")]
+        public Task<IActionResult> SendMessage([FromBody] MessageDTO dto) 
+            => HandleService(() => _messageService.SendMessageAsync(dto));
+
+        [HttpPost("get-messages-from-chat-{id}")]
+        public Task<IActionResult> GetMessagesFromChat(int id)
+            => HandleService(() => _messageService.GetMessagesByChatAsync(id));
+
         /*private MyContext context = new MyContext();
 
         private bool IsLinkRegex(string content)

@@ -10,19 +10,13 @@ namespace WebApplication1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : MainController
     {
         private readonly IUserService _userService;
 
         public UserController(IUserService userService)
         {
             _userService = userService;
-        }
-
-        private async Task<IActionResult> HandleService(Func<Task<ServiceResult>> serviceCall)
-        {
-            var result = await serviceCall();
-            return result.Success ? Ok(result.Data) : BadRequest(result.ErrorMessage);
         }
 
 
@@ -43,32 +37,32 @@ namespace WebApplication1.Controllers
             => HandleService(() => _userService.DeleteUserAsync(requestorId, targetId));
 
         [HttpGet("get-all-users-admin-view")]
-        public Task<IActionResult> GetAllUsersAdminView() =>
-    HandleService(() => _userService.GetAllUsersAdminViewAsync());
+        public Task<IActionResult> GetAllUsersAdminView() 
+            => HandleService(() => _userService.GetAllUsersAdminViewAsync());
 
         [HttpGet("get-all-users")]
-        public Task<IActionResult> GetAllUsers() =>
-            HandleService(() => _userService.GetUsers(null));
+        public Task<IActionResult> GetAllUsers() 
+            => HandleService(() => _userService.GetUsers(null));
 
         [HttpGet("get-banned-users")]
-        public Task<IActionResult> GetBannedUsers() =>
-            HandleService(() => _userService.GetUsers(new UserFilterDTO { Banned = true }));
+        public Task<IActionResult> GetBannedUsers() 
+            => HandleService(() => _userService.GetUsers(new UserFilterDTO { Banned = true }));
 
         [HttpGet("get-timeouted-users")]
-        public Task<IActionResult> GetTimeOutedUsers() =>
-            HandleService(() => _userService.GetUsers(new UserFilterDTO { TimeOut = true }));
+        public Task<IActionResult> GetTimeOutedUsers() 
+            => HandleService(() => _userService.GetUsers(new UserFilterDTO { TimeOut = true }));
 
         [HttpGet("get-good-users")]
-        public Task<IActionResult> GetGoodUsers() =>
-            HandleService(() => _userService.GetUsers(new UserFilterDTO { Banned = false, TimeOut = false }));
+        public Task<IActionResult> GetGoodUsers() 
+            => HandleService(() => _userService.GetUsers(new UserFilterDTO { Banned = false, TimeOut = false }));
 
         [HttpGet("get-online-users")]
         public Task<IActionResult> GetOnlineUsers()
             => HandleService(() => _userService.GetUsers(new UserFilterDTO { Status = 1 }));
 
         [HttpGet("get-user-{id}")]
-        public Task<IActionResult> GetUser(int id) =>
-            HandleService(() => _userService.GetUserAsync(id));
+        public Task<IActionResult> GetUser(int id) 
+            => HandleService(() => _userService.GetUserAsync(id));
 
         [HttpGet("get-self-user-{id}")]
         public Task<IActionResult> GetSelfUser(int id)

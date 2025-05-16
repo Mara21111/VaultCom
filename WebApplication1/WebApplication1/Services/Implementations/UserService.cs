@@ -115,6 +115,12 @@ namespace WebApplication1.Services.Implementations
             target.Password = dto.Password;
             target.Bio = dto.Bio;
 
+            if (target.Password != dto.Password) // check later doufam ze to funguje
+            {
+                var hasher = new PasswordHasher<User>();
+                target.Password = hasher.HashPassword(target, dto.Password);
+            }
+
             await context.SaveChangesAsync();
             return new ServiceResult { Success = true, Data = target };
         }

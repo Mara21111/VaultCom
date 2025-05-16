@@ -9,19 +9,13 @@ namespace WebApplication1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GroupChatController : ControllerBase
+    public class GroupChatController : MainController
     {
         private readonly IGroupChatService _chatService;
 
         public GroupChatController(IGroupChatService chatService)
         {
             _chatService = chatService;
-        }
-
-        private async Task<IActionResult> HandleService(Func<Task<ServiceResult>> serviceCall)
-        {
-            var result = await serviceCall();
-            return result.Success ? Ok(result.Data) : BadRequest(result.ErrorMessage);
         }
 
         [HttpPost("create-group-chat")]

@@ -6,5 +6,6 @@ namespace WebApplication1.Services.Interfaces
     public interface IUserChatRelationshipService
     {
         Task<ServiceResult> CreateUserChatRelationAsync(UserChatRelationDTO dto);
+        Task<ServiceResult> JoinPublicChatAsync(UserChatRelationDTO dto);
     }
 }

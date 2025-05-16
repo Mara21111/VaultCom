@@ -18,8 +18,6 @@
 
         public bool IsEdited { get; set; }
 
-        public bool IsSingleUse { get; set; }
-
         public bool IsPinned { get; set; }
     }
 }
