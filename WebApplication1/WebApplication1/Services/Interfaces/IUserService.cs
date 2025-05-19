@@ -5,6 +5,7 @@ namespace WebApplication1.Services.Interfaces
 {
     public interface IUserService
     {
+        object MapUserToDTO(User user);
         Task<ServiceResult> CreateUserAsync(CreateUserDTO dto);
         Task<ServiceResult> GetAllUsersAdminViewAsync();
         Task<ServiceResult> EditUserAsync(EditUserDTO dto);

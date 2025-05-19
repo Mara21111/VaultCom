@@ -380,6 +380,22 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.UserChatRelationshipController",
+    "Method": "GetUsersInChat",
+    "RelativePath": "api/UserChatRelationship/get-users-in-chat-{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserChatRelationshipController",
     "Method": "JoinPublicChat",
     "RelativePath": "api/UserChatRelationship/join-public-chat",
     "HttpMethod": "POST",
@@ -389,6 +405,54 @@
       {
         "Name": "dto",
         "Type": "WebApplication1.Models.DTO.UserChatRelationDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "GetFriends",
+    "RelativePath": "api/UserRelationship/get-friends",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "GetIncomingFriendRequest",
+    "RelativePath": "api/UserRelationship/get-incoming-friend-requests-{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "GetOutcomingFriendRequest",
+    "RelativePath": "api/UserRelationship/get-ocutoming-friend-requests-{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

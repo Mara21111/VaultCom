@@ -16,7 +16,7 @@ namespace WebApplication1
         public DbSet<ReportLog> ReportLog { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<UserChatRelationship> UserChatRelationship { get; set; }
-        public DbSet<User_Relationship> UserRelationship { get; set; }
+        public DbSet<UserRelationship> UserRelationship { get; set; }
 
         public MyContext(DbContextOptions<MyContext> options) : base(options)
         { }

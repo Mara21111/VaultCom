@@ -20,7 +20,7 @@ namespace WebApplication1.Services.Implementations
             this.context = context;
         }
 
-        private object MapUserToDTO(User user)
+        public object MapUserToDTO(User user)
         {
             if (user.IsPublic)
             {
