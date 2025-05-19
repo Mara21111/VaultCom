@@ -668,7 +668,7 @@
         }
       }
     },
-    "/api/UserRelationship/get-ocutoming-friend-requests-{id}": {
+    "/api/UserRelationship/get-outcoming-friend-requests-{id}": {
       "post": {
         "tags": [
           "UserRelationship"
@@ -691,7 +691,7 @@
         }
       }
     },
-    "/api/UserRelationship/get-friends": {
+    "/api/UserRelationship/get-friends-{id}": {
       "post": {
         "tags": [
           "UserRelationship"
@@ -699,7 +699,8 @@
         "parameters": [
           {
             "name": "id",
-            "in": "query",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"

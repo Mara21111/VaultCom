@@ -53,7 +53,9 @@ export class MainPageComponent {
   ngOnInit() {
     this.userService.GetFromToken().subscribe(result => {
       this.user = result;
-      this.userChatService.ChatsUserIsIn(this.user.Id).subscribe(chats => this.userChats = chats);
+      console.log(this.user);
+      console.log(this.user.id);
+      this.userChatService.ChatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
     });
   }
 
@@ -92,7 +94,7 @@ export class MainPageComponent {
   changeChatsToPrivate(){
     this.public_chats = false;
     this.setChats();
-    this.userChatService.ChatsUserIsIn(this.user.Id).subscribe(chats => this.userChats = chats);
+    this.userChatService.ChatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
   }
 
   setChats(){
@@ -122,7 +124,7 @@ export class MainPageComponent {
       throw new Error("Chat not selected");
     }
 
-    this.newMessage.UserId = this.user.Id;
+    this.newMessage.UserId = this.user.id;
     this.newMessage.ChatId = this.activeChat.Id;
     this.messageService.createMessage(this.newMessage).pipe(
           catchError(error =>{throw error})
@@ -131,7 +133,7 @@ export class MainPageComponent {
   }
 
   getUsername(userId: number): string {
-    const user = this.activeChatUsers.find(u => u.Id === userId);
+    const user = this.activeChatUsers.find(u => u.id === userId);
     return user ? user.Username : 'Unknown';
   }
 
@@ -154,14 +156,14 @@ export class MainPageComponent {
 
   addUserToPublicChat(chatId: number){
     if (!this.isUserInPublicChat(chatId)){
-      let link = this.userChatService.newLink(this.user.Id, chatId)
+      let link = this.userChatService.newLink(this.user.id, chatId)
       this.userChatService.CreateLink(link).subscribe(response => {
         this.changeChatsToPrivate();
         //this.activeChat = this.publicChats.find(x => x.Id = chatId)?? new Chat;
         this.refreshMessages();
       });
     }else{
-      this.userChatService.DeleteLink(this.user.Id, chatId).subscribe(response => {
+      this.userChatService.DeleteLink(this.user.id, chatId).subscribe(response => {
         this.changeChatsToPrivate();
         this.allMessages = [];
       });
@@ -179,7 +181,7 @@ export class MainPageComponent {
 
   reportUser(){
     let report = new ReportLog;
-    report.UserId = this.user.Id;
+    report.UserId = this.user.id;
     report.ReportedUserId = this.reportUserId;
     report.Message = this.reportReason;
     this.reportPopup = false;

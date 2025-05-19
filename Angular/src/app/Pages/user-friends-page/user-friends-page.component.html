@@ -8,46 +8,65 @@
 <div class="main-container">
   <div class="add-user-bar">
     <input
-      [(ngModel)]="this.newFriendUsername"
+      [(ngModel)]="newFriendUsername"
       placeholder="Insert username"
       type="text"
     />
-    <button (click)="this.addFriend()">Add</button>
+    <button (click)="addFriend()">Add</button>
   </div>
+
   <div class="friends-container">
     <div class="content-area">
 
+      <!-- Friend Requests -->
       <section class="panel friends-panel" *ngIf="Requests.length !== 0">
-        <div class="section-title">Friend Requests</div>
-        <div class="table-header">
-          <div class="col-header">Username</div>
-          <div class="col-header">Bio</div>
-          <div class="col-header">Actions</div>
+        <div class="clickable-header" (click)="toggleSection('requests')">
+          <div class="section-title">
+            Friend Requests
+            <span class="arrow" [class.open]="isSectionOpen.requests">▶</span>
+          </div>
         </div>
-        <div class="table-body">
-          <div class="table-row" *ngFor="let user of Requests">
-            <div class="col" (click)="GoToUser(user.Id)">{{ user?.Username }}</div>
-            <div class="col">{{ user?.Bio }}</div>
-            <div class="col action-buttons">
-              <button class="btn btn-success" (click)="AcceptRequest(user.Id)">Accept</button>
-              <button class="btn btn-danger" (click)="RejectRequest(user.Id)">Reject</button>
+        <div class="collapsible-content" [class.open]="isSectionOpen.requests">
+          <div class="table-header">
+            <div class="col-header">Username</div>
+            <div class="col-header">Bio</div>
+            <div class="col-header">Actions</div>
+          </div>
+          <div class="table-body">
+            <div class="table-row" *ngFor="let user of Requests">
+              <div class="col" (click)="GoToUser(user.id)">
+                {{ user?.Username }}
+              </div>
+              <div class="col">{{ user?.Bio }}</div>
+              <div class="col action-buttons">
+                <button class="btn btn-success" (click)="AcceptRequest(user.id)">Accept</button>
+                <button class="btn btn-danger" (click)="RejectRequest(user.id)">Reject</button>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
+      <!-- Your Friends -->
       <section class="panel friends-panel">
-        <div class="section-title">Your Friends</div>
-        <div class="table-header">
-          <div class="col-header">Username</div>
-          <div class="col-header">Bio</div>
-          <div class="col-header">Nickname</div>
+        <div class="clickable-header" (click)="toggleSection('friends')">
+          <div class="section-title">
+            Your Friends
+            <span class="arrow" [class.open]="isSectionOpen.friends">▶</span>
+          </div>
         </div>
-        <div class="table-body">
-          <div class="table-row" *ngFor="let friend of Friends" (click)="GoToUser(friend.Id)">
-            <div class="col">{{ friend?.Username }}</div>
-            <div class="col">{{ friend?.Bio }}</div>
-            <div class="col">Nickname Here</div>
+        <div class="collapsible-content" [class.open]="isSectionOpen.friends">
+          <div class="table-header">
+            <div class="col-header">Username</div>
+            <div class="col-header">Bio</div>
+            <div class="col-header">Nickname</div>
+          </div>
+          <div class="table-body">
+            <div class="table-row" *ngFor="let friend of Friends" (click)="GoToUser(friend.id)">
+              <div class="col">{{ friend?.Username }}</div>
+              <div class="col">{{ friend?.Bio }}</div>
+              <div class="col">Nickname Here</div>
+            </div>
           </div>
         </div>
       </section>
@@ -57,10 +76,10 @@
 </div>
 
 <app-side-panel
-*ngIf="PanelVisible"
-(close)="closePanel()"
-[user]="SelectedUser"
-[showActionButtons]="true">
+  *ngIf="PanelVisible"
+  (close)="closePanel()"
+  [user]="SelectedUser"
+  [showActionButtons]="true">
 </app-side-panel>
 
 <div class="popup-backdrop" *ngIf="ShowPopup">

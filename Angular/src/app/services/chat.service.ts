@@ -21,8 +21,8 @@ export class UserChatService {
     return this.http.delete<UserChatRelationship>('http://localhost:5000/api/UserChat/delete-user' + userId + '-chat' + chatId + '-link')
   }
 
-  public ChatsUserIsIn(id: number): Observable<Chat[]> {
-    return this.http.get<Chat[]>('http://localhost:5000/api/UserChat/chats-user-' + id + '-is-in');
+  public ChatsUserIsIn(user_id: number): Observable<Chat[]> {
+    return this.http.get<Chat[]>(`http://localhost:5000/api/Chat/get-chats-user-${user_id}-is-in`);
   }
 
   public UsersInChat(id: number): Observable<User[]> {
