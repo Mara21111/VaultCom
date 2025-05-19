@@ -1,23 +1,21 @@
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using System.IO;
 using WebApplication1;
 using WebApplication1.Services;
 using WebApplication1.Services.Implementations;
 using WebApplication1.Services.Interfaces;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Add services to the container
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<MyContext>();
+//  REMOVE THIS LINE: builder.Services.AddScoped<MyContext>();
+
+//  Register with proper MySQL context
+builder.Services.AddDbContext<MyContext>(options =>
+    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IChatService, ChatService>();
@@ -29,26 +27,21 @@ builder.Services.AddScoped<IUserRelationshipService, UserRelationshipService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<TokenService>();
 
-builder.Services.AddDbContext<MyContext>(options =>
-    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-// SETUP CORS
+// CORS setup
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(
-        builder =>
-        {
-            builder.AllowAnyOrigin()
-                   .AllowAnyHeader()
-                   .AllowAnyMethod();
-        }
-    );
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
 });
-
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseStaticFiles();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -56,12 +49,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
-// Enable CORS
 app.UseCors();
-
 app.MapControllers();
-
 app.Run();

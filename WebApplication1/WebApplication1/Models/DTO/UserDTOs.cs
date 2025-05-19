@@ -48,4 +48,9 @@
         public string ValueName { get; set; }
         public bool Value { get; set; }
     }
+    public class ProfilePictureDTO
+    {
+        public int Id { get; set; }
+        public IFormFile PFP { get; set; }
+    }
 }

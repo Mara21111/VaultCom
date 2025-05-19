@@ -28,6 +28,14 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> EditUser([FromBody] EditUserDTO dto)
             => HandleService(() => _userService.EditUserAsync(dto));
 
+        [HttpPost("upload-pfp")]
+        public Task<IActionResult> UploadPFP([FromForm] ProfilePictureDTO dto)
+            => HandleService(() => _userService.UploadPFPAsync(dto));
+
+        [HttpPost("get-pfp-{id}")]
+        public Task<IActionResult> GetPFP(int id)
+            => HandleService(() => _userService.GetPFPAsync(id));
+
         [HttpPut("toggle-user-setting")]
         public Task<IActionResult> ToggleUserSetting([FromBody] UserToggleDTO dto)
             => HandleService(() => _userService.ToggleUserSettingAsync(dto));
@@ -69,3 +77,8 @@ namespace WebApplication1.Controllers
             => HandleService(() => _userService.GetSelfUserAsync(id));
     }
 }
+
+/*
+ * dobrej input pro chatgpt:
+no bullshit, use angular, .net, mysql, every step to make pfps work from how theyre stored in database, created from frontend upload to backend, stored as a path to WebApplication1/wwwroot/uploads/pfps/default.png to getting it and stuff, also mostly C# .net code coz i dont work with angular AT ALL, app structure is as follows: app1/controllers takes requests from frontend and sends them to app1/services/interfaces which are implemented in app1/services/implementations and all the logic is in implementations which uses ServiceResult to send back Success = true, Data = antyhing basically for json Ok() after in controller
+ */

@@ -41,7 +41,7 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> GetOutcomingFriendRequest(int id)
             => HandleService(() => _URService.GetOutcomingFriendRequestsAsync(id));
 
-        [HttpGet("get-friends")]
+        [HttpGet("get-friends-{id}")]
         public Task<IActionResult> GetFriends(int id)
             => HandleService(() => _URService.GetFriendsAsync(id));
 

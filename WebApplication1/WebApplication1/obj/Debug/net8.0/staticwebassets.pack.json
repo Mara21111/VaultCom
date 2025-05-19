@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\uploads\\pfps\\default.png"
     },
     {
+      "Id": "C:\\Users\\xambl\\OneDrive\\Робочий стіл\\VaultCom\\WebApplication1\\WebApplication1\\wwwroot\\uploads\\pfps\\images.png",
+      "PackagePath": "staticwebassets\\uploads\\pfps\\images.png"
+    },
+    {
+      "Id": "C:\\Users\\xambl\\OneDrive\\Робочий стіл\\VaultCom\\WebApplication1\\WebApplication1\\wwwroot\\uploads\\pfps\\user-1-9bb66dfa-d070-41b4-91cc-70eedb84411d.png",
+      "PackagePath": "staticwebassets\\uploads\\pfps\\user-1-9bb66dfa-d070-41b4-91cc-70eedb84411d.png"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.WebApplication1.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },

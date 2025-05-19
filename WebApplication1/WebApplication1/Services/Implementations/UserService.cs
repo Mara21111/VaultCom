@@ -8,6 +8,11 @@ using WebApplication1.Models.Data;
 using WebApplication1.Models.DTO;
 using WebApplication1.Services.Interfaces;
 using System.Security.Cryptography;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using MySql.Data.MySqlClient;
+using System.IO;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace WebApplication1.Services.Implementations
 {
@@ -15,11 +20,13 @@ namespace WebApplication1.Services.Implementations
     {
         private readonly MyContext context;
         private readonly IWebHostEnvironment _env;
+        private readonly string _connString;
 
-        public UserService(MyContext context, IWebHostEnvironment env)
+        public UserService(MyContext context, IWebHostEnvironment env, IConfiguration config)
         {
             this.context = context;
-            _env = env;
+            _env = env; 
+            _connString = config.GetConnectionString("DefaultConnection");
         }
 
         public object MapUserToDTO(User user)
@@ -30,6 +37,7 @@ namespace WebApplication1.Services.Implementations
                 {
                     Username = user.Username,
                     Bio = user.Bio,
+                    ProfilePicture = "/uploads/pfps/default.png",
                     CreatedAt = user.CreatedAt,
                     TimeoutEnd = user.TimeoutEnd,
                     BanEnd = user.BanEnd,
@@ -43,6 +51,7 @@ namespace WebApplication1.Services.Implementations
                 {
                     Username = user.Username,
                     Bio = user.Bio,
+                    ProfilePicture = "/uploads/pfps/default.png",
                     CreatedAt = user.CreatedAt,
                     TimeoutEnd = user.TimeoutEnd,
                     BanEnd = user.BanEnd
@@ -91,11 +100,46 @@ namespace WebApplication1.Services.Implementations
             return new ServiceResult { Success = true, Data = user };
         }
 
-        /*public async Task<ServiceResult> SetProfilePicture(IFormFile pfp)
+        public async Task<ServiceResult> UploadPFPAsync(ProfilePictureDTO dto)
         {
-            string uploadsFolder = Path.Combine(_env.WebRootPath, "uploads", "pfps");
+            var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads", "pfps");
             Directory.CreateDirectory(uploadsFolder);
-        }*/
+
+            var ext = Path.GetExtension(dto.PFP.FileName);
+            var fileName = $"user-{dto.Id}-{Guid.NewGuid()}{ext}";
+            var filePath = Path.Combine(uploadsFolder, fileName);
+            var relativePath = $"/uploads/pfps/{fileName}";
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await dto.PFP.CopyToAsync(stream);
+            }
+
+            using var conn = new MySqlConnection(_connString);
+            await conn.OpenAsync();
+
+            var cmd = new MySqlCommand("UPDATE User SET ProfilePicture = @path WHERE Id = @id", conn);
+            cmd.Parameters.AddWithValue("@path", relativePath);
+            cmd.Parameters.AddWithValue("@id", dto.Id);
+
+            await cmd.ExecuteNonQueryAsync();
+
+            return new ServiceResult { Success = true, Data = relativePath };
+        }
+
+        public async Task<ServiceResult> GetPFPAsync(int id)
+        {
+            using var conn = new MySqlConnection(_connString);
+            await conn.OpenAsync();
+
+            var cmd = new MySqlCommand("SELECT ProfilePicture FROM User WHERE Id = @id", conn);
+            cmd.Parameters.AddWithValue("@id", id);
+
+            var result = await cmd.ExecuteScalarAsync();
+            return result != null
+                ? new ServiceResult { Success = true, Data = result.ToString() }
+                : new ServiceResult { Success = false, ErrorMessage = "ultra bad shit happened" };
+        }
 
         public async Task<ServiceResult> EditUserAsync(EditUserDTO dto)
         {

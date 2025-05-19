@@ -170,6 +170,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "WebApplication1.Controllers.ChatController",
+    "Method": "SearchForChat",
+    "RelativePath": "api/Chat/search-for-chat-{id}-{prompt}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "prompt",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WebApplication1.Controllers.MessageController",
     "Method": "GetMessagesFromChat",
     "RelativePath": "api/Message/get-messages-in-chat-{id}",
@@ -322,6 +343,22 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.UserController",
+    "Method": "GetPFP",
+    "RelativePath": "api/User/get-pfp-{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserController",
     "Method": "GetSelfUser",
     "RelativePath": "api/User/get-self-user-{id}",
     "HttpMethod": "GET",
@@ -379,6 +416,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "WebApplication1.Controllers.UserController",
+    "Method": "UploadPFP",
+    "RelativePath": "api/User/upload-pfp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PFP",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WebApplication1.Controllers.UserChatRelationshipController",
     "Method": "GetUsersInChat",
     "RelativePath": "api/UserChatRelationship/get-users-in-chat-{id}",
@@ -411,6 +469,38 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "WebApplication1.Controllers.UserChatRelationshipController",
+    "Method": "LeavePublicChat",
+    "RelativePath": "api/UserChatRelationship/leave-public-chat",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "WebApplication1.Models.DTO.UserChatRelationshipDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserChatRelationshipController",
+    "Method": "MuteChatToggle",
+    "RelativePath": "api/UserChatRelationship/mute-chat-toggle",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "WebApplication1.Models.DTO.UserChatRelationshipDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "AcceptFriendRequest",
     "RelativePath": "api/UserRelationship/accept-friend-request",
@@ -429,7 +519,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "GetFriends",
-    "RelativePath": "api/UserRelationship/get-friends",
+    "RelativePath": "api/UserRelationship/get-friends-{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -437,7 +527,7 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
