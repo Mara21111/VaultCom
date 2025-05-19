@@ -44,7 +44,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.ChatController",
     "Method": "GetGroupChatsUserHasMuted",
-    "RelativePath": "api/Chat/get-group-chats-user-{id}-has-muted",
+    "RelativePath": "api/Chat/get-group-chats-user-has-muted-{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -60,7 +60,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.ChatController",
     "Method": "GetGroupChatsUserHasNotMuted",
-    "RelativePath": "api/Chat/get-group-chats-user-{id}-has-not-muted",
+    "RelativePath": "api/Chat/get-group-chats-user-has-not-muted-{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -76,7 +76,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.ChatController",
     "Method": "GetGroupChatsUserIsIn",
-    "RelativePath": "api/Chat/get-group-chats-user-{id}-is-in",
+    "RelativePath": "api/Chat/get-group-chats-user-is-in-{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -92,7 +92,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.ChatController",
     "Method": "GetChatsUserIsIn",
-    "RelativePath": "api/Chat/get-chats-user-{id}-is-in",
+    "RelativePath": "api/Chat/get-chats-user-is-in-{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -108,7 +108,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.ChatController",
     "Method": "GetPublicChatsUserHasMuted",
-    "RelativePath": "api/Chat/get-public-chats-user-{id}-has-muted",
+    "RelativePath": "api/Chat/get-public-chats-user-has-muted-{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -124,7 +124,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.ChatController",
     "Method": "GetPublicChatsUserHasNotMuted",
-    "RelativePath": "api/Chat/get-public-chats-user-{id}-has-not-muted",
+    "RelativePath": "api/Chat/get-public-chats-user-has-not-muted-{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -140,7 +140,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.ChatController",
     "Method": "GetPublicChatsUserIsIn",
-    "RelativePath": "api/Chat/get-public-chats-user-{id}-is-in",
+    "RelativePath": "api/Chat/get-public-chats-user-is-in-{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -156,8 +156,8 @@
   {
     "ContainingType": "WebApplication1.Controllers.ChatController",
     "Method": "GetPublicChatsUserIsNotIn",
-    "RelativePath": "api/Chat/get-public-chats-user-{id}-is-not-in",
-    "HttpMethod": "POST",
+    "RelativePath": "api/Chat/get-public-chats-user-is-not-in-{id}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -412,6 +412,22 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
+    "Method": "AcceptFriendRequest",
+    "RelativePath": "api/UserRelationship/accept-friend-request",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "WebApplication1.Models.DTO.UserRelationshipDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "GetFriends",
     "RelativePath": "api/UserRelationship/get-friends",
     "HttpMethod": "GET",
@@ -468,7 +484,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "WebApplication1.Models.DTO.RequestDTO",
+        "Type": "WebApplication1.Models.DTO.UserRelationshipDTO",
         "IsRequired": true
       }
     ],

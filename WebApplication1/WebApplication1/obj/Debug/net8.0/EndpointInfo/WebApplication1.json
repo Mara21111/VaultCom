@@ -79,7 +79,7 @@
         }
       }
     },
-    "/api/Chat/get-chats-user-{id}-is-in": {
+    "/api/Chat/get-chats-user-is-in-{id}": {
       "get": {
         "tags": [
           "Chat"
@@ -102,7 +102,7 @@
         }
       }
     },
-    "/api/Chat/get-public-chats-user-{id}-is-in": {
+    "/api/Chat/get-public-chats-user-is-in-{id}": {
       "get": {
         "tags": [
           "Chat"
@@ -125,30 +125,7 @@
         }
       }
     },
-    "/api/Chat/get-public-chats-user-{id}-is-not-in": {
-      "post": {
-        "tags": [
-          "Chat"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Chat/get-public-chats-user-{id}-has-muted": {
+    "/api/Chat/get-public-chats-user-is-not-in-{id}": {
       "get": {
         "tags": [
           "Chat"
@@ -171,7 +148,7 @@
         }
       }
     },
-    "/api/Chat/get-public-chats-user-{id}-has-not-muted": {
+    "/api/Chat/get-public-chats-user-has-muted-{id}": {
       "get": {
         "tags": [
           "Chat"
@@ -194,7 +171,7 @@
         }
       }
     },
-    "/api/Chat/get-group-chats-user-{id}-is-in": {
+    "/api/Chat/get-public-chats-user-has-not-muted-{id}": {
       "get": {
         "tags": [
           "Chat"
@@ -217,7 +194,7 @@
         }
       }
     },
-    "/api/Chat/get-group-chats-user-{id}-has-muted": {
+    "/api/Chat/get-group-chats-user-is-in-{id}": {
       "get": {
         "tags": [
           "Chat"
@@ -240,7 +217,30 @@
         }
       }
     },
-    "/api/Chat/get-group-chats-user-{id}-has-not-muted": {
+    "/api/Chat/get-group-chats-user-has-muted-{id}": {
+      "get": {
+        "tags": [
+          "Chat"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Chat/get-group-chats-user-has-not-muted-{id}": {
       "get": {
         "tags": [
           "Chat"
@@ -654,17 +654,48 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RequestDTO"
+                "$ref": "#/components/schemas/UserRelationshipDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/RequestDTO"
+                "$ref": "#/components/schemas/UserRelationshipDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/RequestDTO"
+                "$ref": "#/components/schemas/UserRelationshipDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserRelationship/accept-friend-request": {
+      "post": {
+        "tags": [
+          "UserRelationship"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRelationshipDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRelationshipDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRelationshipDTO"
               }
             }
           }
@@ -816,11 +847,7 @@
       "EditUserDTO": {
         "type": "object",
         "properties": {
-          "requestorId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "targetId": {
+          "id": {
             "type": "integer",
             "format": "int32"
           },
@@ -880,20 +907,6 @@
         },
         "additionalProperties": false
       },
-      "RequestDTO": {
-        "type": "object",
-        "properties": {
-          "requestorId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "targetId": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
       "UserChatRelationDTO": {
         "type": "object",
         "properties": {
@@ -908,7 +921,7 @@
         },
         "additionalProperties": false
       },
-      "UserToggleDTO": {
+      "UserRelationshipDTO": {
         "type": "object",
         "properties": {
           "requestorId": {
@@ -916,6 +929,16 @@
             "format": "int32"
           },
           "targetId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserToggleDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "integer",
             "format": "int32"
           },
