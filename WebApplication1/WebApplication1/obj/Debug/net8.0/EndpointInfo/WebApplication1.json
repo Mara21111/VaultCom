@@ -600,17 +600,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserChatRelationDTO"
+                "$ref": "#/components/schemas/UserChatRelationshipDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserChatRelationDTO"
+                "$ref": "#/components/schemas/UserChatRelationshipDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UserChatRelationDTO"
+                "$ref": "#/components/schemas/UserChatRelationshipDTO"
               }
             }
           }
@@ -907,7 +907,7 @@
         },
         "additionalProperties": false
       },
-      "UserChatRelationDTO": {
+      "UserChatRelationshipDTO": {
         "type": "object",
         "properties": {
           "chatId": {

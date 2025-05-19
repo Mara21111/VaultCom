@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
 import { SidePanelComponent } from '../../Components/side-panel/side-panel.component';
-import { User } from '../../models/User';
-import { UserRelationshipService } from '../../services/user_relationship.service';
-import { UserService } from '../../services/user.service';
+import { User, BaseUserDataDTO } from '../../models/User';
+import { UserRelationshipService } from '../../services/UserRelationship.service';
+import { UserService } from '../../services/User.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -18,8 +18,8 @@ import { FormsModule } from '@angular/forms';
 
 export class UserFriendsPageComponent {
 
-  public Requests: User[] = [];
-  public Friends: User[] = [];
+  public Requests: BaseUserDataDTO[] = [];
+  public Friends: BaseUserDataDTO[] = [];
   public PanelVisible: boolean = false;
   public ShowPopup: boolean = false;
   public newFriendUsername: string = '';
@@ -28,7 +28,10 @@ export class UserFriendsPageComponent {
   public isRequestsOpen: boolean = true;
   public isFriendsOpen: boolean = true;
 
-
+  isSectionOpen = {
+    requests: true,
+    friends: true,
+  };
 
   private user: User = new User;
   private users: User[] = [];
@@ -39,13 +42,13 @@ export class UserFriendsPageComponent {
   }
 
   ngOnInit(): void {
-    this.userService.GetFromToken().subscribe(result => this.user = result)
-    this.relationshipService.GetIncomingFriendRequests(this.user.id).subscribe(result => this.Requests = result)
-    this.relationshipService.GetAllFriends(this.user.id).subscribe(result => this.Friends = result)
-    this.userService.GetAllUsers().subscribe(result => this.users = result)
+    this.userService.getFromToken().subscribe(result => this.user = result)
+    this.relationshipService.getIncomingFriendRequests(this.user.id).subscribe(result => this.Requests = result)
+    this.relationshipService.getAllFriends(this.user.id).subscribe(result => this.Friends = result)
+    this.userService.getAllUsers().subscribe(result => this.users = result)
   }
 
-  public GoToUser(user_id: number): void {
+  public goToUser(user_id: number): void {
     this.PanelVisible = true;
   }
 
@@ -88,11 +91,6 @@ export class UserFriendsPageComponent {
   toggleFriends() {
     this.isFriendsOpen = !this.isFriendsOpen;
   }
-
-  isSectionOpen = {
-    requests: true,
-    friends: true,
-  };
 
   toggleSection(section: 'requests' | 'friends') {
     this.isSectionOpen[section] = !this.isSectionOpen[section];

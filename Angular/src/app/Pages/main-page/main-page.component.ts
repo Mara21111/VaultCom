@@ -4,16 +4,17 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
 import { FormsModule } from '@angular/forms';
 import { User } from '../../models/User';
-import { UserService } from '../../services/user.service';
-import { PublicChatService } from '../../services/public_chat.service';
+import { UserService } from '../../services/User.service';
+import { PublicChatService } from '../../services/PublicChat.service';
 import { Chat, ChatGetterDTO } from '../../models/Chat';
-import { UserChatService } from '../../services/chat.service';
+import { ChatService } from '../../services/ChatService';
 import { Message } from '../../models/Message';
-import { MessageService } from '../../services/message.service';
+import { MessageService } from '../../services/Message.service';
 import { catchError } from 'rxjs';
-import { ReportsService } from '../../services/reports.service';
+import { ReportsService } from '../../services/Reports.service';
 import { ReportLog } from '../../models/ReportLog';
-import {PublicChat} from '../../models/PublicChat';
+import { PublicChat } from '../../models/PublicChat';
+import { UserChatRelationshipService } from '../../services/UserChatRelationship.service';
 
 @Component({
   selector: 'app-main-page',
@@ -41,9 +42,11 @@ export class MainPageComponent {
   reportReason: string = '';
   reportUserId: number = 0;
 
-  constructor(private userService: UserService,
-    private chatService: PublicChatService,
-    private userChatService: UserChatService,
+  constructor(
+    private userService: UserService,
+    private chatService: ChatService,
+    private publicChatService: PublicChatService,
+    private userChatRelationshipService: UserChatRelationshipService,
     private messageService: MessageService,
     private reportsService: ReportsService) {
       this.newMessage.isEdited = false;
@@ -51,11 +54,9 @@ export class MainPageComponent {
   }
 
   ngOnInit() {
-    this.userService.GetFromToken().subscribe(result => {
+    this.userService.getFromToken().subscribe(result => {
       this.user = result;
-      console.log(this.user);
-      console.log(this.user.id);
-      this.userChatService.ChatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
+      this.chatService.getChatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
     });
   }
 
@@ -81,20 +82,20 @@ export class MainPageComponent {
 
   changeActiveChat(chat: ChatGetterDTO){
     this.activeChat = chat;
-    this.userChatService.UsersInChat(chat.id).subscribe(result => this.activeChatUsers = result);
+    this.chatService.UsersInChat(chat.id).subscribe(result => this.activeChatUsers = result);
     this.refreshMessages();
   }
 
   changeChatsToPublic(){
     this.public_chats = true;
     this.setChats();
-    this.chatService.GetAllPublicChats().subscribe(result => this.publicChats = result)
+    this.publicChatService.GetAllPublicChats().subscribe(result => this.publicChats = result)
   }
 
   changeChatsToPrivate(){
     this.public_chats = false;
     this.setChats();
-    this.userChatService.ChatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
+    this.chatService.getChatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
   }
 
   setChats(){
@@ -124,7 +125,7 @@ export class MainPageComponent {
       throw new Error("Chat not selected");
     }
 
-    this.newMessage.UserId = this.user.id;
+    this.newMessage.userId = this.user.id;
     this.newMessage.chatId = this.activeChat.id;
     this.messageService.createMessage(this.newMessage).pipe(
           catchError(error =>{throw error})
@@ -156,14 +157,14 @@ export class MainPageComponent {
 
   addUserToPublicChat(chatId: number){
     if (!this.isUserInPublicChat(chatId)){
-      let link = this.userChatService.newLink(this.user.id, chatId)
-      this.userChatService.CreateLink(link).subscribe(response => {
+      let link = this.chatService.newLink(this.user.id, chatId)
+      this.chatService.CreateLink(link).subscribe(response => {
         this.changeChatsToPrivate();
         //this.activeChat = this.publicChats.find(x => x.Id = chatId)?? new Chat;
         this.refreshMessages();
       });
     }else{
-      this.userChatService.DeleteLink(this.user.id, chatId).subscribe(response => {
+      this.chatService.DeleteLink(this.user.id, chatId).subscribe(response => {
         this.changeChatsToPrivate();
         this.allMessages = [];
       });

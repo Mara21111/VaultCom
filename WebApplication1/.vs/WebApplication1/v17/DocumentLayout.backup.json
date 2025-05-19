@@ -1,18 +1,14 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\",
+  "WorkspaceRootPath": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\xambl\\onedrive\\\u0440\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\vaultcom\\webapplication1\\webapplication1\\models\\dto\\userchatrelationshipdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\models\\dto\\userchatrelationshipdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\admin\\desktop\\vaultcom\\webapplication1\\webapplication1\\controllers\\userchatrelationshipcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\userchatrelationshipcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\xambl\\onedrive\\\u0440\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\vaultcom\\webapplication1\\webapplication1\\services\\implementations\\userchatrelationshipservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\services\\implementations\\userchatrelationshipservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\xambl\\onedrive\\\u0440\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\vaultcom\\webapplication1\\webapplication1\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\admin\\desktop\\vaultcom\\webapplication1\\webapplication1\\controllers\\userrelationshipcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\userrelationshipcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,53 +18,36 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UserChatRelationshipDTOs.cs",
-              "DocumentMoniker": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Models\\DTO\\UserChatRelationshipDTOs.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Models\\DTO\\UserChatRelationshipDTOs.cs",
-              "ToolTip": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Models\\DTO\\UserChatRelationshipDTOs.cs",
-              "RelativeToolTip": "WebApplication1\\Models\\DTO\\UserChatRelationshipDTOs.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-19T08:57:09.119Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UserChatRelationshipService.cs",
-              "DocumentMoniker": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Implementations\\UserChatRelationshipService.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Services\\Implementations\\UserChatRelationshipService.cs",
-              "ToolTip": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Implementations\\UserChatRelationshipService.cs",
-              "RelativeToolTip": "WebApplication1\\Services\\Implementations\\UserChatRelationshipService.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAlwDMAAABYAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "UserChatRelationshipController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\UserChatRelationshipController.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\UserChatRelationshipController.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\UserChatRelationshipController.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\UserChatRelationshipController.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAApwBwAAABIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-19T08:56:59.963Z",
+              "WhenOpened": "2025-05-19T09:41:37.254Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ChatController.cs",
-              "DocumentMoniker": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\ChatController.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\ChatController.cs",
-              "ToolTip": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\ChatController.cs",
-              "RelativeToolTip": "WebApplication1\\Controllers\\ChatController.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAQwBgAAAAuAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "UserRelationshipController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\UserRelationshipController.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\UserRelationshipController.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\UserRelationshipController.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\UserRelationshipController.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAlwCUAAABSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-19T08:35:48.257Z",
+              "WhenOpened": "2025-05-19T09:21:48.509Z",
               "EditorCaption": ""
             }
           ]

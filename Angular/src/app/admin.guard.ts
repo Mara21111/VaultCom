@@ -1,5 +1,5 @@
 import { CanActivateFn } from '@angular/router';
-import { UserService } from './services/user.service';
+import { UserService } from './services/User.service';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from './models/User';
@@ -10,7 +10,7 @@ export const adminGuard: CanActivateFn = (route, state) => {
   const router = inject(Router)
   let user = new User;
 
-  return userService.GetFromToken().pipe(
+  return userService.getFromToken().pipe(
     map(user => {
       if (user && user.isAdmin) {
         return true;

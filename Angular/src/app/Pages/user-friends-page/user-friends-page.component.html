@@ -34,7 +34,7 @@
           </div>
           <div class="table-body">
             <div class="table-row" *ngFor="let user of Requests">
-              <div class="col" (click)="GoToUser(user.id)">
+              <div class="col" (click)="goToUser(user.id)">
                 {{ user?.username }}
               </div>
               <div class="col">{{ user?.bio }}</div>
@@ -62,7 +62,7 @@
             <div class="col-header">Nickname</div>
           </div>
           <div class="table-body">
-            <div class="table-row" *ngFor="let friend of Friends" (click)="GoToUser(friend.id)">
+            <div class="table-row" *ngFor="let friend of Friends" (click)="goToUser(friend.id)">
               <div class="col">{{ friend?.username }}</div>
               <div class="col">{{ friend?.bio }}</div>
               <div class="col">Nickname Here</div>

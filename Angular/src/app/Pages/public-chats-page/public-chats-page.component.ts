@@ -4,8 +4,8 @@ import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
 import { FormsModule } from '@angular/forms';
 import { Chat } from '../../models/Chat';
 import { User } from '../../models/User';
-import { PublicChatService } from '../../services/public_chat.service';
-import { UserService } from '../../services/user.service';
+import { PublicChatService } from '../../services/PublicChat.service';
+import { UserService } from '../../services/User.service';
 import { PublicChat } from '../../models/PublicChat';
 
 @Component({

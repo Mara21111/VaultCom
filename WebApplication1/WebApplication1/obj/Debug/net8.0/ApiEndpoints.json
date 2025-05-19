@@ -404,7 +404,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "WebApplication1.Models.DTO.UserChatRelationDTO",
+        "Type": "WebApplication1.Models.DTO.UserChatRelationshipDTO",
         "IsRequired": true
       }
     ],

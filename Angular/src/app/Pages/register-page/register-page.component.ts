@@ -1,10 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../services/User.service';
 import { User, CreateUserDTO, LoginDTO } from '../../models/User';
 import { catchError } from 'rxjs';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../services/Authentication.service';
 import { NgIf, NgClass } from '@angular/common';
 
 @Component({
@@ -93,12 +93,12 @@ export class RegisterComponent {
       username: this.user.username,
       email: this.user.email,
       password: this.user.password,
-      Bio: this.user.bio,
+      bio: this.user.bio,
       isAdmin: false
     };
 
     // Služba pro vytvoření uživatele
-    this.userService.CreateUser(cto).pipe(
+    this.userService.createUser(cto).pipe(
       catchError(error => {
         if (error.status === 400) {  // Pokud uživatel nebo email již existuje
           this.errorText = 'Uživatel nebo email již existuje.';

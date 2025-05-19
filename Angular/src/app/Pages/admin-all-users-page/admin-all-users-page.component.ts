@@ -5,9 +5,9 @@ import { NgFor } from '@angular/common';
 import { NgIf } from '@angular/common';
 import { BaseUiComponent } from '../../Components/base-ui/base-ui.component';
 import { SidePanelComponent } from '../../Components/side-panel/side-panel.component';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../services/User.service';
 import { User } from '../../models/User';
-import { ReportsService } from '../../services/reports.service';
+import { ReportsService } from '../../services/Reports.service';
 
 @Component({
   selector: 'app-admin-all-users-page',
@@ -38,14 +38,14 @@ export class AdminAllUsersPageComponent {
   }
 
   public goToUser(user_id: number): void{
-    this.userService.GetUser(user_id).subscribe(result => {
+    this.userService.getUser(user_id).subscribe(result => {
       this.SelectedUser = result;
       this.PanelVisible = true;
     })
   }
 
   public refresh(): void{
-    this.userService.GetAllUsersAdminView().subscribe(result => this.Users = result);
+    this.userService.getAllUsersAdminView().subscribe(result => this.Users = result);
     this.reportService.GetAllUserReportsCount().subscribe(result => this.ReportCounts = result);
   }
 

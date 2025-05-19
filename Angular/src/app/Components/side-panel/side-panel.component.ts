@@ -2,8 +2,8 @@ import { Component, input, Input, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../models/User';
 import { CommonModule, NgIf } from '@angular/common';
-import { ReportsService } from '../../services/reports.service';
-import { UserService } from '../../services/user.service';
+import { ReportsService } from '../../services/Reports.service';
+import { UserService } from '../../services/User.service';
 
 @Component({
   selector: 'app-side-panel',
@@ -30,7 +30,7 @@ export class SidePanelComponent {
     ngOnInit(){
       this.reportService.UserReportCount(this.user?.id).subscribe(result => {this.reportsCount = result;
       });
-      this.userService.GetFromToken().subscribe(result => this.activeUser = result);
+      this.userService.getFromToken().subscribe(result => this.activeUser = result);
     }
 
     public onTimeoutClick(): void {

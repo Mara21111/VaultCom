@@ -1,18 +1,19 @@
 export class User {
-    id: number;
-    email: string;
-    password: string;
-    username: string;
-    bio: string;
-    status: number;
-    isPublic: boolean;
-    isAdmin: boolean;
-    createdAt: Date;
-    privateKey: string;
-    publicKey: string;
-    timeoutEnd: Date;
-    banEnd: Date;
-    safeMode: boolean;
+  id: number;
+  email: string;
+  password: string;
+  username: string;
+  profilePicture: string;
+  bio: string;
+  status: number;
+  isPublic: boolean;
+  isAdmin: boolean;
+  createdAt: Date;
+  privateKey: string;
+  publicKey: string;
+  timeoutEnd: Date;
+  banEnd: Date;
+  safeMode: boolean;
 }
 
 export class CreateUserDTO {
@@ -32,8 +33,10 @@ export class EditUserDTO {
 }
 
 export class BaseUserDataDTO {
+  id: number;
   username: string;
   bio: string;
+  profilePicture: string;
   createdAt: Date;
   banEnd: Date | null;
   timeoutEnd: Date | null;

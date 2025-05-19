@@ -18,7 +18,7 @@ export class PublicChatService {
     return this.http.get<PublicChat[]>('http://localhost:5000/api/Chat/all-public-chats');
   }
 
-  public CreatePublicChat(CreatedChat: CreatePublicChatDTO): Observable<Chat> {
+  public createPublicChat(CreatedChat: CreatePublicChatDTO): Observable<Chat> {
     return this.http.post<Chat>('http://localhost:5000/api/Chat/create-public-chat', CreatedChat)
   }
 

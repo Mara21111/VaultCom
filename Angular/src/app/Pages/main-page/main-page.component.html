@@ -54,15 +54,15 @@
       </div>
 
       <div class="messages-container" #scrollMe style="overflow-y: auto;" *ngIf="!this.showChatInfo">
-        <div class="message" *ngFor="let item of this.messages()" [ngClass]="{'loginUser': item.UserId === this.user.id}">
-          <div class="message-avatar">{{ this.getUsername(item.UserId).charAt(0) }}</div>
-          <div class="message-content" [ngClass]="{'loginUser': item.UserId === this.user.id}">
-            <div class="message-sender">{{ this.getUsername(item.UserId) }}</div>
+        <div class="message" *ngFor="let item of this.messages()" [ngClass]="{'loginUser': item.userId === this.user.id}">
+          <div class="message-avatar">{{ this.getUsername(item.userId).charAt(0) }}</div>
+          <div class="message-content" [ngClass]="{'loginUser': item.userId === this.user.id}">
+            <div class="message-sender">{{ this.getUsername(item.userId) }}</div>
             {{ item.content }}
             <div class="message-time">
-              <i class="fas fa-thumbtack" *ngIf="item.isPinned && item.UserId === this.user.id"></i>
+              <i class="fas fa-thumbtack" *ngIf="item.isPinned && item.userId === this.user.id"></i>
               {{ item.time | date: "short" }}
-              <i class="fas fa-thumbtack" *ngIf="item.isPinned && item.UserId !== this.user.id"></i>
+              <i class="fas fa-thumbtack" *ngIf="item.isPinned && item.userId !== this.user.id"></i>
             </div>
           </div>
         </div>

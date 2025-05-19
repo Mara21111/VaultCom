@@ -3,9 +3,9 @@ import { User } from '../../models/User';
 import { CommonModule, NgIf } from '@angular/common';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../services/User.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../services/Authentication.service';
 
 @Component({
   selector: 'app-user-profile-page',
@@ -32,7 +32,7 @@ export class UserProfilePageComponent {
   }
 
   ngOnInit(){
-    this.userService.GetFromToken().subscribe(result => {
+    this.userService.getFromToken().subscribe(result => {
       this.user = result;
       this.form = this.fb.group({
         username: this.user.username,
@@ -75,7 +75,7 @@ export class UserProfilePageComponent {
     this.updateUser();
     this.errorMessage = '';
 
-    this.userService.EditUser(this.user).subscribe({
+    this.userService.editUser(this.user).subscribe({
       error: (err) => {this.errorMessage = err.error, this.panelVisible = true}
     });
   }

@@ -1,6 +1,6 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { AuthenticationService } from './services/authentication.service';
+import { AuthenticationService } from './services/Authentication.service';
 
 export const authenticaionInterceptor: HttpInterceptorFn = (req, next) => {
   const token = inject(AuthenticationService).getToken();

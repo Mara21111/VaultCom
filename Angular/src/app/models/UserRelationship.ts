@@ -8,3 +8,8 @@ export class UserRelationship {
     pending: boolean;
     nickname: string;
 }
+
+export class UserRelationshipDTO {
+  requestorId: number;
+  targetId: number;
+}

@@ -5,8 +5,8 @@ import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
 import { SidePanelComponent } from '../../Components/side-panel/side-panel.component';
 import { ReportLog } from '../../models/ReportLog';
 import { User } from '../../models/User';
-import { ReportsService } from '../../services/reports.service';
-import { UserService } from '../../services/user.service';
+import { ReportsService } from '../../services/Reports.service';
+import { UserService } from '../../services/User.service';
 import { report } from 'process';
 
 @Component({
@@ -29,11 +29,11 @@ export class ReportsPageComponent {
   public constructor(private reportsService: ReportsService, private userService: UserService, private router: Router) {
     this.reportsService.GetAllReports().subscribe(result => this.data = result)
     this.reportsService.UserReportCount(this.selectedUser.id).subscribe(result => this.reportsCount = result)
-    this.userService.GetAllUsers().subscribe(result => this.users = result)
+    this.userService.getAllUsers().subscribe(result => this.users = result)
   }
 
   public goToUser(user_id: number): void{
-    this.userService.GetUser(user_id).subscribe(result => this.selectedUser = result)
+    this.userService.getUser(user_id).subscribe(result => this.selectedUser = result)
     this.panelVisible = true;
     console.log(this.panelVisible)
   }

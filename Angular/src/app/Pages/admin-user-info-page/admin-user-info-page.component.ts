@@ -3,8 +3,8 @@ import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { User } from '../../models/User';
 import { NgIf, CommonModule } from '@angular/common';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
-import { UserService } from '../../services/user.service';
-import { ReportsService } from '../../services/reports.service';
+import { UserService } from '../../services/User.service';
+import { ReportsService } from '../../services/Reports.service';
 
 @Component({
   selector: 'app-admin-user-info-page',
@@ -22,7 +22,7 @@ export class AdminUserInfoPageComponent {
   }
 
   ngOnInit() {
-    this.userService.GetUser(this.route.snapshot.params['id']).subscribe(result => {
+    this.userService.getUser(this.route.snapshot.params['id']).subscribe(result => {
         this.user = result;
         this.reportService.UserReportCount(this.user.id).subscribe(result => this.reportCount = result);
       })

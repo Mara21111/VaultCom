@@ -1,10 +1,10 @@
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, input, Input, Output } from '@angular/core';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../services/User.service';
 import { User } from '../../models/User';
 import { EventEmitter } from '@angular/core';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../services/Authentication.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -39,7 +39,7 @@ export class BaseUiComponent {
   }
 
   ngOnInit() {
-    this.userService.GetFromToken().subscribe(result => this.user = result);
+    this.userService.getFromToken().subscribe(result => this.user = result);
   }
 
   onSeachChange(value: string){
