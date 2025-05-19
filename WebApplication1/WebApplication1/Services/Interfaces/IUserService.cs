@@ -7,6 +7,7 @@ namespace WebApplication1.Services.Interfaces
     {
         object MapUserToDTO(User user);
         Task<ServiceResult> CreateUserAsync(CreateUserDTO dto);
+        //Task<ServiceResult> SetProfilePicture(IFormFile pfp);
         Task<ServiceResult> GetAllUsersAdminViewAsync();
         Task<ServiceResult> EditUserAsync(EditUserDTO dto);
         Task<ServiceResult> ToggleUserSettingAsync(UserToggleDTO dto);

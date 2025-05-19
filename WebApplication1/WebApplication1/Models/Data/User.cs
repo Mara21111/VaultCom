@@ -12,6 +12,8 @@ namespace WebApplication1.Models.Data
 
         public string Username { get; set; }
 
+        public string? ProfilePicture { get; set; }
+
         public string? Bio {  get; set; }
 
         public int Status { get; set; }

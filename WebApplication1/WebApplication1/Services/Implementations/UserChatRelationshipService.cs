@@ -27,6 +27,7 @@ namespace WebApplication1.Services.Implementations
             {
                 return new PublicUserDataDTO
                 {
+                    Id = id,
                     Username = user.Username,
                     Bio = user.Bio,
                     CreatedAt = user.CreatedAt,
@@ -40,6 +41,7 @@ namespace WebApplication1.Services.Implementations
             {
                 return new BaseUserDataDTO
                 {
+                    Id = id,
                     Username = user.Username,
                     Bio = user.Bio,
                     CreatedAt = user.CreatedAt,

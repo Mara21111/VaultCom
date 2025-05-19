@@ -14,10 +14,12 @@ namespace WebApplication1.Services.Implementations
     public class UserService : IUserService
     {
         private readonly MyContext context;
+        private readonly IWebHostEnvironment _env;
 
-        public UserService(MyContext context)
+        public UserService(MyContext context, IWebHostEnvironment env)
         {
             this.context = context;
+            _env = env;
         }
 
         public object MapUserToDTO(User user)
@@ -88,6 +90,12 @@ namespace WebApplication1.Services.Implementations
             await context.SaveChangesAsync();
             return new ServiceResult { Success = true, Data = user };
         }
+
+        /*public async Task<ServiceResult> SetProfilePicture(IFormFile pfp)
+        {
+            string uploadsFolder = Path.Combine(_env.WebRootPath, "uploads", "pfps");
+            Directory.CreateDirectory(uploadsFolder);
+        }*/
 
         public async Task<ServiceResult> EditUserAsync(EditUserDTO dto)
         {
