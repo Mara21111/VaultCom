@@ -12,7 +12,7 @@
 </app-base-ui>
 
   <div class="content">
-    
+
     <div class="sidebar">
       <div class="search-container">
         <input type="text" class="form-control search-input" placeholder="Search" [(ngModel)]="this.searchChat">
@@ -54,15 +54,15 @@
       </div>
 
       <div class="messages-container" #scrollMe style="overflow-y: auto;" *ngIf="!this.showChatInfo">
-        <div class="message" *ngFor="let item of this.messages()" [ngClass]="{'loginUser': item.UserId === this.user.Id}">
+        <div class="message" *ngFor="let item of this.messages()" [ngClass]="{'loginUser': item.UserId === this.user.id}">
           <div class="message-avatar">{{ this.getUsername(item.UserId).charAt(0) }}</div>
-          <div class="message-content" [ngClass]="{'loginUser': item.UserId === this.user.Id}">
+          <div class="message-content" [ngClass]="{'loginUser': item.UserId === this.user.id}">
             <div class="message-sender">{{ this.getUsername(item.UserId) }}</div>
             {{ item.Content }}
             <div class="message-time">
-              <i class="fas fa-thumbtack" *ngIf="item.IsPinned && item.UserId === this.user.Id"></i>
+              <i class="fas fa-thumbtack" *ngIf="item.IsPinned && item.UserId === this.user.id"></i>
               {{ item.Time | date: "short" }}
-              <i class="fas fa-thumbtack" *ngIf="item.IsPinned && item.UserId !== this.user.Id"></i>
+              <i class="fas fa-thumbtack" *ngIf="item.IsPinned && item.UserId !== this.user.id"></i>
             </div>
           </div>
         </div>
@@ -72,14 +72,14 @@
         <div class="user-list" *ngIf="this.showChatInfo">
           <div *ngFor="let user of this.activeChatUsers" class="user-card">
             <div class="user-info">
-              <h3>{{ user.Username }} <span *ngIf="user.Id !== this.user.Id">(Nickname)</span></h3>
+              <h3>{{ user.Username }} <span *ngIf="user.id !== this.user.id">(Nickname)</span></h3>
               <p><strong>Email:</strong> {{ user.Email }}</p>
               <p><strong>Bio:</strong> {{ user.Bio }}</p>
             </div>
-      
-          <div class="user-actions" *ngIf="user.Id !== this.user.Id">
+
+          <div class="user-actions" *ngIf="user.id !== this.user.id">
             <button (click)="this.muteUser(user)" class="btn mute">Mute</button>
-            <button (click)="this.showReportPopup(user.Id)" class="btn ban">Report</button>
+            <button (click)="this.showReportPopup(user.id)" class="btn ban">Report</button>
           </div>
         </div>
       </div>

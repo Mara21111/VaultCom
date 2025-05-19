@@ -25,6 +25,10 @@ export class UserFriendsPageComponent {
   public newFriendUsername: string = '';
   public SelectedUser: User = new User;
   public PopupMessage: string = '';
+  public isRequestsOpen: boolean = true;
+  public isFriendsOpen: boolean = true;
+
+
 
   private user: User = new User;
   private users: User[] = [];
@@ -36,8 +40,8 @@ export class UserFriendsPageComponent {
 
   ngOnInit(): void {
     this.userService.GetFromToken().subscribe(result => this.user = result)
-    this.relationshipService.GetAllFriendRequests(this.user.Id).subscribe(result => this.Requests = result)
-    this.relationshipService.GetAllFriends(this.user.Id).subscribe(result => this.Friends = result)
+    this.relationshipService.GetIncomingFriendRequests(this.user.id).subscribe(result => this.Requests = result)
+    this.relationshipService.GetAllFriends(this.user.id).subscribe(result => this.Friends = result)
     this.userService.GetAllUsers().subscribe(result => this.users = result)
   }
 
@@ -46,7 +50,7 @@ export class UserFriendsPageComponent {
   }
 
   public getUsername(user_id: number): string {
-    const user = this.users.find(user => user.Id = user_id);
+    const user = this.users.find(user => user.id = user_id);
     return user ? user.Username : 'Unknown';
   }
 
@@ -58,7 +62,7 @@ export class UserFriendsPageComponent {
       return;
     }
 
-    let receiver_id: number = this.users.find(user => user.Username === this.newFriendUsername)?.Id ?? 0;
+    let receiver_id: number = this.users.find(user => user.Username === this.newFriendUsername)?.id ?? 0;
 
     if (receiver_id === 0) {
       this.PopupMessage = 'Invalid name: ' + this.newFriendUsername;
@@ -75,6 +79,23 @@ export class UserFriendsPageComponent {
   public closePopup() {
     this.ShowPopup = false;
     this.PopupMessage = '';
+  }
+
+  toggleRequests() {
+    this.isRequestsOpen = !this.isRequestsOpen;
+  }
+
+  toggleFriends() {
+    this.isFriendsOpen = !this.isFriendsOpen;
+  }
+
+  isSectionOpen = {
+    requests: true,
+    friends: true,
+  };
+
+  toggleSection(section: 'requests' | 'friends') {
+    this.isSectionOpen[section] = !this.isSectionOpen[section];
   }
 
   public AcceptRequest(sender_id: number): void {

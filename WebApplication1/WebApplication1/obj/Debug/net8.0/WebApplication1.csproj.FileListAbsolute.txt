@@ -593,12 +593,6 @@ C:\Users\Admin\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0
 C:\Users\Admin\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\Admin\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\Admin\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-C:\Users\Admin\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets\msbuild.WebApplication1.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\Admin\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets\msbuild.WebApplication1.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-C:\Users\Admin\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets\msbuild.build.WebApplication1.props
-C:\Users\Admin\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.WebApplication1.props
-C:\Users\Admin\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.WebApplication1.props
-C:\Users\Admin\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Users\Admin\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\Admin\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0\WebAppli.7D14BD69.Up2Date
 C:\Users\Admin\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.dll
@@ -606,3 +600,4 @@ C:\Users\Admin\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0
 C:\Users\Admin\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.pdb
 C:\Users\Admin\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.genruntimeconfig.cache
 C:\Users\Admin\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0\ref\WebApplication1.dll
+C:\Users\Admin\Desktop\VaultCom\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets.build.json.cache

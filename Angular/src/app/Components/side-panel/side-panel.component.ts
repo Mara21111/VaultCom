@@ -28,7 +28,7 @@ export class SidePanelComponent {
     ){}
 
     ngOnInit(){
-      this.reportService.UserReportCount(this.user?.Id).subscribe(result => {this.reportsCount = result;
+      this.reportService.UserReportCount(this.user?.id).subscribe(result => {this.reportsCount = result;
       });
       this.userService.GetFromToken().subscribe(result => this.activeUser = result);
     }
@@ -37,17 +37,17 @@ export class SidePanelComponent {
       this.isTimeoutOrBanSelected = true;
       this.banSelected = false;
     }
-  
+
     public onBanClick(): void {
       this.isTimeoutOrBanSelected = true;
       this.banSelected = true;
     }
-  
+
     public onConfirm(): void {
       console.log('Selected Date and Time:', this.selectedDateTime);
       this.resetPopup();
     }
-  
+
     public onCancel(): void {
       this.resetPopup();
     }
