@@ -77,5 +77,33 @@ namespace WebApplication1.Services.Implementations
         {
             return await CreateUserChatRelationAsync(dto);
         }
+
+        public async Task<ServiceResult> LeavePublicChatAsync(UserChatRelationshipDTO dto)
+        {
+            UserChatRelationship? rel = await context.UserChatRelationship.Where(x => x.UserId == dto.UserId && x.ChatId == dto.ChatId).FirstAsync();
+            if (rel is null)
+            {
+                return new ServiceResult { Success = true, ErrorMessage = "user is not joined in chat" };
+            }
+
+            context.UserChatRelationship.Remove(rel);
+            await context.SaveChangesAsync();
+
+            return new ServiceResult { Success = true, Data = rel };
+        }
+
+        public async Task<ServiceResult> MuteChatToggleAsync(UserChatRelationshipDTO dto)
+        {
+            UserChatRelationship? rel = await context.UserChatRelationship.Where(x => x.UserId == dto.UserId && x.ChatId == dto.ChatId).FirstAsync();
+            if (rel is null)
+            {
+                return new ServiceResult { Success = false, ErrorMessage = "user not in chat", ErrorCode = 404 };
+            }
+
+            rel.MutedChat = !rel.MutedChat;
+            await context.SaveChangesAsync();
+
+            return new ServiceResult { Success = true, Data = rel };
+        }
     }
 }

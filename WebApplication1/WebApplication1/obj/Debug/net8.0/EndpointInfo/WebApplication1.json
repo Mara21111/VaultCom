@@ -79,6 +79,37 @@
         }
       }
     },
+    "/api/Chat/search-for-chat-{id}-{prompt}": {
+      "get": {
+        "tags": [
+          "Chat"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "prompt",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Chat/get-chats-user-is-in-{id}": {
       "get": {
         "tags": [
@@ -600,17 +631,48 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserChatRelationDTO"
+                "$ref": "#/components/schemas/UserChatRelationshipDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserChatRelationDTO"
+                "$ref": "#/components/schemas/UserChatRelationshipDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UserChatRelationDTO"
+                "$ref": "#/components/schemas/UserChatRelationshipDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserChatRelationship/mute-chat-toggle": {
+      "put": {
+        "tags": [
+          "UserChatRelationship"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserChatRelationshipDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserChatRelationshipDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserChatRelationshipDTO"
               }
             }
           }
@@ -638,6 +700,37 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserChatRelationship/leave-public-chat": {
+      "delete": {
+        "tags": [
+          "UserChatRelationship"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserChatRelationshipDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserChatRelationshipDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserChatRelationshipDTO"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -907,7 +1000,7 @@
         },
         "additionalProperties": false
       },
-      "UserChatRelationDTO": {
+      "UserChatRelationshipDTO": {
         "type": "object",
         "properties": {
           "chatId": {

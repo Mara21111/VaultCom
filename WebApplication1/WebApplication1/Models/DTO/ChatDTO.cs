@@ -23,10 +23,16 @@
         public int? Type { get; set; }
         public bool? IsIn { get; set; }
         public bool? IsMuted { get; set; }
+        public string? Prompt { get; set; }
     }
     public class ChatGetterDTO
     {
         public int Id {  set; get; }
         public string Title { set; get; }
+    }
+    public class ChatSearchDTO
+    {
+        public int Id { get; set; }
+        public string Prompt { get; set; }
     }
 }

@@ -22,9 +22,13 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> GetAllPublicChats()
             => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { Type = 1 }));
 
+        [HttpGet("search-for-chat-{id}-{prompt}")]
+        public Task<IActionResult> SearchForChat(int id, string prompt)
+            => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = true, RequestorId = id, Prompt = prompt }));
+
         [HttpGet("get-chats-user-is-in-{id}")]
         public Task<IActionResult> GetChatsUserIsIn(int id)
-            => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = true, RequestorId = id}));
+            => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = true, RequestorId = id }));
 
         [HttpGet("get-public-chats-user-is-in-{id}")]
         public Task<IActionResult> GetPublicChatsUserIsIn(int id)
