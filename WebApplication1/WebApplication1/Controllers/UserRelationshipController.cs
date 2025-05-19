@@ -26,8 +26,12 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost("send-friend-request")]
-        public Task<IActionResult> SendFriendRequest(RequestDTO dto)
+        public Task<IActionResult> SendFriendRequest(UserRelationshipDTO dto)
             => HandleService(() => _URService.SendFriendRequestAsync(dto));
+
+        [HttpPost("accept-friend-request")]
+        public Task<IActionResult> AcceptFriendRequest(UserRelationshipDTO dto)
+            => HandleService(() => _URService.AcceptFriendRequestAsync(dto));
 
         [HttpGet("get-incoming-friend-requests-{id}")]
         public Task<IActionResult> GetIncomingFriendRequest(int id)

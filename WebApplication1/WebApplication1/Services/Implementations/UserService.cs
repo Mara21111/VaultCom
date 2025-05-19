@@ -91,61 +91,51 @@ namespace WebApplication1.Services.Implementations
 
         public async Task<ServiceResult> EditUserAsync(EditUserDTO dto)
         {
-            User? requestor = context.User.Find(dto.RequestorId);
-            User? target = context.User.Find(dto.TargetId);
-            if (requestor == null || target == null)
+            User? user = await context.User.FindAsync(dto.Id);
+            if (user == null)
             {
                 return new ServiceResult { Success = false, ErrorMessage = "User does not exist", ErrorCode = 404 };
             }
-            if (dto.RequestorId != dto.TargetId)
-            {
-                return new ServiceResult { Success = false, ErrorMessage = "Cannot change other user info", ErrorCode = 403 };
-            }
-            if (await context.User.AnyAsync(x => x.Username == dto.Username && x.Id != dto.TargetId))
+            if (await context.User.AnyAsync(x => x.Username == dto.Username && x.Id != dto.Id))
             {
                 return new ServiceResult { Success = false, ErrorMessage = "Username is already taken", ErrorCode = 409 };
             }
-            if (await context.User.AnyAsync(x => x.Email == dto.Email && x.Id != dto.TargetId))
+            if (await context.User.AnyAsync(x => x.Email == dto.Email && x.Id != dto.Id))
             {
                 return new ServiceResult { Success = false, ErrorMessage = "Email already exists", ErrorCode = 409 };
             }
 
-            target.Username = dto.Username;
-            target.Email = dto.Email;
-            target.Password = dto.Password;
-            target.Bio = dto.Bio;
+            user.Username = dto.Username;
+            user.Email = dto.Email;
+            user.Password = dto.Password;
+            user.Bio = dto.Bio;
 
-            if (target.Password != dto.Password) // check later doufam ze to funguje
+            if (user.Password != dto.Password) // check later doufam ze to funguje
             {
                 var hasher = new PasswordHasher<User>();
-                target.Password = hasher.HashPassword(target, dto.Password);
+                user.Password = hasher.HashPassword(user, dto.Password);
             }
 
             await context.SaveChangesAsync();
-            return new ServiceResult { Success = true, Data = target };
+            return new ServiceResult { Success = true, Data = user };
         }
 
         public async Task<ServiceResult> ToggleUserSettingAsync(UserToggleDTO dto)
         {
-            var requestor = await context.User.FindAsync(dto.RequestorId);
-            var target = await context.User.FindAsync(dto.TargetId);
+            var user = await context.User.FindAsync(dto.Id);
 
-            if (requestor != target && !requestor.IsAdmin)
-            {
-                return new ServiceResult { Success = false, ErrorMessage = "Cannot change setting", ErrorCode = 403 };
-            }
-            if (dto.ValueName == "IsAdmin" && !requestor.IsAdmin)
+            if (dto.ValueName == "IsAdmin" && !user.IsAdmin)
             {
                 return new ServiceResult { Success = false, ErrorMessage = "Denied admin access", ErrorCode = 403 };
             }
 
             var property = typeof(User).GetProperty(dto.ValueName);
 
-            property.SetValue(target, dto.Value);
+            property.SetValue(user, dto.Value);
 
             await context.SaveChangesAsync();
 
-            return new ServiceResult { Success = true, Data = target };
+            return new ServiceResult { Success = true, Data = user };
         }
 
 

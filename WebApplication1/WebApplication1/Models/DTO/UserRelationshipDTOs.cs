@@ -3,13 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication1.Models.DTO
 {
-    public class UserRelationshipDTOs
+    public class UserRelationshipDTO : RequestDTO
     {
-        public int SenderId { get; set; }
-
-        public int RecieverId { get; set; }
-
-        public UserRelationshipDTOs Reverse()
-            => new() { SenderId = RecieverId, RecieverId = SenderId };
+        public UserRelationshipDTO Reverse()
+            => new() { RequestorId = TargetId, TargetId = RequestorId };
     }
 }
