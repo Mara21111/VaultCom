@@ -56,7 +56,7 @@ namespace WebApplication1.Services.Implementations
             List<int> admins = await context.User.Where(x => x.IsAdmin).Select(x => x.Id).ToListAsync();
             foreach (var admin in admins)
             {
-                await _userChatRelationshipService.CreateUserChatRelationAsync(new UserChatRelationDTO
+                await _userChatRelationshipService.CreateUserChatRelationAsync(new UserChatRelationshipDTO
                 {
                     UserId = admin,
                     ChatId = baseChat.Id

@@ -49,7 +49,7 @@ namespace WebApplication1.Services.Implementations
             }
         }
 
-        public async Task<ServiceResult> CreateUserChatRelationAsync(UserChatRelationDTO dto)
+        public async Task<ServiceResult> CreateUserChatRelationAsync(UserChatRelationshipDTO dto)
         {
             var rel = new UserChatRelationship
             {
@@ -73,7 +73,7 @@ namespace WebApplication1.Services.Implementations
             return new ServiceResult { Success = true, Data =  userDTO };
         }
 
-        public async Task<ServiceResult> JoinPublicChatAsync(UserChatRelationDTO dto)
+        public async Task<ServiceResult> JoinPublicChatAsync(UserChatRelationshipDTO dto)
         {
             return await CreateUserChatRelationAsync(dto);
         }

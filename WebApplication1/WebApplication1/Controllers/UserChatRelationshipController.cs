@@ -21,7 +21,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost("join-public-chat")]
-        public Task<IActionResult> JoinPublicChat(UserChatRelationDTO dto)
+        public Task<IActionResult> JoinPublicChat(UserChatRelationshipDTO dto)
             => HandleService(() => _UCRService.JoinPublicChatAsync(dto));
 
         [HttpGet("get-users-in-chat-{id}")]
