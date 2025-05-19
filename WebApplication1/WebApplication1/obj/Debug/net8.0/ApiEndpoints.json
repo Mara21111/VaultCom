@@ -445,7 +445,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.UserRelationshipController",
     "Method": "GetOutcomingFriendRequest",
-    "RelativePath": "api/UserRelationship/get-ocutoming-friend-requests-{id}",
+    "RelativePath": "api/UserRelationship/get-outcoming-friend-requests-{id}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

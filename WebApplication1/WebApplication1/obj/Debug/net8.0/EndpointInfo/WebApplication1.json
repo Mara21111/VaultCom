@@ -668,7 +668,7 @@
         }
       }
     },
-    "/api/UserRelationship/get-ocutoming-friend-requests-{id}": {
+    "/api/UserRelationship/get-outcoming-friend-requests-{id}": {
       "post": {
         "tags": [
           "UserRelationship"

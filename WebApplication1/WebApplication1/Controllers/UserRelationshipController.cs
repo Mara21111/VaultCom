@@ -25,15 +25,15 @@ namespace WebApplication1.Controllers
             _URService = URService;
         }
 
-        [HttpPost("get-incoming-friend-requests-{id}")]
+        [HttpGet("get-incoming-friend-requests-{id}")]
         public Task<IActionResult> GetIncomingFriendRequest(int id)
             => HandleService(() => _URService.GetIncomingFriendRequestsAsync(id));
 
-        [HttpPost("get-outcoming-friend-requests-{id}")]
+        [HttpGet("get-outcoming-friend-requests-{id}")]
         public Task<IActionResult> GetOutcomingFriendRequest(int id)
             => HandleService(() => _URService.GetOutcomingFriendRequestsAsync(id));
 
-        [HttpPost("get-friends")]
+        [HttpGet("get-friends")]
         public Task<IActionResult> GetFriends(int id)
             => HandleService(() => _URService.GetFriendsAsync(id));
 
