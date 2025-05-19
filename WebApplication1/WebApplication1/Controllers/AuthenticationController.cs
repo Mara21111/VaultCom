@@ -25,10 +25,10 @@ namespace WebApplication1.Controllers
 
             if (result.Success)
             {
-                return Ok(new AuthResult { Token = result.Token });
+                return Ok(new AuthResult { Success = true, Token = result.Token });
             }
 
-            return Unauthorized(new AuthResult  { Message = result.Message });
+            return Unauthorized(new AuthResult { Message = result.Message });
         }
     }
 }

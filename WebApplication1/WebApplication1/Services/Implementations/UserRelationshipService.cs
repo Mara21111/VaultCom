@@ -109,7 +109,7 @@ namespace WebApplication1.Services.Implementations
                 .Select(x => x.SenderId).ToListAsync();
             var userDTOs = users.Select(_UCRService.MapUserToDTO).ToList();
 
-            return new ServiceResult { Success = true, Data = users };
+            return new ServiceResult { Success = true, Data = userDTOs };
         }
 
         public async Task<ServiceResult> GetOutcomingFriendRequestsAsync(int id)
@@ -119,7 +119,7 @@ namespace WebApplication1.Services.Implementations
                 .Select(x => x.RecieverId).ToListAsync();
             var userDTOs = users.Select(_UCRService.MapUserToDTO).ToList();
 
-            return new ServiceResult { Success = true, Data = users };
+            return new ServiceResult { Success = true, Data = userDTOs };
         }
 
         public async Task<ServiceResult> GetFriendsAsync(int id)
@@ -129,7 +129,7 @@ namespace WebApplication1.Services.Implementations
                 .Select(x => x.RecieverId).ToListAsync();
             var userDTOs = users.Select(_UCRService.MapUserToDTO).ToList();
 
-            return new ServiceResult { Success = true, Data = users };
+            return new ServiceResult { Success = true, Data = userDTOs };
         }
     }
 }

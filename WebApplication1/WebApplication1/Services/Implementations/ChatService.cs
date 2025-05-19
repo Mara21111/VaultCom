@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models.Data;
 using WebApplication1.Models.DTO;
@@ -54,6 +55,7 @@ namespace WebApplication1.Services.Implementations
                         .Select(x => x.ChatId).ToListAsync();
                     query = query.Where(x => chatsIn.Contains(x.Id) == filter.IsIn.Value);
                 }
+
                 if (filter.IsMuted.HasValue)
                 {
                     var chatsMuted = await context.UserChatRelationship
@@ -61,6 +63,7 @@ namespace WebApplication1.Services.Implementations
                         .Select(x => x.ChatId).ToListAsync();
                     query = query.Where(x => chatsMuted.Contains(x.Id));
                 }
+
                 if (filter.Type.HasValue)
                     query = query.Where(x => x.Type == filter.Type.Value);
             }
@@ -69,10 +72,12 @@ namespace WebApplication1.Services.Implementations
 
             var chatDTOs = new List<ChatGetterDTO>();
             foreach (var chat in chats)
-            {
-                var dto = await MapChatToDTO(chat, context);
-                chatDTOs.Add(dto);
-            }
+                chatDTOs.Add(await MapChatToDTO(chat, context));
+
+            if (filter?.Prompt != null && filter.Prompt.Any())
+                chatDTOs = chatDTOs
+                    .Where(dto => filter.Prompt.Any(p => dto.Title?.Contains(p, StringComparison.OrdinalIgnoreCase) == true))
+                    .ToList();
 
             return new ServiceResult { Success = true, Data = chatDTOs };
         }

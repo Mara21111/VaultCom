@@ -9,5 +9,7 @@ namespace WebApplication1.Services.Interfaces
         Task<ServiceResult> CreateUserChatRelationAsync(UserChatRelationshipDTO dto);
         Task<ServiceResult> JoinPublicChatAsync(UserChatRelationshipDTO dto);
         Task<ServiceResult> GetUsersInChatAsync(int id);
+        Task<ServiceResult> LeavePublicChatAsync(UserChatRelationshipDTO dto);
+        Task<ServiceResult> MuteChatToggleAsync(UserChatRelationshipDTO dto);
     }
 }
