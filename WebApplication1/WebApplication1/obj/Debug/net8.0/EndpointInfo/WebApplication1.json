@@ -68,7 +68,7 @@
       }
     },
     "/api/Chat/get-all-public-chats": {
-      "post": {
+      "get": {
         "tags": [
           "Chat"
         ],
@@ -80,7 +80,7 @@
       }
     },
     "/api/Chat/get-chats-user-{id}-is-in": {
-      "post": {
+      "get": {
         "tags": [
           "Chat"
         ],
@@ -103,7 +103,7 @@
       }
     },
     "/api/Chat/get-public-chats-user-{id}-is-in": {
-      "post": {
+      "get": {
         "tags": [
           "Chat"
         ],
@@ -149,7 +149,7 @@
       }
     },
     "/api/Chat/get-public-chats-user-{id}-has-muted": {
-      "post": {
+      "get": {
         "tags": [
           "Chat"
         ],
@@ -172,7 +172,7 @@
       }
     },
     "/api/Chat/get-public-chats-user-{id}-has-not-muted": {
-      "post": {
+      "get": {
         "tags": [
           "Chat"
         ],
@@ -195,7 +195,7 @@
       }
     },
     "/api/Chat/get-group-chats-user-{id}-is-in": {
-      "post": {
+      "get": {
         "tags": [
           "Chat"
         ],
@@ -218,7 +218,7 @@
       }
     },
     "/api/Chat/get-group-chats-user-{id}-has-muted": {
-      "post": {
+      "get": {
         "tags": [
           "Chat"
         ],
@@ -241,7 +241,7 @@
       }
     },
     "/api/Chat/get-group-chats-user-{id}-has-not-muted": {
-      "post": {
+      "get": {
         "tags": [
           "Chat"
         ],
@@ -295,7 +295,7 @@
       }
     },
     "/api/Message/get-messages-from-chat-{id}": {
-      "post": {
+      "get": {
         "tags": [
           "Message"
         ],
@@ -623,7 +623,7 @@
       }
     },
     "/api/UserChatRelationship/get-users-in-chat-{id}": {
-      "post": {
+      "get": {
         "tags": [
           "UserChatRelationship"
         ],
@@ -645,8 +645,39 @@
         }
       }
     },
-    "/api/UserRelationship/get-incoming-friend-requests-{id}": {
+    "/api/UserRelationship/send-friend-request": {
       "post": {
+        "tags": [
+          "UserRelationship"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserRelationship/get-incoming-friend-requests-{id}": {
+      "get": {
         "tags": [
           "UserRelationship"
         ],
@@ -669,7 +700,7 @@
       }
     },
     "/api/UserRelationship/get-outcoming-friend-requests-{id}": {
-      "post": {
+      "get": {
         "tags": [
           "UserRelationship"
         ],
@@ -692,7 +723,7 @@
       }
     },
     "/api/UserRelationship/get-friends": {
-      "post": {
+      "get": {
         "tags": [
           "UserRelationship"
         ],
@@ -845,6 +876,20 @@
             "type": "integer",
             "format": "int32",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RequestDTO": {
+        "type": "object",
+        "properties": {
+          "requestorId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "targetId": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

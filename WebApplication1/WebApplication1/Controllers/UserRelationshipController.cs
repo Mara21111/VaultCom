@@ -25,6 +25,10 @@ namespace WebApplication1.Controllers
             _URService = URService;
         }
 
+        [HttpPost("send-friend-request")]
+        public Task<IActionResult> SendFriendRequest(RequestDTO dto)
+            => HandleService(() => _URService.SendFriendRequestAsync(dto));
+
         [HttpGet("get-incoming-friend-requests-{id}")]
         public Task<IActionResult> GetIncomingFriendRequest(int id)
             => HandleService(() => _URService.GetIncomingFriendRequestsAsync(id));

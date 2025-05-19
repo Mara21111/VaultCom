@@ -36,8 +36,8 @@ namespace WebApplication1.Services.Implementations
             {
                 UserId = dto.UserId,
                 ChatId = dto.ChatId,
-                Content = dto.Message,
-                URLLink = IsLinkRegex(dto.Message) ? dto.Message : "",
+                Content = dto.Content,
+                URLLink = IsLinkRegex(dto.Content) ? dto.Content : "",
                 Time = DateTime.Now, // todle se nekde posere
                 IsEdited = false,
                 IsPinned = false,
