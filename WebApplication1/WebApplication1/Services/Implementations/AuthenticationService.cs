@@ -25,14 +25,24 @@ namespace WebApplication1.Services.Implementations
             _tokenService = tokenService;
         }
 
-        public async Task<AuthResult> LoginAsync(LoginDTO loginDto)
+        public async Task<AuthResult> LoginAsync(LoginDTO dto)
         {
-            var user = _context.User.FirstOrDefault(x => x.Username == loginDto.Username);
+            if (dto.Username is null || dto.Password is null)
+            {
+                return new AuthResult { Success = false, Message = "credentials are null" };
+            }
+
+            var user = await _context.User.Where(x => x.Username == dto.Username).FirstOrDefaultAsync();
+
+            if (user is null)
+            {
+                return new AuthResult { Success = false, Message = "invalid username or password" };
+            }
 
             var hasher = new PasswordHasher<User>();
-            var hsh = hasher.VerifyHashedPassword(user, user.Password, loginDto.Password);
+            var hsh = hasher.VerifyHashedPassword(user, user.Password, dto.Password);
 
-            if (user != null && hsh == PasswordVerificationResult.Success)
+            if (hsh == PasswordVerificationResult.Success)
             {
                 var token = _tokenService.Create(user);
 
@@ -43,11 +53,7 @@ namespace WebApplication1.Services.Implementations
                 };
             }
 
-            return new AuthResult
-            {
-                Success = false,
-                Message = "Invalid username or password"
-            };
+            return new AuthResult { Success = false, Message = "invalid username or password" };
         }
 
     }
