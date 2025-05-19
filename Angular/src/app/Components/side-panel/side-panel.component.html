@@ -7,23 +7,23 @@
   <div class="info-group">
     <div class="info-row">
       <span class="info-label">Username:</span>
-      <span class="info-value">{{ user?.Username }}</span>
+      <span class="info-value">{{ user?.username }}</span>
     </div>
     <div class="info-row">
       <span class="info-label">Bio:</span>
-      <span class="info-value">{{ user?.Bio || '---'  }}</span>
+      <span class="info-value">{{ user?.bio || '---'  }}</span>
     </div>
     <div class="info-row">
       <span class="info-label">Email:</span>
-      <span class="info-value">{{ user?.Email || '---'  }}</span>
+      <span class="info-value">{{ user?.email || '---'  }}</span>
     </div>
     <div class="info-row">
       <span class="info-label">Date Created:</span>
-      <span class="info-value">{{ user?.CreatedAt }}</span>
+      <span class="info-value">{{ user?.createdAt }}</span>
     </div>
     <div class="info-row">
       <span class="info-label">Ban Ends:</span>
-      <span class="info-value">{{ user?.BanEnd }}</span>
+      <span class="info-value">{{ user?.banEnd }}</span>
     </div>
     <div class="info-row">
       <span class="info-label">Reports Count:</span>
@@ -31,7 +31,7 @@
     </div>
   </div>
 
-  <div class="button-group" *ngIf="activeUser?.IsAdmin">
+  <div class="button-group" *ngIf="activeUser?.isAdmin">
     <button class="action-button timeout-button" [ngClass]="{'active': !banSelected && isTimeoutOrBanSelected}" (click)="onTimeoutClick()">Time-out</button>
     <button class="action-button ban-button" [ngClass]="{'active': banSelected && isTimeoutOrBanSelected}" (click)="onBanClick()">Ban</button>
   </div>

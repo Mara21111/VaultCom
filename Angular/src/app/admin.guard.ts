@@ -12,7 +12,7 @@ export const adminGuard: CanActivateFn = (route, state) => {
 
   return userService.GetFromToken().pipe(
     map(user => {
-      if (user && user.IsAdmin) {
+      if (user && user.isAdmin) {
         return true;
       } else {
         router.navigate(['/main']);

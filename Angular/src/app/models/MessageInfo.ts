@@ -1,8 +1,7 @@
-
 export class MessageInfo
 {
-    Id: number;
-    UserId: number;
-    MessageId: number;
-    Seen: boolean;
+    id: number;
+    userId: number;
+    messageId: number;
+    seen: boolean;
 }

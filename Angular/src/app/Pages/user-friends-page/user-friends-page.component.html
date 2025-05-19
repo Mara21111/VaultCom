@@ -35,9 +35,9 @@
           <div class="table-body">
             <div class="table-row" *ngFor="let user of Requests">
               <div class="col" (click)="GoToUser(user.id)">
-                {{ user?.Username }}
+                {{ user?.username }}
               </div>
-              <div class="col">{{ user?.Bio }}</div>
+              <div class="col">{{ user?.bio }}</div>
               <div class="col action-buttons">
                 <button class="btn btn-success" (click)="AcceptRequest(user.id)">Accept</button>
                 <button class="btn btn-danger" (click)="RejectRequest(user.id)">Reject</button>
@@ -63,8 +63,8 @@
           </div>
           <div class="table-body">
             <div class="table-row" *ngFor="let friend of Friends" (click)="GoToUser(friend.id)">
-              <div class="col">{{ friend?.Username }}</div>
-              <div class="col">{{ friend?.Bio }}</div>
+              <div class="col">{{ friend?.username }}</div>
+              <div class="col">{{ friend?.bio }}</div>
               <div class="col">Nickname Here</div>
             </div>
           </div>

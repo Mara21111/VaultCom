@@ -51,7 +51,7 @@ export class UserFriendsPageComponent {
 
   public getUsername(user_id: number): string {
     const user = this.users.find(user => user.id = user_id);
-    return user ? user.Username : 'Unknown';
+    return user ? user.username : 'Unknown';
   }
 
   public addFriend(): void {
@@ -62,7 +62,7 @@ export class UserFriendsPageComponent {
       return;
     }
 
-    let receiver_id: number = this.users.find(user => user.Username === this.newFriendUsername)?.id ?? 0;
+    let receiver_id: number = this.users.find(user => user.username === this.newFriendUsername)?.id ?? 0;
 
     if (receiver_id === 0) {
       this.PopupMessage = 'Invalid name: ' + this.newFriendUsername;

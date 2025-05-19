@@ -1,10 +1,10 @@
 export class UserRelationship {
-    Id: number;
-    SenderId: number;
-    ReceiverUserId: number;
-    IsBlocked: boolean;
-    IsMuted: boolean;
-    IsFriend: boolean;
-    Pending: boolean;
-    Nickname: string;
+    id: number;
+    senderId: number;
+    receiverUserId: number;
+    isBlocked: boolean;
+    isMuted: boolean;
+    isFriend: boolean;
+    pending: boolean;
+    nickname: string;
 }

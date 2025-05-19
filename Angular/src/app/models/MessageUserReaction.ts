@@ -1,7 +1,7 @@
 export class MessageUserReaction
 {
-    Id: number;
-    UserId: number;
-    MessageId: number;
-    ReactionId: number;
+    id: number;
+    userId: number;
+    messageId: number;
+    reactionId: number;
 }

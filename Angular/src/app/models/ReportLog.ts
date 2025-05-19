@@ -1,7 +1,7 @@
 export class ReportLog
 {
-    Id: number;
-    UserId: number;
-    ReportedUserId: number;
-    Message: string;
+    id: number;
+    userId: number;
+    reportedUserId: number;
+    message: string;
 }

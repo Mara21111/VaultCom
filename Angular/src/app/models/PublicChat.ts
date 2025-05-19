@@ -1,11 +1,11 @@
 export class PublicChat {
-  Id: number;
-  Title: string;
-  Description: string;
+  id: number;
+  title: string;
+  description: string;
 }
 
 export class CreatePublicChatDTO {
-  Id: number;
-  CreatorId: number;
-  Desc: string;
+  creatorId: number;
+  title: string;
+  desc: string;
 }

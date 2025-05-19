@@ -40,7 +40,7 @@ export class ReportsPageComponent {
 
   getUsername(userId: number): string {
     const user = this.users.find(u => u.id === userId);
-    return user ? user.Username : 'Unknown';
+    return user ? user.username : 'Unknown';
   }
 
   closePanel() {
@@ -56,7 +56,7 @@ export class ReportsPageComponent {
 
       const query = this.searchValue.toLowerCase();
       return reports.filter(report =>
-        this.getUsername(report.UserId).toLowerCase().includes(query)
+        this.getUsername(report.userId).toLowerCase().includes(query)
       );
     }
 

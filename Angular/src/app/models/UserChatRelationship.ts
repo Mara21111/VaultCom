@@ -1,7 +1,11 @@
-export class UserChatRelationship
-{
-    Id: number;
-    UserId: number;
-    ChatId: number;
-    MutedChat: boolean;
+export class UserChatRelationship {
+    id: number;
+    userId: number;
+    chatId: number;
+    mutedChat: boolean;
+}
+
+export class UserChatRelationshipDTO {
+  chatId: number;
+  userId: number;
 }

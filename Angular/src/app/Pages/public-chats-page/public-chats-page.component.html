@@ -23,7 +23,7 @@
           </div>
           <div class="table-body">
             <div class="table-row" *ngFor="let item of Chats">
-              <div class="col"><i class="bi bi-pencil-fill pencil-icon"></i>{{ item.Title }}</div>
+              <div class="col"><i class="bi bi-pencil-fill pencil-icon"></i>{{ item.title }}</div>
               <div class="col">256</div>
               <div class="col">58</div>
               <div class="col"><button class="delete-button btn btn-danger" (click)="DeleteChat(item.Id)">

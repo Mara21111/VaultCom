@@ -172,7 +172,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.MessageController",
     "Method": "GetMessagesFromChat",
-    "RelativePath": "api/Message/get-messages-from-chat-{id}",
+    "RelativePath": "api/Message/get-messages-in-chat-{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

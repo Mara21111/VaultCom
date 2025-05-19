@@ -1,62 +1,64 @@
 export class User {
     id: number;
-    Email: string;
-    Password: string;
-    Username: string;
-    Bio: string;
-    Status: number;
-    IsPublic: boolean;
-    IsAdmin: boolean;
-    CreatedAt: Date;
-    PrivateKey: string;
-    PublicKey: string;
-    TimeoutEnd: Date;
-    BanEnd: Date;
-    SafeMode: boolean;
+    email: string;
+    password: string;
+    username: string;
+    bio: string;
+    status: number;
+    isPublic: boolean;
+    isAdmin: boolean;
+    createdAt: Date;
+    privateKey: string;
+    publicKey: string;
+    timeoutEnd: Date;
+    banEnd: Date;
+    safeMode: boolean;
 }
 
 export class CreateUserDTO {
-  Username: string;
-  Email: string;
-  Password: string;
-  Bio: string;
-  IsAdmin: boolean;
+  username: string;
+  email: string;
+  password: string;
+  bio: string;
+  isAdmin: boolean;
 }
 
 export class EditUserDTO {
-  Username: string;
-  Email: string;
-  Password: string;
-  Bio: string;
+  userId: number;
+  username: string;
+  email: string;
+  password: string;
+  bio: string;
 }
 
 export class BaseUserDataDTO {
-  Username: string;
-  Bio: string;
-  CreatedAt: Date;
-  BanEnd: Date | null;
-  TimeoutEnd: Date | null;
+  username: string;
+  bio: string;
+  createdAt: Date;
+  banEnd: Date | null;
+  timeoutEnd: Date | null;
 }
 
 export class PublicUserDataDTO {
-  Email: string;
-  SafeMode: boolean;
+  email: string;
+  safeMode: boolean;
 }
 
 export class UserFilterDTO {
-  Banned: boolean | null;
-  TimedOut: boolean | null;
-  Status: number | null;
+  banned: boolean | null;
+  timedOut: boolean | null;
+  status: number | null;
 }
 
 export class UserToggleDTO {
-  ValueName: string;
-  Value: boolean;
+  userId: number;
+  valueName: string;
+  value: boolean;
 }
 
 export class LoginDTO {
-  Username: string;
-  Password: string;
+  username: string;
+  password: string;
 }
 
 export class AuthResult

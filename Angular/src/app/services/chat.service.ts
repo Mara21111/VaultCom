@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Chat } from '../models/Chat';
+import { Chat, ChatGetterDTO } from '../models/Chat';
 import { Observable, retry } from 'rxjs';
 import { User } from '../models/User';
 import { UserChatRelationship } from '../models/UserChatRelationship';
@@ -11,7 +11,13 @@ import { link } from 'fs';
 })
 export class UserChatService {
 
-  public constructor(private http: HttpClient) {}
+  public constructor(private http: HttpClient) {
+
+  }
+
+  public getAllPublicChats(): Observable<ChatGetterDTO> {
+    return this.http.get('http://localhost:5000/api/Chat/get-public-chats-user-1-is-in')
+  }
 
   public CreateLink(link: UserChatRelationship): Observable<UserChatRelationship>{
     return this.http.post<UserChatRelationship>('http://localhost:5000/api/UserChat/create-user-chat-link', link);
@@ -21,12 +27,12 @@ export class UserChatService {
     return this.http.delete<UserChatRelationship>('http://localhost:5000/api/UserChat/delete-user' + userId + '-chat' + chatId + '-link')
   }
 
-  public ChatsUserIsIn(user_id: number): Observable<Chat[]> {
-    return this.http.get<Chat[]>(`http://localhost:5000/api/Chat/get-chats-user-${user_id}-is-in`);
+  public ChatsUserIsIn(user_id: number): Observable<ChatGetterDTO[]> {
+    return this.http.get<ChatGetterDTO[]>(`http://localhost:5000/api/Chat/get-chats-user-${user_id}-is-in`);
   }
 
   public UsersInChat(id: number): Observable<User[]> {
-    return this.http.get<User[]>('http://localhost:5000/api/UserChat/users-in-chat' + id);
+    return this.http.get<User[]>('http://localhost:5000/api/UserChat/users-in-chat-' + id);
   }
 
   public UserInChat(userId: number, chatId: number): Observable<boolean>{
@@ -40,10 +46,10 @@ export class UserChatService {
   public newLink(userId: number, chatId: number): UserChatRelationship {
     let link = new UserChatRelationship();
 
-    link.ChatId = chatId;
-    link.UserId = userId;
-    link.MutedChat = false;
-    link.Id = 0;
+    link.chatId = chatId;
+    link.userId = userId;
+    link.mutedChat = false;
+    link.id = 0;
 
     return link;
   }

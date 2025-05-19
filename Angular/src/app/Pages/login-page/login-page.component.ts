@@ -39,8 +39,8 @@ export class LoginPageComponent {
     this.errorMessage = false;
 
     var loginDTO = new LoginDTO;
-    loginDTO.Password = this.form.value.Password;
-    loginDTO.Username = this.form.value.Username;
+    loginDTO.password = this.form.value.Password;
+    loginDTO.username = this.form.value.Username;
 
     this.authentication.login(loginDTO).pipe(catchError(error => {
         this.errorMessage = true;

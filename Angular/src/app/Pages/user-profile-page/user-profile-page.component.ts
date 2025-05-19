@@ -35,21 +35,21 @@ export class UserProfilePageComponent {
     this.userService.GetFromToken().subscribe(result => {
       this.user = result;
       this.form = this.fb.group({
-        username: this.user.Username,
-        email: this.user.Email,
+        username: this.user.username,
+        email: this.user.email,
         curPassword: '',
         password: '',
-        bio: this.user.Bio,
+        bio: this.user.bio,
       });
     });
   }
 
   togglePublicAccount() {
-    this.user.IsPublic = !this.user.IsPublic;
+    this.user.isPublic = !this.user.isPublic;
   }
 
   toggleKidsMode() {
-    this.user.SafeMode = !this.user.SafeMode;
+    this.user.safeMode = !this.user.safeMode;
   }
 
   toggleDarkMode() {
@@ -66,9 +66,9 @@ export class UserProfilePageComponent {
   }
 
   updateUser() {
-    this.user.Username = this.form.value.username;
-    this.user.Email = this.form.value.email;
-    this.user.Bio = this.form.value.bio;
+    this.user.username = this.form.value.username;
+    this.user.email = this.form.value.email;
+    this.user.bio = this.form.value.bio;
   }
 
   save() {

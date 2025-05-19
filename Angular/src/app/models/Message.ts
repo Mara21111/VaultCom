@@ -1,12 +1,18 @@
-export class Message
-{
-    Id: number;
-    ChatId: number;
-    UserId: number;
-    PreviousMessageId: number;
-    Content: string;
-    URLLink: string;
-    Time: Date;
-    IsEdited: boolean;
-    IsPinned: boolean;
+export class Message {
+    id: number;
+    chatId: number;
+    userId: number;
+    previousMessageId: number;
+    content: string;
+    urlLink: string;
+    time: Date;
+    isEdited: boolean;
+    isPinned: boolean;
+}
+
+export class MessageDTO {
+  userId: number;
+  chatId: number;
+  content: string;
+  replyMessageId: number | null;
 }

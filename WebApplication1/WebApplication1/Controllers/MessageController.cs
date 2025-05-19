@@ -24,7 +24,7 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> SendMessage([FromBody] MessageDTO dto) 
             => HandleService(() => _messageService.SendMessageAsync(dto));
 
-        [HttpGet("get-messages-from-chat-{id}")]
+        [HttpGet("get-messages-in-chat-{id}")]
         public Task<IActionResult> GetMessagesFromChat(int id)
             => HandleService(() => _messageService.GetMessagesByChatAsync(id));
 

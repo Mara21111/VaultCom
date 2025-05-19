@@ -1,11 +1,11 @@
 export class GroupChat {
-  Id: number;
-  Title: string;
-  OwnerId: number;
+  id: number;
+  title: string;
+  ownerId: number;
 }
 
 export class CreateGroupChatDTO {
-  CreatorId: number;
-  Title: string;
-  UserIds: number[];
+  creatorId: number;
+  title: string;
+  userIds: number[];
 }

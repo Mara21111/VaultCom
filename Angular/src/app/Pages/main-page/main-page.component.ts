@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { User } from '../../models/User';
 import { UserService } from '../../services/user.service';
 import { PublicChatService } from '../../services/public_chat.service';
-import { Chat } from '../../models/Chat';
+import { Chat, ChatGetterDTO } from '../../models/Chat';
 import { UserChatService } from '../../services/chat.service';
 import { Message } from '../../models/Message';
 import { MessageService } from '../../services/message.service';
@@ -31,9 +31,9 @@ export class MainPageComponent {
   pinnedMessages: boolean = false;
   showChatInfo: boolean = false;
   reportPopup: boolean = false;
-  userChats: Chat[] = [];
+  userChats: ChatGetterDTO[] = [];
   publicChats: PublicChat[] = [];
-  activeChat: Chat = new Chat;
+  activeChat: ChatGetterDTO = new ChatGetterDTO();
   allMessages: Message[] = [];
   newMessage: Message = new Message;
   searchChat: string = '';
@@ -46,8 +46,8 @@ export class MainPageComponent {
     private userChatService: UserChatService,
     private messageService: MessageService,
     private reportsService: ReportsService) {
-      this.newMessage.IsEdited = false;
-      this.newMessage.IsPinned = false;
+      this.newMessage.isEdited = false;
+      this.newMessage.isPinned = false;
   }
 
   ngOnInit() {
@@ -76,12 +76,12 @@ export class MainPageComponent {
   }
 
   refreshMessages(){
-    this.messageService.getMessagesInChat(this.activeChat.Id).subscribe(result => this.allMessages = result);
+    this.messageService.getMessagesInChat(this.activeChat.id).subscribe(result => this.allMessages = result);
   }
 
-  changeActiveChat(chat: Chat){
+  changeActiveChat(chat: ChatGetterDTO){
     this.activeChat = chat;
-    this.userChatService.UsersInChat(chat.Id).subscribe(result => this.activeChatUsers = result);
+    this.userChatService.UsersInChat(chat.id).subscribe(result => this.activeChatUsers = result);
     this.refreshMessages();
   }
 
@@ -99,11 +99,11 @@ export class MainPageComponent {
 
   setChats(){
     this.showChatInfo = false;
-    this.activeChat = new Chat;
+    this.activeChat = new ChatGetterDTO();
     this.allMessages = [];
   }
 
-  getChats(): Chat[]{
+  getChats(): ChatGetterDTO[]{
     /*const chats = this.public_chats ? this.publicChats : this.userChats;
 
 
@@ -120,25 +120,25 @@ export class MainPageComponent {
   }
 
   sendMessage(){
-    if(this.activeChat.Id == null){
+    if(this.activeChat.id == null){
       throw new Error("Chat not selected");
     }
 
     this.newMessage.UserId = this.user.id;
-    this.newMessage.ChatId = this.activeChat.Id;
+    this.newMessage.chatId = this.activeChat.id;
     this.messageService.createMessage(this.newMessage).pipe(
           catchError(error =>{throw error})
         ).subscribe(_ => this.refreshMessages());
-    this.newMessage.Content = '';
+    this.newMessage.content = '';
   }
 
   getUsername(userId: number): string {
     const user = this.activeChatUsers.find(u => u.id === userId);
-    return user ? user.Username : 'Unknown';
+    return user ? user.username : 'Unknown';
   }
 
   messages(): Message[]{
-    const messages = this.pinnedMessages ? this.allMessages.filter(m => m.IsPinned === true) : this.allMessages;
+    const messages = this.pinnedMessages ? this.allMessages.filter(m => m.isPinned === true) : this.allMessages;
 
     if (!this.searchMessage?.trim()) {
       return messages;
@@ -146,12 +146,12 @@ export class MainPageComponent {
 
     const query = this.searchMessage.toLowerCase();
     return messages.filter(message =>
-      message.Content.toLowerCase().includes(query)
+      message.content.toLowerCase().includes(query)
     );
   }
 
   isUserInPublicChat(chatId: number): Boolean{
-    return !!this.userChats.find(x => x.Id == chatId);
+    return !!this.userChats.find(chat => chat.id == chatId);
   }
 
   addUserToPublicChat(chatId: number){
@@ -181,9 +181,9 @@ export class MainPageComponent {
 
   reportUser(){
     let report = new ReportLog;
-    report.UserId = this.user.id;
-    report.ReportedUserId = this.reportUserId;
-    report.Message = this.reportReason;
+    report.userId = this.user.id;
+    report.reportedUserId = this.reportUserId;
+    report.message = this.reportReason;
     this.reportPopup = false;
 
     this.reportsService.CreateReport(report).subscribe();

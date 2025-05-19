@@ -73,7 +73,7 @@ export class RegisterComponent {
     this.errorText = '';
     this.isLoading = true;
 
-    if (this.user.Username === '') {
+    if (this.user.username === '') {
       this.errorText = 'Zadejte uživatelské jméno.';
       this.errorMessage = true;
       this.isLoading = false;
@@ -81,7 +81,7 @@ export class RegisterComponent {
       return;
     }
 
-    if (this.user.Password !== this.rPassword) {
+    if (this.user.password !== this.rPassword) {
       this.errorText = 'Hesla se neshodují.';
       this.errorMessage = true;
       this.isLoading = false;
@@ -90,11 +90,11 @@ export class RegisterComponent {
     }
 
     const cto: CreateUserDTO = {
-      Username: this.user.Username,
-      Email: this.user.Email,
-      Password: this.user.Password,
-      Bio: this.user.Bio,
-      IsAdmin: false
+      username: this.user.username,
+      email: this.user.email,
+      password: this.user.password,
+      Bio: this.user.bio,
+      isAdmin: false
     };
 
     // Služba pro vytvoření uživatele
@@ -115,8 +115,8 @@ export class RegisterComponent {
     ).subscribe(() => {
       // Po úspěšné registraci se pokusíme přihlásit
       const dto = new LoginDTO();
-      dto.Username = this.form.value.username;
-      dto.Password = this.form.value.password;
+      dto.username = this.form.value.username;
+      dto.password = this.form.value.password;
 
       this.authService.login(dto).pipe(
         catchError(error => {
@@ -144,9 +144,9 @@ export class RegisterComponent {
   }
 
   public GetValues(): void{
-    this.user.Username = this.form.get('username')!.value;
-    this.user.Email = this.form.get('email')?.value;
-    this.user.Password = this.form.get('password')!.value;
+    this.user.username = this.form.get('username')!.value;
+    this.user.email = this.form.get('email')?.value;
+    this.user.password = this.form.get('password')!.value;
     this.rPassword = this.form.get('rPassword')!.value;
   }
 }

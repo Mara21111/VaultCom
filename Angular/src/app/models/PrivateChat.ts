@@ -1,5 +1,5 @@
 export class PrivateChat {
-  Id: number;
-  UserAId: number;
-  UserBId: number;
+  id: number;
+  userAId: number;
+  userBId: number;
 }
