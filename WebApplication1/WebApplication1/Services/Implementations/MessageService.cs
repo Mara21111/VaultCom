@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Org.BouncyCastle.Asn1.X509;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using WebApplication1.Models.Data;
 using WebApplication1.Models.DTO;
@@ -46,12 +48,33 @@ namespace WebApplication1.Services.Implementations
                 PreviousMessageId = dto.ReplyMessageId.HasValue ? dto.ReplyMessageId.Value : 0,
             };
 
+            if (context.Chat.Find(dto.ChatId).Type == 3)
+            {
+                return await SendEncryptedMessageAsync(dto, msg);
+            }
+
             context.Message.Add(msg);
             await context.SaveChangesAsync();
 
             await _userService.SetActivityAsync(dto.UserId);
 
             return new ServiceResult { Success = true, Data = msg };
+        }
+
+        public async Task<ServiceResult> SendEncryptedMessageAsync(MessageDTO dto, Message msg)
+        {
+            PrivateChat chat = await context.PrivateChat.FindAsync(context.Chat.Find(dto.ChatId).ChatId);
+
+            // todo
+            /*using (var rsa = RSA.Create())
+            {
+                var otherUser = await context.User.FindAsync(chat.GetOtherUser(dto.UserId));
+                rsa.FromXmlString(otherUser.PublicKey);
+                byte[] data = Encoding.UTF8.GetBytes(msg.Content);
+                msg.Content = rsa.Encrypt(data, RSAEncryptionPadding.Pkcs1);
+            }*/
+
+            return new ServiceResult { Success = true, Data = chat };
         }
 
         public async Task<ServiceResult> GetMessagesByChatAsync(int id)

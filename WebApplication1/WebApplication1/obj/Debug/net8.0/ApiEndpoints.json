@@ -233,6 +233,54 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "WebApplication1.Controllers.PrivateChatController",
+    "Method": "CreatePrivatChat",
+    "RelativePath": "api/PrivateChat/create-private-chat",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "WebApplication1.Models.DTO.UserRelationshipDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.PrivateChatController",
+    "Method": "GetUserIds",
+    "RelativePath": "api/PrivateChat/get-user-ids-in-chat-{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.PrivateChatController",
+    "Method": "GetUsers",
+    "RelativePath": "api/PrivateChat/get-users-in-chat-{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WebApplication1.Controllers.PublicChatController",
     "Method": "CreatePublicChat",
     "RelativePath": "api/PublicChat/create-public-chat",

@@ -6,6 +6,5 @@ namespace WebApplication1.Services.Interfaces
     public interface IPublicChatService
     {
         Task<ServiceResult> CreatePublicChatAsync(CreatePublicChatDTO dto);
-        /*Task<ServiceResult> CreateGroupChatAsync(CreateGroupChatDTO dto);*/
     }
 }
