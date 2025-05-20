@@ -5,7 +5,7 @@ export class PublicChat {
 }
 
 export class CreatePublicChatDTO {
-  creatorId: number;
-  title: string;
-  desc: string;
+  CreatorId: number;
+  Title: string;
+  Desc: string;
 }

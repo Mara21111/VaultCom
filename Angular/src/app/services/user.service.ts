@@ -59,7 +59,6 @@ export class UserService {
 
   public getFromToken(): Observable<User> {
     let id = this.authService.getUserIdFromToken() ?? 0;
-    console.log('get from token ' + id);
     return this.getSelfUser(id);
   }
 }

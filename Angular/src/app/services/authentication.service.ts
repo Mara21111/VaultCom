@@ -13,7 +13,7 @@ export class AuthenticationService {
 
   public login(loginDTO: LoginDTO): Observable<AuthResult> {
     return this.http.post<AuthResult>('http://localhost:5000/api/Authentication/login', loginDTO).pipe(
-      tap(result => {this.setToken(result.token); console.log("Aspoň něco: " + result.token)})
+      tap(result => {this.setToken(result.token)})
     );
   }
 
@@ -34,7 +34,6 @@ export class AuthenticationService {
   }
 
   public setToken(token: string): void {
-    console.log("Setting token: " + token);
     sessionStorage.setItem('token', token);
   }
 
@@ -44,11 +43,8 @@ export class AuthenticationService {
 
     try {
       const decoded = jwtDecode<jwtPayload>(token);
-      console.log('decoded id ' + decoded.id)
       return decoded.id || null
     } catch(e) {
-      console.log('Unable to decode token')
-      console.error('Unable to decode token', e);
       return null;
     }
   }
