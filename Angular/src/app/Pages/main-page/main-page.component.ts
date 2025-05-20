@@ -89,7 +89,7 @@ export class MainPageComponent {
   changeChatsToPublic(){
     this.public_chats = true;
     this.setChats();
-    this.publicChatService.GetAllPublicChats().subscribe(result => this.publicChats = result)
+    this.publicChatService.getAllPublicChats().subscribe(result => this.publicChats = result)
   }
 
   changeChatsToPrivate(){

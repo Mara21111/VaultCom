@@ -26,7 +26,7 @@
             </button>
           </div>
           <div class="error-message" *ngIf="errorMessage">
-            Přihlášení se nezdařilo. Zkontroluj přihlašovací údaje.
+            {{ this.errorMessage }}
           </div>
           <div class="link-group">
             <a class="text-link" routerLink="/register" routerLinkActive="active">Forgot password?</a>

@@ -25,16 +25,16 @@ export class PublicChatsPageComponent {
   }
 
   ngOnInit() {
-    this.chatService.GetAllPublicChats().subscribe(result => {
+    this.chatService.getAllPublicChats().subscribe(result => {
       this.Chats = result;
     });
   }
 
-  CreateChat(): void {
+  createChat(): void {
 
   }
 
-  DeleteChat(chat_id: number): void {
+  deleteChat(chat_id: number): void {
 
   }
 }

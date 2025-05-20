@@ -33,7 +33,7 @@ export class LoginPageComponent {
       Password: ''
     });
   }
-
+/*
   public save(): void {
     this.isLoading = true;
     this.errorMessage = false;
@@ -53,6 +53,30 @@ export class LoginPageComponent {
         this.router.navigate(['/main']);
       }
       this.isLoading = false; // ← přemístěno sem, a volá se vždy
+    });
+  }
+  */
+
+  public save(): void {
+    this.isLoading = true;
+    this.errorMessage = false; // Resetujeme chybovou zprávu
+
+    var loginDTO = new LoginDTO();
+    loginDTO.password = this.form.value.Password;
+    loginDTO.username = this.form.value.Username;
+
+    this.authentication.login(loginDTO).pipe(
+      catchError(error => {
+        this.isLoading = false;
+        this.errorMessage = error.error?.message;
+        this.triggerShake();
+        return of(null);
+      })
+    ).subscribe(result => {
+      if (result) {
+        this.router.navigate(['/main']);
+      }
+      this.isLoading = false; // Nastavíme loading na false i po úspěchu
     });
   }
 

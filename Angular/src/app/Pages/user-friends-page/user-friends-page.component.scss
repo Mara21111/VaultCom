@@ -41,6 +41,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 40px;
+  position: relative;
 }
 
 .panel {
@@ -60,11 +61,15 @@ body {
 
   .arrow {
     display: inline-block;
-    transition: transform 0.3s ease;
-    font-size: 1.1rem;
+    margin-left: 8px;
 
-    &.open {
-      transform: rotate(90deg); // šipka doprava se otočí dolů
+    svg {
+      transform: rotate(0deg);
+      transition: transform 0.3s ease;
+    }
+
+    &.open svg {
+      transform: rotate(90deg);
     }
   }
 }
@@ -73,7 +78,7 @@ body {
   cursor: pointer;
   user-select: none;
   padding: 12px 18px;
-  margin: -20px -25px 20px -25px; // přetáhne přes padding panelu
+  margin: -20px -25px 20px -25px;
   border-radius: 10px 10px 0 0;
   transition: background-color 0.2s ease;
 
@@ -90,17 +95,35 @@ body {
     color: $text-light;
 
     .arrow {
-      display: inline-block;
-      transition: transform 0.3s ease;
-      font-size: 1.1rem;
+      margin-left: 8px;
+      display: inline-flex;
+      align-items: center;
 
-      &.open {
-        transform: rotate(90deg);
+      svg {
+        transform: rotate(0deg); // doprava
+        transition: transform 0.3s ease;
+      }
+
+      &.open svg {
+        transform: rotate(90deg); // dolů
       }
     }
   }
 }
 
+.collapsible-content {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: max-height 0.35s ease, opacity 0.35s ease, padding 0.25s ease;
+
+  &.open {
+    max-height: 1000px; // nebo víc podle potřeby
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
 
 .table-header {
   display: flex;
@@ -241,5 +264,32 @@ body {
     &:hover {
       background: $table-row-bg;
     }
+  }
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(32, 34, 37, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+
+  .spinner {
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 }
