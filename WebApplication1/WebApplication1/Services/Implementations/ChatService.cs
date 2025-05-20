@@ -81,5 +81,24 @@ namespace WebApplication1.Services.Implementations
 
             return new ServiceResult { Success = true, Data = chatDTOs };
         }
+
+        public async Task<ServiceResult> GetPublicChatsAsync()
+        {
+            var chatIds = await context.PublicChat.Select(x => x.Id).ToListAsync();
+            List<PublicChatGetterDTO> chatsDTO = new List<PublicChatGetterDTO>();
+
+            for (int i = 0; i < await context.PublicChat.CountAsync(); i++)
+            {
+                var chat = context.PublicChat.FindAsync(chatIds[i]).Result;
+                chatsDTO.Add(new PublicChatGetterDTO
+                {
+                    Title = chat.Title,
+                    Users = await context.UserChatRelationship.Where(x => x.ChatId == chatIds[i]).CountAsync(),
+                    ActiveUers = 0 // todo
+                });
+            }
+
+            return new ServiceResult { Success = true, Data = chatsDTO };
+        }
     }
 }

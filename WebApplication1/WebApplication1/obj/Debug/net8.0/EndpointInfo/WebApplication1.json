@@ -294,6 +294,18 @@
         }
       }
     },
+    "/api/Chat/get-public-chats-admin-view": {
+      "get": {
+        "tags": [
+          "Chat"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Message/send-message": {
       "post": {
         "tags": [
