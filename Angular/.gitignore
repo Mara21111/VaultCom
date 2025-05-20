@@ -40,3 +40,10 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Others
+obj/
+FileContentIndex/
+v17/
+*.v2
+*.bin
