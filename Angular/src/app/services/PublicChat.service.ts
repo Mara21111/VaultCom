@@ -14,15 +14,15 @@ export class PublicChatService {
 
   }
 
-  public GetAllPublicChats(): Observable<PublicChat[]> {
+  public getAllPublicChats(): Observable<PublicChat[]> {
     return this.http.get<PublicChat[]>('http://localhost:5000/api/Chat/get-all-public-chats');
   }
 
-  public CreatePublicChat(CreatedChat: CreatePublicChatDTO): Observable<Chat> {
-    return this.http.post<Chat>('http://localhost:5000/api/PublicChat/create-public-chat', CreatedChat)
+  public createPublicChat(CreatedChat: CreatePublicChatDTO): Observable<Chat> {
+    return this.http.post<Chat>('http://localhost:5000/api/Chat/create-public-chat', CreatedChat)
   }
 
-  public DeletePublicChat(chat_id: number, user_id: number): Observable<void> {
+  public deletePublicChat(chat_id: number, user_id: number): Observable<void> {
     return this.http.delete<void>('http://localhost:5000/api/Chat/delete-chat-' + chat_id + '-' + user_id)
   }
 }

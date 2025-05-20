@@ -9,3 +9,10 @@ export class CreatePublicChatDTO {
   Title: string;
   Desc: string;
 }
+
+export class PublicChatGetterDTO {
+  id: number;
+  title: string;
+  users: number;
+  activeUsers: number;
+}

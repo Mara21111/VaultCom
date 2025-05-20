@@ -5,11 +5,11 @@
 <div class="app-container">
 
   <app-base-ui
-  [logOutOn]="true"
-  [adminMenuOn]="true"
-  [profileOn]="true"
-  [friendsOn]="true">
-</app-base-ui>
+    [logOutOn]="true"
+    [adminMenuOn]="true"
+    [profileOn]="true"
+    [friendsOn]="true">
+  </app-base-ui>
 
   <div class="content">
 
@@ -25,7 +25,7 @@
         <div class="chat-item" *ngFor="let item of this.getChats()" (click)="this.changeActiveChat(item)" [ngClass]="{'active': item.id === this.activeChat.id}">
           <div class="message-avatar" style="background-color: #435466"><!--{{ item.name.charAt(0) }}--></div>
           <div class="chat-info">
-            <div class="chat-name"><!--{{ item.name }}-->
+            <div class="chat-name"> {{ item.title }}
               <!--<button class="on-off-button" *ngIf="item.is_Public && this.public_chats" (click)="this.addUserToPublicChat(item.id)">
                 {{ this.isUserInPublicChat(item.id) ? '✓' : '' }}</button>-->
             </div>
@@ -77,13 +77,13 @@
               <p><strong>Bio:</strong> {{ user.bio }}</p>
             </div>
 
-          <div class="user-actions" *ngIf="user.id !== this.user.id">
-            <button (click)="this.muteUser(user)" class="btn mute">Mute</button>
-            <button (click)="this.showReportPopup(user.id)" class="btn ban">Report</button>
+            <div class="user-actions" *ngIf="user.id !== this.user.id">
+              <button (click)="this.muteUser(user)" class="btn mute">Mute</button>
+              <button (click)="this.showReportPopup(user.id)" class="btn ban">Report</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
       <form class="form-log-in" *ngIf="!this.public_chats">
         <div class="footer-bar message-footer">

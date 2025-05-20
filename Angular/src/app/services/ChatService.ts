@@ -5,6 +5,7 @@ import { Observable, retry } from 'rxjs';
 import { User } from '../models/User';
 import { UserChatRelationship } from '../models/UserChatRelationship';
 import { link } from 'fs';
+import {PublicChatGetterDTO} from '../models/PublicChat';
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +50,10 @@ export class ChatService {
 
   public getGroupChatsUserHasNotMuted(userId: number): Observable<ChatGetterDTO[]> {
     return this.http.get<ChatGetterDTO[]>(`http://localhost:5000/api/Chat/get-group-chats-user-has-not-muted-${userId}`);
+  }
+
+  public getPublicChatsAdminView(): Observable<PublicChatGetterDTO[]> {
+    return this.http.get<PublicChatGetterDTO[]>('http://localhost:5000/api/Chat/get-public-chats-admin-view');
   }
 
 

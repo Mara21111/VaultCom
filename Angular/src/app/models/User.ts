@@ -5,7 +5,6 @@ export class User {
   username: string;
   profilePicture: string;
   bio: string;
-  status: number;
   isPublic: boolean;
   isAdmin: boolean;
   createdAt: Date;

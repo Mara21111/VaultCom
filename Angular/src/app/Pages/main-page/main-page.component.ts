@@ -9,7 +9,7 @@ import { PublicChatService } from '../../services/PublicChat.service';
 import { Chat, ChatGetterDTO } from '../../models/Chat';
 import { ChatService } from '../../services/ChatService';
 import { Message } from '../../models/Message';
-import { MessageService } from '../../services/message.service';
+import { MessageService} from '../../services/Message.service';
 import { catchError } from 'rxjs';
 import { ReportsService } from '../../services/Reports.service';
 import { ReportLog } from '../../models/ReportLog';
@@ -89,7 +89,7 @@ export class MainPageComponent {
   changeChatsToPublic(){
     this.public_chats = true;
     this.setChats();
-    this.publicChatService.GetAllPublicChats().subscribe(result => this.publicChats = result)
+    this.publicChatService.getAllPublicChats().subscribe(result => this.publicChats = result)
   }
 
   changeChatsToPrivate(){
@@ -104,7 +104,7 @@ export class MainPageComponent {
     this.allMessages = [];
   }
 
-  getChats(): ChatGetterDTO[]{
+  getChats(): ChatGetterDTO[] {
     /*const chats = this.public_chats ? this.publicChats : this.userChats;
 
 
@@ -116,6 +116,10 @@ export class MainPageComponent {
     return chats.filter(chat =>
       chat..toLowerCase().includes(query)
     );*/
+
+    const chats: ChatGetterDTO[] = [];
+
+    this.chatService.getChatsUserIsIn(this.user.id).subscribe(result => this.userChats = result);
 
     return this.userChats;
   }

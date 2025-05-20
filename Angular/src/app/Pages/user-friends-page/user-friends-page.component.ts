@@ -7,6 +7,8 @@ import { User, BaseUserDataDTO } from '../../models/User';
 import { UserRelationshipService } from '../../services/UserRelationship.service';
 import { UserService } from '../../services/User.service';
 import { FormsModule } from '@angular/forms';
+import { forkJoin } from 'rxjs';
+import { UserRelationshipDTO } from '../../models/UserRelationship';
 
 @Component({
   selector: 'app-user-friends-page',
@@ -27,9 +29,10 @@ export class UserFriendsPageComponent {
   public PopupMessage: string = '';
   public isRequestsOpen: boolean = true;
   public isFriendsOpen: boolean = true;
+  public isLoading: boolean = false;
 
   isSectionOpen = {
-    requests: true,
+    requests: false,
     friends: true,
   };
 
@@ -42,10 +45,26 @@ export class UserFriendsPageComponent {
   }
 
   ngOnInit(): void {
-    this.userService.getFromToken().subscribe(result => this.user = result)
-    this.relationshipService.getIncomingFriendRequests(this.user.id).subscribe(result => this.Requests = result)
-    this.relationshipService.getAllFriends(this.user.id).subscribe(result => this.Friends = result)
-    this.userService.getAllUsers().subscribe(result => this.users = result)
+    this.isLoading = true;
+    this.userService.getFromToken().subscribe(user => {
+      this.user = user
+      this.loadPage()
+    });
+  }
+
+  private loadPage() {
+    forkJoin({
+      friends: this.relationshipService.getAllFriends(this.user.id),
+      requests: this.relationshipService.getIncomingFriendRequests(this.user.id)
+    }).subscribe({
+      next: ({ friends, requests }: {friends: BaseUserDataDTO[], requests: BaseUserDataDTO[]}) => {
+        this.Friends = friends;
+        this.Requests = requests;
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
   }
 
   public goToUser(user_id: number): void {
@@ -96,15 +115,20 @@ export class UserFriendsPageComponent {
     this.isSectionOpen[section] = !this.isSectionOpen[section];
   }
 
-  public AcceptRequest(sender_id: number): void {
+  public acceptRequest(targetId: number): void {
+    const request = new UserRelationshipDTO();
+
+    request.requestorId = this.user.id;
+    request.targetId = targetId;
+
+    this.relationshipService.acceptFriendRequest(request);
+  }
+
+  public rejectRequest(sender_id: number): void {
 
   }
 
-  public RejectRequest(sender_id: number): void {
-
-  }
-
-  public CancelRequest(sender_id: number): void {
+  public cancelRequest(sender_id: number): void {
 
   }
 }

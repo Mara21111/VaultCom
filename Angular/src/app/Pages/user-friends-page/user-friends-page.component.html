@@ -19,11 +19,15 @@
     <div class="content-area">
 
       <!-- Friend Requests -->
-      <section class="panel friends-panel" *ngIf="Requests.length !== 0">
+      <section class="panel friends-panel" [class.active]="isSectionOpen.requests" *ngIf="Requests.length !== 0">
         <div class="clickable-header" (click)="toggleSection('requests')">
           <div class="section-title">
             Friend Requests
-            <span class="arrow" [class.open]="isSectionOpen.requests">▶</span>
+            <span class="arrow" [class.open]="isSectionOpen.requests">
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <path d="M8 5l8 7-8 7" fill="none" stroke="white" stroke-width="2" />
+              </svg>
+            </span>
           </div>
         </div>
         <div class="collapsible-content" [class.open]="isSectionOpen.requests">
@@ -39,8 +43,8 @@
               </div>
               <div class="col">{{ user?.bio }}</div>
               <div class="col action-buttons">
-                <button class="btn btn-success" (click)="AcceptRequest(user.id)">Accept</button>
-                <button class="btn btn-danger" (click)="RejectRequest(user.id)">Reject</button>
+                <button class="btn btn-success" (click)="acceptRequest(user.id)">Accept</button>
+                <button class="btn btn-danger" (click)="rejectRequest(user.id)">Reject</button>
               </div>
             </div>
           </div>
@@ -48,11 +52,15 @@
       </section>
 
       <!-- Your Friends -->
-      <section class="panel friends-panel">
+      <section class="panel friends-panel" [class.active]="isSectionOpen.friends">
         <div class="clickable-header" (click)="toggleSection('friends')">
           <div class="section-title">
             Your Friends
-            <span class="arrow" [class.open]="isSectionOpen.friends">▶</span>
+            <span class="arrow" [class.open]="isSectionOpen.friends">
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <path d="M8 5l8 7-8 7" fill="none" stroke="white" stroke-width="2" />
+              </svg>
+            </span>
           </div>
         </div>
         <div class="collapsible-content" [class.open]="isSectionOpen.friends">
@@ -70,6 +78,10 @@
           </div>
         </div>
       </section>
+
+      <div *ngIf="isLoading" class="loading-overlay">
+        <div class="spinner"></div>
+      </div>
 
     </div>
   </div>
