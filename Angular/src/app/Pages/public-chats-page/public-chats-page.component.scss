@@ -362,3 +362,66 @@ body {
     }
   }
 }
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000000b3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  .popup {
+    background: $table-row-bg;
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 500px;
+    box-shadow: 0 0 10px #000;
+
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      max-height: 300px;
+      padding: 0.5rem;
+      background: #282e32;
+      color: white;
+      border: 1px solid #969696;
+      border-radius: 6px;
+      margin: 0.5rem 0;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.2rem;
+      background: #282e32;
+      color: white;
+      border: 1px solid #969696;
+      border-radius: 6px;
+      margin: 0.5rem 0;
+    }
+
+    .popup-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+
+      button {
+        background-color: #2e3d4e;
+        border: none;
+        padding: 0.5rem 1rem;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+
+        &:hover{
+          background-color: darken(#2e3d4e, 1);
+        }
+      }
+    }
+  }
+}
