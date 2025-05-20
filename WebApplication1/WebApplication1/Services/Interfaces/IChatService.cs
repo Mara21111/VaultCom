@@ -7,5 +7,6 @@ namespace WebApplication1.Services.Interfaces
     {
         Task<ServiceResult> CreateChat(CreateChatDTO dto);
         Task<ServiceResult> GetChatsAsync(ChatFilterDTO? dto);
+        Task<ServiceResult> GetPublicChatsAsync();
     }
 }

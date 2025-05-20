@@ -107,6 +107,16 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.ChatController",
+    "Method": "GetPublicChatsAdminView",
+    "RelativePath": "api/Chat/get-public-chats-admin-view",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ChatController",
     "Method": "GetPublicChatsUserHasMuted",
     "RelativePath": "api/Chat/get-public-chats-user-has-muted-{id}",
     "HttpMethod": "GET",

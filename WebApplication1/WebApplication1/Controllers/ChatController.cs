@@ -58,5 +58,8 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> GetGroupChatsUserHasNotMuted(int id)
             => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = true, RequestorId = id, Type = 2, IsMuted = false }));
 
+        [HttpGet("get-public-chats-admin-view")]
+        public Task<IActionResult> GetPublicChatsAdminView()
+            => HandleService(() => _chatService.GetPublicChatsAsync());
     }
 }

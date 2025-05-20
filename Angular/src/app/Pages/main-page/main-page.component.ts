@@ -9,7 +9,7 @@ import { PublicChatService } from '../../services/PublicChat.service';
 import { Chat, ChatGetterDTO } from '../../models/Chat';
 import { ChatService } from '../../services/ChatService';
 import { Message } from '../../models/Message';
-import { MessageService } from '../../services/Message.service';
+import { MessageService } from '../../services/message.service';
 import { catchError } from 'rxjs';
 import { ReportsService } from '../../services/Reports.service';
 import { ReportLog } from '../../models/ReportLog';
