@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using MySql.Data.MySqlClient;
 using System.IO;
 using static Org.BouncyCastle.Math.EC.ECCurve;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace WebApplication1.Services.Implementations
 {
@@ -21,12 +22,27 @@ namespace WebApplication1.Services.Implementations
         private readonly MyContext context;
         private readonly IWebHostEnvironment _env;
         private readonly string _connString;
+        private static readonly MemoryCache _cache = new MemoryCache(new MemoryCacheOptions());
+        private static readonly TimeSpan _timeout = TimeSpan.FromMinutes(2);
 
         public UserService(MyContext context, IWebHostEnvironment env, IConfiguration config)
         {
             this.context = context;
             _env = env; 
             _connString = config.GetConnectionString("DefaultConnection");
+        }
+
+        public async Task<ActivityResult> SetActivityAsync(int id)
+        {
+            _cache.Set(id, DateTime.UtcNow, _timeout); 
+            // cache prej zmizi za cas nastavenej nahore 
+
+            return new ActivityResult { IsActive = true };
+        }
+
+        public async Task<ActivityResult> IsUserOnlineAsync(int id)
+        {
+            return new ActivityResult { IsActive = _cache.TryGetValue(id, out _) };
         }
 
         public object MapUserToDTO(User user)
@@ -80,8 +96,7 @@ namespace WebApplication1.Services.Implementations
                 BanEnd = null,
                 TimeoutEnd = null,
                 IsPublic = true,
-                SafeMode = false,
-                Status = 1
+                SafeMode = false
             };
 
             var hasher = new PasswordHasher<User>();
@@ -221,7 +236,7 @@ namespace WebApplication1.Services.Implementations
                 if (filter.TimeOut.HasValue)
                     query = query.Where(x => x.TimeoutEnd.HasValue == filter.TimeOut);
                 if (filter.Status.HasValue)
-                    query = query.Where(x => x.Status == filter.Status);
+                    query = query.Where(x => IsUserOnlineAsync(x.Id).Result.IsActive == filter.Status.Value);
             }
 
             var users = await query.ToListAsync();

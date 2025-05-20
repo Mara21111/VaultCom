@@ -303,6 +303,22 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.UserController",
+    "Method": "GetActivity",
+    "RelativePath": "api/User/get-activity",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserController",
     "Method": "GetAllUsers",
     "RelativePath": "api/User/get-all-users",
     "HttpMethod": "GET",
@@ -355,7 +371,7 @@
     "ContainingType": "WebApplication1.Controllers.UserController",
     "Method": "GetPFP",
     "RelativePath": "api/User/get-pfp-{id}",
-    "HttpMethod": "POST",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -405,6 +421,22 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.UserController",
+    "Method": "SetActivity",
+    "RelativePath": "api/User/set-activity",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

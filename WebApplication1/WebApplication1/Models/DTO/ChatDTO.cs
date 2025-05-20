@@ -35,9 +35,8 @@
         public int Id { get; set; }
         public string Prompt { get; set; }
     }
-    public class PublicChatGetterDTO
+    public class PublicChatGetterDTO : ChatGetterDTO
     {
-        public string Title { get; set; }
         public int Users {  get; set; }
         public int ActiveUers { get; set; }
     }

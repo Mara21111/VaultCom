@@ -16,13 +16,15 @@ namespace WebApplication1.Services.Implementations
     public class AuthenticationService : Interfaces.IAuthenticationService
     {
         private readonly MyContext context;
-        private readonly MyContext _context;
         private readonly TokenService _tokenService;
+        private readonly IUserService _userService;
 
-        public AuthenticationService(MyContext context, TokenService tokenService)
+
+        public AuthenticationService(MyContext context, TokenService tokenService, IUserService userService)
         {
-            _context = context;
+            this.context = context;
             _tokenService = tokenService;
+            _userService = userService;
         }
 
         public async Task<AuthResult> LoginAsync(LoginDTO dto)
@@ -32,7 +34,7 @@ namespace WebApplication1.Services.Implementations
                 return new AuthResult { Success = false, Message = "credentials are null" };
             }
 
-            var user = await _context.User.Where(x => x.Username == dto.Username).FirstOrDefaultAsync();
+            var user = await context.User.Where(x => x.Username == dto.Username).FirstOrDefaultAsync();
 
             if (user is null)
             {
@@ -45,6 +47,8 @@ namespace WebApplication1.Services.Implementations
             if (hsh == PasswordVerificationResult.Success)
             {
                 var token = _tokenService.Create(user);
+
+                await _userService.SetActivityAsync(user.Id);
 
                 return new AuthResult
                 {

@@ -32,10 +32,6 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> UploadPFP([FromForm] ProfilePictureDTO dto)
             => HandleService(() => _userService.UploadPFPAsync(dto));
 
-        [HttpPost("get-pfp-{id}")]
-        public Task<IActionResult> GetPFP(int id)
-            => HandleService(() => _userService.GetPFPAsync(id));
-
         [HttpPut("toggle-user-setting")]
         public Task<IActionResult> ToggleUserSetting([FromBody] UserToggleDTO dto)
             => HandleService(() => _userService.ToggleUserSettingAsync(dto));
@@ -66,7 +62,7 @@ namespace WebApplication1.Controllers
 
         [HttpGet("get-online-users")]
         public Task<IActionResult> GetOnlineUsers()
-            => HandleService(() => _userService.GetUsers(new UserFilterDTO { Status = 1 }));
+            => HandleService(() => _userService.GetUsers(new UserFilterDTO { Status = true }));
 
         [HttpGet("get-user-{id}")]
         public Task<IActionResult> GetUser(int id) 
@@ -75,6 +71,25 @@ namespace WebApplication1.Controllers
         [HttpGet("get-self-user-{id}")]
         public Task<IActionResult> GetSelfUser(int id)
             => HandleService(() => _userService.GetSelfUserAsync(id));
+
+        [HttpGet("get-pfp-{id}")]
+        public Task<IActionResult> GetPFP(int id)
+            => HandleService(() => _userService.GetPFPAsync(id));
+
+
+        private async Task<IActionResult> HandleActivity(Func<Task<ActivityResult>> serviceCall)
+        {
+            var result = await serviceCall();
+            return Ok(result.IsActive);
+        }
+
+        [HttpPost("set-activity")]
+        public Task<IActionResult> SetActivity(int id)
+            => HandleActivity(() => _userService.SetActivityAsync(id));
+
+        [HttpGet("get-activity")]
+        public Task<IActionResult> GetActivity(int id)
+            => HandleActivity(() => _userService.IsUserOnlineAsync(id));
     }
 }
 

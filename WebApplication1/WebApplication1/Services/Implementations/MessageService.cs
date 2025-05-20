@@ -14,10 +14,12 @@ namespace WebApplication1.Services.Implementations
     public class MessageService : IMessageService
     {
         private readonly MyContext context;
+        private readonly IUserService _userService;
 
-        public MessageService(MyContext context)
+        public MessageService(MyContext context, IUserService userService)
         {
             this.context = context;
+            _userService = userService;
         }
 
         bool IsLinkRegex(string content)
@@ -38,7 +40,7 @@ namespace WebApplication1.Services.Implementations
                 ChatId = dto.ChatId,
                 Content = dto.Content,
                 URLLink = IsLinkRegex(dto.Content) ? dto.Content : "",
-                Time = DateTime.Now, // todle se nekde posere
+                Time = DateTime.Now,
                 IsEdited = false,
                 IsPinned = false,
                 PreviousMessageId = dto.ReplyMessageId.HasValue ? dto.ReplyMessageId.Value : 0,
@@ -46,6 +48,8 @@ namespace WebApplication1.Services.Implementations
 
             context.Message.Add(msg);
             await context.SaveChangesAsync();
+
+            await _userService.SetActivityAsync(dto.UserId);
 
             return new ServiceResult { Success = true, Data = msg };
         }

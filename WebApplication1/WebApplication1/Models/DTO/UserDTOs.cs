@@ -40,7 +40,7 @@
     {
         public bool? Banned { get; set; }
         public bool? TimeOut { get; set; }
-        public int? Status { get; set; }
+        public bool? Status { get; set; }
     }
     public class UserToggleDTO
     {

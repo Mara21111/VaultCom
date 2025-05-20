@@ -7,4 +7,8 @@
         public int? ErrorCode { get; set; }
         public object? Data { get; set; }
     }
+    public class ActivityResult
+    {
+        public bool IsActive { get; set; }
+    }
 }

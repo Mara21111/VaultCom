@@ -16,8 +16,6 @@ namespace WebApplication1.Models.Data
 
         public string? Bio {  get; set; }
 
-        public int Status { get; set; }
-
         public bool IsPublic { get; set; }
 
         public bool IsAdmin { get; set; }

@@ -10,10 +10,12 @@ namespace WebApplication1.Services.Implementations
     public class ChatService : IChatService
     {
         private readonly MyContext context;
+        private readonly IUserService _userService;
 
-        public ChatService(MyContext context)
+        public ChatService(MyContext context, IUserService userService)
         {
             this.context = context;
+            this._userService = userService;
         }
 
 
@@ -90,11 +92,13 @@ namespace WebApplication1.Services.Implementations
             for (int i = 0; i < await context.PublicChat.CountAsync(); i++)
             {
                 var chat = context.PublicChat.FindAsync(chatIds[i]).Result;
+                var usersInChat = await context.UserChatRelationship.Where(x => x.ChatId == chat.Id).Select(x => x.UserId).ToListAsync();
                 chatsDTO.Add(new PublicChatGetterDTO
                 {
+                    Id = chat.Id,
                     Title = chat.Title,
-                    Users = await context.UserChatRelationship.Where(x => x.ChatId == chatIds[i]).CountAsync(),
-                    ActiveUers = 0 // todo
+                    Users = usersInChat.Count(),
+                    ActiveUers = usersInChat.Where(x => _userService.IsUserOnlineAsync(x).Result.IsActive).Count()
                 });
             }
 
