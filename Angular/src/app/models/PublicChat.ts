@@ -11,6 +11,7 @@ export class CreatePublicChatDTO {
 }
 
 export class PublicChatGetterDTO {
+  id: number;
   title: string;
   users: number;
   activeUsers: number;

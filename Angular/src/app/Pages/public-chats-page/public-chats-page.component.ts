@@ -6,7 +6,8 @@ import { Chat } from '../../models/Chat';
 import { User } from '../../models/User';
 import { PublicChatService } from '../../services/PublicChat.service';
 import { UserService } from '../../services/User.service';
-import { PublicChat } from '../../models/PublicChat';
+import {PublicChat, PublicChatGetterDTO} from '../../models/PublicChat';
+import {ChatService} from '../../services/ChatService';
 
 @Component({
   selector: 'app-public-chats-page',
@@ -18,14 +19,14 @@ import { PublicChat } from '../../models/PublicChat';
 
 export class PublicChatsPageComponent {
   ChatName: string;
-  Chats: PublicChat[];
+  Chats: PublicChatGetterDTO[];
 
-  constructor(private chatService: PublicChatService, private userService: UserService) {
+  constructor(private chatService: ChatService, private userService: UserService) {
 
   }
 
   ngOnInit() {
-    this.chatService.getAllPublicChats().subscribe(result => {
+    this.chatService.getPublicChatsAdminView().subscribe(result => {
       this.Chats = result;
     });
   }

@@ -52,8 +52,8 @@ export class ChatService {
     return this.http.get<ChatGetterDTO[]>(`http://localhost:5000/api/Chat/get-group-chats-user-has-not-muted-${userId}`);
   }
 
-  public getPublicChatView(): Observable<PublicChatGetterDTO[]> {
-    return this.http.get<ChatGetterDTO[]>('http://localhost:5000')
+  public getPublicChatsAdminView(): Observable<PublicChatGetterDTO[]> {
+    return this.http.get<PublicChatGetterDTO[]>('http://localhost:5000/api/Chat/get-public-chats-admin-view');
   }
 
 
