@@ -22,24 +22,33 @@
             <div class="col-header"></div>
           </div>
           <div class="table-body">
-            <div class="table-row" *ngFor="let item of Chats">
+            <div class="table-row" *ngFor="let item of getChats()">
               <div class="col"><i class="bi bi-pencil-fill pencil-icon"></i>{{ item.title }}</div>
               <div class="col">{{ item.users }}</div>
-              <div class="col">{{ item.activeUsers }}</div>
+              <div class="col">{{ item.activeUers }}</div>
               <div class="col"><button class="delete-button btn btn-danger" (click)="deleteChat(item.id)">
                 <i class="bi bi-x"></i>
               </button></div>
             </div>
           </div>
         </section>
-
-
         <div class="chat-input-container fixed-bottom p-3 bg-dark">
           <div class="d-flex justify-content-center align-items-center">
-            <input type="text" class="form-control chat-input text-center" id="newChatInput" placeholder="Enter new chat name..." aria-label="New Chat Name" name="chatName" [(ngModel)]="ChatName">
-            <button class="add-button btn btn-primary ms-3" id="addChatButton" (click)="createChat()">ADD</button>
+            <button class="add-button btn btn-primary ms-3" id="addChatButton" (click)="this.CreateChatPopup = true">Creat New Chat</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+<div id="reportPopup" class="popup-overlay" *ngIf="this.CreateChatPopup">
+  <div class="popup">
+    <h2 class="text-center">Creating New Public Chat</h2>
+      <input type="text" class="chat-input text-center" id="newChatInput" placeholder="Enter new chat name..." aria-label="New Chat Name" name="chatName" [(ngModel)]="ChatName">
+      <textarea id="chatDes" placeholder="Insert desctiption..." [(ngModel)]="this.ChatDes"></textarea>
+        <div class="popup-actions">
+          <button (click)="this.close()">Close</button>
+          <button (click)="this.createChat()">Create</button>
+    </div>
+  </div>
+</div>
