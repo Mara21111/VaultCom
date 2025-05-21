@@ -2,7 +2,7 @@
 .vs/
 *.user
 *.suo
-*.json
+*.v2
 
 ## Build results
 bin/

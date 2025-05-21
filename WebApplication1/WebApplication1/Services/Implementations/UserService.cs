@@ -117,7 +117,7 @@ namespace WebApplication1.Services.Implementations
 
         public async Task<ServiceResult> UploadPFPAsync(ProfilePictureDTO dto)
         {
-            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads"); ;
+            var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads", "pfps");
             Directory.CreateDirectory(uploadsFolder);
             
             var ext = Path.GetExtension(dto.PFP.FileName);
