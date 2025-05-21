@@ -6,7 +6,8 @@
   [titleOn]="true"
   [searchOn]="true"
   [closeOn]="true"
-  [closeRoute]="'/admin-menu'">
+  [closeRoute]="'/admin-menu'"
+  (searchChanged)="onSearchChanged($event)">
 </app-base-ui>
 
   <div class="main-container">
@@ -22,7 +23,7 @@
             <div class="col-header"></div>
           </div>
           <div class="table-body">
-            <div class="table-row" *ngFor="let item of Chats">
+            <div class="table-row" *ngFor="let item of filteredChats">
               <div class="col"><i class="bi bi-pencil-fill pencil-icon"></i>{{ item.title }}</div>
               <div class="col">{{ item.users }}</div>
               <div class="col">{{ item.activeUsers }}</div>
@@ -36,7 +37,7 @@
 
         <div class="chat-input-container fixed-bottom p-3 bg-dark">
           <div class="d-flex justify-content-center align-items-center">
-            <input type="text" class="form-control chat-input text-center" id="newChatInput" placeholder="Enter new chat name..." aria-label="New Chat Name" name="chatName" [(ngModel)]="ChatName">
+            <input type="text" class="form-control chat-input text-center" id="newChatInput" placeholder="Enter new chat name..." aria-label="New Chat Name" name="chatName" [(ngModel)]="newChatName">
             <button class="add-button btn btn-primary ms-3" id="addChatButton" (click)="createChat()">ADD</button>
           </div>
         </div>

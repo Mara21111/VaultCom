@@ -26,28 +26,30 @@ export class BaseUiComponent {
   @Input() closeOn: boolean = false;
   @Input() closeRoute: string = 'test'
 
-  user: User = new User;
+  public user: User = new User;
 
   @Output() searchChanged = new EventEmitter<string>();
 
   searchValue: string = '';
 
-  constructor(private userService: UserService,
+  constructor(
+    private userService: UserService,
     private authService: AuthenticationService,
     private router: Router
   ) {
+
   }
 
   ngOnInit() {
     this.userService.getFromToken().subscribe(result => this.user = result);
   }
 
-  onSeachChange(value: string){
+  public onSearchChange(value: string){
     this.searchValue = value;
     this.searchChanged.emit(value);
   }
 
-  logout(){
+  public logout(){
     this.authService.logout();
     this.router.navigate([ '/' ])
   }

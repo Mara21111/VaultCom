@@ -1,8 +1,6 @@
-import { Component, inject, ViewChild } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgFor } from '@angular/common';
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { BaseUiComponent } from '../../Components/base-ui/base-ui.component';
 import { UserInfoSidePanelComponent } from '../../Components/user-info-side-panel/user-info-side-panel.component';
 import { UserService } from '../../services/User.service';
@@ -12,28 +10,36 @@ import { ReportsService } from '../../services/reports.service';
 @Component({
   selector: 'app-admin-all-users-page',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgFor, NgIf, BaseUiComponent, UserInfoSidePanelComponent, FormsModule],
+  imports: [NgFor, NgIf, BaseUiComponent, UserInfoSidePanelComponent, FormsModule],
   templateUrl: './admin-all-users-page.component.html',
   styleUrl: './admin-all-users-page.component.scss'
 })
 export class AdminAllUsersPageComponent {
-  @ViewChild(BaseUiComponent) baseComp!: BaseUiComponent;
+  public users: User[] = [];
+  public filteredUsers: User[] = [...this.users]
 
-  Users: User[] = [];
-  selectedUser: UserPanelInfo = new UserPanelInfo();
-  panelVisible: boolean = false;
+  public selectedUser: UserPanelInfo = new UserPanelInfo();
+  public panelVisible: boolean = false;
 
-  isTimeoutOrBanSelected: boolean = false;
-  selectedDateTime: string = '';
-  searchValue: string = '';
 
-  constructor(private userService: UserService, private router: Router, private reportService: ReportsService) {
+  constructor(private userService: UserService, private reportsService: ReportsService) {
 
   }
 
+
   public ngOnInit(): void {
-    this.refresh();
-    this.searchValue = this.baseComp?.searchValue;
+    this.userService.getAllUsersAdminView().subscribe(result => {
+      this.users = result;
+      this.filteredUsers = [...this.users];
+    });
+  }
+
+  public onSearchChanged(value: string) {
+    this.filteredUsers = this.users.filter(user => user.username.toLowerCase().includes(value.toLowerCase()));
+  }
+
+  public reportCount(userId: number): number {
+    return 0;
   }
 
   public goToUser(userId: number): void {
@@ -43,44 +49,15 @@ export class AdminAllUsersPageComponent {
       this.selectedUser.bio = result.bio;
       this.selectedUser.createdAt = result.createdAt.toString() || 'Not created';
       this.selectedUser.banEnd = result.banEnd ? new Date(result.banEnd).toDateString() : 'Not banned';
-      this.selectedUser.reportCount = '0';
     })
+
+    this.reportsService.getReportCountOfUser(userId).subscribe(result => this.selectedUser.reportCount = result.toString());
 
     this.panelVisible = true;
   }
 
-
-  public refresh(): void {
-    this.userService.getAllUsersAdminView().subscribe(result => this.Users = result);
-  }
-
-  closePanel() {
+  public closePanel() {
     this.panelVisible = false;
     this.selectedUser = new UserPanelInfo();
   }
-
-  onSearchChanged(value: string) {
-    this.searchValue = value;
-  }
-
-  public getUsers(): User[] {
-
-    const chats = this.Users;
-
-    if (!this.searchValue?.trim()) {
-      return chats;
-    }
-
-    const query = this.searchValue.toLowerCase();
-    return chats.filter(user =>
-      user.username.toLowerCase().includes(query)
-    );
-  }
-}
-
-
-
-export class userReportCount {
-  userId: number;
-  count: number;
 }

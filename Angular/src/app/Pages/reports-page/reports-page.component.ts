@@ -27,7 +27,7 @@ export class ReportsPageComponent {
   searchValue: string = '';
 
   public constructor(private reportsService: ReportsService, private userService: UserService, private router: Router) {
-    this.reportsService.GetAllReports().subscribe(result => this.data = result)
+    this.reportsService.getAllReports().subscribe(result => this.data = result)
     this.reportsService.UserReportCount(this.selectedUser.id).subscribe(result => this.reportsCount = result)
     this.userService.getAllUsers().subscribe(result => this.users = result)
   }

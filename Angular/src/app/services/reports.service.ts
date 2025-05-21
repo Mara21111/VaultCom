@@ -11,8 +11,12 @@ export class ReportsService {
   public constructor(private http: HttpClient) {
 
   }
-  public GetAllReports(): Observable<ReportLog[]> {
+  public getAllReports(): Observable<ReportLog[]> {
     return this.http.get<ReportLog[]>('http://localhost:5000/api/Reports/get-all-reports');
+  }
+
+  public getReportCountOfUser(userId: number): Observable<number> {
+    return this.http.get<number>(`http://localhost:5000/api/Reports/get-report-count-of-user-${userId}`)
   }
 
   public GetAllUserId(id: number): Observable<ReportLog[]> {
