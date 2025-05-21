@@ -1,0 +1,82 @@
+# === Angular ===
+# Ignore Angular build and dependency directories
+/dist
+/out-tsc
+/node_modules
+/.angular
+.angular/cache/
+
+# Environment files
+/src/environments/environment*.ts
+
+# IDE files
+/.vscode/
+.idea/
+
+# === .NET Core / Visual Studio 2022 ===
+## Ignore Visual Studio temporary files, build results, and
+## user-specific files
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+## Auto-generated files
+*.generated.cs
+Generated_Code/
+
+## NuGet
+*.nupkg
+*.snupkg
+**/packages/*
+!**/packages/build/
+!**/packages/repositories.config
+
+# DotCover
+.idea/.dotCover
+
+# Rider
+.idea/
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# dotnet watch
+**/Properties/launchSettings.json
+
+# Others
+_ReSharper*/
+*.resharper
+*.DotSettings.user
+*.dotCover
+
+# Logs
+*.log
+
+# === General ===
+*.DS_Store
+*.env
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional: Ignore test coverage
+/coverage/
