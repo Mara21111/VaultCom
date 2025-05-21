@@ -38,6 +38,6 @@
     public class PublicChatGetterDTO : ChatGetterDTO
     {
         public int Users {  get; set; }
-        public int ActiveUsers { get; set; }
+        public int ActiveUers { get; set; }
     }
 }

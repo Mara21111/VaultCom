@@ -19,7 +19,7 @@ export class PublicChatService {
   }
 
   public createPublicChat(CreatedChat: CreatePublicChatDTO): Observable<Chat> {
-    return this.http.post<Chat>('http://localhost:5000/api/PublicChat/create-public-chat', CreatedChat)
+    return this.http.post<Chat>('http://localhost:5000/api/Chat/create-public-chat', CreatedChat)
   }
 
   public deletePublicChat(chat_id: number, user_id: number): Observable<void> {

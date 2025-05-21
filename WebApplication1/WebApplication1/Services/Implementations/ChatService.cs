@@ -98,7 +98,7 @@ namespace WebApplication1.Services.Implementations
                     Id = chat.Id,
                     Title = chat.Title,
                     Users = usersInChat.Count(),
-                    ActiveUsers = usersInChat.Where(x => _userService.IsUserOnlineAsync(x).Result.IsActive).Count()
+                    ActiveUers = usersInChat.Where(x => _userService.IsUserOnlineAsync(x).Result.IsActive).Count()
                 });
             }
 

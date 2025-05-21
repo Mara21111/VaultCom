@@ -50,6 +50,16 @@ export class AuthenticationService {
   }
 }
 
+
+class AuthenticationResult {
+  public token: string;
+}
+
+class Credentials {
+  public username: string;
+  public password: string;
+}
+
 class jwtPayload {
   id?: number;
 }
