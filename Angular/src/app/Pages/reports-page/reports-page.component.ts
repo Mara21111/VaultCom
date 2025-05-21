@@ -2,17 +2,17 @@ import { Component, inject, ViewChild } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
-import { SidePanelComponent } from '../../Components/side-panel/side-panel.component';
+import { UserInfoSidePanelComponent } from '../../Components/user-info-side-panel/user-info-side-panel.component';
 import { ReportLog } from '../../models/ReportLog';
 import { User } from '../../models/User';
-import { ReportsService } from '../../services/Reports.service';
+import { ReportsService} from '../../services/reports.service';
 import { UserService } from '../../services/User.service';
 import { report } from 'process';
 
 @Component({
   selector: 'app-reports-page',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgFor, NgIf, BaseUiComponent, SidePanelComponent],
+  imports: [RouterLink, RouterLinkActive, NgFor, NgIf, BaseUiComponent, UserInfoSidePanelComponent],
   templateUrl: './reports-page.component.html',
   styleUrl: './reports-page.component.scss'
 })

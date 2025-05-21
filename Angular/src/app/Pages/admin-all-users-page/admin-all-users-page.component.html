@@ -24,17 +24,16 @@
           <div class="table-row" (click)="this.goToUser(item.id)" *ngFor="let item of this.getUsers()" style="cursor: pointer;">
             <div class="col username">{{ item.username }}</div>
             <div class="col">{{ item.email }}</div>
-            <div class="col">{{ this.getReportsCount(item.id) }}</div>
           </div>
         </div>
       </section>
     </div>
   </div>
+    <app-user-info-side-panel
+      *ngIf="panelVisible"
+      [user]="selectedUser"
+      [adminView]="true"
+      [userEditing]="false"
+      (close)="closePanel()">
+    </app-user-info-side-panel>
 </div>
-
-<app-side-panel
-  *ngIf="PanelVisible"
-  (close)="closePanel()"
-  [user]="SelectedUser"
-  [showActionButtons]="true">
-</app-side-panel>

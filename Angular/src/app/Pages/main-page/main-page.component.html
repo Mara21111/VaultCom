@@ -22,7 +22,7 @@
       </div>
 
       <div class="chat-list">
-        <div class="chat-item" *ngFor="let item of this.getChats()" (click)="this.changeActiveChat(item)" [ngClass]="{'active': item.id === this.activeChat.id}">
+        <div class="chat-item" *ngFor="let item of this.chats" (click)="this.changeActiveChat(item)" [ngClass]="{'active': item.id === this.activeChat.id}">
           <div class="message-avatar" style="background-color: #435466"><!--{{ item.name.charAt(0) }}--></div>
           <div class="chat-info">
             <div class="chat-name"> {{ item.title }}

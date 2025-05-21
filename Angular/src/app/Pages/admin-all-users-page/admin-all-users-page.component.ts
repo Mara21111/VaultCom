@@ -4,15 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
 import { NgIf } from '@angular/common';
 import { BaseUiComponent } from '../../Components/base-ui/base-ui.component';
-import { SidePanelComponent } from '../../Components/side-panel/side-panel.component';
+import { UserInfoSidePanelComponent } from '../../Components/user-info-side-panel/user-info-side-panel.component';
 import { UserService } from '../../services/User.service';
-import { User } from '../../models/User';
-import { ReportsService } from '../../services/Reports.service';
+import { User, UserPanelInfo } from '../../models/User';
+import { ReportsService } from '../../services/reports.service';
 
 @Component({
   selector: 'app-admin-all-users-page',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgFor, NgIf, BaseUiComponent, SidePanelComponent, FormsModule],
+  imports: [RouterLink, RouterLinkActive, NgFor, NgIf, BaseUiComponent, UserInfoSidePanelComponent, FormsModule],
   templateUrl: './admin-all-users-page.component.html',
   styleUrl: './admin-all-users-page.component.scss'
 })
@@ -20,9 +20,8 @@ export class AdminAllUsersPageComponent {
   @ViewChild(BaseUiComponent) baseComp!: BaseUiComponent;
 
   Users: User[] = [];
-  SelectedUser: User = new User;
-  ReportCounts: userReportCount[] = [];
-  PanelVisible: boolean = false;
+  selectedUser: UserPanelInfo = new UserPanelInfo();
+  panelVisible: boolean = false;
 
   isTimeoutOrBanSelected: boolean = false;
   selectedDateTime: string = '';
@@ -37,43 +36,49 @@ export class AdminAllUsersPageComponent {
     this.searchValue = this.baseComp?.searchValue;
   }
 
-  public goToUser(user_id: number): void{
-    this.userService.getUser(user_id).subscribe(result => {
-      this.SelectedUser = result;
-      this.PanelVisible = true;
+  public goToUser(userId: number): void {
+    this.userService.getUser(userId).subscribe(result => {
+      this.selectedUser.username = result.username;
+      this.selectedUser.email = result.email;
+      this.selectedUser.bio = result.bio;
+      this.selectedUser.createdAt = result.createdAt.toString() || 'Not created';
+      this.selectedUser.banEnd = result.banEnd ? new Date(result.banEnd).toDateString() : 'Not banned';
+      this.selectedUser.reportCount = '0';
     })
+
+    this.panelVisible = true;
   }
 
-  public refresh(): void{
+
+  public refresh(): void {
     this.userService.getAllUsersAdminView().subscribe(result => this.Users = result);
-    this.reportService.GetAllUserReportsCount().subscribe(result => this.ReportCounts = result);
-  }
-
-  public getReportsCount(id: number): number{
-    return this.ReportCounts.find(x => x.userId == id)?.count ?? 0;
   }
 
   closePanel() {
-    this.PanelVisible = false;
+    this.panelVisible = false;
+    this.selectedUser = new UserPanelInfo();
   }
 
   onSearchChanged(value: string) {
     this.searchValue = value;
   }
 
-  public getUsers(): User[]{
-      const chats = this.Users;
+  public getUsers(): User[] {
 
-      if (!this.searchValue?.trim()) {
-        return chats;
-      }
+    const chats = this.Users;
 
-      const query = this.searchValue.toLowerCase();
-      return chats.filter(user =>
-        user.username.toLowerCase().includes(query)
-      );
+    if (!this.searchValue?.trim()) {
+      return chats;
     }
+
+    const query = this.searchValue.toLowerCase();
+    return chats.filter(user =>
+      user.username.toLowerCase().includes(query)
+    );
+  }
 }
+
+
 
 export class userReportCount {
   userId: number;

@@ -1,0 +1,44 @@
+$body-bg: #202225;
+$panel-bg: #2a2d34;
+$panel-hover: #36393f;
+$text-light: #ffffff;
+$btn-radius: 12px;
+$btn-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+$accent: gray;
+$danger: #e74c3c;
+
+.info-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  .info-label {
+    font-weight: bold;
+    color: #ccc;
+    font-size: 14px;
+  }
+
+  .info-value {
+    font-size: 15px;
+    color: $text-light;
+    background-color: $panel-hover;
+    padding: 10px 14px;
+    border-radius: $btn-radius;
+  }
+
+  .info-input {
+    padding: 10px 14px;
+    border-radius: $btn-radius;
+    border: 1px solid #444;
+    background-color: $panel-hover;
+    color: $text-light;
+    font-size: 15px;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      border-color: $accent;
+      outline: none;
+    }
+  }
+}
+

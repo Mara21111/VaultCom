@@ -2,8 +2,8 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
-import { SidePanelComponent } from '../../Components/side-panel/side-panel.component';
-import { User, BaseUserDataDTO } from '../../models/User';
+import { UserInfoSidePanelComponent} from '../../Components/user-info-side-panel/user-info-side-panel.component';
+import {User, BaseUserDataDTO, UserPanelInfo} from '../../models/User';
 import { UserRelationshipService } from '../../services/UserRelationship.service';
 import { UserService } from '../../services/User.service';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +13,7 @@ import { UserRelationshipDTO } from '../../models/UserRelationship';
 @Component({
   selector: 'app-user-friends-page',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgFor, NgIf, BaseUiComponent, SidePanelComponent, FormsModule],
+  imports: [RouterLink, RouterLinkActive, NgFor, NgIf, BaseUiComponent, UserInfoSidePanelComponent, FormsModule],
   templateUrl: './user-friends-page.component.html',
   styleUrl: './user-friends-page.component.scss'
 })
@@ -22,10 +22,10 @@ export class UserFriendsPageComponent {
 
   public Requests: BaseUserDataDTO[] = [];
   public Friends: BaseUserDataDTO[] = [];
-  public PanelVisible: boolean = false;
+  public panelVisible: boolean = false;
   public ShowPopup: boolean = false;
   public newFriendUsername: string = '';
-  public SelectedUser: User = new User;
+  public selectedUser: UserPanelInfo = new UserPanelInfo();
   public PopupMessage: string = '';
   public isRequestsOpen: boolean = true;
   public isFriendsOpen: boolean = true;
@@ -67,10 +67,6 @@ export class UserFriendsPageComponent {
     });
   }
 
-  public goToUser(user_id: number): void {
-    this.PanelVisible = true;
-  }
-
   public getUsername(user_id: number): string {
     const user = this.users.find(user => user.id = user_id);
     return user ? user.username : 'Unknown';
@@ -95,7 +91,7 @@ export class UserFriendsPageComponent {
   }
 
   public closePanel() {
-    this.PanelVisible = false;
+    this.panelVisible = false;
   }
 
   public closePopup() {

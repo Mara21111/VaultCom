@@ -4,6 +4,7 @@ export class Message {
     userId: number;
     previousMessageId: number;
     content: string;
+    selfContent: string | null;
     urlLink: string;
     time: Date;
     isEdited: boolean;

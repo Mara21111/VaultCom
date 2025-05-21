@@ -41,9 +41,3 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# Others
-obj/
-FileContentIndex/
-v17/
-*.v2
-*.bin

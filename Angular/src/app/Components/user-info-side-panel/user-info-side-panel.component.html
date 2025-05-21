@@ -1,0 +1,57 @@
+<div class="overlay" (click)="closePanel()"></div>
+
+<div class="side-panel" [ngClass]="{ 'closing': isClosing }">
+  <button class="close-button" (click)="closePanel()" aria-label="Close panel">&times;</button>
+
+  <h2>User Info</h2>
+
+  <div class="info-group">
+    <div class="info-row">
+      <app-side-panel-row
+        [label]="'Username'"
+        [(value)]="user.username"
+        [editable]="userEditing">
+      </app-side-panel-row>
+    </div>
+    <div class="info-row">
+      <app-side-panel-row
+        [label]="'Email'"
+        [(value)]="user.email"
+        [editable]="userEditing">
+      </app-side-panel-row>
+    </div>
+    <div class="info-row">
+      <app-side-panel-row
+        [label]="'Bio'"
+        [(value)]="user.bio"
+        [editable]="userEditing">
+      </app-side-panel-row>
+    </div>
+    <div class="info-row">
+      <app-side-panel-row
+        [label]="'Date created'"
+        [(value)]="user.createdAt"
+        [editable]="false">
+      </app-side-panel-row>
+    </div>
+    <div class="info-row">
+      <app-side-panel-row
+        [label]="'Ban ends'"
+        [(value)]="user.banEnd"
+        [editable]="false">
+      </app-side-panel-row>
+    </div>
+    <div class="info-row" *ngIf="!userEditing">
+      <app-side-panel-row
+        [label]="'Reports count'"
+        [(value)]="user.reportCount"
+        [editable]="false">
+      </app-side-panel-row>
+    </div>
+  </div>
+
+  <div class="button-group" *ngIf="userEditing">
+    <button class="action-button timeout-button" (click)="onSaveUserEditing()">Save</button>
+    <button class="action-button ban-button" (click)="onCancelUserEditing()">Cancel</button>
+  </div>
+</div>

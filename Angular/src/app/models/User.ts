@@ -63,9 +63,17 @@ export class LoginDTO {
   password: string;
 }
 
-export class AuthResult
-{
+export class AuthResult {
   success: boolean;
   token: string;
   message: string;
+}
+
+export class UserPanelInfo {
+  username: string;
+  email: string;
+  bio: string;
+  createdAt: string;
+  banEnd: string;
+  reportCount: string;
 }

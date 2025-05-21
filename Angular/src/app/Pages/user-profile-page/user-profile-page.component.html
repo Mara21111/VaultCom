@@ -57,7 +57,7 @@
       <div class="edit-panel">
         <div class="edit-item">
           <div class="edit-text">Change profile information:</div>
-          <i class="bi bi-pencil-square edit-icon" (click)="this.panelVisible = true"></i>
+          <i class="bi bi-pencil-square edit-icon" (click)="this.goToUser()"></i>
         </div>
         <div>
           <button class="save-btn btn-danger" (click)="this.save()">Save profile changes</button>
@@ -70,9 +70,9 @@
   </div>
 </div>
 
-<div class="overlay" *ngIf="this.panelVisible" (click)="closePanel()"></div>
+<div class="overlay" *ngIf="false" (click)="closePanel()"></div>
 
-<div class="side-panel" *ngIf="this.panelVisible">
+<div class="side-panel" *ngIf="false">
   <button class="close-button" (click)="this.closePanel()" aria-label="Close panel">&times;</button>
   <h2>Change User Profile</h2>
 
@@ -110,5 +110,14 @@
       <button type="submit" class="save-button" (click)="this.save()">Save</button>
       <button type="button" class="cancel-button" (click)="this.closePanel()">Cancel</button>
     </div>
+
+    <app-user-info-side-panel
+      *ngIf="panelVisible"
+      [user]="selectedUser"
+      [adminView]="true"
+      [userEditing]="true"
+      (close)="closePanel()">
+    </app-user-info-side-panel>
+
   </form>
 </div>

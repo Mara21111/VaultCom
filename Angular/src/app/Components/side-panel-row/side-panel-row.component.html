@@ -1,0 +1,16 @@
+<div class="info-row">
+  <label class="info-label">{{ label }}</label>
+
+  <ng-container *ngIf="editable; else readonly">
+    <input
+      [(ngModel)]="value"
+      (ngModelChange)="onChange($event)"
+      class="info-input"
+      type="text"
+    />
+  </ng-container>
+
+  <ng-template #readonly>
+    <div class="info-value">{{ value }}</div>
+  </ng-template>
+</div>

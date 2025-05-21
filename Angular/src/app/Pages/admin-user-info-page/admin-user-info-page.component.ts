@@ -4,7 +4,7 @@ import { User } from '../../models/User';
 import { NgIf, CommonModule } from '@angular/common';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
 import { UserService } from '../../services/User.service';
-import { ReportsService } from '../../services/Reports.service';
+import { ReportsService } from '../../services/reports.service';
 
 @Component({
   selector: 'app-admin-user-info-page',

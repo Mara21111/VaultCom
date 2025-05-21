@@ -1,5 +1,4 @@
-export class ReportLog
-{
+export class ReportLog {
     id: number;
     userId: number;
     reportedUserId: number;

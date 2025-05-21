@@ -49,8 +49,8 @@ export class UserService {
     return this.http.get<User[]>('http://localhost:5000/api/User/get-online-users');
   }
 
-  public getUser(user_id: number): Observable<User> {
-    return this.http.get<User>('http://localhost:5000/api/User/get-user-' + user_id);
+  public getUser(userId: number): Observable<User> {
+    return this.http.get<User>(`http://localhost:5000/api/User/get-user-${userId}`);
   }
 
   public getSelfUser(user_id: number): Observable<User> {

@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
-import { User } from '../../models/User';
+import {User, UserPanelInfo} from '../../models/User';
 import { CommonModule, NgIf } from '@angular/common';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
 import { UserService } from '../../services/User.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService } from '../../services/Authentication.service';
+import {UserInfoSidePanelComponent} from '../../Components/user-info-side-panel/user-info-side-panel.component';
 
 @Component({
   selector: 'app-user-profile-page',
   standalone: true,
-  imports: [NgIf, RouterLink, RouterLinkActive, BaseUiComponent, CommonModule, ReactiveFormsModule],
+  imports: [NgIf, RouterLink, RouterLinkActive, BaseUiComponent, CommonModule, ReactiveFormsModule, UserInfoSidePanelComponent],
   templateUrl: './user-profile-page.component.html',
   styleUrl: './user-profile-page.component.scss'
 })
@@ -21,7 +22,9 @@ export class UserProfilePageComponent {
   darkMode: Boolean = true;
   form: FormGroup;
   errorMessage: string = '';
-  panelVisible = false;
+
+  public panelVisible: boolean = false;
+  public selectedUser: UserPanelInfo = new UserPanelInfo()
 
   user: User = new User;
 
@@ -56,13 +59,9 @@ export class UserProfilePageComponent {
     this.darkMode = !this.darkMode;
   }
 
-  openPanel() {
-    this.panelVisible = true;
-  }
-
   closePanel() {
     this.panelVisible = false;
-    this.updateUser();
+    this.selectedUser = new UserPanelInfo();
   }
 
   updateUser() {
@@ -83,5 +82,8 @@ export class UserProfilePageComponent {
   logout() {
     this.authService.logout();
     this.router.navigate([ '/' ])
+  }
+
+  public goToUser(): void {
   }
 }

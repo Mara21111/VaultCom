@@ -9,9 +9,9 @@ import { PublicChatService } from '../../services/PublicChat.service';
 import { Chat, ChatGetterDTO } from '../../models/Chat';
 import { ChatService } from '../../services/ChatService';
 import { Message } from '../../models/Message';
-import { MessageService} from '../../services/Message.service';
+import { MessageService} from '../../services/message.service';
 import { catchError } from 'rxjs';
-import { ReportsService } from '../../services/Reports.service';
+import { ReportsService} from '../../services/reports.service';
 import { ReportLog } from '../../models/ReportLog';
 import { PublicChat } from '../../models/PublicChat';
 import { UserChatRelationshipService } from '../../services/UserChatRelationship.service';
@@ -32,7 +32,7 @@ export class MainPageComponent {
   pinnedMessages: boolean = false;
   showChatInfo: boolean = false;
   reportPopup: boolean = false;
-  userChats: ChatGetterDTO[] = [];
+  chats: ChatGetterDTO[] = [];
   publicChats: PublicChat[] = [];
   activeChat: ChatGetterDTO = new ChatGetterDTO();
   allMessages: Message[] = [];
@@ -56,7 +56,7 @@ export class MainPageComponent {
   ngOnInit() {
     this.userService.getFromToken().subscribe(result => {
       this.user = result;
-      this.chatService.getChatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
+      this.chatService.getChatsUserIsIn(this.user.id).subscribe(chats => this.chats = chats);
     });
   }
 
@@ -95,33 +95,13 @@ export class MainPageComponent {
   changeChatsToPrivate(){
     this.public_chats = false;
     this.setChats();
-    this.chatService.getChatsUserIsIn(this.user.id).subscribe(chats => this.userChats = chats);
+    this.chatService.getChatsUserIsIn(this.user.id).subscribe(chats => this.chats = chats);
   }
 
   setChats(){
     this.showChatInfo = false;
     this.activeChat = new ChatGetterDTO();
     this.allMessages = [];
-  }
-
-  getChats(): ChatGetterDTO[] {
-    /*const chats = this.public_chats ? this.publicChats : this.userChats;
-
-
-    if (!this.searchChat?.trim()) {
-      return chats;
-    }
-
-    const query = this.searchChat.toLowerCase();
-    return chats.filter(chat =>
-      chat..toLowerCase().includes(query)
-    );*/
-
-    const chats: ChatGetterDTO[] = [];
-
-    this.chatService.getChatsUserIsIn(this.user.id).subscribe(result => this.userChats = result);
-
-    return this.userChats;
   }
 
   sendMessage(){
@@ -156,7 +136,7 @@ export class MainPageComponent {
   }
 
   isUserInPublicChat(chatId: number): Boolean{
-    return !!this.userChats.find(chat => chat.id == chatId);
+    return !!this.chats.find(chat => chat.id == chatId);
   }
 
   addUserToPublicChat(chatId: number){
