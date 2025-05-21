@@ -4,10 +4,9 @@ import { NgFor, NgIf } from '@angular/common';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
 import { UserInfoSidePanelComponent } from '../../Components/user-info-side-panel/user-info-side-panel.component';
 import { ReportLog } from '../../models/ReportLog';
-import { User } from '../../models/User';
+import { User, UserPanelInfo } from '../../models/User';
 import { ReportsService} from '../../services/reports.service';
 import { UserService } from '../../services/User.service';
-import { report } from 'process';
 
 @Component({
   selector: 'app-reports-page',
@@ -21,26 +20,34 @@ export class ReportsPageComponent {
 
   data: ReportLog[] = [];
   users: User[] = [];
-  selectedUser: User = new User;
-  reportsCount: number = 0;
+  logedInUser: User;
+  selectedUser: UserPanelInfo = new UserPanelInfo();
   panelVisible = false;
   searchValue: string = '';
 
   public constructor(private reportsService: ReportsService, private userService: UserService, private router: Router) {
-    this.reportsService.GetAllReports().subscribe(result => this.data = result)
-    this.reportsService.UserReportCount(this.selectedUser.id).subscribe(result => this.reportsCount = result)
-    this.userService.getAllUsers().subscribe(result => this.users = result)
+    this.userService.getFromToken().subscribe(result => {
+      this.logedInUser = result;
+      this.reportsService.getReportsAdminView(this.logedInUser.id).subscribe(result => this.data = result);
+    });
+    this.userService.getAllUsersAdminView().subscribe(result => this.users = result);
   }
 
-  public goToUser(user_id: number): void{
-    this.userService.getUser(user_id).subscribe(result => this.selectedUser = result)
+  public goToUser(userId: number): void{
+    this.userService.getUser(userId).subscribe(result => {
+      this.selectedUser.username = result.username;
+      this.selectedUser.email = result.email ?? 'Not set';
+      this.selectedUser.bio = result.bio ?? 'Not set';
+      this.selectedUser.createdAt = result.createdAt.toString() || 'Not created';
+      this.selectedUser.banEnd = result.banEnd ? new Date(result.banEnd).toDateString() : 'Not banned';
+      this.reportsService.getReportCountOfUser(userId).subscribe(result => this.selectedUser.reportCount = result.toString())
+      });
     this.panelVisible = true;
-    console.log(this.panelVisible)
   }
 
   getUsername(userId: number): string {
-    const user = this.users.find(u => u.id === userId);
-    return user ? user.username : 'Unknown';
+    const username = this.users.find(u => u.id === userId)?.username;
+    return username ? username : 'Unknown';
   }
 
   closePanel() {

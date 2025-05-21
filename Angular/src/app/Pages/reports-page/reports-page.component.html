@@ -20,12 +20,19 @@
         </div>
         <div class="table-body">
           <div class="table-row" (click)="this.goToUser(item.reportedUserId)" *ngFor="let item of this.getReports()" style="cursor: pointer;">
-            <div class="col username">{{ getUsername(item.userId) }}</div>
-            <div class="col">{{ getUsername(item.reportedUserId) }}</div>
+            <div class="col username">{{ this.getUsername(item.userId) }}</div>
+            <div class="col">{{ this.getUsername(item.reportedUserId) }}</div>
             <div class="col">{{ item.message }}</div>
           </div>
         </div>
       </section>
     </div>
   </div>
+      <app-user-info-side-panel
+      *ngIf="panelVisible"
+      [user]="selectedUser"
+      [adminView]="true"
+      [userEditing]="false"
+      (close)="closePanel()">
+    </app-user-info-side-panel>
 </div>

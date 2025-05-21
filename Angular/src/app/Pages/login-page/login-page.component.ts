@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthenticationService } from '../../services/Authentication.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import { catchError } from 'rxjs';
 import { NgIf, NgClass } from '@angular/common';
 import { of } from 'rxjs';

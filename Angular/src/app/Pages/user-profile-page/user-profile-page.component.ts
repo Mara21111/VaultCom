@@ -5,7 +5,7 @@ import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
 import { UserService } from '../../services/User.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AuthenticationService } from '../../services/Authentication.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import {UserInfoSidePanelComponent} from '../../Components/user-info-side-panel/user-info-side-panel.component';
 
 @Component({

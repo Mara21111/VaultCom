@@ -27,7 +27,7 @@ export class AdminAllUsersPageComponent {
   selectedDateTime: string = '';
   searchValue: string = '';
 
-  constructor(private userService: UserService, private router: Router, private reportService: ReportsService) {
+  constructor(private userService: UserService, private router: Router, private reportsService: ReportsService) {
 
   }
 
@@ -39,12 +39,12 @@ export class AdminAllUsersPageComponent {
   public goToUser(userId: number): void {
     this.userService.getUser(userId).subscribe(result => {
       this.selectedUser.username = result.username;
-      this.selectedUser.email = result.email;
-      this.selectedUser.bio = result.bio;
+      this.selectedUser.email = result.email ?? 'Not set';
+      this.selectedUser.bio = result.bio ?? 'Not set';
       this.selectedUser.createdAt = result.createdAt.toString() || 'Not created';
       this.selectedUser.banEnd = result.banEnd ? new Date(result.banEnd).toDateString() : 'Not banned';
-      this.selectedUser.reportCount = '0';
-    })
+      this.reportsService.getReportCountOfUser(userId).subscribe(result => this.selectedUser.reportCount = result.toString())
+    });
 
     this.panelVisible = true;
   }

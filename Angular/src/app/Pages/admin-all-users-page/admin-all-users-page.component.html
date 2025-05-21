@@ -18,12 +18,13 @@
         <div class="table-header">
           <div class="col-header">Username</div>
           <div class="col-header">Email</div>
-          <div class="col-header">Report count</div>
+          <div class="col-header">Bio</div>
         </div>
         <div class="table-body">
           <div class="table-row" (click)="this.goToUser(item.id)" *ngFor="let item of this.getUsers()" style="cursor: pointer;">
             <div class="col username">{{ item.username }}</div>
             <div class="col">{{ item.email }}</div>
+            <div class="col">{{ item.bio }}</div>
           </div>
         </div>
       </section>

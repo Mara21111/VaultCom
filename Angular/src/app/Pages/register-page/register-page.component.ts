@@ -4,7 +4,7 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 import { UserService } from '../../services/User.service';
 import { User, CreateUserDTO, LoginDTO } from '../../models/User';
 import { catchError } from 'rxjs';
-import { AuthenticationService } from '../../services/Authentication.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import { NgIf, NgClass } from '@angular/common';
 
 @Component({

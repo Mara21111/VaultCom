@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ReportLog } from '../models/ReportLog';
+import { CreateReportDTO, ReportLog, UserReportDTO } from '../models/ReportLog';
 
 @Injectable({
   providedIn: 'root'
@@ -11,24 +11,29 @@ export class ReportsService {
   public constructor(private http: HttpClient) {
 
   }
-  public GetAllReports(): Observable<ReportLog[]> {
-    return this.http.get<ReportLog[]>('http://localhost:5000/api/Reports/get-all-reports');
+
+  public sendReport(report: CreateReportDTO): Observable<CreateReportDTO> {
+    return this.http.post<CreateReportDTO>('http://localhost:5000/api/Reports/send-report', report);
   }
 
-  public GetAllUserId(id: number): Observable<ReportLog[]> {
-    return this.http.get<ReportLog[]>('http://localhost:5000/api/Reports/get-all-reports-user-id?Id=' + id);
+  public timeoutUser(userReportDTO: UserReportDTO): Observable<UserReportDTO> {
+    return this.http.put<UserReportDTO>('http://localhost:5000/api/Reports/timeout-user', userReportDTO);
   }
 
-  public UserReportCount(id: number): Observable<number> {
-    return this.http.get<number>('http://localhost:5000/api/Reports/reportsCount-user' + id);
+  public banUser(userReportDTO: UserReportDTO): Observable<UserReportDTO> {
+    return this.http.put<UserReportDTO>('http://localhost:5000/api/Reports/ban-user', userReportDTO);
   }
 
-  public GetAllUserReportsCount(): Observable<userReportCount[]>{
-    return this.http.get<userReportCount[]>('http://localhost:5000/api/Reports/reportsCount-AllUsers')
+  public deleteReport(userReportDTO: UserReportDTO): Observable<void> {
+    return this.http.delete<void>('http://localhost:5000/api/Reports/ban-user');
   }
 
-  public CreateReport(report: ReportLog): Observable<ReportLog> {
-    return this.http.post<ReportLog>('http://localhost:5000/api/Reports/create-report', report)
+  public getReportsAdminView(userId: number): Observable<ReportLog[]> {
+    return this.http.get<ReportLog[]>(`http://localhost:5000/api/Reports/get-reports-admin-view-${userId}`);
+  }
+
+  public getReportCountOfUser(userId: number): Observable<number> {
+    return this.http.get<number>(`http://localhost:5000/api/Reports/get-report-count-of-user-${userId}`);
   }
 }
 

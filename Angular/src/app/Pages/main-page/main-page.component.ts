@@ -12,7 +12,7 @@ import { Message } from '../../models/Message';
 import { MessageService} from '../../services/message.service';
 import { catchError } from 'rxjs';
 import { ReportsService} from '../../services/reports.service';
-import { ReportLog } from '../../models/ReportLog';
+import { CreateReportDTO, ReportLog, UserReportDTO } from '../../models/ReportLog';
 import { PublicChat } from '../../models/PublicChat';
 import { UserChatRelationshipService } from '../../services/UserChatRelationship.service';
 
@@ -165,13 +165,13 @@ export class MainPageComponent {
   }
 
   reportUser(){
-    let report = new ReportLog;
-    report.userId = this.user.id;
-    report.reportedUserId = this.reportUserId;
-    report.message = this.reportReason;
+    let createReportDTO = new CreateReportDTO;
+    createReportDTO.requestorId = this.user.id;
+    createReportDTO.targetId = this.reportUserId;
+    createReportDTO.message = this.reportReason;
     this.reportPopup = false;
 
-    this.reportsService.CreateReport(report).subscribe();
+    this.reportsService.sendReport(createReportDTO).subscribe();
   }
 
   showReportPopup(reportUserId: number){

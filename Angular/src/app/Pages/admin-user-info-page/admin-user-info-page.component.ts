@@ -24,7 +24,7 @@ export class AdminUserInfoPageComponent {
   ngOnInit() {
     this.userService.getUser(this.route.snapshot.params['id']).subscribe(result => {
         this.user = result;
-        this.reportService.UserReportCount(this.user.id).subscribe(result => this.reportCount = result);
+        this.reportService.getReportCountOfUser(this.user.id).subscribe(result => this.reportCount = result);
       })
   }
 }
