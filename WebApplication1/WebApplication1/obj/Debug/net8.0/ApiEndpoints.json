@@ -203,14 +203,14 @@
   {
     "ContainingType": "WebApplication1.Controllers.MessageController",
     "Method": "GetMessagesFromChat",
-    "RelativePath": "api/Message/get-messages-in-chat-{id}",
-    "HttpMethod": "GET",
+    "RelativePath": "api/Message/get-messages-in-chat",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
-        "Type": "System.Int32",
+        "Name": "dto",
+        "Type": "WebApplication1.Models.DTO.UserChatRelationshipDTO",
         "IsRequired": true
       }
     ],
@@ -291,6 +291,102 @@
       {
         "Name": "dto",
         "Type": "WebApplication1.Models.DTO.CreatePublicChatDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ReportsController",
+    "Method": "BanUser",
+    "RelativePath": "api/Reports/ban-user",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "WebApplication1.Models.DTO.UseReportDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ReportsController",
+    "Method": "DeleteReport",
+    "RelativePath": "api/Reports/delete-report",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "WebApplication1.Models.DTO.UseReportDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ReportsController",
+    "Method": "GetReportCount",
+    "RelativePath": "api/Reports/get-report-count-of-user-{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ReportsController",
+    "Method": "ViewReports",
+    "RelativePath": "api/Reports/get-reports-admin-view-{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ReportsController",
+    "Method": "SendReport",
+    "RelativePath": "api/Reports/send-report",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "WebApplication1.Models.DTO.CreateReportDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ReportsController",
+    "Method": "TimeoutUser",
+    "RelativePath": "api/Reports/timeout-user",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "WebApplication1.Models.DTO.UseReportDTO",
         "IsRequired": true
       }
     ],
