@@ -21,9 +21,17 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> SendReport([FromBody] CreateReportDTO dto)
             => HandleService(() => _reportService.SendReportAsync(dto));
 
+        [HttpPut("timeout-user")]
+        public Task<IActionResult> TimeoutUser([FromBody] UseReportDTO dto)
+            => HandleService(() => _reportService.UseReportAsync(dto, "timeout"));
+
+        [HttpPut("ban-user")]
+        public Task<IActionResult> BanUser([FromBody] UseReportDTO dto)
+            => HandleService(() => _reportService.UseReportAsync(dto, "ban"));
+
         [HttpDelete("delete-report")]
         public Task<IActionResult> DeleteReport([FromBody] UseReportDTO dto)
-            => HandleService(() => _reportService.DeleteReportAsync(dto));
+            => HandleService(() => _reportService.UseReportAsync(dto, "remove"));
 
         [HttpGet("get-reports-admin-view-{id}")]
         public Task<IActionResult> ViewReports(int id)

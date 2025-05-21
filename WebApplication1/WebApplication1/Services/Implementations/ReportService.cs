@@ -47,14 +47,29 @@ namespace WebApplication1.Services.Implementations
             return new ServiceResult { Success = true, Data = await context.ReportLog.ToListAsync() };
         }
 
-        public async Task<ServiceResult> DeleteReportAsync(UseReportDTO dto)
+        public async Task<ServiceResult> UseReportAsync(UseReportDTO dto, string action)
         {
-            var user = await context.User.FindAsync(dto.userId);
+            User? admin = await context.User.FindAsync(dto.userId);
             var report = await context.ReportLog.FindAsync(dto.reportId);
-            if (!user.IsAdmin)
+            User? user = await context.User.FindAsync(report.ReportedUserId);
+            if (!admin.IsAdmin)
                 return new ServiceResult { Success = false, ErrorMessage = "permission denied", ErrorCode = 403 };
 
             context.ReportLog.Remove(report);
+
+            if (action == "timeout" && dto.until.HasValue)
+            {
+                user.TimeoutEnd = dto.until.Value;
+            }
+            else if (action == "ban" && dto.until.HasValue)
+            {
+                user.BanEnd = dto.until.Value;
+            }
+            else if (action != "remove")
+            {
+                return new ServiceResult { Success = false, ErrorMessage = "cannot perform an anciton" };
+            }
+
             await context.SaveChangesAsync();
 
             return new ServiceResult { Success = true, Data = report };

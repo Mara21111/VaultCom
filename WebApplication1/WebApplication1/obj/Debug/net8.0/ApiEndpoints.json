@@ -298,6 +298,22 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.ReportsController",
+    "Method": "BanUser",
+    "RelativePath": "api/Reports/ban-user",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "WebApplication1.Models.DTO.UseReportDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ReportsController",
     "Method": "DeleteReport",
     "RelativePath": "api/Reports/delete-report",
     "HttpMethod": "DELETE",
@@ -355,6 +371,22 @@
       {
         "Name": "dto",
         "Type": "WebApplication1.Models.DTO.CreateReportDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ReportsController",
+    "Method": "TimeoutUser",
+    "RelativePath": "api/Reports/timeout-user",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "WebApplication1.Models.DTO.UseReportDTO",
         "IsRequired": true
       }
     ],
