@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { UserService } from '../../services/User.service';
+import { UserService} from '../../services/User.service';
 import { User, CreateUserDTO, LoginDTO } from '../../models/User';
 import { catchError } from 'rxjs';
 import { AuthenticationService } from '../../services/authentication.service';

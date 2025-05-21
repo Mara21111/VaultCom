@@ -20,6 +20,14 @@ export class ReportsService {
     return this.http.put<UserReportDTO>('http://localhost:5000/api/Reports/timeout-user', userReportDTO);
   }
 
+  public getAllReports(): Observable<ReportLog[]> {
+    return this.http.get<ReportLog[]>('http://localhost:5000/api/Reports/get-all-reports');
+  }
+
+  public GetAllUserId(id: number): Observable<ReportLog[]> {
+    return this.http.get<ReportLog[]>('http://localhost:5000/api/Reports/get-all-reports-user-id?Id=' + id);
+  }
+
   public banUser(userReportDTO: UserReportDTO): Observable<UserReportDTO> {
     return this.http.put<UserReportDTO>('http://localhost:5000/api/Reports/ban-user', userReportDTO);
   }
