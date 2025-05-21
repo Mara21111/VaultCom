@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\services\\implementations\\messageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\xambl\\onedrive\\\u0440\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\vaultcom\\webapplication1\\webapplication1\\models\\data\\message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\models\\data\\message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|c:\\users\\xambl\\onedrive\\\u0440\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\vaultcom\\webapplication1\\webapplication1\\services\\interfaces\\imessageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C4D10477-748B-4F27-A46F-DE83D3E797E7}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\services\\interfaces\\imessageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -46,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -58,7 +62,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
+              "Title": "Message.cs",
+              "DocumentMoniker": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Models\\Data\\Message.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Models\\Data\\Message.cs",
+              "ToolTip": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Models\\Data\\Message.cs",
+              "RelativeToolTip": "WebApplication1\\Models\\Data\\Message.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAA1wA4AAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-21T11:28:42.065Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "ChatDTO.cs",
               "DocumentMoniker": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Models\\DTO\\ChatDTO.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Models\\DTO\\ChatDTO.cs",
@@ -66,12 +83,11 @@
               "RelativeToolTip": "WebApplication1\\Models\\DTO\\ChatDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-21T09:23:51.928Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-21T09:23:51.928Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "MessageDTOs.cs",
               "DocumentMoniker": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Models\\DTO\\MessageDTOs.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Models\\DTO\\MessageDTOs.cs",
@@ -79,12 +95,11 @@
               "RelativeToolTip": "WebApplication1\\Models\\DTO\\MessageDTOs.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAA+wA4AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-21T09:20:51.207Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-21T09:20:51.207Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "MessageController.cs",
               "DocumentMoniker": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\MessageController.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\MessageController.cs",
@@ -92,12 +107,11 @@
               "RelativeToolTip": "WebApplication1\\Controllers\\MessageController.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAQwBwAAABQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-21T08:57:50.319Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-21T08:57:50.319Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "IMessageService.cs",
               "DocumentMoniker": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Interfaces\\IMessageService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Interfaces\\IMessageService.cs",
@@ -105,8 +119,7 @@
               "RelativeToolTip": "WebApplication1\\Services\\Interfaces\\IMessageService.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-21T08:55:51.933Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-21T08:55:51.933Z"
             },
             {
               "$type": "Document",
@@ -116,14 +129,14 @@
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Implementations\\MessageService.cs",
               "ToolTip": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Implementations\\MessageService.cs",
               "RelativeToolTip": "WebApplication1\\Services\\Implementations\\MessageService.cs",
-              "ViewState": "AgIAAHsAAAAAAAAAAAAqwIAAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAnwEEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-20T14:05:14.859Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "UserService.cs",
               "DocumentMoniker": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Implementations\\UserService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Implementations\\UserService.cs",
@@ -131,12 +144,11 @@
               "RelativeToolTip": "WebApplication1\\Services\\Implementations\\UserService.cs",
               "ViewState": "AgIAAFYAAAAAAAAAAAAYwGUAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T14:03:47.995Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-20T14:03:47.995Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "IPrivateChatService.cs",
               "DocumentMoniker": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Interfaces\\IPrivateChatService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Interfaces\\IPrivateChatService.cs",
@@ -148,7 +160,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "PrivateChatService.cs",
               "DocumentMoniker": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Services\\Implementations\\PrivateChatService.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Services\\Implementations\\PrivateChatService.cs",
@@ -156,12 +168,11 @@
               "RelativeToolTip": "WebApplication1\\Services\\Implementations\\PrivateChatService.cs",
               "ViewState": "AgIAADMAAAAAAAAAAAAUwEgAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T13:19:41.28Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-20T13:19:41.28Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "PrivateChatController.cs",
               "DocumentMoniker": "C:\\Users\\xambl\\OneDrive\\\u0420\u043E\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u0456\u043B\\VaultCom\\WebApplication1\\WebApplication1\\Controllers\\PrivateChatController.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\PrivateChatController.cs",

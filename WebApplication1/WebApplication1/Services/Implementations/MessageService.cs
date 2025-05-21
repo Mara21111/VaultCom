@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Org.BouncyCastle.Asn1.X509;
+using System;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -37,6 +38,7 @@ namespace WebApplication1.Services.Implementations
                 UserId = dto.UserId,
                 ChatId = dto.ChatId,
                 Content = dto.Content,
+                SelfContent = "",
                 URLLink = IsLinkRegex(dto.Content) ? dto.Content : "",
                 Time = DateTime.Now,
                 IsEdited = false,
@@ -62,14 +64,6 @@ namespace WebApplication1.Services.Implementations
             return new ServiceResult { Success = true, Data = msg };
         }
 
-        /*
-{
-  "userId": 1,
-  "chatId": 9,
-  "content": "lenka dala nejen kajak na kajaky",
-  "replyMessageId": 0
-}
-        */
         public async Task<ServiceResult> SendEncryptedMessageAsync(MessageDTO dto, Message msg)
         {
             PrivateChat chat = await context.PrivateChat.FindAsync(context.Chat.Find(dto.ChatId).ChatId);
@@ -78,25 +72,24 @@ namespace WebApplication1.Services.Implementations
                 return new ServiceResult { Success = false, ErrorMessage = "chat not found" };
             }
 
-            var otherUserId = chat.GetOtherUser(dto.UserId);
-            var otherUser = await context.User.FindAsync(otherUserId);
-            if (otherUser == null || string.IsNullOrEmpty(otherUser.PublicKey))
-            {
-                return new ServiceResult { Success = false, ErrorMessage = "Other user's public key not found." };
-            }
+            var user = await context.User.FindAsync(dto.UserId);
+            var otherUser = await context.User.FindAsync(chat.GetOtherUser(dto.UserId));
 
             try
             {
-                // NA TUHLE SRACKU NESAHAT
-
                 using (var rsa = RSA.Create())
                 {
-                    byte[] publicKeyBytes = Convert.FromBase64String(otherUser.PublicKey);
-                    rsa.ImportSubjectPublicKeyInfo(publicKeyBytes, out _);
+                    byte[] messageBytes = Encoding.UTF8.GetBytes(msg.Content);
 
-                    byte[] data = Encoding.UTF8.GetBytes(msg.Content);
-                    byte[] encryptedData = rsa.Encrypt(data, RSAEncryptionPadding.OaepSHA256);
-                    msg.Content = Convert.ToBase64String(encryptedData);
+                    // pro other
+                    rsa.ImportSubjectPublicKeyInfo(Convert.FromBase64String(otherUser.PublicKey), out _);
+                    byte[] encyptedOther = rsa.Encrypt(messageBytes, RSAEncryptionPadding.OaepSHA256);
+                    msg.Content = Convert.ToBase64String(encyptedOther);
+
+                    // pro sebe
+                    rsa.ImportSubjectPublicKeyInfo(Convert.FromBase64String(user.PublicKey), out _);
+                    byte[] encryptedSelf = rsa.Encrypt(messageBytes, RSAEncryptionPadding.OaepSHA256);
+                    msg.SelfContent = Convert.ToBase64String(encryptedSelf);
                 }
 
                 context.Message.Add(msg);
@@ -114,7 +107,7 @@ namespace WebApplication1.Services.Implementations
         {
             if (context.Chat.Find(dto.ChatId).Type == 3)
             {
-                return await GetEncryptedMessagesAsync(dto);
+                return await GetDecryptedMessagesAsync(dto);
             }
             if (!await context.UserChatRelationship.Where(x => x.UserId == dto.UserId && x.ChatId == dto.ChatId).AnyAsync())
             {
@@ -124,7 +117,7 @@ namespace WebApplication1.Services.Implementations
             return new ServiceResult { Success = true, Data = messages };
         }
 
-        public async Task<ServiceResult> GetEncryptedMessagesAsync(UserChatRelationshipDTO dto)
+        public async Task<ServiceResult> GetDecryptedMessagesAsync(UserChatRelationshipDTO dto)
         {
             var chat = await context.Chat.FindAsync(dto.ChatId);
             var privateChat = await context.PrivateChat.FindAsync(chat.ChatId);
@@ -142,12 +135,19 @@ namespace WebApplication1.Services.Implementations
                     }
                     catch
                     {
-                        msg.Content = "[unable to decrypt message]";
+                        msg.Content = "[decryption error]";
                     }
                 }
                 else
                 {
-                    msg.Content = "[message you sent]";
+                    try
+                    {
+                        msg.Content = DecryptOwnMessage(msg, currentUser);
+                    }
+                    catch
+                    {
+                        msg.Content = "[decryption error]";
+                    }
                 }
             }
 
@@ -158,10 +158,20 @@ namespace WebApplication1.Services.Implementations
         {
             using (var rsa = RSA.Create())
             {
-                byte[] privateKeyBytes = Convert.FromBase64String(user.PrivateKey);
-                rsa.ImportPkcs8PrivateKey(privateKeyBytes, out _);
+                rsa.ImportPkcs8PrivateKey(Convert.FromBase64String(user.PrivateKey), out _);
 
                 byte[] encryptedBytes = Convert.FromBase64String(message.Content);
+                byte[] decryptedBytes = rsa.Decrypt(encryptedBytes, RSAEncryptionPadding.OaepSHA256);
+                return Encoding.UTF8.GetString(decryptedBytes);
+            }
+        }
+        private string DecryptOwnMessage(Message message, User user)
+        {
+            using (var rsa = RSA.Create())
+            {
+                rsa.ImportPkcs8PrivateKey(Convert.FromBase64String(user.PrivateKey), out _);
+
+                byte[] encryptedBytes = Convert.FromBase64String(message.SelfContent);
                 byte[] decryptedBytes = rsa.Decrypt(encryptedBytes, RSAEncryptionPadding.OaepSHA256);
                 return Encoding.UTF8.GetString(decryptedBytes);
             }

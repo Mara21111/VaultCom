@@ -12,6 +12,8 @@
 
         public string Content { get; set; }
 
+        public string? SelfContent { get; set; }
+
         public string? URLLink { get; set; }
 
         public DateTime Time {  get; set; }
