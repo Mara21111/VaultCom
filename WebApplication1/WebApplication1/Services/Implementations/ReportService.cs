@@ -19,6 +19,52 @@ namespace WebApplication1.Services.Implementations
             this.context = context;
         }
 
-        
+        public async Task<ServiceResult> SendReportAsync(CreateReportDTO dto)
+        {
+            if (!await dto.Exists(context))
+                return new ServiceResult { Success = false, ErrorMessage = "user does not exists" };
+
+            var report = new ReportLog
+            {
+                UserId = dto.RequestorId,
+                ReportedUserId = dto.TargetId,
+                Message = dto.message
+            };
+            context.ReportLog.Add(report);
+            await context.SaveChangesAsync();
+
+            return new ServiceResult { Success = true, Data = report };
+        }
+
+        public async Task<ServiceResult> ViewReportsAsync(int id)
+        {
+            var user = await context.User.FindAsync(id);
+            if (user is null)
+                return new ServiceResult { Success = false, ErrorMessage = "uer is null" };
+            if (!user.IsAdmin)
+                return new ServiceResult { Success = false, ErrorMessage = "permission denied", ErrorCode = 403 };
+
+            return new ServiceResult { Success = true, Data = await context.ReportLog.ToListAsync() };
+        }
+
+        public async Task<ServiceResult> DeleteReportAsync(UseReportDTO dto)
+        {
+            var user = await context.User.FindAsync(dto.userId);
+            var report = await context.ReportLog.FindAsync(dto.reportId);
+            if (!user.IsAdmin)
+                return new ServiceResult { Success = false, ErrorMessage = "permission denied", ErrorCode = 403 };
+
+            context.ReportLog.Remove(report);
+            await context.SaveChangesAsync();
+
+            return new ServiceResult { Success = true, Data = report };
+        }
+
+        public async Task<ServiceResult> GetReportCountAsync(int id)
+        {
+            int count = await context.ReportLog.Where(x => x.ReportedUserId == id).CountAsync();
+
+            return new ServiceResult { Success = true, Data = count };
+        }
     }
 }

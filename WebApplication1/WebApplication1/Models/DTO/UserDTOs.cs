@@ -1,9 +1,16 @@
-﻿namespace WebApplication1.Models.DTO
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace WebApplication1.Models.DTO
 {
     public class RequestDTO
     {
         public int RequestorId { get; set; }
         public int TargetId { get; set; }
+        public async Task<bool> Exists(MyContext context)
+        {
+            return await context.User.Where(x => x.Id == RequestorId).AnyAsync()
+                && await context.User.Where(x => x.Id == TargetId).AnyAsync();
+        }
     }
     public class CreateUserDTO
     {
