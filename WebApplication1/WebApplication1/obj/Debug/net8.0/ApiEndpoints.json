@@ -203,14 +203,14 @@
   {
     "ContainingType": "WebApplication1.Controllers.MessageController",
     "Method": "GetMessagesFromChat",
-    "RelativePath": "api/Message/get-messages-in-chat-{id}",
-    "HttpMethod": "GET",
+    "RelativePath": "api/Message/get-messages-in-chat",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
-        "Type": "System.Int32",
+        "Name": "dto",
+        "Type": "WebApplication1.Models.DTO.UserChatRelationshipDTO",
         "IsRequired": true
       }
     ],
