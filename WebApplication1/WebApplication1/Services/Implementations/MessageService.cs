@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Crmf;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Org.BouncyCastle.Asn1.X509;
 using System;
@@ -103,25 +104,26 @@ namespace WebApplication1.Services.Implementations
             }
         }
 
-        public async Task<ServiceResult> GetMessagesInChatAsync(UserChatRelationshipDTO dto)
+        public async Task<ServiceResult> GetMessagesInChatAsync(int userId, int chatId)
         {
-            if (context.Chat.Find(dto.ChatId).Type == 3)
+            if (context.Chat.Find(chatId).Type == 3)
             {
-                return await GetDecryptedMessagesAsync(dto);
+                return await GetDecryptedMessagesAsync(userId, chatId);
             }
-            if (!await dto.InChat(context))
+            if (!await context.UserChatRelationship.Where(x => x.ChatId == chatId && x.UserId == userId).AnyAsync())
                 return new ServiceResult { Success = false, ErrorMessage = "user not in chat" };
-            var messages = await context.Message.Where(x => x.ChatId == dto.ChatId).ToListAsync();
+
+            var messages = await context.Message.Where(x => x.ChatId == chatId).ToListAsync();
             return new ServiceResult { Success = true, Data = messages };
         }
 
-        public async Task<ServiceResult> GetDecryptedMessagesAsync(UserChatRelationshipDTO dto)
+        public async Task<ServiceResult> GetDecryptedMessagesAsync(int userId, int chatId)
         {
-            var chat = await context.Chat.FindAsync(dto.ChatId);
+            var chat = await context.Chat.FindAsync(chatId);
             var privateChat = await context.PrivateChat.FindAsync(chat.ChatId);
             var messages = await context.Message.Where(m => m.ChatId == chat.Id).ToListAsync();
-            var currentUser = await context.User.FindAsync(dto.UserId);
-            var otherUserId = privateChat.GetOtherUser(dto.UserId);
+            var currentUser = await context.User.FindAsync(userId);
+            var otherUserId = privateChat.GetOtherUser(userId);
 
             foreach (var msg in messages)
             {
