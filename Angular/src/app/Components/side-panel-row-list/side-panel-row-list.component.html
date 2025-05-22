@@ -1,0 +1,19 @@
+<div class="info-row">
+  <label class="info-label">{{ label }}</label>
+
+  <ng-container *ngIf="editable; else readonly">
+    <div *ngFor="let value of values; let i = index">
+      <input
+        [(ngModel)]="this.string"
+        (ngModelChange)="onChange($event, i)"
+        class="info-input"
+        type="text"
+      />
+    </div>
+  </ng-container>
+
+  <ng-template #readonly>
+    <div *ngFor="let value of values" class="info-value">{{ value }}</div>
+  </ng-template>
+</div>
+

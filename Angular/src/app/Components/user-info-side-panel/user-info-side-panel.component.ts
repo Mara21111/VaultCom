@@ -21,6 +21,7 @@ export class UserInfoSidePanelComponent {
   public onChange() {
 
   }
+
   public onSaveUserEditing() {
     console.log(this.user);
   }
@@ -32,10 +33,6 @@ export class UserInfoSidePanelComponent {
   public closePanel() {
     this.isClosing = true;
 
-    // Počkej na dobu animace, pak zavři (např. ngIf = false nebo emit)
-    setTimeout(() => {
-      // Tady můžeš volat rodičovskou funkci nebo emitovat událost
-      this.close.emit(); // nebo this.visible = false
-    }, 250); // musí odpovídat délce animace
+    setTimeout(() => {this.close.emit();}, 250);
   }
 }

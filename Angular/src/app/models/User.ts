@@ -42,6 +42,13 @@ export class BaseUserDataDTO {
 }
 
 export class PublicUserDataDTO {
+  id: number;
+  username: string;
+  bio: string;
+  profilePicture: string;
+  createdAt: Date;
+  banEnd: Date | null;
+  timeoutEnd: Date | null;
   email: string;
   safeMode: boolean;
 }

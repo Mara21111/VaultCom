@@ -1,0 +1,35 @@
+<div class="overlay" (click)="closePanel()"></div>
+
+<div class="side-panel" [ngClass]="{ 'closing': isClosing }">
+  <button class="close-button" (click)="closePanel()" aria-label="Close panel">&times;</button>
+
+  <h2>Chat Info</h2>
+
+  <div class="info-group">
+    <div class="info-row">
+      <app-side-panel-row
+        [label]="'Chat name'"
+        [(value)]="chatInfo.title"
+        [editable]="userEditing">
+      </app-side-panel-row>
+    </div>
+    <div class="info-row" *ngIf="chatInfo.desc !== null">
+      <app-side-panel-row
+        [label]="'Description'"
+        [(value)]="chatInfo.desc"
+        [editable]="userEditing">
+      </app-side-panel-row>
+    </div>
+    <div class="info-row" *ngIf="!adminView">
+      <app-side-panel-row
+        [label]="'You'"
+        [editable]="userEditing">
+      </app-side-panel-row>
+    </div>
+    <app-side-panel-row-list
+      [label]="'Users:'"
+      [values]="this.getUsernames()"
+      [editable] = false>
+    </app-side-panel-row-list>
+  </div>
+</div>

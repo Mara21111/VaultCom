@@ -57,7 +57,7 @@
       <div class="edit-panel">
         <div class="edit-item">
           <div class="edit-text">Change profile information:</div>
-          <i class="bi bi-pencil-square edit-icon" (click)="this.goToUser()"></i>
+          <i class="bi bi-pencil-square edit-icon" (click)="this.editUser()"></i>
         </div>
         <div>
           <button class="save-btn btn-danger" (click)="this.save()">Save profile changes</button>
@@ -113,7 +113,7 @@
 
     <app-user-info-side-panel
       *ngIf="panelVisible"
-      [user]="selectedUser"
+      [user]="userPanelInfo"
       [adminView]="true"
       [userEditing]="true"
       (close)="closePanel()">

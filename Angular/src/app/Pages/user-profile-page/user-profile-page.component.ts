@@ -7,6 +7,7 @@ import { UserService } from '../../services/User.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication.service';
 import {UserInfoSidePanelComponent} from '../../Components/user-info-side-panel/user-info-side-panel.component';
+import {ReportsService} from '../../services/reports.service';
 
 @Component({
   selector: 'app-user-profile-page',
@@ -24,14 +25,15 @@ export class UserProfilePageComponent {
   errorMessage: string = '';
 
   public panelVisible: boolean = false;
-  public selectedUser: UserPanelInfo = new UserPanelInfo()
+  public userPanelInfo: UserPanelInfo = new UserPanelInfo()
 
   user: User = new User;
 
   constructor(private userService: UserService,
     private fb: FormBuilder,
     private authService: AuthenticationService,
-    private router: Router){
+    private reportService: ReportsService,
+    private router: Router) {
   }
 
   ngOnInit(){
@@ -59,10 +61,7 @@ export class UserProfilePageComponent {
     this.darkMode = !this.darkMode;
   }
 
-  closePanel() {
-    this.panelVisible = false;
-    this.selectedUser = new UserPanelInfo();
-  }
+
 
   updateUser() {
     this.user.username = this.form.value.username;
@@ -84,6 +83,20 @@ export class UserProfilePageComponent {
     this.router.navigate([ '/' ])
   }
 
-  public goToUser(): void {
+  public editUser() {
+    this.userPanelInfo.username = this.user.username;
+    this.userPanelInfo.email = this.user.email;
+    this.userPanelInfo.bio = this.user.bio;
+    this.userPanelInfo.createdAt = this.user.createdAt.toString();
+    this.userPanelInfo.banEnd = this.user.banEnd.toString();
+
+    this.reportService.getReportCountOfUser(this.user.id).subscribe(result => this.userPanelInfo.reportCount = result.toString())
+
+    this.panelVisible = true;
+  }
+
+  public closePanel() {
+    this.panelVisible = false;
+    this.userPanelInfo = new UserPanelInfo();
   }
 }

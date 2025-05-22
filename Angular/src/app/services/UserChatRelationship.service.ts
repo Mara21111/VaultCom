@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {BaseUserDataDTO, CreateUserDTO, PublicUserDataDTO} from '../models/User';
 import { Observable } from 'rxjs';
-import { UserChatRelationshipDTO } from '../models/UserChatRelationship';
 import {UserRelationshipDTO} from '../models/UserRelationship';
 
 @Injectable({
@@ -18,7 +17,7 @@ export class UserChatRelationshipService {
     return this.http.post<void>('http://localhost:5000/api/UserChatRelationship/join-public-chat', relationship);
   }
 
-  public getUsersInChat(chatId: number): Observable<BaseUserDataDTO | PublicUserDataDTO> {
-    return this.http.get<BaseUserDataDTO | PublicUserDataDTO>(`http://localhost:5000/api/UserChatRelationship/get-users-in-chat${chatId}`);
+  public getUsersInChat(chatId: number): Observable<BaseUserDataDTO[] | PublicUserDataDTO[]> {
+    return this.http.get<BaseUserDataDTO[] | PublicUserDataDTO[]>(`http://localhost:5000/api/UserChatRelationship/get-users-in-chat-${chatId}`);
   }
 }

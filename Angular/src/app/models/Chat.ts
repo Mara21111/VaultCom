@@ -1,3 +1,5 @@
+import {BaseUserDataDTO, PublicUserDataDTO, User} from './User';
+
 export class Chat {
   id: number;
   type: number;
@@ -19,4 +21,11 @@ export class ChatFilterDTO {
 export class ChatGetterDTO {
   id: number;
   title: string;
+}
+
+export class ChatPanelInfo {
+  title: string;
+  desc: string | null;
+  activeUserName: string;
+  users: BaseUserDataDTO[] | PublicUserDataDTO[];
 }

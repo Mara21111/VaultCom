@@ -23,11 +23,11 @@
             <div class="col-header"></div>
           </div>
           <div class="table-body">
-            <div class="table-row" *ngFor="let item of filteredChats">
-              <div class="col"><i class="bi bi-pencil-fill pencil-icon"></i>{{ item.title }}</div>
-              <div class="col">{{ item.users }}</div>
-              <div class="col">{{ item.activeUsers }}</div>
-              <div class="col"><button class="delete-button btn btn-danger" (click)="deleteChat(item.id)">
+            <div class="table-row" *ngFor="let chat of filteredChats" (click)="goToPublicChat(chat.id)">
+              <div class="col"><i class="bi bi-pencil-fill pencil-icon"></i>{{ chat.title }}</div>
+              <div class="col">{{ chat.users }}</div>
+              <div class="col">{{ chat.activeUsers }}</div>
+              <div class="col"><button class="delete-button btn btn-danger" (click)="deleteChat(chat.id)">
                 <i class="bi bi-x"></i>
               </button></div>
             </div>
@@ -44,3 +44,12 @@
       </div>
     </div>
   </div>
+
+  <app-chat-info-side-panel
+    *ngIf="panelVisible"
+    [chatInfo]="selectedChat"
+    [userEditing]="false"
+    [adminView]="true"
+    (close)="closePanel()">
+  </app-chat-info-side-panel>
+
