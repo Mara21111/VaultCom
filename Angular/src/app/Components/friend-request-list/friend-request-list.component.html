@@ -1,0 +1,35 @@
+<section class="panel" [class.active]="isOpen">
+  <header class="clickable-header" (click)="toggleSection()">
+    <h2 class="section-title">
+      Friend Requests
+      <span class="arrow" [class.open]="isOpen">
+        <svg width="16" height="16" viewBox="0 0 24 24">
+          <path d="M8 5l8 7-8 7" fill="none" stroke="white" stroke-width="2" />
+        </svg>
+      </span>
+    </h2>
+  </header>
+
+  <div class="collapsible-content" [class.open]="isOpen">
+    <div class="table-header">
+      <div class="col-header">Username</div>
+      <div class="col-header">Bio</div>
+      <div class="col-header">Actions</div>
+    </div>
+
+    <div class="table-body">
+      <div
+        class="table-row"
+        *ngFor="let user of requests"
+        @fadeOut
+      >
+        <div class="col">{{ user?.username }}</div>
+        <div class="col">{{ user?.bio }}</div>
+        <div class="col action-buttons">
+          <button class="btn btn-success" (click)="onAccept(user.id)">Accept</button>
+          <button class="btn btn-danger" (click)="onReject(user.id)">Reject</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

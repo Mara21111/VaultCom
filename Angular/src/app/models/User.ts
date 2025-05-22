@@ -84,3 +84,16 @@ export class UserPanelInfo {
   banEnd: string;
   reportCount: string;
 }
+
+export class UserGetterDTO {
+  id: number;
+  username: string;
+  email?: string;
+  bio: string;
+  profilePicture: string;
+  createdAt: string;
+  timeoutEnd?: string;
+  banEnd?: string;
+  safeMode?: boolean;
+  reportCount?: string;
+}

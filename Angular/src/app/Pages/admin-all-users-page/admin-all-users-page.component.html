@@ -24,7 +24,7 @@
           <div class="table-row" (click)="this.goToUser(user.id)" *ngFor="let user of this.filteredUsers" style="cursor: pointer;">
             <div class="col username">{{ user.username }}</div>
             <div class="col">{{ user.email }}</div>
-            <div class="col">{{ this.reportCount(user.id) }}</div>
+            <div class="col">{{ user.reportCount ?? 'nothing' }}</div>
           </div>
         </div>
       </section>

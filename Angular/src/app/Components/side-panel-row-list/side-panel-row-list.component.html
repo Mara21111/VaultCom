@@ -2,18 +2,24 @@
   <label class="info-label">{{ label }}</label>
 
   <ng-container *ngIf="editable; else readonly">
-    <div *ngFor="let value of values; let i = index">
+    <ng-container *ngIf="values.length > 0; else noValues">
       <input
-        [(ngModel)]="this.string"
+        *ngFor="let value of values; let i = index"
+        [(ngModel)]="values[i]"
         (ngModelChange)="onChange($event, i)"
         class="info-input"
         type="text"
       />
-    </div>
+    </ng-container>
   </ng-container>
 
   <ng-template #readonly>
-    <div *ngFor="let value of values" class="info-value">{{ value }}</div>
+    <ng-container *ngIf="values.length > 0; else noValues">
+      <div *ngFor="let value of values" class="info-value">{{ value }}</div>
+    </ng-container>
+  </ng-template>
+
+  <ng-template #noValues>
+    <div class="info-placeholder">No data available</div>
   </ng-template>
 </div>
-

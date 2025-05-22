@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User, CreateUserDTO, EditUserDTO, UserToggleDTO } from '../models/User';
+import {User, CreateUserDTO, EditUserDTO, UserToggleDTO, UserGetterDTO} from '../models/User';
 import { AuthenticationService } from './authentication.service';
 
 @Injectable({
@@ -29,32 +29,32 @@ export class UserService {
     return this.http.delete<void>(`http://localhost:5000/api/User/delete-user-${deletingUserId}-${deletedUserId}`)
   }
 
-  public getAllUsersAdminView(): Observable<User[]> {
-    return this.http.get<User[]>('http://localhost:5000/api/User/get-all-users-admin-view');
+  public getAllUsersAdminView(): Observable<UserGetterDTO[]> {
+    return this.http.get<UserGetterDTO[]>('http://localhost:5000/api/User/get-all-users-admin-view');
   }
 
-  public getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>('http://localhost:5000/api/User/get-all-users');
+  public getAllUsers(): Observable<UserGetterDTO[]> {
+    return this.http.get<UserGetterDTO[]>('http://localhost:5000/api/User/get-all-users');
   }
 
-  public getTimeOutedUsers(): Observable<User[]> {
-    return this.http.get<User[]>('http://localhost:5000/api/User/get-timeouted-users');
+  public getTimeOutedUsers(): Observable<UserGetterDTO[]> {
+    return this.http.get<UserGetterDTO[]>('http://localhost:5000/api/User/get-timeouted-users');
   }
 
-  public getGoodUsers(): Observable<User[]> {
-    return this.http.get<User[]>('http://localhost:5000/api/User/get-good-users');
+  public getGoodUsers(): Observable<UserGetterDTO[]> {
+    return this.http.get<UserGetterDTO[]>('http://localhost:5000/api/User/get-good-users');
   }
 
-  public getOnlineUsers(): Observable<User[]> {
-    return this.http.get<User[]>('http://localhost:5000/api/User/get-online-users');
+  public getOnlineUsers(): Observable<UserGetterDTO[]> {
+    return this.http.get<UserGetterDTO[]>('http://localhost:5000/api/User/get-online-users');
   }
 
-  public getUser(userId: number): Observable<User> {
-    return this.http.get<User>(`http://localhost:5000/api/User/get-user-${userId}`);
+  public getUser(userId: number): Observable<UserGetterDTO> {
+    return this.http.get<UserGetterDTO>(`http://localhost:5000/api/User/get-user-${userId}`);
   }
 
-  public getSelfUser(user_id: number): Observable<User> {
-    return this.http.get<User>('http://localhost:5000/api/User/get-self-user-' + user_id);
+  public getSelfUser(userId: number): Observable<User> {
+    return this.http.get<User>(`http://localhost:5000/api/User/get-self-user-${userId}`);
   }
 
   public getFromToken(): Observable<User> {

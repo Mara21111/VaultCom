@@ -4,7 +4,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
 import { UserInfoSidePanelComponent } from '../../Components/user-info-side-panel/user-info-side-panel.component';
 import { ReportLog } from '../../models/ReportLog';
-import { User, UserPanelInfo } from '../../models/User';
+import {User, UserGetterDTO, UserPanelInfo} from '../../models/User';
 import { ReportsService} from '../../services/reports.service';
 import { UserService } from '../../services/User.service';
 
@@ -19,16 +19,16 @@ export class ReportsPageComponent {
   @ViewChild(BaseUiComponent) baseComp!: BaseUiComponent;
 
   data: ReportLog[] = [];
-  users: User[] = [];
-  logedInUser: User;
+  users: UserGetterDTO[] = [];
+  loggedInUser: User;
   selectedUser: UserPanelInfo = new UserPanelInfo();
   panelVisible = false;
   searchValue: string = '';
 
   public constructor(private reportsService: ReportsService, private userService: UserService, private router: Router) {
     this.userService.getFromToken().subscribe(result => {
-      this.logedInUser = result;
-      this.reportsService.getReportsAdminView(this.logedInUser.id).subscribe(result => this.data = result);
+      this.loggedInUser = result;
+      this.reportsService.getReportsAdminView(this.loggedInUser.id).subscribe(result => this.data = result);
     });
     this.userService.getAllUsersAdminView().subscribe(result => this.users = result);
   }
@@ -36,12 +36,13 @@ export class ReportsPageComponent {
   public goToUser(userId: number): void{
     this.userService.getUser(userId).subscribe(result => {
       this.selectedUser.username = result.username;
-      this.selectedUser.email = result.email ?? 'Not set';
+      this.selectedUser.email = result.email ?? 'Private profile';
       this.selectedUser.bio = result.bio ?? 'Not set';
-      this.selectedUser.createdAt = result.createdAt.toString() || 'Not created';
-      this.selectedUser.banEnd = result.banEnd ? new Date(result.banEnd).toDateString() : 'Not banned';
-      this.reportsService.getReportCountOfUser(userId).subscribe(result => this.selectedUser.reportCount = result.toString())
+      this.selectedUser.createdAt = result.createdAt ?? 'Not created';
+      this.selectedUser.banEnd = result.banEnd ?? 'Not banned';
+      this.selectedUser.reportCount = result.reportCount ?? 'Not reported';
       });
+
     this.panelVisible = true;
   }
 

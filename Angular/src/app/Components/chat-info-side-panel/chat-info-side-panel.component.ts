@@ -26,8 +26,7 @@ export class ChatInfoSidePanelComponent {
   }
 
   public getUsernames(): string[] {
-    const usernames = this.chatInfo?.users?.map(user => user.username) ?? [];
-    return usernames.length > 0 ? usernames : ['No users yet'];
+    return  this.chatInfo?.users?.map(user => user.username) ?? [];
   }
 
   public closePanel() {

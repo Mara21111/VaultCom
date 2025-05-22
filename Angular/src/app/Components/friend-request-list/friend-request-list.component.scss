@@ -1,3 +1,4 @@
+// ======= VARIABLES =======
 $body-bg: #202225;
 $table-header-bg: #353c47;
 $table-row-bg: #2a2d34;
@@ -9,6 +10,7 @@ $accent: #3498db;
 $danger: #e74c3c;
 $success: #2ecc71;
 
+// ======= BASE =======
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: $body-bg;
@@ -19,6 +21,7 @@ body {
   overflow: hidden;
 }
 
+// ======= LAYOUT =======
 .main-container {
   display: flex;
   flex-direction: column;
@@ -42,8 +45,10 @@ body {
   flex-direction: column;
   gap: 40px;
   position: relative;
+  scroll-behavior: smooth;
 }
 
+// ======= PANEL/SECTION STYLES =======
 .panel {
   background-color: $table-row-bg;
   border-radius: 10px;
@@ -87,27 +92,8 @@ body {
   }
 
   .section-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     font-size: 1.25rem;
     font-weight: 600;
-    color: $text-light;
-
-    .arrow {
-      margin-left: 8px;
-      display: inline-flex;
-      align-items: center;
-
-      svg {
-        transform: rotate(0deg); // doprava
-        transition: transform 0.3s ease;
-      }
-
-      &.open svg {
-        transform: rotate(90deg); // dolů
-      }
-    }
   }
 }
 
@@ -119,25 +105,25 @@ body {
   transition: max-height 0.35s ease, opacity 0.35s ease, padding 0.25s ease;
 
   &.open {
-    max-height: 1000px; // nebo víc podle potřeby
+    max-height: 1000px;
     opacity: 1;
     pointer-events: auto;
+    padding-top: 12px;
   }
 }
 
-@media (max-width: 768px) {
-  .table-header {
-    display: flex;
-    padding: 12px 0;
-    font-weight: bold;
-    border-bottom: 1px solid #444;
-    background-color: $table-header-bg;
+// ======= TABLE =======
+.table-header {
+  display: flex;
+  padding: 12px 0;
+  font-weight: bold;
+  border-bottom: 1px solid #444;
+  background-color: $table-header-bg;
 
-    .col-header {
-      flex: 1;
-      color: $text-light;
-      padding-left: 15px;
-    }
+  .col-header {
+    flex: 1;
+    color: $text-light;
+    padding-left: 15px;
   }
 }
 
@@ -151,6 +137,7 @@ body {
   padding: 14px 0;
   background-color: $table-row-bg;
   border-bottom: 1px solid #555;
+  transition: background-color 0.2s ease, opacity 0.3s ease;
 
   &:hover {
     background-color: $table-row-hover;
@@ -159,10 +146,11 @@ body {
   .col {
     flex: 1;
     padding-left: 15px;
-    color:#ffffff;
+    color: $text-light;
   }
 }
 
+// ======= BUTTONS =======
 .action-buttons {
   display: flex;
   gap: 12px;
@@ -196,12 +184,11 @@ body {
   }
 }
 
+// ======= ADD FRIEND BAR =======
 .add-user-bar {
   display: flex;
   gap: 1rem;
-  margin-top: 0.5rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
+  margin: 0.5rem 1rem 0;
   align-items: center;
   background: $table-row-bg;
   padding: 0.5rem;
@@ -215,6 +202,7 @@ body {
     color: white;
     border-radius: 6px;
     outline: none;
+    transition: background-color 0.2s ease;
   }
 
   button {
@@ -225,7 +213,7 @@ body {
     border-radius: 6px;
     font-weight: 500;
     cursor: pointer;
-    transition: background 0.2s ease;
+    transition: background-color 0.2s ease;
 
     &:hover {
       background: #218838;
@@ -233,6 +221,35 @@ body {
   }
 }
 
+// ======= LOADING OVERLAY =======
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(32, 34, 37, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+
+  .spinner {
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+}
+
+// ======= POPUP =======
 .popup-backdrop {
   position: fixed;
   top: 0;
@@ -269,29 +286,26 @@ body {
   }
 }
 
-.loading-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(32, 34, 37, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
+// ======= RESPONSIVE =======
+@media (max-width: 768px) {
+  .table-header, .table-row {
+    flex-direction: column;
+    align-items: flex-start;
 
-  .spinner {
-    border: 4px solid rgba(255, 255, 255, 0.2);
-    border-top: 4px solid white;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    animation: spin 1s linear infinite;
+    .col, .col-header {
+      padding: 5px 0;
+    }
+
+    .action-buttons {
+      justify-content: flex-start;
+    }
   }
 
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  .add-user-bar {
+    flex-direction: column;
+
+    input, button {
+      width: 100%;
+    }
   }
 }

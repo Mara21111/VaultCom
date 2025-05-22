@@ -2,26 +2,28 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
-import { UserInfoSidePanelComponent} from '../../Components/user-info-side-panel/user-info-side-panel.component';
-import {User, BaseUserDataDTO, UserPanelInfo} from '../../models/User';
+import { UserInfoSidePanelComponent } from '../../Components/user-info-side-panel/user-info-side-panel.component';
+import { FriendRequestListComponent } from '../../Components/friend-request-list/friend-request-list.component';
+import {User, BaseUserDataDTO, UserPanelInfo, UserGetterDTO} from '../../models/User';
 import { UserRelationshipService } from '../../services/UserRelationship.service';
 import { UserService } from '../../services/User.service';
 import { FormsModule } from '@angular/forms';
 import { forkJoin } from 'rxjs';
 import { UserRelationshipDTO } from '../../models/UserRelationship';
+import {FriendListComponent} from '../../Components/friend-list/friend-list.component';
 
 @Component({
   selector: 'app-user-friends-page',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgFor, NgIf, BaseUiComponent, UserInfoSidePanelComponent, FormsModule],
+  imports: [RouterLink, RouterLinkActive, NgFor, NgIf, BaseUiComponent, UserInfoSidePanelComponent, FriendRequestListComponent, FormsModule, FriendListComponent],
   templateUrl: './user-friends-page.component.html',
   styleUrl: './user-friends-page.component.scss'
 })
 
 export class UserFriendsPageComponent {
 
-  public Requests: BaseUserDataDTO[] = [];
-  public Friends: BaseUserDataDTO[] = [];
+  public Requests: UserGetterDTO[] = [];
+  public Friends: UserGetterDTO[] = [];
   public panelVisible: boolean = false;
   public ShowPopup: boolean = false;
   public newFriendUsername: string = '';
@@ -57,7 +59,7 @@ export class UserFriendsPageComponent {
       friends: this.relationshipService.getAllFriends(this.user.id),
       requests: this.relationshipService.getIncomingFriendRequests(this.user.id)
     }).subscribe({
-      next: ({ friends, requests }: {friends: BaseUserDataDTO[], requests: BaseUserDataDTO[]}) => {
+      next: ({ friends, requests }: {friends: UserGetterDTO[], requests: UserGetterDTO[]}) => {
         this.Friends = friends;
         this.Requests = requests;
       },
@@ -90,10 +92,6 @@ export class UserFriendsPageComponent {
     }
   }
 
-  public closePanel() {
-    this.panelVisible = false;
-  }
-
   public closePopup() {
     this.ShowPopup = false;
     this.PopupMessage = '';
@@ -109,6 +107,9 @@ export class UserFriendsPageComponent {
 
   toggleSection(section: 'requests' | 'friends') {
     this.isSectionOpen[section] = !this.isSectionOpen[section];
+
+    console.log(    this.Friends);
+    console.log(this.Requests)
   }
 
   public acceptRequest(targetId: number): void {
@@ -126,5 +127,25 @@ export class UserFriendsPageComponent {
 
   public cancelRequest(sender_id: number): void {
 
+  }
+
+  public goToUser(userId: number): void {
+    console.log('ahojs');
+
+    this.userService.getUser(userId).subscribe(result => {
+      this.selectedUser.username = result.username;
+      this.selectedUser.email = result.email ?? 'Private account';
+      this.selectedUser.bio = result.bio ?? 'Not set';
+      this.selectedUser.createdAt = result.createdAt ?? 'Not created';
+      this.selectedUser.banEnd = result.banEnd ?? 'Not banned';
+      this.selectedUser.reportCount = result.reportCount ?? 'Not reported';
+    });
+
+    this.panelVisible = true;
+  }
+
+  public closePanel() {
+    this.panelVisible = false;
+    this.selectedUser = new UserPanelInfo();
   }
 }

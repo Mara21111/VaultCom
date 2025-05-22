@@ -3,7 +3,6 @@ import { LoginPageComponent } from './Pages/login-page/login-page.component';
 import { RegisterComponent } from './Pages/register-page/register-page.component';
 import { AdminAllUsersPageComponent } from './Pages/admin-all-users-page/admin-all-users-page.component';
 import { AdminMenuPageComponent } from './Pages/admin-menu-page/admin-menu-page.component';
-import { AdminUserInfoPageComponent } from './Pages/admin-user-info-page/admin-user-info-page.component';
 import { PublicChatsPageComponent } from './Pages/public-chats-page/public-chats-page.component';
 import { ReportsPageComponent } from './Pages/reports-page/reports-page.component';
 import { UserFriendsPageComponent } from './Pages/user-friends-page/user-friends-page.component';
@@ -19,7 +18,6 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent},
   { path: 'admin-all-users', component: AdminAllUsersPageComponent, canActivate: [authenticationGuard, adminGuard]},
   { path: 'admin-menu', component: AdminMenuPageComponent, canActivate: [authenticationGuard, adminGuard]},
-  { path: 'admin-user-info/:id', component: AdminUserInfoPageComponent, canActivate: [authenticationGuard, adminGuard]},
   { path: 'public-chats', component: PublicChatsPageComponent, canActivate: [authenticationGuard, adminGuard]},
   { path: 'reports', component: ReportsPageComponent, canActivate: [authenticationGuard, adminGuard]},
   { path: 'user-friends', component: UserFriendsPageComponent, canActivate: [authenticationGuard]},

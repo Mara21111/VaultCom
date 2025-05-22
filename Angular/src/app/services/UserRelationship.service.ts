@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {BaseUserDataDTO, User} from '../models/User'
+import {BaseUserDataDTO, User, UserGetterDTO} from '../models/User'
 import { UserRelationshipDTO } from '../models/UserRelationship';
 
 @Injectable({
@@ -20,15 +20,15 @@ export class UserRelationshipService {
     return this.http.post<void>('http://localhost:5000/api/UserRelationship/accept-friend-request', request)
   }
 
-  public getIncomingFriendRequests(userId: number): Observable<BaseUserDataDTO[]> {
-    return this.http.get<BaseUserDataDTO[]>(`http://localhost:5000/api/UserRelationship/get-incoming-friend-requests-${userId}`)
+  public getIncomingFriendRequests(userId: number): Observable<UserGetterDTO[]> {
+    return this.http.get<UserGetterDTO[]>(`http://localhost:5000/api/UserRelationship/get-incoming-friend-requests-${userId}`)
   }
 
-  public getAllSentRequests(userId: number): Observable<BaseUserDataDTO[]> {
-    return this.http.get<BaseUserDataDTO[]>(`http://localhost:5000/api/UserRelationship/get-outcoming-friend-requests-${userId}`);
+  public getAllSentRequests(userId: number): Observable<UserGetterDTO[]> {
+    return this.http.get<UserGetterDTO[]>(`http://localhost:5000/api/UserRelationship/get-outcoming-friend-requests-${userId}`);
   }
 
-  public getAllFriends(userId: number): Observable<BaseUserDataDTO[]> {
-    return this.http.get<BaseUserDataDTO[]>(`http://localhost:5000/api/UserRelationship/get-friends-${userId}`);
+  public getAllFriends(userId: number): Observable<UserGetterDTO[]> {
+    return this.http.get<UserGetterDTO[]>(`http://localhost:5000/api/UserRelationship/get-friends-${userId}`);
   }
 }

@@ -1,0 +1,30 @@
+<section class="panel friends-panel" [class.active]="isOpen">
+  <!-- Collapsible Header -->
+  <div class="clickable-header" (click)="toggleSection()">
+    <div class="section-title">
+      Your Friends
+      <span class="arrow" [class.open]="isOpen">
+        <svg width="16" height="16" viewBox="0 0 24 24">
+          <path d="M8 5l8 7-8 7" fill="none" stroke="white" stroke-width="2" />
+        </svg>
+      </span>
+    </div>
+  </div>
+
+  <!-- Collapsible Content -->
+  <div class="collapsible-content" [class.open]="isOpen">
+    <div class="table-header">
+      <div class="col-header">Username</div>
+      <div class="col-header">Bio</div>
+      <div class="col-header">Nickname</div>
+    </div>
+
+    <div class="table-body">
+      <div class="table-row" *ngFor="let friend of friends" (click)="onFriendClick(friend.id)">
+        <div class="col">{{ friend?.username }}</div>
+        <div class="col">{{ friend?.bio }}</div>
+        <div class="col">Nickname Here</div>
+      </div>
+    </div>
+  </div>
+</section>
