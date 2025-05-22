@@ -67,6 +67,7 @@ namespace WebApplication1.Services.Implementations
             {
                 if (filter.IsIn.HasValue)
                 {
+                    // todo
                     var chatsIn = await context.UserChatRelationship
                         .Where(x => x.UserId == filter.RequestorId)
                         .Select(x => x.ChatId).ToListAsync();

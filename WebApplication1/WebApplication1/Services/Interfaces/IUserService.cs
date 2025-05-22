@@ -13,7 +13,7 @@ namespace WebApplication1.Services.Interfaces
         Task<ServiceResult> GetPFPAsync(int id);
         Task<ServiceResult> GetAllUsersAdminViewAsync();
         Task<ServiceResult> EditUserAsync(EditUserDTO dto);
-        Task<ServiceResult> ToggleUserSettingAsync(UserToggleDTO dto);
+        Task<ServiceResult> ToggleUserSettingAsync(UserToggleDTO dto, string prop);
         Task<ServiceResult> DeleteUserAsync(int requestorId, int targetId);
         Task<ServiceResult> GetUserAsync(int id);
         Task<ServiceResult> GetUsers(UserFilterDTO? filter);
