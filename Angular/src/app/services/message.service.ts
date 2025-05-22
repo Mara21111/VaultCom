@@ -10,8 +10,8 @@ export class MessageService {
 
   constructor(private http: HttpClient) { }
 
-  public getMessagesInChat(chatId: number): Observable<Message[]>{
-    return this.http.get<Message[]>('http://localhost:5000/api/Message/get-messages-in-chat-' + chatId)
+  public getMessagesInChat(userId: number, chatId: number): Observable<Message[]>{
+    return this.http.get<Message[]>(`http://localhost:5000/api/Message/get-messages-in-chat-${userId}-${chatId}`)
   }
 
     public createMessage(message: Message): Observable<Message> {

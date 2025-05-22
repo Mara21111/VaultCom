@@ -77,7 +77,7 @@ export class MainPageComponent {
   }
 
   refreshMessages(){
-    this.messageService.getMessagesInChat(this.activeChat.id).subscribe(result => this.allMessages = result);
+    this.messageService.getMessagesInChat(this.user.id, this.activeChat.id).subscribe(result => this.allMessages = result);
   }
 
   changeActiveChat(chat: ChatGetterDTO){
