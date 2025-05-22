@@ -24,17 +24,21 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> CreateUser([FromBody] CreateUserDTO dto)
             => HandleService(() => _userService.CreateUserAsync(dto));
 
-        [HttpPut("edit-user")]
-        public Task<IActionResult> EditUser([FromBody] EditUserDTO dto)
-            => HandleService(() => _userService.EditUserAsync(dto));
-
         [HttpPost("upload-pfp")]
         public Task<IActionResult> UploadPFP([FromForm] ProfilePictureDTO dto)
             => HandleService(() => _userService.UploadPFPAsync(dto));
 
-        [HttpPut("toggle-user-setting")]
-        public Task<IActionResult> ToggleUserSetting([FromBody] UserToggleDTO dto)
-            => HandleService(() => _userService.ToggleUserSettingAsync(dto));
+        [HttpPut("edit-user")]
+        public Task<IActionResult> EditUser([FromBody] EditUserDTO dto)
+            => HandleService(() => _userService.EditUserAsync(dto));
+
+        [HttpPut("toggle-user-is-public")]
+        public Task<IActionResult> ToggleUserIsPublic([FromBody] UserToggleDTO dto)
+            => HandleService(() => _userService.ToggleUserSettingAsync(dto, "IsPublic"));
+
+        [HttpPut("toggle-user-safe-mode")]
+        public Task<IActionResult> ToggleUserSafeMode([FromBody] UserToggleDTO dto)
+            => HandleService(() => _userService.ToggleUserSettingAsync(dto, "SafeMode"));
 
         [HttpDelete("delete-user-{requestorId}-{targetId}")]
         public Task<IActionResult> DeleteUser(int requestorId, int targetId)

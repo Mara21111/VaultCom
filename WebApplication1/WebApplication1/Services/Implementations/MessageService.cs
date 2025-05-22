@@ -109,10 +109,8 @@ namespace WebApplication1.Services.Implementations
             {
                 return await GetDecryptedMessagesAsync(dto);
             }
-            if (!await context.UserChatRelationship.Where(x => x.UserId == dto.UserId && x.ChatId == dto.ChatId).AnyAsync())
-            {
+            if (!await dto.InChat(context))
                 return new ServiceResult { Success = false, ErrorMessage = "user not in chat" };
-            }
             var messages = await context.Message.Where(x => x.ChatId == dto.ChatId).ToListAsync();
             return new ServiceResult { Success = true, Data = messages };
         }

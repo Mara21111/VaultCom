@@ -116,26 +116,29 @@ namespace WebApplication1.Services.Implementations
 
         public async Task<ServiceResult> UploadPFPAsync(ProfilePictureDTO dto)
         {
-            var path = Path.Combine(_env.WebRootPath, "uploads", "pfps");
-            
-            var fileName = $"user-{dto.Id}-{Guid.NewGuid()}{Path.GetExtension(dto.PFP.FileName)}";
-            var relativePath = $"/uploads/pfps/{fileName}";
+            var user = await context.User.FindAsync(dto.Id);
 
-            using (var stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+            var fileName = $"user-{dto.Id}-{Guid.NewGuid()}{Path.GetExtension(dto.PFP.FileName)}";
+            var path = Path.Combine(_env.WebRootPath, "uploads", "pfps", fileName);
+
+            if (!string.IsNullOrWhiteSpace(user.ProfilePicture))
+            {
+                var oldPath = Path.Combine(_env.WebRootPath, user.ProfilePicture.TrimStart('/'));
+                if (System.IO.File.Exists(oldPath))
+                {
+                    System.IO.File.Delete(oldPath);
+                }
+            }
+
+            using (var stream = new FileStream(path, FileMode.Create))
             {
                 await dto.PFP.CopyToAsync(stream);
             }
 
-            using var connection = new MySqlConnection(_connString);
-            await connection.OpenAsync();
+            user.ProfilePicture = $"/uploads/pfps/{fileName}";
+            await context.SaveChangesAsync();
 
-            var cmd = new MySqlCommand("UPDATE User SET ProfilePicture = @path WHERE Id = @id", connection);
-            cmd.Parameters.AddWithValue("@path", relativePath);
-            cmd.Parameters.AddWithValue("@id", dto.Id);
-
-            await cmd.ExecuteNonQueryAsync();
-
-            return new ServiceResult { Success = true, Data = relativePath };
+            return new ServiceResult { Success = true, Data = user.ProfilePicture };
         }
 
         public async Task<ServiceResult> GetPFPAsync(int id)
@@ -183,17 +186,11 @@ namespace WebApplication1.Services.Implementations
             return new ServiceResult { Success = true, Data = user };
         }
 
-        public async Task<ServiceResult> ToggleUserSettingAsync(UserToggleDTO dto)
+        public async Task<ServiceResult> ToggleUserSettingAsync(UserToggleDTO dto, string prop)
         {
             var user = await context.User.FindAsync(dto.Id);
 
-            if (dto.ValueName == "IsAdmin" && !user.IsAdmin)
-            {
-                return new ServiceResult { Success = false, ErrorMessage = "Denied admin access", ErrorCode = 403 };
-            }
-
-            var property = typeof(User).GetProperty(dto.ValueName);
-
+            var property = typeof(User).GetProperty(prop);
             property.SetValue(user, dto.Value);
 
             await context.SaveChangesAsync();

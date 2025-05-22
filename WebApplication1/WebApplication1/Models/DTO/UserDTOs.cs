@@ -52,7 +52,6 @@ namespace WebApplication1.Models.DTO
     public class UserToggleDTO
     {
         public int Id { get; set; }
-        public string ValueName { get; set; }
         public bool Value { get; set; }
     }
     public class ProfilePictureDTO

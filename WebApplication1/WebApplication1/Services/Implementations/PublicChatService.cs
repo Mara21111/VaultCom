@@ -65,5 +65,10 @@ namespace WebApplication1.Services.Implementations
 
             return new ServiceResult { Success = true, Data = dto };
         }
+
+        public async Task<ServiceResult> DeletePublicChatAsync(UserChatRelationshipDTO dto)
+        {
+            return new ServiceResult { };
+        }
     }
 }
