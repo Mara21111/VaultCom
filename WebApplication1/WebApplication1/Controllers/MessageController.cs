@@ -24,9 +24,9 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> SendMessage([FromBody] MessageDTO dto) 
             => HandleService(() => _messageService.SendMessageAsync(dto));
 
-        [HttpPost("get-messages-in-chat")]
-        public Task<IActionResult> GetMessagesFromChat([FromBody] UserChatRelationshipDTO dto)
-            => HandleService(() => _messageService.GetMessagesInChatAsync(dto));
+        [HttpGet("get-messages-in-chat-{userId}-{chatId}")]
+        public Task<IActionResult> GetMessagesFromChat(int userId, int chatId)
+            => HandleService(() => _messageService.GetMessagesInChatAsync(userId, chatId));
 
         /*private MyContext context = new MyContext();
 
