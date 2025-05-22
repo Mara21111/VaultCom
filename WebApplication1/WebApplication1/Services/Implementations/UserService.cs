@@ -23,7 +23,7 @@ namespace WebApplication1.Services.Implementations
         private readonly IWebHostEnvironment _env;
         private readonly string _connString;
         private static readonly MemoryCache _cache = new MemoryCache(new MemoryCacheOptions());
-        private static readonly TimeSpan _timeout = TimeSpan.FromMinutes(2);
+        private static readonly TimeSpan _timeout = TimeSpan.FromMinutes(3);
 
         public UserService(MyContext context, IWebHostEnvironment env, IConfiguration config)
         {
@@ -35,7 +35,6 @@ namespace WebApplication1.Services.Implementations
         public async Task<ActivityResult> SetActivityAsync(int id)
         {
             _cache.Set(id, DateTime.UtcNow, _timeout); 
-            // cache prej zmizi za cas nastavenej nahore 
 
             return new ActivityResult { IsActive = true };
         }
@@ -53,7 +52,7 @@ namespace WebApplication1.Services.Implementations
                 {
                     Username = user.Username,
                     Bio = user.Bio,
-                    ProfilePicture = "/uploads/pfps/default.png",
+                    ProfilePicture = user.ProfilePicture,
                     CreatedAt = user.CreatedAt,
                     TimeoutEnd = user.TimeoutEnd,
                     BanEnd = user.BanEnd,
@@ -67,7 +66,7 @@ namespace WebApplication1.Services.Implementations
                 {
                     Username = user.Username,
                     Bio = user.Bio,
-                    ProfilePicture = "/uploads/pfps/default.png",
+                    ProfilePicture = user.ProfilePicture,
                     CreatedAt = user.CreatedAt,
                     TimeoutEnd = user.TimeoutEnd,
                     BanEnd = user.BanEnd
@@ -102,7 +101,7 @@ namespace WebApplication1.Services.Implementations
             var hasher = new PasswordHasher<User>();
             user.Password = hasher.HashPassword(user, dto.Password);
 
-            var rsa = RSA.Create(2048); // 2048 bit klic
+            var rsa = RSA.Create(2048); // <- znamena ze ten klic bude 2048 bit
             user.PublicKey = Convert.ToBase64String(rsa.ExportSubjectPublicKeyInfo());
             user.PrivateKey = Convert.ToBase64String(rsa.ExportPkcs8PrivateKey());
 
@@ -117,23 +116,20 @@ namespace WebApplication1.Services.Implementations
 
         public async Task<ServiceResult> UploadPFPAsync(ProfilePictureDTO dto)
         {
-            var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads", "pfps");
-            Directory.CreateDirectory(uploadsFolder);
+            var path = Path.Combine(_env.WebRootPath, "uploads", "pfps");
             
-            var ext = Path.GetExtension(dto.PFP.FileName);
-            var fileName = $"user-{dto.Id}-{Guid.NewGuid()}{ext}";
-            var filePath = Path.Combine(uploadsFolder, fileName);
+            var fileName = $"user-{dto.Id}-{Guid.NewGuid()}{Path.GetExtension(dto.PFP.FileName)}";
             var relativePath = $"/uploads/pfps/{fileName}";
 
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            using (var stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
             {
                 await dto.PFP.CopyToAsync(stream);
             }
 
-            using var conn = new MySqlConnection(_connString);
-            await conn.OpenAsync();
+            using var connection = new MySqlConnection(_connString);
+            await connection.OpenAsync();
 
-            var cmd = new MySqlCommand("UPDATE User SET ProfilePicture = @path WHERE Id = @id", conn);
+            var cmd = new MySqlCommand("UPDATE User SET ProfilePicture = @path WHERE Id = @id", connection);
             cmd.Parameters.AddWithValue("@path", relativePath);
             cmd.Parameters.AddWithValue("@id", dto.Id);
 

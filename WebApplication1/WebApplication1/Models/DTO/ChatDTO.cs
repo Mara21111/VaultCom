@@ -39,5 +39,6 @@
     {
         public int Users {  get; set; }
         public int ActiveUers { get; set; }
+        public string Desc {  get; set; }
     }
 }
