@@ -124,15 +124,16 @@ namespace WebApplication1.Services.Implementations
 
             for (int i = 0; i < await context.PublicChat.CountAsync(); i++)
             {
-                var chat = context.PublicChat.FindAsync(pcIds[i]).Result;
+                var chat = await context.Chat.FindAsync(chatIds[i]);
+                var pc = await context.PublicChat.FindAsync(pcIds[i]);
                 var usersInChat = await context.UserChatRelationship.Where(x => x.ChatId == chat.Id).Select(x => x.UserId).ToListAsync();
                 chatsDTO.Add(new PublicChatGetterDTO
                 {
-                    Id = chatIds[i],
-                    Title = chat.Title,
+                    Id = chat.Id,
+                    Title = pc.Title,
                     Users = usersInChat.Count(),
                     ActiveUers = usersInChat.Where(x => _userService.IsUserOnlineAsync(x).Result.IsActive).Count(),
-                    Description = chat.Description
+                    Description = pc.Description
                 });
             }
 
