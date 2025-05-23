@@ -239,8 +239,9 @@ namespace WebApplication1.Services.Implementations
         public async Task<ServiceResult> GetAllUsersAdminViewAsync()
         {
             var users = await context.User.ToListAsync();
+            var userDTOs = users.Select(MapUserToDTO).ToList();
 
-            return new ServiceResult { Success = true, Data = users };
+            return new ServiceResult { Success = true, Data = userDTOs };
         }
 
         public async Task<ServiceResult> GetUserAsync(int id)
