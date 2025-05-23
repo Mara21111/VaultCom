@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Chat } from '../models/Chat';
-import { PublicChat } from "../models/PublicChat";
+import {EditPublicChatDTO, PublicChat} from "../models/PublicChat";
 import { Observable, retry } from 'rxjs';
 import { CreatePublicChatDTO } from '../models/PublicChat';
 
@@ -18,11 +18,16 @@ export class PublicChatService {
     return this.http.get<PublicChat[]>('http://localhost:5000/api/Chat/get-all-public-chats');
   }
 
-  public createPublicChat(CreatedChat: CreatePublicChatDTO): Observable<Chat> {
-    return this.http.post<Chat>('http://localhost:5000/api/PublicChat/create-public-chat', CreatedChat)
+  public createPublicChat(createdChat: CreatePublicChatDTO): Observable<Chat> {
+    return this.http.post<Chat>('http://localhost:5000/api/PublicChat/create-public-chat', createdChat)
   }
 
-  public deletePublicChat(chat_id: number, user_id: number): Observable<void> {
-    return this.http.delete<void>('http://localhost:5000/api/Chat/delete-chat-' + chat_id + '-' + user_id)
+  public editPublicChat(editedChat: EditPublicChatDTO): Observable<Chat> {
+    return this.http.post<Chat>('http://localhost:5000/api/PublicChat/edit-public-chat', editedChat)
+  }
+
+  public deletePublicChat(userId: number, chatId: number): Observable<void> {
+    console.log('a');
+    return this.http.delete<void>(`http://localhost:5000/api/PublicChat/delete-public-chat-${userId}-${chatId}`);
   }
 }

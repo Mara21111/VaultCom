@@ -7,13 +7,20 @@ export class PublicChat {
 export class CreatePublicChatDTO {
   creatorId: number;
   title: string;
-  desc: string;
+  description: string;
+}
+
+export class EditPublicChatDTO {
+  userId: number;
+  chatId: number;
+  title: string;
+  description: string | null;
 }
 
 export class PublicChatGetterDTO {
   id: number;
   title: string;
-  desc: string;
+  description: string;
   users: number;
   activeUsers: number;
 }

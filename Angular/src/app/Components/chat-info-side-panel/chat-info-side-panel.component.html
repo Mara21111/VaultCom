@@ -10,20 +10,22 @@
       <app-side-panel-row
         [label]="'Chat name'"
         [(value)]="chatInfo.title"
-        [editable]="userEditing">
+        [editable]="userEditing"
+        (valueChange)="onChangeChatName($event)">
       </app-side-panel-row>
     </div>
-    <div class="info-row" *ngIf="chatInfo.desc !== null">
+    <div class="info-row" *ngIf="chatInfo.description !== null">
       <app-side-panel-row
         [label]="'Description'"
-        [(value)]="chatInfo.desc"
-        [editable]="userEditing">
+        [(value)]="chatInfo.description"
+        [editable]="userEditing"
+      (valueChange)="onChangeChatDesc($event)">
       </app-side-panel-row>
     </div>
     <div class="info-row" *ngIf="!adminView">
       <app-side-panel-row
         [label]="'You'"
-        [editable]="userEditing">
+        [editable]="false">
       </app-side-panel-row>
     </div>
     <app-side-panel-row-list
@@ -32,4 +34,11 @@
       [editable] = false>
     </app-side-panel-row-list>
   </div>
+
+  <div class="button-group">
+    <button class="action-button save-button" (click)="saveChanges()">Save</button>
+    <button class="action-button cancel-button" (click)="cancelChanges()">Cancel</button>
+    <button class="action-button delete-button" (click)="deleteChat()">Delete Chat</button>
+  </div>
+
 </div>
