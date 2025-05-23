@@ -6,6 +6,9 @@ $btn-radius: 12px;
 $btn-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 $accent: gray;
 $danger: #e74c3c;
+$green-dark: #3a5a40;  // Dark Green for Save
+$yellow-dark: #d4a015;  // Dark Amber for Cancel
+$red-dark: #c0392b;  // Darker Red for Delete
 
 .overlay {
   position: fixed;
@@ -121,26 +124,36 @@ $danger: #e74c3c;
     background-color: $accent;
     color: white;
     box-shadow: $btn-shadow;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 
     &:hover {
-      background-color: darken($accent, 10%);
+      background-color: darken($accent, 8%);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     }
 
-    &.ban-button {
-      background-color: $danger;
-
+    &.save-button {
+      background-color: $green-dark;
       &:hover {
-        background-color: darken($danger, 10%);
+        background-color: darken($green-dark, 8%);
       }
+    }
 
-      &.active {
-        background-color: darken($danger, 20%);
+    &.cancel-button {
+      background-color: $yellow-dark;
+      &:hover {
+        background-color: darken($yellow-dark, 8%);
+      }
+    }
+
+    &.delete-button {
+      background-color: $red-dark;
+      &:hover {
+        background-color: darken($red-dark, 8%);
       }
     }
 
     &.active {
-      background-color: darken($accent, 20%);
+      background-color: darken($accent, 10%);
     }
   }
 }

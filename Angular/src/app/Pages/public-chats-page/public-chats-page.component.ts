@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
-import {NgFor, NgIf} from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
-import { CreatePublicChatDTO, PublicChatGetterDTO } from '../../models/PublicChat';
+import { CreatePublicChatDTO, EditPublicChatDTO, PublicChatGetterDTO } from '../../models/PublicChat';
 import { ChatService } from '../../services/ChatService';
 import { PublicChatService } from '../../services/PublicChat.service';
 import { UserService } from '../../services/User.service';
-import {ChatPanelInfo} from '../../models/Chat';
-import {UserChatRelationship} from '../../models/UserChatRelationship';
-import {UserChatRelationshipService} from '../../services/UserChatRelationship.service';
-import {UserPanelInfo} from '../../models/User';
-import {ChatInfoSidePanelComponent} from '../../Components/chat-info-side-panel/chat-info-side-panel.component';
+import { ChatPanelInfo } from '../../models/Chat';
+import { UserChatRelationship } from '../../models/UserChatRelationship';
+import { UserChatRelationshipService } from '../../services/UserChatRelationship.service';
+import { UserPanelInfo } from '../../models/User';
+import { ChatInfoSidePanelComponent } from '../../Components/chat-info-side-panel/chat-info-side-panel.component';
+import { switchMap, tap, forkJoin } from 'rxjs';
 
 
 @Component({
@@ -23,13 +24,18 @@ import {ChatInfoSidePanelComponent} from '../../Components/chat-info-side-panel/
 
 export class PublicChatsPageComponent {
   public chats: PublicChatGetterDTO[] = [];
-  public filteredChats = [...this.chats];
+  public filteredChats: PublicChatGetterDTO[] = [...this.chats];
 
   public newChatName: string = '';
+  public newChatDescription: string = '';
 
   public panelVisible: boolean = false;
   public selectedChat: ChatPanelInfo = new ChatPanelInfo();
   public activeUserName: string = '';
+
+  public isAdding: boolean = false;
+  public isLoading: boolean = false;
+
 
 
   constructor(
@@ -43,11 +49,20 @@ export class PublicChatsPageComponent {
 
 
   ngOnInit() {
-    this.chatService.getPublicChatsAdminView().subscribe(result => {
-      this.chats = result;
-      this.filteredChats = [...this.chats];
-    });
-    this.userService.getFromToken().subscribe(result => this.activeUserName = result.username);
+    this.isLoading = true;
+
+    forkJoin({
+      chats: this.chatService.getPublicChatsAdminView(),
+      user: this.userService.getFromToken()
+    }).subscribe({
+      next: ({ chats, user }) => {
+        this.chats = chats;
+        this.filteredChats = [...chats];
+        this.activeUserName = user.username;
+        this.isLoading = false;
+        console.log(this.filteredChats);
+      }
+    })
   }
 
   onSearchChanged(value: string) {
@@ -56,24 +71,73 @@ export class PublicChatsPageComponent {
 
   createChat(): void {
     let dto = new CreatePublicChatDTO();
+    this.isAdding = true;
 
-    this.userService.getFromToken().subscribe(result => dto.creatorId = result.id)
-    dto.title = this.newChatName;
-    dto.desc = ''; //to bych do budoucna fixnul ngl
-
-    this.publicChatService.createPublicChat(dto);
+    this.userService.getFromToken().pipe(tap(user => {
+        dto.creatorId = user.id;
+        dto.title = this.newChatName;
+        dto.description = ''; //to bych do budoucna fixnul ngl
+      }), switchMap(() => this.publicChatService.createPublicChat(dto)),
+      switchMap(() => this.chatService.getPublicChatsAdminView())
+    ).subscribe(result => {
+      this.newChatName = '';
+      this.refresh(result);
+      this.isAdding = false;
+    })
   }
 
-  deleteChat(chat_id: number): void {
+  editChat(editedChat: ChatPanelInfo) : void {
+    let dto = new EditPublicChatDTO();
 
+    dto.chatId = editedChat.id;
+    dto.title = editedChat.title;
+    dto.description = editedChat.description;
+
+    this.userService.getFromToken().pipe(tap(result => {
+      dto.userId = result.id
+    }), switchMap(() => this.publicChatService.editPublicChat(dto)),
+    switchMap(() => this.chatService.getPublicChatsAdminView())
+    ).subscribe(result => {
+      this.refresh(result);
+    })
+
+  }
+
+  deleteChat(chatId: number): void {
+    this.isLoading = true;
+    this.userService.getFromToken().pipe(
+      tap(result => {
+        console.log("User data retrieved", result);
+        // Ensure subscription to the delete request
+        this.publicChatService.deletePublicChat(result.id, chatId).subscribe({
+          next: () => {
+            console.log('Chat deleted successfully');
+          },
+          error: (err) => {
+            console.error('Error deleting chat:', err);
+          }
+        });
+      }), switchMap(() => this.chatService.getPublicChatsAdminView())
+    ).subscribe(result => {
+      console.log("Chats refreshed", result);
+      this.refresh(result);
+    })
+  }
+
+  private refresh(chats: PublicChatGetterDTO[]) {
+    this.selectedChat = new ChatPanelInfo();
+    this.chats = chats;
+    this.filteredChats = [...this.chats];
+    this.isLoading = false;
   }
 
   public goToPublicChat(chatId: number) {
     let selectedChat = this.chats.find(x => x.id === chatId);
 
     if (selectedChat !== undefined){
+      this.selectedChat.id = selectedChat.id;
       this.selectedChat.title = selectedChat.title;
-      this.selectedChat.desc = selectedChat.desc;
+      this.selectedChat.description = selectedChat.description;
       this.selectedChat.activeUserName = this.activeUserName;
     }
 
@@ -81,14 +145,6 @@ export class PublicChatsPageComponent {
       this.selectedChat.users = result;
       console.log(result);
     });
-
-    /*
-    this.userChatRelationshipService.getUsersInChat(chatId).subscribe(result => {
-  this.selectedChat.userNames = result
-    .filter(user => user.id !== 123)           // vynechá uživatele s id 123
-    .map(user => user.username);               // vrátí seznam username
-});
-     */
 
     this.panelVisible = true;
   }

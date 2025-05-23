@@ -24,8 +24,9 @@ export class ChatGetterDTO {
 }
 
 export class ChatPanelInfo {
+  id: number;
   title: string;
-  desc: string | null;
+  description: string | null;
   activeUserName: string;
   users: BaseUserDataDTO[] | PublicUserDataDTO[];
 }

@@ -1,7 +1,7 @@
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
 
-  <app-base-ui
+<app-base-ui
   [title]="'Public Chats'"
   [titleOn]="true"
   [searchOn]="true"
@@ -10,46 +10,64 @@
   (searchChanged)="onSearchChanged($event)">
 </app-base-ui>
 
-  <div class="main-container">
-    <div class="public-chats-container">
-      <div class="content-area">
-
-        <!-- Public Chats -->
-        <section class="panel public-chats-panel">
-          <div class="table-header">
-            <div class="col-header">Name</div>
-            <div class="col-header">Users</div>
-            <div class="col-header">Active Users</div>
-            <div class="col-header"></div>
+<div class="main-container">
+  <div class="public-chats-container">
+    <div class="content-area">
+      <!-- Public Chats -->
+      <section class="panel public-chats-panel">
+        <div class="table-header">
+          <div class="col-header">Name</div>
+          <div class="col-header">Users</div>
+          <div class="col-header">Active Users</div>
+        </div>
+        <div class="table-body">
+          <div class="table-row" *ngFor="let chat of filteredChats" (click)="goToPublicChat(chat.id)">
+            <div class="col"><i class="bi bi-pencil-fill pencil-icon"></i>{{ chat.title }}</div>
+            <div class="col">{{ chat.users }}</div>
+            <div class="col">{{ chat.activeUsers ? chat.activeUsers : 'No active users' }}</div>
           </div>
-          <div class="table-body">
-            <div class="table-row" *ngFor="let chat of filteredChats" (click)="goToPublicChat(chat.id)">
-              <div class="col"><i class="bi bi-pencil-fill pencil-icon"></i>{{ chat.title }}</div>
-              <div class="col">{{ chat.users }}</div>
-              <div class="col">{{ chat.activeUsers }}</div>
-              <div class="col"><button class="delete-button btn btn-danger" (click)="deleteChat(chat.id)">
-                <i class="bi bi-x"></i>
-              </button></div>
-            </div>
-          </div>
-        </section>
+        </div>
+      </section>
 
-
-        <div class="chat-input-container fixed-bottom p-3 bg-dark">
-          <div class="d-flex justify-content-center align-items-center">
-            <input type="text" class="form-control chat-input text-center" id="newChatInput" placeholder="Enter new chat name..." aria-label="New Chat Name" name="chatName" [(ngModel)]="newChatName">
-            <button class="add-button btn btn-primary ms-3" id="addChatButton" (click)="createChat()">ADD</button>
-          </div>
+      <div class="chat-input-container fixed-bottom p-3">
+        <div class="input-button-wrapper d-flex w-100">
+          <!-- Chat Name Input Field -->
+          <input
+            type="text"
+            class="form-control chat-input"
+            id="newChatInput"
+            placeholder="Enter new chat name..."
+            aria-label="New Chat Name"
+            name="chatName"
+            [(ngModel)]="newChatName"
+          >
+          <!-- Add Button -->
+          <button
+            class="add-button btn ms-2"
+            id="addChatButton"
+            (click)="createChat()"
+            [disabled]="isAdding">
+            <ng-container *ngIf="isAdding; else addText">
+              <div class="spinner"></div> Adding...
+            </ng-container>
+            <ng-template #addText>ADD</ng-template>
+          </button>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <app-chat-info-side-panel
-    *ngIf="panelVisible"
-    [chatInfo]="selectedChat"
-    [userEditing]="false"
-    [adminView]="true"
-    (close)="closePanel()">
-  </app-chat-info-side-panel>
+<div *ngIf="isLoading" class="loading-overlay">
+  <div class="spinner"></div>
+</div>
 
+<app-chat-info-side-panel
+  *ngIf="panelVisible"
+  [chatInfo]="selectedChat"
+  [userEditing]="true"
+  [adminView]="true"
+  (close)="closePanel()"
+  (changes)="editChat($event)"
+  (delete)="deleteChat($event)">
+</app-chat-info-side-panel>
