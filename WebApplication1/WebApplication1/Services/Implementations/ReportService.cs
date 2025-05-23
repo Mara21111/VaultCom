@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Asn1.Ocsp;
-using Org.BouncyCastle.Asn1.X509;
+﻿using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models.Data;
 using WebApplication1.Models.DTO;
 using WebApplication1.Services.Interfaces;
@@ -23,6 +18,8 @@ namespace WebApplication1.Services.Implementations
         {
             if (!await dto.Exists(context))
                 return new ServiceResult { Success = false, ErrorMessage = "user does not exists" };
+            if (dto.message.Length == 0)
+                return new ServiceResult { Success = false, ErrorMessage = "please provide reason" };
 
             var report = new ReportLog
             {
@@ -39,21 +36,23 @@ namespace WebApplication1.Services.Implementations
         public async Task<ServiceResult> ViewReportsAsync(int id)
         {
             var user = await context.User.FindAsync(id);
-            if (user is null)
-                return new ServiceResult { Success = false, ErrorMessage = "uer is null" };
-            if (!user.IsAdmin)
-                return new ServiceResult { Success = false, ErrorMessage = "permission denied", ErrorCode = 403 };
+            if (user is null || !user.IsAdmin)
+                return new ServiceResult { Success = false, ErrorMessage = "user is not admin", ErrorCode = 403 };
 
             return new ServiceResult { Success = true, Data = await context.ReportLog.ToListAsync() };
         }
 
         public async Task<ServiceResult> UseReportAsync(UseReportDTO dto, string action)
         {
-            User? admin = await context.User.FindAsync(dto.userId);
+            var admin = await context.User.FindAsync(dto.userId);
+            if (admin is null || !admin.IsAdmin)
+                return new ServiceResult { Success = false, ErrorMessage = "user is not admin", ErrorCode = 403 };
             var report = await context.ReportLog.FindAsync(dto.reportId);
-            User? user = await context.User.FindAsync(report.ReportedUserId);
-            if (!admin.IsAdmin)
-                return new ServiceResult { Success = false, ErrorMessage = "permission denied", ErrorCode = 403 };
+            if (report is null)
+                return new ServiceResult { Success = false, ErrorMessage = "report does not exist", ErrorCode = 400 };
+            var user = await context.User.FindAsync(report.ReportedUserId);
+            if (user is null)
+                return new ServiceResult { Success = false, ErrorMessage = "reported user does not exist", ErrorCode = 400 };
 
             context.ReportLog.Remove(report);
 
@@ -71,7 +70,6 @@ namespace WebApplication1.Services.Implementations
             }
 
             await context.SaveChangesAsync();
-
             return new ServiceResult { Success = true, Data = report };
         }
 

@@ -35,7 +35,6 @@ namespace WebApplication1.Services.Implementations
             }
 
             var user = await context.User.Where(x => x.Username == dto.Username).FirstOrDefaultAsync();
-
             if (user is null)
             {
                 return new AuthResult { Success = false, Message = "invalid username or password" };

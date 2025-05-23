@@ -15,7 +15,7 @@ namespace WebApplication1.Services.Implementations
         public ChatService(MyContext context, IUserService userService)
         {
             this.context = context;
-            this._userService = userService;
+            _userService = userService;
         }
 
 
@@ -63,11 +63,11 @@ namespace WebApplication1.Services.Implementations
         {
             IQueryable<Chat> query = context.Chat;
 
-            if (filter != null)
+            if (filter is not null)
             {
                 if (filter.IsIn.HasValue)
                 {
-                    // todo
+                    // clean ts up
                     var chatsIn = await context.UserChatRelationship
                         .Where(x => x.UserId == filter.RequestorId)
                         .Select(x => x.ChatId).ToListAsync();
@@ -131,7 +131,7 @@ namespace WebApplication1.Services.Implementations
                     Title = chat.Title,
                     Users = usersInChat.Count(),
                     ActiveUers = usersInChat.Where(x => _userService.IsUserOnlineAsync(x).Result.IsActive).Count(),
-                    Desc = chat.Description
+                    Description = chat.Description
                 });
             }
 

@@ -9,7 +9,7 @@
     {
         public int CreatorId { get; set; }
         public string Title { get; set; }
-        public string Desc { get; set; }
+        public string Description { get; set; }
     }
     public class CreateGroupChatDTO
     {
@@ -39,7 +39,7 @@
     {
         public int Users {  get; set; }
         public int ActiveUers { get; set; }
-        public string Desc {  get; set; }
+        public string Description {  get; set; }
     }
     public class PublicChatEditDTO : UserChatRelationshipDTO
     {

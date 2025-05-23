@@ -14,6 +14,7 @@ using MySql.Data.MySqlClient;
 using System.IO;
 using static Org.BouncyCastle.Math.EC.ECCurve;
 using Microsoft.Extensions.Caching.Memory;
+using System.Diagnostics;
 
 namespace WebApplication1.Services.Implementations
 {
@@ -34,13 +35,20 @@ namespace WebApplication1.Services.Implementations
 
         public async Task<ActivityResult> SetActivityAsync(int id)
         {
-            _cache.Set(id, DateTime.UtcNow, _timeout); 
+            var user = await context.User.FindAsync(id);
+            if (user is null)
+                return new ActivityResult { IsActive = false };
 
+            _cache.Set(id, DateTime.UtcNow, _timeout); 
             return new ActivityResult { IsActive = true };
         }
 
         public async Task<ActivityResult> IsUserOnlineAsync(int id)
         {
+            var user = await context.User.FindAsync(id);
+            if (user is null)
+                return new ActivityResult { IsActive = false };
+
             return new ActivityResult { IsActive = _cache.TryGetValue(id, out _) };
         }
 

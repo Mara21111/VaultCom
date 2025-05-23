@@ -1,9 +1,7 @@
 ﻿namespace WebApplication1.Models.DTO
 {
-    public class MessageDTO
+    public class MessageDTO : UserChatRelationshipDTO
     {
-        public int UserId { get; set; }
-        public int ChatId { get; set; }
         public string Content { get; set; }
         public int? ReplyMessageId { get; set; }
     }

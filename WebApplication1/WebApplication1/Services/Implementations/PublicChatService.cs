@@ -43,7 +43,7 @@ namespace WebApplication1.Services.Implementations
             var publicChat = new PublicChat
             {
                 Title = dto.Title,
-                Description = dto.Desc
+                Description = dto.Description
             };
 
             context.PublicChat.Add(publicChat);

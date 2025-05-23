@@ -34,6 +34,14 @@ namespace WebApplication1.Services.Implementations
 
         public async Task<ServiceResult> SendMessageAsync(MessageDTO dto)
         {
+            await _userService.SetActivityAsync(dto.UserId);
+
+            if (dto.Content.Length == 0)
+                return new ServiceResult { Success = false, ErrorMessage = "empty message" };
+            var chat = await context.Chat.FindAsync(dto.ChatId);
+            if (chat is null)
+                return new ServiceResult { Success = false, ErrorMessage = "chat does not exist" };
+
             var msg = new Message
             {
                 UserId = dto.UserId,
@@ -47,21 +55,16 @@ namespace WebApplication1.Services.Implementations
                 PreviousMessageId = dto.ReplyMessageId.HasValue ? dto.ReplyMessageId.Value : 0,
             };
 
-            if (context.Chat.Find(dto.ChatId).Type == 3)
+            if (chat.Type == 3)
             {
                 return await SendEncryptedMessageAsync(dto, msg);
             }
 
-            if (!context.UserChatRelationship.Where(x => x.ChatId == dto.ChatId && x.UserId == dto.UserId).Any())
-            {
-                return new ServiceResult { Success = false, ErrorMessage = "User is not in chat", ErrorCode = 404 };
-            }
+            if (!await dto.InChat(context))
+                return new ServiceResult { Success = false, ErrorMessage = "user not in chat" };
 
             context.Message.Add(msg);
             await context.SaveChangesAsync();
-
-            await _userService.SetActivityAsync(dto.UserId);
-
             return new ServiceResult { Success = true, Data = msg };
         }
 
@@ -106,9 +109,18 @@ namespace WebApplication1.Services.Implementations
 
         public async Task<ServiceResult> GetMessagesInChatAsync(int userId, int chatId)
         {
-            if (context.Chat.Find(chatId).Type == 3)
+            await _userService.SetActivityAsync(userId);
+
+            var user = await context.User.FindAsync(userId);
+            if (user is null)
+                return new ServiceResult { Success = false, ErrorMessage = "user does not exist" };
+            var chat = await context.Chat.FindAsync(chatId);
+            if (chat is null)
+                return new ServiceResult { Success = false, ErrorMessage = "chat does not exist" };
+
+            if (chat.Type == 3)
             {
-                return await GetDecryptedMessagesAsync(userId, chatId);
+                return await GetDecryptedMessagesAsync(user, chat);
             }
             if (!await context.UserChatRelationship.Where(x => x.ChatId == chatId && x.UserId == userId).AnyAsync())
                 return new ServiceResult { Success = false, ErrorMessage = "user not in chat" };
@@ -117,13 +129,13 @@ namespace WebApplication1.Services.Implementations
             return new ServiceResult { Success = true, Data = messages };
         }
 
-        public async Task<ServiceResult> GetDecryptedMessagesAsync(int userId, int chatId)
+        public async Task<ServiceResult> GetDecryptedMessagesAsync(User user, Chat chat)
         {
-            var chat = await context.Chat.FindAsync(chatId);
             var privateChat = await context.PrivateChat.FindAsync(chat.ChatId);
+            if (privateChat is null)
+                return new ServiceResult { Success = false, ErrorMessage = "chat does not exist in 'PrivateChat' table" };
             var messages = await context.Message.Where(m => m.ChatId == chat.Id).ToListAsync();
-            var currentUser = await context.User.FindAsync(userId);
-            var otherUserId = privateChat.GetOtherUser(userId);
+            var otherUserId = privateChat.GetOtherUser(user.Id);
 
             foreach (var msg in messages)
             {
@@ -131,7 +143,7 @@ namespace WebApplication1.Services.Implementations
                 {
                     try
                     {
-                        msg.Content = DecryptMessage(msg, currentUser);
+                        msg.Content = DecryptMessage(msg, user);
                     }
                     catch
                     {
@@ -142,7 +154,7 @@ namespace WebApplication1.Services.Implementations
                 {
                     try
                     {
-                        msg.Content = DecryptOwnMessage(msg, currentUser);
+                        msg.Content = DecryptOwnMessage(msg, user);
                     }
                     catch
                     {
@@ -157,14 +169,17 @@ namespace WebApplication1.Services.Implementations
         public async Task<ServiceResult> DeleteMessageAsync(int userId, int messageId)
         {
             var user = await context.User.FindAsync(userId);
+            if (user is null)
+                return new ServiceResult { Success = false, ErrorMessage = "user does not exist" };
             var msg = await context.Message.FindAsync(messageId);
+            if (msg is null)
+                return new ServiceResult { Success = false, ErrorMessage = "message does not exist" };
 
             if (userId != msg.UserId && !user.IsAdmin)
                 return new ServiceResult { Success = false, ErrorMessage = "don't have permission" };
 
             context.Message.Remove(msg);
             await context.SaveChangesAsync();
-
             return new ServiceResult { Success = true, Data = msg };
         }
 
