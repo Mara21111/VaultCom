@@ -12,7 +12,7 @@ namespace WebApplication1.Controllers
     public class MainController : ControllerBase
     {
         protected async Task<IActionResult> HandleService(Func<Task<ServiceResult>> serviceCall)
-        {
+        { 
             var result = await serviceCall();
             return result.Success ? Ok(result.Data) : BadRequest(result.ErrorMessage);
         }
