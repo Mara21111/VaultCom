@@ -38,7 +38,7 @@
     public class PublicChatGetterDTO : ChatGetterDTO
     {
         public int Users {  get; set; }
-        public int ActiveUers { get; set; }
+        public int ActiveUsers { get; set; }
         public string Description {  get; set; }
     }
     public class PublicChatEditDTO : UserChatRelationshipDTO

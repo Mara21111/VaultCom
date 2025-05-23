@@ -132,7 +132,7 @@ namespace WebApplication1.Services.Implementations
                     Id = chat.Id,
                     Title = pc.Title,
                     Users = usersInChat.Count(),
-                    ActiveUers = usersInChat.Where(x => _userService.IsUserOnlineAsync(x).Result.IsActive).Count(),
+                    ActiveUsers = usersInChat.Where(x => _userService.IsUserOnlineAsync(x).Result.IsActive).Count(),
                     Description = pc.Description
                 });
             }
