@@ -118,16 +118,17 @@ namespace WebApplication1.Services.Implementations
 
         public async Task<ServiceResult> GetPublicChatsAsync()
         {
-            var chatIds = await context.PublicChat.Select(x => x.Id).ToListAsync();
+            var pcIds = await context.PublicChat.Select(x => x.Id).ToListAsync();
+            var chatIds = await context.Chat.Where(x => pcIds.Contains(x.Id)).Select(x => x.Id).ToListAsync();
             List<PublicChatGetterDTO> chatsDTO = new List<PublicChatGetterDTO>();
 
             for (int i = 0; i < await context.PublicChat.CountAsync(); i++)
             {
-                var chat = context.PublicChat.FindAsync(chatIds[i]).Result;
+                var chat = context.PublicChat.FindAsync(pcIds[i]).Result;
                 var usersInChat = await context.UserChatRelationship.Where(x => x.ChatId == chat.Id).Select(x => x.UserId).ToListAsync();
                 chatsDTO.Add(new PublicChatGetterDTO
                 {
-                    Id = chat.Id,
+                    Id = chatIds[i],
                     Title = chat.Title,
                     Users = usersInChat.Count(),
                     ActiveUers = usersInChat.Where(x => _userService.IsUserOnlineAsync(x).Result.IsActive).Count(),
