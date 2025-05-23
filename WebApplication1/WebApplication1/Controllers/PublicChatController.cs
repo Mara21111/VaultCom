@@ -26,7 +26,7 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> EditPublicChat([FromBody] PublicChatEditDTO dto)
             => HandleService(() => _chatService.EditPublicChatAsync(dto));
 
-        [HttpDelete("remove-public-chat-{userId}-{chatId}")]
+        [HttpDelete("delete-public-chat-{userId}-{chatId}")]
         public Task<IActionResult> RemovePublicChat(int userId, int chatId)
             => HandleService(() => _chatService.DeletePublicChatAsync(userId, chatId));
 
