@@ -41,4 +41,9 @@
         public int ActiveUers { get; set; }
         public string Desc {  get; set; }
     }
+    public class PublicChatEditDTO : UserChatRelationshipDTO
+    {
+        public string? Title {  get; set; }
+        public string? Description { get; set; }
+    }
 }

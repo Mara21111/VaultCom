@@ -7,5 +7,6 @@ namespace WebApplication1.Services.Interfaces
     {
         Task<ServiceResult> CreatePublicChatAsync(CreatePublicChatDTO dto);
         Task<ServiceResult> DeletePublicChatAsync(int userId, int chatId);
+        Task<ServiceResult> EditPublicChatAsync(PublicChatEditDTO dto);
     }
 }

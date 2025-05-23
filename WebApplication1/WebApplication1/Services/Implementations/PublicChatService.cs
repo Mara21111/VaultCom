@@ -95,5 +95,26 @@ namespace WebApplication1.Services.Implementations
 
             return new ServiceResult { Success = true, Data = pc };
         }
+
+        public async Task<ServiceResult> EditPublicChatAsync(PublicChatEditDTO dto)
+        {
+            var user = await context.User.FindAsync(dto.UserId);
+            if (user is null || !user.IsAdmin)
+                return new ServiceResult { Success = false, ErrorMessage = "user is not admin" };
+            var chat = await context.Chat.FindAsync(dto.ChatId);
+            if (chat is null)
+                return new ServiceResult { Success = false, ErrorMessage = "chat does not exist" };
+            var publicChat = await context.PublicChat.FindAsync(chat.ChatId);
+            if (publicChat is null)
+                return new ServiceResult { Success = false, ErrorMessage = "chat exists in 'Chat' table but not in 'PublicChat' table" };
+
+            if (dto.Title is not null && dto.Title.Length != 0)
+                publicChat.Title = dto.Title;
+            if (dto.Description is not null && dto.Description.Length != 0)
+                publicChat.Description = dto.Description;
+
+            await context.SaveChangesAsync();
+            return new ServiceResult { Success = true, Data = publicChat };
+        }
     }
 }
