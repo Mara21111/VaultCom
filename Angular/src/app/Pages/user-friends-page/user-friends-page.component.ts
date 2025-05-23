@@ -130,8 +130,6 @@ export class UserFriendsPageComponent {
   }
 
   public goToUser(userId: number): void {
-    console.log('ahojs');
-
     this.userService.getUser(userId).subscribe(result => {
       this.selectedUser.username = result.username;
       this.selectedUser.email = result.email ?? 'Private account';
@@ -139,9 +137,8 @@ export class UserFriendsPageComponent {
       this.selectedUser.createdAt = result.createdAt ?? 'Not created';
       this.selectedUser.banEnd = result.banEnd ?? 'Not banned';
       this.selectedUser.reportCount = result.reportCount ?? 'Not reported';
+      this.panelVisible = true;
     });
-
-    this.panelVisible = true;
   }
 
   public closePanel() {

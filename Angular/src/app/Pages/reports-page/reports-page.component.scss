@@ -1,262 +1,3 @@
-/*
-$header-bg: #2c2f38;
-$body-bg: #202225;
-$table-header-bg: #353c47;
-$table-row-bg: #2a2d34;
-$table-row-hover: #36393f;
-$btn-radius: 12px;  /* Subtle rounded corners for buttons */
-/*$btn-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);  /* Softer shadow for buttons */
-
-/*
-body {
-  margin: 0;
-  padding: 0;
-  background-color: $body-bg;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #fff;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.header {
-  background-color: $header-bg;
-  color: white;
-  width: 100%;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Softer header shadow */
-/*}
-
-.logo {
-  font-weight: 700;
-  font-size: 1.8rem;
-  display: flex;
-  align-items: center;
-}
-
-.logo i {
-  margin-left: 8px;
-  font-size: 1.5rem;
-}
-
-.search-container {
-  display: flex;
-  align-items: center;
-}
-
-.search-input {
-  padding: 8px 16px;
-  border-radius: 8px;  /* Subtle rounded input */
-  /*border: none;
-  font-size: 1rem;
-  width: 300px;
-  background-color: #333;
-  color: white;
-}
-
-.search-btn {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.2rem;
-  margin-left: 10px;
-  cursor: pointer;
-}
-
-.chats-title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: white;
-  margin-right: 20px;
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 8px;
-  margin-left: 10px;
-  border-radius: 6px;
-}
-
-.close-btn:hover {
-  background-color: #444;
-}
-
-/* Main content area with more space for bottom buttons */
-/*.reports-container {
-  flex-grow: 1;
-  padding: 20px;
-  background-color: $body-bg;
-  box-sizing: border-box;
-  overflow-y: auto;
-  padding-bottom: 120px; /* Sufficient space below content */
-/*}
-
-.reports-table {
-  width: 100%;
-  border-collapse: collapse;
-
-  th {
-    background-color: $table-header-bg;
-    color: #ffffff;
-    padding: 14px 18px;
-    font-weight: 600;
-    text-align: left;
-    border-bottom: 1px solid #444;
-  }
-
-  td {
-    padding: 14px 18px;
-    border-bottom: 1px solid #555;
-    background-color: $table-row-bg;
-    color: #202225;
-  }
-
-  tr:hover td {
-    background-color: $table-row-hover;
-  }
-}
-
-.action-buttons {
-  position: fixed;
-  bottom: 20px;  /* Added a small gap from the bottom */
-  /*left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding: 15px;
-  background-color: $body-bg;
-  border-top: 1px solid #444;
-  z-index: 101;
-  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.2);  /* Softer shadow for the buttons */
-  //border-radius: 10px;  /* Subtle rounded top corners */
-//}
-
-/*.btn-ban,
-.btn-mute,
-.btn-ignore {
-  padding: 10px 20px;
-  border-radius: $btn-radius;
-  border: none;
-  cursor: pointer;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-  color: white;
-  box-shadow: $btn-shadow;
-}
-
-.btn-ban {
-  background-color: #e74c3c;
-}
-
-.btn-mute {
-  background-color: #3498db;
-}
-
-.btn-ignore {
-  background-color: #f39c12;
-}
-
-.btn-ban:hover,
-.btn-mute:hover,
-.btn-ignore:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
-}
-
-@media screen and (max-width: 768px) {
-  .reports-section {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .search-container {
-    width: 100%;
-  }
-
-  .action-buttons {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .btn-ban,
-  .btn-mute,
-  .btn-ignore {
-    width: 100%;
-  }
-}
-*/
-/*
-// Variables (should be global)
-$body-bg: #202225;
-$table-header-bg: #353c47;
-$table-row-bg: #2a2d34;
-$table-row-hover: #36393f;
-$accent: #3498db;
-$danger: #e74c3c;
-$warning: #f39c12;
-$text-light: #ffffff;
-$btn-radius: 12px;
-$btn-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-
-body {
-  margin: 0;
-  padding: 0;
-  background-color: $body-bg;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: $text-light;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.reports-wrapper {
-  background-color: $body-bg;
-}
-
-.reports-container {
-  flex-grow: 1;
-  padding: 20px;
-  padding-bottom: 120px; // Make space for fixed bottom buttons
-  overflow-y: auto;
-  background-color: $body-bg;
-}
-
-// Suggest: use global .table-panel or similar
-.reports-table {
-  width: 100%;
-  border-collapse: collapse;
-
-  th {
-    background-color: $table-header-bg;
-    color: $text-light;
-    padding: 14px 18px;
-    font-weight: 600;
-    text-align: left;
-    border-bottom: 1px solid #444;
-  }
-
-  td {
-    padding: 14px 18px;
-    border-bottom: 1px solid #555;
-    background-color: $table-row-bg;
-  }
-
-  tr:hover td {
-    background-color: $table-row-hover;
-  }
-}
-*/
-// Reused button group styling - suggested global
-
-
-
 $body-bg: #202225;
 $table-header-bg: #353c47;
 $table-row-bg: #2a2d34;
@@ -408,5 +149,32 @@ body {
     .btn {
       width: 100%;
     }
+  }
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(32, 34, 37, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+
+  .spinner {
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 }

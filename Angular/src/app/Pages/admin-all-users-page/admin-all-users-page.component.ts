@@ -21,6 +21,8 @@ export class AdminAllUsersPageComponent {
   public selectedUser: UserPanelInfo = new UserPanelInfo();
   public panelVisible: boolean = false;
 
+  public isLoading = false;
+
 
   constructor(private userService: UserService, private reportsService: ReportsService) {
 
@@ -28,18 +30,16 @@ export class AdminAllUsersPageComponent {
 
 
   public ngOnInit(): void {
+    this.isLoading = true;
     this.userService.getAllUsersAdminView().subscribe(result => {
       this.users = result;
       this.filteredUsers = [...this.users];
+      this.isLoading = false;
     });
   }
 
   public onSearchChanged(value: string) {
     this.filteredUsers = this.users.filter(user => user.username.toLowerCase().includes(value.toLowerCase()));
-  }
-
-  public reportCount(userId: number): number {
-    return 0;
   }
 
   public goToUser(userId: number): void {
@@ -50,9 +50,8 @@ export class AdminAllUsersPageComponent {
       this.selectedUser.createdAt = result.createdAt ?? 'Not created';
       this.selectedUser.banEnd = result.banEnd ?? 'Not banned';
       this.selectedUser.reportCount = result.reportCount ?? 'Not reported';
+      this.panelVisible = true;
     });
-
-    this.panelVisible = true;
   }
 
   public closePanel() {

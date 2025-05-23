@@ -32,6 +32,9 @@
   </div>
 </div>
 
+<div *ngIf="this.isLoading" class="loading-overlay">
+  <div class="spinner"></div>
+</div>
 
 <app-user-info-side-panel
   *ngIf="panelVisible"

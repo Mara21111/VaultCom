@@ -7,6 +7,7 @@ import { ReportLog } from '../../models/ReportLog';
 import {User, UserGetterDTO, UserPanelInfo} from '../../models/User';
 import { ReportsService} from '../../services/reports.service';
 import { UserService } from '../../services/User.service';
+import {catchError, forkJoin, of, switchMap} from 'rxjs';
 
 @Component({
   selector: 'app-reports-page',
@@ -24,14 +25,31 @@ export class ReportsPageComponent {
   selectedUser: UserPanelInfo = new UserPanelInfo();
   panelVisible = false;
   searchValue: string = '';
+  public isLoading: boolean = false;
 
-  public constructor(private reportsService: ReportsService, private userService: UserService, private router: Router) {
-    this.userService.getFromToken().subscribe(result => {
-      this.loggedInUser = result;
-      this.reportsService.getReportsAdminView(this.loggedInUser.id).subscribe(result => this.data = result);
-    });
-    this.userService.getAllUsersAdminView().subscribe(result => this.users = result);
+  public constructor(
+    private reportsService: ReportsService,
+    private userService: UserService,
+    private router: Router) {
+
   }
+
+  ngOnInit() {
+    this.isLoading = true;
+
+    forkJoin({
+      loggedInUser: this.userService.getFromToken(),
+      users: this.userService.getAllUsersAdminView()
+    }).subscribe({
+      next: ({ loggedInUser, users }) => {
+        this.loggedInUser = loggedInUser;
+        this.users = users;
+        this.reportsService.getReportsAdminView(loggedInUser.id).subscribe(result => this.data = result);
+      },
+      complete: () => this.isLoading = false
+    });
+  }
+
 
   public goToUser(userId: number): void{
     this.userService.getUser(userId).subscribe(result => {

@@ -28,11 +28,16 @@
       </section>
     </div>
   </div>
-      <app-user-info-side-panel
-      *ngIf="panelVisible"
-      [user]="selectedUser"
-      [adminView]="true"
-      [userEditing]="false"
-      (close)="closePanel()">
-    </app-user-info-side-panel>
 </div>
+
+<div *ngIf="isLoading" class="loading-overlay">
+  <div class="spinner"></div>
+</div>
+
+<app-user-info-side-panel
+  *ngIf="panelVisible"
+  [user]="selectedUser"
+  [adminView]="true"
+  [userEditing]="false"
+  (close)="closePanel()">
+</app-user-info-side-panel>

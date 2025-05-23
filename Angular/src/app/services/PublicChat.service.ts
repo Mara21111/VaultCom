@@ -23,7 +23,7 @@ export class PublicChatService {
   }
 
   public editPublicChat(editedChat: EditPublicChatDTO): Observable<Chat> {
-    return this.http.post<Chat>('http://localhost:5000/api/PublicChat/edit-public-chat', editedChat)
+    return this.http.put<Chat>('http://localhost:5000/api/PublicChat/edit-public-chat', editedChat)
   }
 
   public deletePublicChat(userId: number, chatId: number): Observable<void> {

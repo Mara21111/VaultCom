@@ -59,8 +59,9 @@ export class PublicChatsPageComponent {
         this.chats = chats;
         this.filteredChats = [...chats];
         this.activeUserName = user.username;
-        this.isLoading = false;
-        console.log(this.filteredChats);
+      },
+      complete: () => {
+        this.isLoading = true;
       }
     })
   }
@@ -95,12 +96,12 @@ export class PublicChatsPageComponent {
 
     this.userService.getFromToken().pipe(tap(result => {
       dto.userId = result.id
+      console.log(dto);
     }), switchMap(() => this.publicChatService.editPublicChat(dto)),
     switchMap(() => this.chatService.getPublicChatsAdminView())
     ).subscribe(result => {
       this.refresh(result);
     })
-
   }
 
   deleteChat(chatId: number): void {
@@ -108,7 +109,6 @@ export class PublicChatsPageComponent {
     this.userService.getFromToken().pipe(
       tap(result => {
         console.log("User data retrieved", result);
-        // Ensure subscription to the delete request
         this.publicChatService.deletePublicChat(result.id, chatId).subscribe({
           next: () => {
             console.log('Chat deleted successfully');
@@ -128,6 +128,7 @@ export class PublicChatsPageComponent {
     this.selectedChat = new ChatPanelInfo();
     this.chats = chats;
     this.filteredChats = [...this.chats];
+    this.closePanel();
     this.isLoading = false;
   }
 
