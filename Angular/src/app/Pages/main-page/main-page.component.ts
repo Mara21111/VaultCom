@@ -15,6 +15,7 @@ import { ReportsService} from '../../services/reports.service';
 import { CreateReportDTO, ReportLog, UserReportDTO } from '../../models/ReportLog';
 import { PublicChat } from '../../models/PublicChat';
 import { UserChatRelationshipService } from '../../services/UserChatRelationship.service';
+import { title } from 'node:process';
 
 @Component({
   selector: 'app-main-page',
@@ -26,14 +27,13 @@ import { UserChatRelationshipService } from '../../services/UserChatRelationship
 export class MainPageComponent {
   @ViewChild('scrollMe') private myScrollContainer!: ElementRef;
 
-  user: User = new User;
+  logedInUser: User = new User;
   activeChatUsers: User[] = [];
-  public_chats: boolean = false;
+  showPublicChats: boolean = false;
   pinnedMessages: boolean = false;
   showChatInfo: boolean = false;
   reportPopup: boolean = false;
-  chats: ChatGetterDTO[] = [];
-  publicChats: PublicChat[] = [];
+  userChats: ChatGetterDTO[] = [];
   activeChat: ChatGetterDTO = new ChatGetterDTO();
   allMessages: Message[] = [];
   newMessage: Message = new Message;
@@ -55,8 +55,8 @@ export class MainPageComponent {
 
   ngOnInit() {
     this.userService.getFromToken().subscribe(result => {
-      this.user = result;
-      this.chatService.getChatsUserIsIn(this.user.id).subscribe(chats => this.chats = chats);
+      this.logedInUser = result;
+      this.chatService.getChatsUserIsIn(this.logedInUser.id).subscribe(chats => this.userChats = chats);
     });
   }
 
@@ -77,28 +77,30 @@ export class MainPageComponent {
   }
 
   refreshMessages(){
-    this.messageService.getMessagesInChat(this.user.id, this.activeChat.id).subscribe(result => this.allMessages = result);
+    this.messageService.getMessagesInChat(this.logedInUser.id, this.activeChat.id).subscribe(result => this.allMessages = result);
   }
 
   changeActiveChat(chat: ChatGetterDTO){
     this.activeChat = chat;
-    this.chatService.UsersInChat(chat.id).subscribe(result => this.activeChatUsers = result);
+    //Zatím není v api
+    //this.chatService.UsersInChat(chat.id).subscribe(result => this.activeChatUsers = result);
     this.refreshMessages();
   }
 
   changeChatsToPublic(){
-    this.public_chats = true;
+    this.showPublicChats = true;
     this.setChats();
-    this.publicChatService.getAllPublicChats().subscribe(result => this.publicChats = result)
+    this.publicChatService.getAllPublicChats().subscribe(result => this.userChats = result)
   }
 
   changeChatsToPrivate(){
-    this.public_chats = false;
+    this.showPublicChats = false;
     this.setChats();
-    this.chatService.getChatsUserIsIn(this.user.id).subscribe(chats => this.chats = chats);
+    this.chatService.getChatsUserIsIn(this.logedInUser.id).subscribe(chats => this.userChats = chats);
   }
 
   setChats(){
+    this.searchChat = "";
     this.showChatInfo = false;
     this.activeChat = new ChatGetterDTO();
     this.allMessages = [];
@@ -109,7 +111,7 @@ export class MainPageComponent {
       throw new Error("Chat not selected");
     }
 
-    this.newMessage.userId = this.user.id;
+    this.newMessage.userId = this.logedInUser.id;
     this.newMessage.chatId = this.activeChat.id;
     this.messageService.createMessage(this.newMessage).pipe(
           catchError(error =>{throw error})
@@ -119,7 +121,21 @@ export class MainPageComponent {
 
   getUsername(userId: number): string {
     const user = this.activeChatUsers.find(u => u.id === userId);
-    return user ? user.username : 'Unknown';
+    // zatím místo username je id
+    return user ? userId.toString() : 'Unknown';
+  }
+
+  chats(): ChatGetterDTO[]{
+    const chats = this.userChats;
+
+    if (!this.searchChat?.trim()) {
+      return chats;
+    }
+
+    const query = this.searchChat.toLowerCase();
+    return chats.filter(chat =>
+      chat.title.toLowerCase().includes(query)
+    );
   }
 
   messages(): Message[]{
@@ -136,19 +152,19 @@ export class MainPageComponent {
   }
 
   isUserInPublicChat(chatId: number): Boolean{
-    return !!this.chats.find(chat => chat.id == chatId);
+    return !!this.userChats.find(chat => chat.id == chatId);
   }
 
   addUserToPublicChat(chatId: number){
     if (!this.isUserInPublicChat(chatId)){
-      let link = this.chatService.newLink(this.user.id, chatId)
+      let link = this.chatService.newLink(this.logedInUser.id, chatId)
       this.chatService.CreateLink(link).subscribe(response => {
         this.changeChatsToPrivate();
         //this.activeChat = this.publicChats.find(x => x.Id = chatId)?? new Chat;
         this.refreshMessages();
       });
     }else{
-      this.chatService.DeleteLink(this.user.id, chatId).subscribe(response => {
+      this.chatService.DeleteLink(this.logedInUser.id, chatId).subscribe(response => {
         this.changeChatsToPrivate();
         this.allMessages = [];
       });
@@ -166,7 +182,7 @@ export class MainPageComponent {
 
   reportUser(){
     let createReportDTO = new CreateReportDTO;
-    createReportDTO.requestorId = this.user.id;
+    createReportDTO.requestorId = this.logedInUser.id;
     createReportDTO.targetId = this.reportUserId;
     createReportDTO.message = this.reportReason;
     this.reportPopup = false;

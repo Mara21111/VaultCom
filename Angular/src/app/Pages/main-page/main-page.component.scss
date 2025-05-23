@@ -112,6 +112,7 @@ body {
   border-top: 1px solid #3a434a;
   z-index: 10;
   width: 20vw;
+  height: 10vh;
 }
 
 .mode-toggle {
@@ -135,6 +136,7 @@ body {
 
   &:hover {
     opacity: 0.7;
+    transform: translateY(-2px);
   }
 }
 
@@ -205,6 +207,7 @@ body {
 
   &.loginUser{
     margin-left: auto;
+    flex-direction: row-reverse;
   }
 }
 
@@ -238,6 +241,23 @@ body {
 }
 
 .message-time {
+  font-size: 0.75rem;
+  color: #bbb;
+  text-align: right;
+  margin-top: 5px;
+}
+
+.message-info {
+  display: flex;
+  align-items: center;
+  gap: 6px; 
+
+  &.loginUser{
+    flex-direction: row-reverse;
+  }
+}
+
+.message-pin {
   font-size: 0.75rem;
   color: #bbb;
   text-align: right;
@@ -425,4 +445,10 @@ body {
       }
     }
   }
+}
+
+.clickAble:hover {
+  background-color: $btn-hover;
+  opacity: 0.9;
+  transform: translateY(-2px);
 }
