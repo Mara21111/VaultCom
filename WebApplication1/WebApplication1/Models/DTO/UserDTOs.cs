@@ -28,20 +28,18 @@ namespace WebApplication1.Models.DTO
         public string Password { get; set; }
         public string Bio { get; set; }
     }
-    public class BaseUserDataDTO
+    public class UserGetterDTO
     {
         public int Id { get; set; }
         public string Username { get; set; }
         public string Bio { get; set; }
-        public string ProfilePicture {  get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime? TimeoutEnd { get; set; }
-        public DateTime? BanEnd { get; set; }
-    }
-    public class PublicUserDataDTO : BaseUserDataDTO
-    {
-        public string Email { get; set; }
-        public bool SafeMode { get; set; }
+        public string? ProfilePicture {  get; set; }
+        public string? CreateDate { get; set; }
+        public string? TimeoutEnd { get; set; }
+        public string? BanEnd { get; set; }
+        public string? Email { get; set; }
+        public bool? SafeMode { get; set; }
+        public int? ReportCount { get; set; }
     }
     public class UserFilterDTO
     {

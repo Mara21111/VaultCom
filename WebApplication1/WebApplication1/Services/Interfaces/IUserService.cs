@@ -7,7 +7,7 @@ namespace WebApplication1.Services.Interfaces
     {
         Task<ActivityResult> SetActivityAsync(int id);
         Task<ActivityResult> IsUserOnlineAsync(int id);
-        object MapUserToDTO(User user);
+        UserGetterDTO MapUserToDTO(User user);
         Task<ServiceResult> CreateUserAsync(CreateUserDTO dto);
         Task<ServiceResult> UploadPFPAsync(ProfilePictureDTO dto);
         Task<ServiceResult> GetPFPAsync(int id);

@@ -20,37 +20,6 @@ namespace WebApplication1.Services.Implementations
             this.context = context;
             _userService = userService;
         }
-        public object MapUserToDTO(int id)
-        {
-            var user = context.User.Find(id);
-            if (user.IsPublic)
-            {
-                return new PublicUserDataDTO
-                {
-                    Id = id,
-                    Username = user.Username,
-                    Bio = user.Bio,
-                    CreatedAt = user.CreatedAt,
-                    TimeoutEnd = user.TimeoutEnd,
-                    BanEnd = user.BanEnd,
-                    Email = user.Email,
-                    SafeMode = user.SafeMode,
-                };
-            }
-            else
-            {
-                return new BaseUserDataDTO
-                {
-                    Id = id,
-                    Username = user.Username,
-                    Bio = user.Bio,
-                    CreatedAt = user.CreatedAt,
-                    TimeoutEnd = user.TimeoutEnd,
-                    BanEnd = user.BanEnd
-                };
-            }
-        }
-
         public async Task<ServiceResult> CreateUserChatRelationAsync(UserChatRelationshipDTO dto)
         {
             var rel = new UserChatRelationship
@@ -69,8 +38,10 @@ namespace WebApplication1.Services.Implementations
         {
             var userIds = await context.UserChatRelationship
                 .Where(x => x.ChatId == id)
-                .Select(x => x.UserId).ToListAsync();
-            var userDTO = userIds.Select(MapUserToDTO).ToList();
+                .Select(x => x.UserId).ToListAsync(); 
+            var users = await context.User
+                .Where(u => userIds.Contains(u.Id)).ToListAsync();
+            var userDTO = users.Select(_userService.MapUserToDTO).ToList();
 
             return new ServiceResult { Success = true, Data =  userDTO };
         }

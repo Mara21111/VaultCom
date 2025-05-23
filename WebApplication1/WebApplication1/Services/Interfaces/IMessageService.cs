@@ -7,5 +7,6 @@ namespace WebApplication1.Services.Interfaces
     {
         Task<ServiceResult> SendMessageAsync(MessageDTO dto);
         Task<ServiceResult> GetMessagesInChatAsync(int userId, int chatId);
+        Task<ServiceResult> DeleteMessageAsync(int userId, int messageId);
     }
 }

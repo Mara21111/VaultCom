@@ -44,34 +44,24 @@ namespace WebApplication1.Services.Implementations
             return new ActivityResult { IsActive = _cache.TryGetValue(id, out _) };
         }
 
-        public object MapUserToDTO(User user)
+        public UserGetterDTO MapUserToDTO(User user)
         {
+            UserGetterDTO dto = new UserGetterDTO
+            {
+                Id = user.Id,
+                Username = user.Username,
+                ProfilePicture = user.ProfilePicture,
+                CreateDate = user.CreatedAt.ToShortDateString(),
+                BanEnd = user.BanEnd?.ToShortDateString(),
+                TimeoutEnd = user.TimeoutEnd?.ToShortDateString(),
+            };
             if (user.IsPublic)
             {
-                return new PublicUserDataDTO
-                {
-                    Username = user.Username,
-                    Bio = user.Bio,
-                    ProfilePicture = user.ProfilePicture,
-                    CreatedAt = user.CreatedAt,
-                    TimeoutEnd = user.TimeoutEnd,
-                    BanEnd = user.BanEnd,
-                    Email = user.Email,
-                    SafeMode = user.SafeMode,
-                };
+                dto.Email = user.Email;
+                dto.Bio = user.Bio;
+                dto.SafeMode = user.SafeMode;
             }
-            else
-            {
-                return new BaseUserDataDTO
-                {
-                    Username = user.Username,
-                    Bio = user.Bio,
-                    ProfilePicture = user.ProfilePicture,
-                    CreatedAt = user.CreatedAt,
-                    TimeoutEnd = user.TimeoutEnd,
-                    BanEnd = user.BanEnd
-                };
-            }
+            return dto;
         }
 
         public async Task<ServiceResult> CreateUserAsync(CreateUserDTO dto)

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Google.Protobuf;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,12 +17,14 @@ namespace WebApplication1.Services.Implementations
         private readonly MyContext context;
         private readonly IChatService _chatService;
         private readonly IUserChatRelationshipService _userChatRelationshipService;
+        public readonly IMessageService _messageService;
 
-        public PublicChatService(MyContext context, IChatService chatService, IUserChatRelationshipService userChatRelationshipService)
+        public PublicChatService(MyContext context, IChatService chatService, IUserChatRelationshipService userChatRelationshipService, IMessageService messageService)
         {
             this.context = context;
             _chatService = chatService;
             _userChatRelationshipService = userChatRelationshipService;
+            _messageService = messageService;
         }
 
         public async Task<ServiceResult> CreatePublicChatAsync(CreatePublicChatDTO dto)
@@ -66,9 +69,31 @@ namespace WebApplication1.Services.Implementations
             return new ServiceResult { Success = true, Data = dto };
         }
 
-        public async Task<ServiceResult> DeletePublicChatAsync(UserChatRelationshipDTO dto)
+        public async Task<ServiceResult> DeletePublicChatAsync(int userId, int chatId)
         {
-            return new ServiceResult { };
+            var chat = await context.Chat.FindAsync(chatId);
+            var pc = await context.PublicChat.FindAsync(chat.ChatId);
+            var messages = (List<Message>)(await _messageService.GetMessagesInChatAsync(userId, chatId)).Data;
+            var users = (List<UserGetterDTO>)(await _userChatRelationshipService.GetUsersInChatAsync(chat.Id)).Data;
+
+            foreach (var msg in messages)
+            {
+                await _messageService.DeleteMessageAsync(userId, msg.Id);
+            }
+            foreach (var user in users)
+            {
+                await _userChatRelationshipService.LeavePublicChatAsync(new UserChatRelationshipDTO
+                {
+                    UserId = user.Id,
+                    ChatId = chat.Id
+                });
+            }
+            await _chatService.DeleteChatAsync(new UserChatRelationshipDTO { UserId = userId, ChatId = chatId });
+
+            context.PublicChat.Remove(pc);
+            await context.SaveChangesAsync();
+
+            return new ServiceResult { Success = true, Data = pc };
         }
     }
 }

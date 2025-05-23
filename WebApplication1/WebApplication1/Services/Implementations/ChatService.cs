@@ -137,5 +137,18 @@ namespace WebApplication1.Services.Implementations
 
             return new ServiceResult { Success = true, Data = chatsDTO };
         }
+
+        public async Task<ServiceResult> DeleteChatAsync(UserChatRelationshipDTO dto)
+        {
+            var user = await context.User.FindAsync(dto.UserId);
+            var chat = await context.Chat.FindAsync(dto.ChatId);
+            if (!user.IsAdmin)
+                return new ServiceResult { Success = false, ErrorMessage = "not admin" };
+
+            context.Chat.Remove(chat);
+            await context.SaveChangesAsync();
+
+            return new ServiceResult { Success = true, Data = chat };
+        }
     }
 }

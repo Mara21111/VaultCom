@@ -61,5 +61,9 @@ namespace WebApplication1.Controllers
         [HttpGet("get-public-chats-admin-view")]
         public Task<IActionResult> GetPublicChatsAdminView()
             => HandleService(() => _chatService.GetPublicChatsAsync());
+
+        [HttpDelete("delete-chat-{userId}-{chatId}")]
+        public Task<IActionResult> DeleteChat(int userId, int chatId)
+            => HandleService(() => _chatService.DeleteChatAsync(new UserChatRelationshipDTO { UserId = userId, ChatId = chatId }));
     }
 }

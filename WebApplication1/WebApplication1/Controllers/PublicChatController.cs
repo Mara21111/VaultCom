@@ -21,5 +21,9 @@ namespace WebApplication1.Controllers
         [HttpPost("create-public-chat")]
         public Task<IActionResult> CreatePublicChat([FromBody] CreatePublicChatDTO dto)
             => HandleService(() => _chatService.CreatePublicChatAsync(dto));
+
+        [HttpDelete("remove-public-chat-{userId}-{chatId}")]
+        public Task<IActionResult> RemovePublicChat(int userId, int chatId)
+            => HandleService(() => _chatService.DeletePublicChatAsync(userId, chatId));
     }
 }

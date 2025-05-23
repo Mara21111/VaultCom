@@ -154,6 +154,20 @@ namespace WebApplication1.Services.Implementations
             return new ServiceResult { Success = true, Data = messages };
         }
 
+        public async Task<ServiceResult> DeleteMessageAsync(int userId, int messageId)
+        {
+            var user = await context.User.FindAsync(userId);
+            var msg = await context.Message.FindAsync(messageId);
+
+            if (userId != msg.UserId && !user.IsAdmin)
+                return new ServiceResult { Success = false, ErrorMessage = "don't have permission" };
+
+            context.Message.Remove(msg);
+            await context.SaveChangesAsync();
+
+            return new ServiceResult { Success = true, Data = msg };
+        }
+
         private string DecryptMessage(Message message, User user)
         {
             using (var rsa = RSA.Create())

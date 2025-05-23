@@ -6,6 +6,6 @@ namespace WebApplication1.Services.Interfaces
     public interface IPublicChatService
     {
         Task<ServiceResult> CreatePublicChatAsync(CreatePublicChatDTO dto);
-        Task<ServiceResult> DeletePublicChatAsync(UserChatRelationshipDTO dto);
+        Task<ServiceResult> DeletePublicChatAsync(int userId, int chatId);
     }
 }
