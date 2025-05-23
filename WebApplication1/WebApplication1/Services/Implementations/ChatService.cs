@@ -119,7 +119,7 @@ namespace WebApplication1.Services.Implementations
         public async Task<ServiceResult> GetPublicChatsAsync()
         {
             var pcIds = await context.PublicChat.Select(x => x.Id).ToListAsync();
-            var chatIds = await context.Chat.Where(x => pcIds.Contains(x.Id)).Select(x => x.Id).ToListAsync();
+            var chatIds = await context.Chat.Where(x => pcIds.Contains(x.ChatId)).Select(x => x.Id).ToListAsync();
             List<PublicChatGetterDTO> chatsDTO = new List<PublicChatGetterDTO>();
 
             for (int i = 0; i < await context.PublicChat.CountAsync(); i++)
