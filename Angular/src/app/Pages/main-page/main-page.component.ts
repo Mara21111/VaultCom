@@ -16,6 +16,8 @@ import { CreateReportDTO, ReportLog, UserReportDTO } from '../../models/ReportLo
 import { PublicChat } from '../../models/PublicChat';
 import { UserChatRelationshipService } from '../../services/UserChatRelationship.service';
 import { title } from 'node:process';
+import { UserChatRelationshipDTO } from '../../models/UserChatRelationship';
+import { BlobOptions } from 'node:buffer';
 
 @Component({
   selector: 'app-main-page',
@@ -33,13 +35,18 @@ export class MainPageComponent {
   pinnedMessages: boolean = false;
   showChatInfo: boolean = false;
   reportPopup: boolean = false;
-  userChats: ChatGetterDTO[] = [];
+  loadingChats: boolean = true;
+  loadingMessages: boolean = false;
+  creatingGroup: boolean = false;
+  chats: ChatGetterDTO[] = [];
+  publicChats: ChatGetterDTO[] = [];
   activeChat: ChatGetterDTO = new ChatGetterDTO();
   allMessages: Message[] = [];
   newMessage: Message = new Message;
   searchChat: string = '';
   searchMessage: string = '';
   reportReason: string = '';
+  newGroupName: string = '';
   reportUserId: number = 0;
 
   constructor(
@@ -56,7 +63,10 @@ export class MainPageComponent {
   ngOnInit() {
     this.userService.getFromToken().subscribe(result => {
       this.logedInUser = result;
-      this.chatService.getChatsUserIsIn(this.logedInUser.id).subscribe(chats => this.userChats = chats);
+      this.chatService.getChatsUserIsIn(this.logedInUser.id).subscribe(chats => {
+        this.loadingChats = false;
+        this.chats = chats;
+      });
     });
   }
 
@@ -77,7 +87,11 @@ export class MainPageComponent {
   }
 
   refreshMessages(){
-    this.messageService.getMessagesInChat(this.logedInUser.id, this.activeChat.id).subscribe(result => this.allMessages = result);
+    this.loadingMessages = true;
+    this.messageService.getMessagesInChat(this.logedInUser.id, this.activeChat.id).subscribe(result => {
+      this.allMessages = result;
+      this.loadingMessages = false;
+    });
   }
 
   changeActiveChat(chat: ChatGetterDTO){
@@ -90,16 +104,32 @@ export class MainPageComponent {
   changeChatsToPublic(){
     this.showPublicChats = true;
     this.setChats();
-    this.publicChatService.getAllPublicChats().subscribe(result => this.userChats = result)
+    this.publicChatService.getAllPublicChats().subscribe(result => {
+      this.publicChats = result;
+      this.loadingChats = false;
+    });
   }
 
   changeChatsToPrivate(){
     this.showPublicChats = false;
     this.setChats();
-    this.chatService.getChatsUserIsIn(this.logedInUser.id).subscribe(chats => this.userChats = chats);
+    this.chatService.getChatsUserIsIn(this.logedInUser.id).subscribe(chats => {
+      this.chats = chats;
+      this.loadingChats = false;
+    });
+  }
+
+  toggleChatMode() {
+    this.showPublicChats = !this.showPublicChats;
+    this.showPublicChats ? this.changeChatsToPublic() : this.changeChatsToPrivate();
+  }
+
+  createGroup() {
+    this.creatingGroup = !this.creatingGroup;
   }
 
   setChats(){
+    this.loadingChats = true;
     this.searchChat = "";
     this.showChatInfo = false;
     this.activeChat = new ChatGetterDTO();
@@ -125,9 +155,8 @@ export class MainPageComponent {
     return user ? userId.toString() : 'Unknown';
   }
 
-  chats(): ChatGetterDTO[]{
-    const chats = this.userChats;
-
+  getChats(): ChatGetterDTO[]{
+    const chats = this.showPublicChats ? this.publicChats : this.chats;
     if (!this.searchChat?.trim()) {
       return chats;
     }
@@ -138,9 +167,8 @@ export class MainPageComponent {
     );
   }
 
-  messages(): Message[]{
+  getMessages(): Message[]{
     const messages = this.pinnedMessages ? this.allMessages.filter(m => m.isPinned === true) : this.allMessages;
-
     if (!this.searchMessage?.trim()) {
       return messages;
     }
@@ -152,19 +180,21 @@ export class MainPageComponent {
   }
 
   isUserInPublicChat(chatId: number): Boolean{
-    return !!this.userChats.find(chat => chat.id == chatId);
+    return !!this.chats.find(chat => chat.id == chatId);
   }
 
   addUserToPublicChat(chatId: number){
     if (!this.isUserInPublicChat(chatId)){
-      let link = this.chatService.newLink(this.logedInUser.id, chatId)
-      this.chatService.CreateLink(link).subscribe(response => {
+      let link = new UserChatRelationshipDTO();
+      link.chatId = chatId;
+      link.userId = this.logedInUser.id;
+      this.userChatRelationshipService.joinPublicChat(link).subscribe(response => {
         this.changeChatsToPrivate();
-        //this.activeChat = this.publicChats.find(x => x.Id = chatId)?? new Chat;
+        this.activeChat = this.publicChats.find(x => x.id = chatId)?? new ChatGetterDTO();
         this.refreshMessages();
       });
     }else{
-      this.chatService.DeleteLink(this.logedInUser.id, chatId).subscribe(response => {
+      this.userChatRelationshipService.leavePublicChat(chatId, this.logedInUser.id).subscribe(response => {
         this.changeChatsToPrivate();
         this.allMessages = [];
       });
