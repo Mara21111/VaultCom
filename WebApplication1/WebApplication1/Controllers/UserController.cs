@@ -40,10 +40,6 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> ToggleUserSafeMode([FromBody] UserToggleDTO dto)
             => HandleService(() => _userService.ToggleUserSettingAsync(dto, "SafeMode"));
 
-        [HttpDelete("delete-user-{requestorId}-{targetId}")]
-        public Task<IActionResult> DeleteUser(int requestorId, int targetId)
-            => HandleService(() => _userService.DeleteUserAsync(requestorId, targetId));
-
         [HttpGet("get-all-users-admin-view")]
         public Task<IActionResult> GetAllUsersAdminView() 
             => HandleService(() => _userService.GetAllUsersAdminViewAsync());
@@ -79,6 +75,10 @@ namespace WebApplication1.Controllers
         [HttpGet("get-pfp-{id}")]
         public Task<IActionResult> GetPFP(int id)
             => HandleService(() => _userService.GetPFPAsync(id));
+
+        [HttpDelete("delete-user-{requestorId}-{targetId}")]
+        public Task<IActionResult> DeleteUser(int requestorId, int targetId)
+            => HandleService(() => _userService.DeleteUserAsync(requestorId, targetId));
 
 
         private async Task<IActionResult> HandleActivity(Func<Task<ActivityResult>> serviceCall)

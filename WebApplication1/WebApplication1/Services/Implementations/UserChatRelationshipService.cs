@@ -51,7 +51,7 @@ namespace WebApplication1.Services.Implementations
             return await CreateUserChatRelationAsync(dto);
         }
 
-        public async Task<ServiceResult> LeavePublicChatAsync(UserChatRelationshipDTO dto)
+        public async Task<ServiceResult> LeaveChatAsync(UserChatRelationshipDTO dto)
         {
             UserChatRelationship? rel = await context.UserChatRelationship.Where(x => x.UserId == dto.UserId && x.ChatId == dto.ChatId).FirstAsync();
             if (rel is null)

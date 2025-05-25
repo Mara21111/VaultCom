@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Runtime.InteropServices;
 using Google.Protobuf;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
@@ -71,6 +72,9 @@ namespace WebApplication1.Services.Implementations
 
         public async Task<ServiceResult> DeletePublicChatAsync(int userId, int chatId)
         {
+            var user = await context.User.FindAsync(userId);
+            if (!user.IsAdmin)
+                return new ServiceResult { Success = false, ErrorMessage = "you are not admin" };
             var chat = await context.Chat.FindAsync(chatId);
             var pc = await context.PublicChat.FindAsync(chat.ChatId);
             var messages = (List<Message>)(await _messageService.GetMessagesInChatAsync(userId, chatId)).Data;
@@ -80,11 +84,11 @@ namespace WebApplication1.Services.Implementations
             {
                 await _messageService.DeleteMessageAsync(userId, msg.Id);
             }
-            foreach (var user in users)
+            foreach (var item in users)
             {
-                await _userChatRelationshipService.LeavePublicChatAsync(new UserChatRelationshipDTO
+                await _userChatRelationshipService.LeaveChatAsync(new UserChatRelationshipDTO
                 {
-                    UserId = user.Id,
+                    UserId = item.Id,
                     ChatId = chat.Id
                 });
             }

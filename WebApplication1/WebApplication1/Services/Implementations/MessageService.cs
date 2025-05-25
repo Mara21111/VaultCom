@@ -174,8 +174,11 @@ namespace WebApplication1.Services.Implementations
             var msg = await context.Message.FindAsync(messageId);
             if (msg is null)
                 return new ServiceResult { Success = false, ErrorMessage = "message does not exist" };
-
-            if (userId != msg.UserId && !user.IsAdmin)
+            var chat = await context.Chat.FindAsync(msg.ChatId);
+            var gc = await context.GroupChat.Where(x => x.Id == chat.ChatId).FirstOrDefaultAsync();
+            if (userId != msg.UserId && 
+                ((chat.Type == 1 && !user.IsAdmin) ||
+                (chat.Type == 2 && gc.OwnerId != userId)))
                 return new ServiceResult { Success = false, ErrorMessage = "don't have permission" };
 
             context.Message.Remove(msg);
