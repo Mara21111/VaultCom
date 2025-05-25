@@ -16,11 +16,13 @@ namespace WebApplication1.Services.Implementations
     {
         private readonly MyContext context;
         private readonly IUserService _userService;
+        private readonly IPrivateChatService _privateChatService;
 
-        public UserRelationshipService(MyContext context, IUserService userService)
+        public UserRelationshipService(MyContext context, IUserService userService, IPrivateChatService privateChatService)
         {
             this.context = context;
             _userService = userService;
+            _privateChatService = privateChatService;
         }
 
         public async Task<UserRelationship> CreateEmptyRelAsync(UserRelationshipDTO dto)
@@ -97,6 +99,8 @@ namespace WebApplication1.Services.Implementations
                 rel2.IsFriend = true;
                 context.UserRelationship.Add(rel2);
             }
+
+            await _privateChatService.CreatePrivateChatAsync(dto);
 
             await context.SaveChangesAsync(); 
             return new ServiceResult { Success = true, Data = rel };

@@ -58,6 +58,18 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> GetGroupChatsUserHasNotMuted(int id)
             => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = true, RequestorId = id, Type = 2, IsMuted = false }));
 
+        [HttpGet("get-private-chats-user-is-in-{id}")]
+        public Task<IActionResult> GetPrivateChatsUserIsIn(int id)
+                    => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = true, RequestorId = id, Type = 3 }));
+        
+        [HttpGet("get-private-chats-user-has-muted-{id}")]
+        public Task<IActionResult> GetPrivateChatsUserHasMuted(int id)
+                    => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = true, RequestorId = id, Type = 3, IsMuted = true }));
+        
+        [HttpGet("get-private-chats-user-has-not-muted-{id}")]
+        public Task<IActionResult> GetPrivateChatsUserHasNotMuted(int id)
+                    => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { IsIn = true, RequestorId = id, Type = 3, IsMuted = false }));
+
         [HttpGet("get-public-chats-admin-view")]
         public Task<IActionResult> GetPublicChatsAdminView()
             => HandleService(() => _chatService.GetPublicChatsAsync());

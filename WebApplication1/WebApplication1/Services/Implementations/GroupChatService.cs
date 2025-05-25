@@ -8,6 +8,7 @@ using Org.BouncyCastle.Asn1.X509;
 using WebApplication1.Models.Data;
 using WebApplication1.Models.DTO;
 using WebApplication1.Services.Interfaces;
+using ZstdSharp.Unsafe;
 
 namespace WebApplication1.Services.Implementations
 {
@@ -26,29 +27,35 @@ namespace WebApplication1.Services.Implementations
 
         public async Task<ServiceResult> CreateGroupChatAsync(CreateGroupChatDTO dto)
         {
-            var chat = new GroupChat
+            var gc = new GroupChat
             {
                 Title = dto.Title,
                 OwnerId = dto.CreatorId
             };
 
-            context.GroupChat.Add(chat);
+            context.GroupChat.Add(gc);
             await context.SaveChangesAsync();
 
             await _chatService.CreateChat(new CreateChatDTO
             {
                 Type = 2,
-                Id = chat.Id
+                Id = gc.Id
             });
 
             var baseChat = await context.Chat.OrderByDescending(x => x.Id).FirstOrDefaultAsync();
 
-            dto.UserIds.Add(dto.CreatorId);
-            foreach (var user in dto.UserIds)
+            await _userChatRelationshipService.CreateUserChatRelationAsync(new UserChatRelationshipDTO
             {
+                UserId = dto.CreatorId,
+                ChatId = baseChat.Id
+            });
+
+            foreach (var chatId in dto.ChatIds)
+            {
+                var pc = await context.PrivateChat.FindAsync(chatId);
                 await _userChatRelationshipService.CreateUserChatRelationAsync(new UserChatRelationshipDTO
                 {
-                    UserId = user,
+                    UserId = pc.GetOtherUser(dto.CreatorId),
                     ChatId = baseChat.Id
                 });
             }

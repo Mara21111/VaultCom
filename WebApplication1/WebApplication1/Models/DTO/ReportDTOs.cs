@@ -6,7 +6,7 @@
     }
     public class UseReportDTO
     {
-        public int userId {  get; set; }
+        public int userId { get; set; }
         public int reportId { get; set; }
         public DateTime? until { get; set; }
     }

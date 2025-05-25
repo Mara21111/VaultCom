@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Org.BouncyCastle.Asn1.X509;
@@ -59,9 +60,10 @@ namespace WebApplication1.Services.Implementations
 
         public async Task<ServiceResult> GetPrivateChatUserIds(int id)
         {
-            var chat = await context.PrivateChat.FindAsync(id);
+            var chat = await context.Chat.FindAsync(id);
+            var pc = await context.PrivateChat.FindAsync(chat.ChatId);
 
-            return new ServiceResult { Success = true, Data = new List<int> { chat.UserAId, chat.UserBId } };
+            return new ServiceResult { Success = true, Data = new List<int> { pc.UserAId, pc.UserBId } };
         }
 
         public async Task<ServiceResult> GetPrivateChatUsers(int id)

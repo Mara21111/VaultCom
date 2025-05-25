@@ -15,7 +15,7 @@
     {
         public int CreatorId { get; set; }
         public string Title { get; set; }
-        public List<int> UserIds { get; set; }
+        public List<int> ChatIds { get; set; }
     }
     public class ChatFilterDTO
     {

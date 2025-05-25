@@ -32,8 +32,8 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> GetUsersInChat(int id)
             => HandleService(() => _UCRService.GetUsersInChatAsync(id));
 
-        [HttpDelete("leave-public-chat")]
-        public Task<IActionResult> LeavePublicChat(UserChatRelationshipDTO dto)
-            => HandleService(() => _UCRService.LeavePublicChatAsync(dto));
+        [HttpDelete("leave-public-chat-{userId}-{chatId}")]
+        public Task<IActionResult> LeavePublicChat(int userId, int chatId)
+            => HandleService(() => _UCRService.LeavePublicChatAsync(new UserChatRelationshipDTO { ChatId = chatId, UserId = userId}));
     }
 }

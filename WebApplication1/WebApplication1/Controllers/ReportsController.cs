@@ -29,9 +29,9 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> BanUser([FromBody] UseReportDTO dto)
             => HandleService(() => _reportService.UseReportAsync(dto, "ban"));
 
-        [HttpDelete("delete-report")]
-        public Task<IActionResult> DeleteReport([FromBody] UseReportDTO dto)
-            => HandleService(() => _reportService.UseReportAsync(dto, "remove"));
+        [HttpDelete("delete-report-{userId}-{reportId}")]
+        public Task<IActionResult> DeleteReport(int userId, int reportId)
+            => HandleService(() => _reportService.UseReportAsync(new UseReportDTO { userId = userId, reportId = reportId }, "remove"));
 
         [HttpGet("get-reports-admin-view-{id}")]
         public Task<IActionResult> ViewReports(int id)
