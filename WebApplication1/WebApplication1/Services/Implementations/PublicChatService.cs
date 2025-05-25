@@ -63,7 +63,7 @@ namespace WebApplication1.Services.Implementations
                 await _userChatRelationshipService.CreateUserChatRelationAsync(new UserChatRelationshipDTO
                 {
                     UserId = admin,
-                    ChatId = baseChat.Id
+                    ChatId = baseChat!.Id
                 });
             }
 
@@ -73,12 +73,12 @@ namespace WebApplication1.Services.Implementations
         public async Task<ServiceResult> DeletePublicChatAsync(int userId, int chatId)
         {
             var user = await context.User.FindAsync(userId);
-            if (!user.IsAdmin)
+            if (!user!.IsAdmin)
                 return new ServiceResult { Success = false, ErrorMessage = "you are not admin" };
             var chat = await context.Chat.FindAsync(chatId);
-            var pc = await context.PublicChat.FindAsync(chat.ChatId);
-            var messages = (List<Message>)(await _messageService.GetMessagesInChatAsync(userId, chatId)).Data;
-            var users = (List<UserGetterDTO>)(await _userChatRelationshipService.GetUsersInChatAsync(chat.Id)).Data;
+            var pc = await context.PublicChat.FindAsync(chat!.ChatId);
+            var messages = (List<Message>)(await _messageService.GetMessagesInChatAsync(userId, chatId)).Data!;
+            var users = (List<UserGetterDTO>)(await _userChatRelationshipService.GetUsersInChatAsync(chat.Id)).Data!;
 
             foreach (var msg in messages)
             {
@@ -94,7 +94,7 @@ namespace WebApplication1.Services.Implementations
             }
             await _chatService.DeleteChatAsync(new UserChatRelationshipDTO { UserId = userId, ChatId = chatId });
 
-            context.PublicChat.Remove(pc);
+            context.PublicChat.Remove(pc!);
             await context.SaveChangesAsync();
 
             return new ServiceResult { Success = true, Data = pc };

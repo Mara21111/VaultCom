@@ -61,14 +61,14 @@ namespace WebApplication1.Services.Implementations
         public async Task<ServiceResult> GetPrivateChatUserIds(int id)
         {
             var chat = await context.Chat.FindAsync(id);
-            var pc = await context.PrivateChat.FindAsync(chat.ChatId);
+            var pc = await context.PrivateChat.FindAsync(chat!.ChatId);
 
-            return new ServiceResult { Success = true, Data = new List<int> { pc.UserAId, pc.UserBId } };
+            return new ServiceResult { Success = true, Data = new List<int> { pc!.UserAId, pc!.UserBId } };
         }
 
         public async Task<ServiceResult> GetPrivateChatUsers(int id)
         {
-            List<int> users = (List<int>)GetPrivateChatUserIds(id).Result.Data;
+            List<int> users = (List<int>)GetPrivateChatUserIds(id).Result.Data!;
 
             return new ServiceResult { Success = true, Data = new List<User> 
             { 

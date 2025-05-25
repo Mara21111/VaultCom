@@ -25,22 +25,22 @@ namespace WebApplication1.Services.Implementations
 
             if (chat.Type == 1)
             {
-                title = (await context.PublicChat.FindAsync(chat.ChatId)).Title;
+                title = (await context.PublicChat.FindAsync(chat.ChatId))!.Title;
             }
             if (chat.Type == 2)
             {
-                title = (await context.GroupChat.FindAsync(chat.ChatId)).Title;
+                title = (await context.GroupChat.FindAsync(chat.ChatId))!.Title;
             }
             if (chat.Type == 3)
             {
                 var pc = await context.PrivateChat.FindAsync(chat.ChatId);
-                var otherUserId = pc.GetOtherUserId(userId.Value);
+                var otherUserId = pc!.GetOtherUserId(userId!.Value);
                 var rel = await context.UserRelationship
                     .Where(x => x.SenderId == userId.Value && x.RecieverId == otherUserId).FirstOrDefaultAsync();
                 if (rel is not null)
                     title = rel.Nickname;
                 else
-                    title = (await context.User.FindAsync(otherUserId)).Username;
+                    title = (await context.User.FindAsync(otherUserId))!.Username;
             }
 
             return new ChatGetterDTO
@@ -73,7 +73,7 @@ namespace WebApplication1.Services.Implementations
                         .Select(x => x.ChatId).ToListAsync();
 
                     var privateChatsIn = context.PrivateChat.AsEnumerable()
-                        .Where(x => x.UserInChat(filter.RequestorId.Value))
+                        .Where(x => x.UserInChat(filter.RequestorId!.Value))
                         .Select(x => x.Id).ToList();
 
                     var privateIds = await context.Chat
@@ -126,11 +126,11 @@ namespace WebApplication1.Services.Implementations
             {
                 var chat = await context.Chat.FindAsync(chatIds[i]);
                 var pc = await context.PublicChat.FindAsync(pcIds[i]);
-                var usersInChat = await context.UserChatRelationship.Where(x => x.ChatId == chat.Id).Select(x => x.UserId).ToListAsync();
+                var usersInChat = await context.UserChatRelationship.Where(x => x.ChatId == chat!.Id).Select(x => x.UserId).ToListAsync();
                 chatsDTO.Add(new PublicChatGetterDTO
                 {
-                    Id = chat.Id,
-                    Title = pc.Title,
+                    Id = chat!.Id,
+                    Title = pc!.Title,
                     Users = usersInChat.Count(),
                     ActiveUsers = usersInChat.Where(x => _userService.IsUserOnlineAsync(x).Result.IsActive).Count(),
                     Description = pc.Description
@@ -144,10 +144,10 @@ namespace WebApplication1.Services.Implementations
         {
             var user = await context.User.FindAsync(dto.UserId);
             var chat = await context.Chat.FindAsync(dto.ChatId);
-            if (!user.IsAdmin)
+            if (!user!.IsAdmin)
                 return new ServiceResult { Success = false, ErrorMessage = "not admin" };
 
-            context.Chat.Remove(chat);
+            context.Chat.Remove(chat!);
             await context.SaveChangesAsync();
 
             return new ServiceResult { Success = true, Data = chat };

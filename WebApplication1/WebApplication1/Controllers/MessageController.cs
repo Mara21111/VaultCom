@@ -24,6 +24,14 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> SendMessage([FromBody] MessageDTO dto) 
             => HandleService(() => _messageService.SendMessageAsync(dto));
 
+        [HttpPut("pin-message-{userId}-{messageId}")]
+        public Task<IActionResult> PinMessage(int userId, int messageId)
+            => HandleService(() => _messageService.EditMessageAsync(new MessageEditDTO { UserId = userId, MessageId = messageId, Pin = true}));
+
+        [HttpPut("edit-message-{userId}-{messageId}-{newContent}")]
+        public Task<IActionResult> EditMessage(int userId, int messageId, string newContent)
+            => HandleService(() => _messageService.EditMessageAsync(new MessageEditDTO { UserId = userId, MessageId = messageId, NewContent = newContent }));
+
         [HttpGet("get-messages-in-chat-{userId}-{chatId}")]
         public Task<IActionResult> GetMessagesFromChat(int userId, int chatId)
             => HandleService(() => _messageService.GetMessagesInChatAsync(userId, chatId));

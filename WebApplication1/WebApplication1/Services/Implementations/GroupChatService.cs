@@ -50,16 +50,16 @@ namespace WebApplication1.Services.Implementations
             await _userChatRelationshipService.CreateUserChatRelationAsync(new UserChatRelationshipDTO
             {
                 UserId = dto.CreatorId,
-                ChatId = baseChat.Id
+                ChatId = baseChat!.Id
             });
 
             foreach (var chatId in dto.ChatIds)
             {
                 var chat = await context.Chat.FindAsync(chatId);
-                var pc = await context.PrivateChat.FindAsync(chat.ChatId);
+                var pc = await context.PrivateChat.FindAsync(chat!.ChatId);
                 await _userChatRelationshipService.CreateUserChatRelationAsync(new UserChatRelationshipDTO
                 {
-                    UserId = pc.GetOtherUserId(dto.CreatorId),
+                    UserId = pc!.GetOtherUserId(dto.CreatorId),
                     ChatId = baseChat.Id
                 });
             }
@@ -70,11 +70,11 @@ namespace WebApplication1.Services.Implementations
         public async Task<ServiceResult> DeleteGroupChatAsync(UserChatRelationshipDTO dto)
         {
             var chat = await context.Chat.FindAsync(dto.ChatId);
-            var gc = await context.GroupChat.FindAsync(chat.ChatId);
-            if (gc.OwnerId != dto.UserId)
+            var gc = await context.GroupChat.FindAsync(chat!.ChatId);
+            if (gc!.OwnerId != dto.UserId)
                 return new ServiceResult { Success = false, ErrorMessage = "cannot delete group chat" };
-            var messages = (List<Message>)(await _messageService.GetMessagesInChatAsync(dto.UserId, chat.Id)).Data;
-            var users = (List<UserGetterDTO>)(await _userChatRelationshipService.GetUsersInChatAsync(chat.Id)).Data;
+            var messages = (List<Message>)(await _messageService.GetMessagesInChatAsync(dto.UserId, chat.Id)).Data!;
+            var users = (List<UserGetterDTO>)(await _userChatRelationshipService.GetUsersInChatAsync(chat.Id)).Data!;
 
             foreach (var msg in messages)
             {

@@ -39,15 +39,22 @@ namespace WebApplication1.Services.Implementations
             if (msg!.UserId != dto.UserId)
                 return new ServiceResult { Success = false, ErrorMessage = "cannot edit other message" };
 
+            var chat = await context.Chat.FindAsync(msg.ChatId);
+            var user = await context.User.FindAsync(dto.UserId);
             if (dto.Pin.HasValue)
-                msg.IsPinned = !msg.IsPinned;
+            {
+                if (chat?.Type == 1 && user!.IsAdmin)
+                    msg.IsPinned = !msg.IsPinned;
+                else if (chat?.Type != 1)
+                    msg.IsPinned = !msg.IsPinned;
+                else
+                    return new ServiceResult { Success = false, ErrorMessage = "could not pin the message" };
+            }
             if (dto.NewContent != null && dto.NewContent.Length > 0)
             {
-                var chat = await context.Chat.FindAsync(msg.ChatId);
                 if (chat!.Type == 3)
                 {
                     var pc = await context.PrivateChat.FindAsync(chat.ChatId);
-                    var user = await context.User.FindAsync(dto.UserId);
                     var otherUser = await pc!.GetOtherUser(context, user!.Id);
 
                     using (RSA rsa = RSA.Create())
