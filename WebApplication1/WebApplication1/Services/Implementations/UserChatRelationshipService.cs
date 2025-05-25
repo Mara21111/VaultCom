@@ -36,14 +36,22 @@ namespace WebApplication1.Services.Implementations
         }
         public async Task<ServiceResult> GetUsersInChatAsync(int id)
         {
-            var userIds = await context.UserChatRelationship
-                .Where(x => x.ChatId == id)
-                .Select(x => x.UserId).ToListAsync(); 
-            var users = await context.User
-                .Where(u => userIds.Contains(u.Id)).ToListAsync();
-            var userDTO = users.Select(_userService.MapUserToDTO).ToList();
+            var chat = await context.Chat.FindAsync(id);
+            List<User> users = new List<User>();
+            if (chat!.Type == 3)
+            {
+                var pc = await context.PrivateChat.FindAsync(chat!.ChatId);
+                users = await pc.GetUsers(context);
+            }
+            else
+            {
+                var userIds = await context.UserChatRelationship
+                    .Where(x => x.ChatId == id)
+                    .Select(x => x.UserId).ToListAsync();
+                users = await context.User.Where(u => userIds.Contains(u.Id)).ToListAsync();
+            }
 
-            return new ServiceResult { Success = true, Data =  userDTO };
+            return new ServiceResult { Success = true, Data = users.Select(_userService.MapUserToDTO).ToList() };
         }
 
         public async Task<ServiceResult> JoinPublicChatAsync(UserChatRelationshipDTO dto)

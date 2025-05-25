@@ -10,8 +10,10 @@ namespace WebApplication1.Models.Data
 
         public int GetOtherUserId(int userId)
             => userId == UserAId ? UserBId : UserAId;
-        public async Task<User> GetOtherUser(MyContext context, int userId)
+        public async Task<User?> GetOtherUser(MyContext context, int userId)
             => await context.User.FindAsync(GetOtherUserId(userId));
+        public async Task<List<User?>> GetUsers(MyContext context)
+            => new List<User?> { await context.User.FindAsync(UserAId), await context.User.FindAsync(UserBId) };
         public bool UserInChat(int userId)
             => userId == UserAId || userId == UserBId;
         public bool UsersInChat(int userId1, int userId2)
