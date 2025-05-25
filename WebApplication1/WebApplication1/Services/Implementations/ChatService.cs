@@ -34,7 +34,7 @@ namespace WebApplication1.Services.Implementations
             if (chat.Type == 3)
             {
                 var pc = await context.PrivateChat.FindAsync(chat.ChatId);
-                var otherUserId = pc.GetOtherUser(userId.Value);
+                var otherUserId = pc.GetOtherUserId(userId.Value);
                 var rel = await context.UserRelationship
                     .Where(x => x.SenderId == userId.Value && x.RecieverId == otherUserId).FirstOrDefaultAsync();
                 if (rel is not null)

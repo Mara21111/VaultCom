@@ -21,16 +21,18 @@ namespace WebApplication1.Services.Implementations
     public class UserService : IUserService
     {
         private readonly MyContext context;
+        private readonly IReportService _reportService;
         private readonly IWebHostEnvironment _env;
         private readonly string _connString;
         private static readonly MemoryCache _cache = new MemoryCache(new MemoryCacheOptions());
         private static readonly TimeSpan _timeout = TimeSpan.FromMinutes(3);
 
-        public UserService(MyContext context, IWebHostEnvironment env, IConfiguration config)
+        public UserService(MyContext context, IReportService reportService, IWebHostEnvironment env, IConfiguration config)
         {
             this.context = context;
+            _reportService = reportService;
             _env = env; 
-            _connString = config.GetConnectionString("DefaultConnection");
+            _connString = config.GetConnectionString("DefaultConnection")!;
         }
 
         public async Task<ActivityResult> SetActivityAsync(int id)
@@ -66,9 +68,16 @@ namespace WebApplication1.Services.Implementations
             if (user.IsPublic)
             {
                 dto.Email = user.Email;
-                dto.Bio = user.Bio;
+                dto.Bio = user.Bio!;
                 dto.SafeMode = user.SafeMode;
             }
+            return dto;
+        }
+
+        public UserGetterDTO AdminMap(User user)
+        {
+            UserGetterDTO dto = MapUserToDTO(user);
+            dto.ReportCount = (int)_reportService.GetReportCountAsync(user.Id, context).Result.Data!;
             return dto;
         }
 
@@ -99,7 +108,7 @@ namespace WebApplication1.Services.Implementations
             var hasher = new PasswordHasher<User>();
             user.Password = hasher.HashPassword(user, dto.Password);
 
-            var rsa = RSA.Create(2048); // <- znamena ze ten klic bude 2048 bit
+            var rsa = RSA.Create(2048);
             user.PublicKey = Convert.ToBase64String(rsa.ExportSubjectPublicKeyInfo());
             user.PrivateKey = Convert.ToBase64String(rsa.ExportPkcs8PrivateKey());
 
@@ -119,7 +128,7 @@ namespace WebApplication1.Services.Implementations
             var fileName = $"user-{dto.Id}-{Guid.NewGuid()}{Path.GetExtension(dto.PFP.FileName)}";
             var path = Path.Combine(_env.WebRootPath, "uploads", "pfps", fileName);
 
-            if (!string.IsNullOrWhiteSpace(user.ProfilePicture))
+            if (!string.IsNullOrWhiteSpace(user!.ProfilePicture))
             {
                 var oldPath = Path.Combine(_env.WebRootPath, user.ProfilePicture.TrimStart('/'));
                 if (System.IO.File.Exists(oldPath))
@@ -189,7 +198,7 @@ namespace WebApplication1.Services.Implementations
             var user = await context.User.FindAsync(dto.Id);
 
             var property = typeof(User).GetProperty(prop);
-            property.SetValue(user, dto.Value);
+            property!.SetValue(user, dto.Value);
 
             await context.SaveChangesAsync();
 
@@ -239,7 +248,7 @@ namespace WebApplication1.Services.Implementations
         public async Task<ServiceResult> GetAllUsersAdminViewAsync()
         {
             var users = await context.User.ToListAsync();
-            var userDTOs = users.Select(MapUserToDTO).ToList();
+            var userDTOs = users.Select(AdminMap).ToList();
 
             return new ServiceResult { Success = true, Data = userDTOs };
         }
@@ -259,7 +268,7 @@ namespace WebApplication1.Services.Implementations
 
         public async Task<ServiceResult> GetSelfUserAsync(int id)
         {
-            User user = await context.User.FindAsync(id);
+            User? user = await context.User.FindAsync(id);
 
             return new ServiceResult { Success = true, Data = user };
         }

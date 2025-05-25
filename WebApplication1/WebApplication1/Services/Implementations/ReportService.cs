@@ -79,5 +79,12 @@ namespace WebApplication1.Services.Implementations
 
             return new ServiceResult { Success = true, Data = count };
         }
+
+        public async Task<ServiceResult> GetReportCountAsync(int id, MyContext _context)
+        {
+            int count = await _context.ReportLog.Where(x => x.ReportedUserId == id).CountAsync();
+
+            return new ServiceResult { Success = true, Data = count };
+        }
     }
 }

@@ -5,10 +5,11 @@
         public string Content { get; set; }
         public int? ReplyMessageId { get; set; }
     }
-    public class MessageFindDTO
+    public class MessageEditDTO
     {
         public int UserId { get; set; }
-        public int ChatId { get; set; }
         public int MessageId { get; set; }
+        public string? NewContent { get; set; }
+        public bool? Pin { get; set; }
     }
 }

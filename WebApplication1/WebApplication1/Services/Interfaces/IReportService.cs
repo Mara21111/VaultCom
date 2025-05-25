@@ -9,5 +9,6 @@ namespace WebApplication1.Services.Interfaces
         Task<ServiceResult> UseReportAsync(UseReportDTO dto, string action);
         Task<ServiceResult> ViewReportsAsync(int id);
         Task<ServiceResult> GetReportCountAsync(int id);
+        Task<ServiceResult> GetReportCountAsync(int id, MyContext _context);
     }
 }

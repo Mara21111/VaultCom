@@ -29,10 +29,6 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> BanUser([FromBody] UseReportDTO dto)
             => HandleService(() => _reportService.UseReportAsync(dto, "ban"));
 
-        [HttpDelete("delete-report-{userId}-{reportId}")]
-        public Task<IActionResult> DeleteReport(int userId, int reportId)
-            => HandleService(() => _reportService.UseReportAsync(new UseReportDTO { userId = userId, reportId = reportId }, "remove"));
-
         [HttpGet("get-reports-admin-view-{id}")]
         public Task<IActionResult> ViewReports(int id)
             => HandleService(() => _reportService.ViewReportsAsync(id));
@@ -40,6 +36,11 @@ namespace WebApplication1.Controllers
         [HttpGet("get-report-count-of-user-{id}")]
         public Task<IActionResult> GetReportCount(int id)
             => HandleService(() => _reportService.GetReportCountAsync(id));
+
+        [HttpDelete("delete-report-{userId}-{reportId}")]
+        public Task<IActionResult> DeleteReport(int userId, int reportId)
+            => HandleService(() => _reportService.UseReportAsync(new UseReportDTO { userId = userId, reportId = reportId }, "remove"));
+
 
         /*private MyContext context = new MyContext();
 

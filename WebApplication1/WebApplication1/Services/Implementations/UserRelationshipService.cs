@@ -27,6 +27,7 @@ namespace WebApplication1.Services.Implementations
 
         public async Task<UserRelationship> CreateEmptyRelAsync(UserRelationshipDTO dto)
         {
+            var user = await context.User.FindAsync(dto.TargetId);
             return new UserRelationship
             {
                 SenderId = dto.RequestorId,
@@ -35,7 +36,7 @@ namespace WebApplication1.Services.Implementations
                 IsFriend = false,
                 IsBlocked = false,
                 IsMuted = false,
-                Nickname = context.User.Find(dto.TargetId).Username
+                Nickname = user!.Username
             };
         }
 
@@ -60,7 +61,7 @@ namespace WebApplication1.Services.Implementations
                 .Where(x => x.SenderId == dto.RequestorId && x.RecieverId == dto.TargetId)
                 .FirstOrDefaultAsync();
 
-                if (rel.IsFriend)
+                if (rel!.IsFriend)
                 {
                     return new ServiceResult { Success = false, ErrorMessage = "bad request", ErrorCode = 404 };
                 }
@@ -79,11 +80,11 @@ namespace WebApplication1.Services.Implementations
                 return new ServiceResult { Success = false, ErrorMessage = "bad request", ErrorCode = 404 };
             }
 
-            UserRelationship rel = await context.UserRelationship
+            UserRelationship? rel = await context.UserRelationship
                 .Where(x => x.SenderId == dto.RequestorId && x.RecieverId == dto.TargetId)
                 .FirstOrDefaultAsync();
 
-            if (!rel.Pending)
+            if (!rel!.Pending)
             {
                 return new ServiceResult { Success = false, ErrorMessage = "not pending", ErrorCode = 404 };
             }

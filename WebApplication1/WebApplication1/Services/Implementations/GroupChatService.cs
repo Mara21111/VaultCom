@@ -59,7 +59,7 @@ namespace WebApplication1.Services.Implementations
                 var pc = await context.PrivateChat.FindAsync(chat.ChatId);
                 await _userChatRelationshipService.CreateUserChatRelationAsync(new UserChatRelationshipDTO
                 {
-                    UserId = pc.GetOtherUser(dto.CreatorId),
+                    UserId = pc.GetOtherUserId(dto.CreatorId),
                     ChatId = baseChat.Id
                 });
             }
