@@ -52,6 +52,18 @@ export class ChatService {
     return this.http.get<ChatGetterDTO[]>(`http://localhost:5000/api/Chat/get-group-chats-user-has-not-muted-${userId}`);
   }
 
+  public getPrivateChatsUserIsIn(userId: number): Observable<ChatGetterDTO[]> {
+    return this.http.get<ChatGetterDTO[]>(`http://localhost:5000/api/Chat/get-private-chats-user-is-in-${userId}`);
+  }
+
+  public getPrivateChatsUserHasMuted(userId: number): Observable<ChatGetterDTO[]> {
+    return this.http.get<ChatGetterDTO[]>(`http://localhost:5000/api/Chat/get-private-chats-user-has-muted-${userId}`);
+  }
+
+  public getPrivateChatsUserHasNotMuted(userId: number): Observable<ChatGetterDTO[]> {
+    return this.http.get<ChatGetterDTO[]>(`http://localhost:5000/api/Chat/get-private-chats-user-has-not-muted-${userId}`);
+  }
+
   public getPublicChatsAdminView(): Observable<PublicChatGetterDTO[]> {
     return this.http.get<PublicChatGetterDTO[]>('http://localhost:5000/api/Chat/get-public-chats-admin-view');
   }

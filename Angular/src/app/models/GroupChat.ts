@@ -7,5 +7,5 @@ export class GroupChat {
 export class CreateGroupChatDTO {
   creatorId: number;
   title: string;
-  userIds: number[];
+  chatIds: number[];
 }

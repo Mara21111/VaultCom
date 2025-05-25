@@ -16,7 +16,7 @@
     <div class="sidebar">
       <div class="search-container">
         <input type="text" class="form-control search-input clickAble" placeholder="Search" [(ngModel)]="this.searchChat" [ngClass]="{'public-chat': this.showPublicChats}">
-        <button class="new-chat-btn btn btn-dark btn-icon" *ngIf="!this.showPublicChats" (click)="this.creatingGroup = !this.creatingGroup">
+        <button class="new-chat-btn btn-icon clickAble" *ngIf="!this.showPublicChats" (click)="this.createGroupSetup()" [ngClass]="{'creating': this.creatingGroup}">
           <i class="fas fa-plus"></i>
         </button>
       </div>
@@ -25,11 +25,11 @@
         <div class="spinner" *ngIf="this.loadingChats"></div>
         <div class="chat-items" *ngIf="!this.loadingChats">
           <div class="chat-item" *ngFor="let item of this.getChats()" (click)="this.changeActiveChat(item)" [ngClass]="{'active': item.id === this.activeChat.id}">
-          <div class="message-avatar" style="background-color: #435466">{{ item.title.charAt(0) }}</div>
+          <div class="chat-avatar" style="background-color: #435466">{{ item.title.charAt(0) }}</div>
           <div class="chat-info">
             <div class="chat-name"> {{ item.title }}
-              <span class="on-off-button" *ngIf="this.showPublicChats" (click)="this.addUserToPublicChat(item.id)">
-                {{ this.isUserInPublicChat(item.id) ? '✓' : '' }}</span>
+              <span class="on-off-button" *ngIf="this.showPublicChats || this.creatingGroup" (click)="this.showPublicChats ? this.addUserToPublicChat(item.id) : this.addChatToGroup(item.id)">
+                {{ this.showPublicChats && this.isUserInPublicChat(item.id) || this.creatingGroup && this.chatInNewGroup(item.id) ? '✓' : '' }}</span>
               </div>
             </div>
           </div>
@@ -45,7 +45,7 @@
           <div class="mode-switch-knob" [class.right]="showPublicChats"></div>
         </div>
           <div class="create-group" *ngIf="this.creatingGroup">
-            <input type="text" class="group-input" [(ngModel)]="newGroupName" placeholder="Group name" />
+            <input type="text" class="group-input" [(ngModel)]="newGroupName" [class.shake]="this.shake" [class.invalid]="this.shake" placeholder="Group name" />
             <button class="create-group-btn" (click)="createGroup()">Create</button>
         </div>
       </div>
@@ -53,7 +53,7 @@
 
     <div class="chat-window">
       <div class="chat-header" *ngIf="this.activeChat.id">
-        <button class="message-avatar clickAble" (click)="this.chatInfo()">{{ this.activeChat.title?.charAt(0) }}</button>
+        <button class="chat-avatar clickAble" (click)="this.chatInfo()" [ngClass]="'header'">{{ this.activeChat.title?.charAt(0) }}</button>
         <div class="chat-title">{{ activeChat.title }}</div>
         <div class="chat-actions" *ngIf="!this.showChatInfo">
           <button class="chat-action" [ngClass]="{'active': this.pinnedMessages}">
@@ -66,17 +66,31 @@
       </div>
 
       <div class="message-wraper" [ngClass]="{ 'centered' : this.loadingMessages}">
-        <div class="spinner" *ngIf="this.loadingMessages"></div>
+        <div class="spinner" *ngIf="this.loadingMessages && !this.showChatInfo"></div>
         <div class="messages-container" #scrollMe style="overflow-y: auto;" *ngIf="!this.showChatInfo && !this.loadingMessages">
-          <div class="message" *ngFor="let item of this.getMessages()" [ngClass]="{'loginUser': item.userId === this.logedInUser.id}">
-            <div class="message-avatar" >{{ this.getUsername(item.userId).charAt(0) }}{{ item.userId }}</div>
+          <div class="message" *ngFor="let item of this.getMessages()" [ngClass]="{'loginUser': item.userId === this.logedInUser.id}" >
+            <div class="message-avatar">
+              <img *ngIf="this.userHasAvatar(item.userId); else showInitial" [src]="'http://localhost:5000/' + this.getProfilePicture(item.userId)" alt="Profile picture" />
+              <ng-template #showInitial>
+                {{ this.getUsername(item.userId).charAt(0).toUpperCase() }}
+              </ng-template>
+            </div>  
             <div class="message-content" [ngClass]="{'loginUser': item.userId === this.logedInUser.id}">
-              <div class="message-sender" >{{ this.getUsername(item.userId) }}</div>
+              <div class="message-sender" ><span class="dots clickAble" (click)="this.showMessageOptions(item.id)">
+                <i class="fas fa-ellipsis-v"></i>
+                </span>{{ this.getUsername(item.userId) }}
+              </div>
                 {{ item.content }}
               <div class="message-info" [ngClass]="{'loginUser': item.userId === this.logedInUser.id}">
               <div class="message-time">{{ item.time | date: "short" }}</div>
               <i class="fas fa-thumbtack message-pin" *ngIf="item.isPinned" ></i>
             </div>
+
+              <div class="message-options" *ngIf="messageOptionId === item.id" [ngClass]="{'left': item.userId === logedInUser.id, 'right': item.userId !== logedInUser.id}">
+                <button *ngIf="item.userId === this.logedInUser.id" (click)="editMessage(item.id)"><i class="fas fa-edit"></i></button>
+                <button *ngIf="item.userId === this.logedInUser.id" (click)="deleteMessage(item.id)"><i class="fas fa-trash-alt"></i></button>
+                <button (click)="pinMessage(item.id)"><i class="fas fa-thumbtack"></i></button>
+              </div>
           </div>
         </div>
       </div>
@@ -92,14 +106,14 @@
             </div>
 
             <div class="user-actions" *ngIf="user.id !== this.logedInUser.id">
-              <button (click)="this.muteUser(user)" class="btn mute">Mute</button>
+              <button (click)="this.muteUser(user.id)" class="btn mute">Mute</button>
               <button (click)="this.showReportPopup(user.id)" class="btn ban">Report</button>
             </div>
           </div>
         </div>
       </div>
 
-      <form class="form-log-in" *ngIf="!this.showPublicChats">
+      <form class="form-log-in" *ngIf="!this.showPublicChats && !this.creatingGroup">
         <div class="footer-bar message-footer">
           <input type="text" class="message-input" placeholder="Write message" name="msg" [(ngModel)]="this.newMessage.content" required>
           <button class="btn btn-dark btn-icon send-button" (click)="this.sendMessage()">

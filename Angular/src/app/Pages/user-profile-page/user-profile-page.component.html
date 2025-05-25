@@ -9,7 +9,7 @@
   <div class="profile-container animate-slide-up">
 
     <section class="profile-panel common-panel">
-      <img src="https://c.animaapp.com/m91lm1h7eKpzaT/img/pfp.png" alt="Profile Picture" class="profile-image" />
+      <img [src]="'http://localhost:5000' + this.getProfilePicture()" alt="Profile picture" class="profile-image" />
 
       <div class="user-info-panel common-panel">
         <div class="item-lined">

@@ -12,7 +12,7 @@ export class GroupChatService {
 
   }
 
-  public createGroupChat(CreatedGroupChat: CreateGroupChatDTO): Observable<Message[]>{
-    return this.http.post<Message[]>('http://localhost:5000/api/Message/create-group-chat', CreatedGroupChat)
+  public createGroupChat(CreatedGroupChat: CreateGroupChatDTO): Observable<void>{
+    return this.http.post<void>('http://localhost:5000/api/GroupChat/create-group-chat', CreatedGroupChat)
   }
 }

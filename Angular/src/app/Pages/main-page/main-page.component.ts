@@ -3,7 +3,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
 import { FormsModule } from '@angular/forms';
-import { User } from '../../models/User';
+import { PublicUserDataDTO, User } from '../../models/User';
 import { UserService } from '../../services/User.service';
 import { PublicChatService } from '../../services/PublicChat.service';
 import { Chat, ChatGetterDTO } from '../../models/Chat';
@@ -18,6 +18,8 @@ import { UserChatRelationshipService } from '../../services/UserChatRelationship
 import { title } from 'node:process';
 import { UserChatRelationshipDTO } from '../../models/UserChatRelationship';
 import { BlobOptions } from 'node:buffer';
+import { CreateGroupChatDTO } from '../../models/GroupChat';
+import { GroupChatService } from '../../services/GroupChat.service';
 
 @Component({
   selector: 'app-main-page',
@@ -30,7 +32,7 @@ export class MainPageComponent {
   @ViewChild('scrollMe') private myScrollContainer!: ElementRef;
 
   logedInUser: User = new User;
-  activeChatUsers: User[] = [];
+  activeChatUsers: PublicUserDataDTO[] = [];
   showPublicChats: boolean = false;
   pinnedMessages: boolean = false;
   showChatInfo: boolean = false;
@@ -38,21 +40,26 @@ export class MainPageComponent {
   loadingChats: boolean = true;
   loadingMessages: boolean = false;
   creatingGroup: boolean = false;
+  shake: boolean = false;
   chats: ChatGetterDTO[] = [];
   publicChats: ChatGetterDTO[] = [];
+  privateChats: ChatGetterDTO[] = [];
   activeChat: ChatGetterDTO = new ChatGetterDTO();
   allMessages: Message[] = [];
+  newGroupIds: number[] = [];
   newMessage: Message = new Message;
   searchChat: string = '';
   searchMessage: string = '';
   reportReason: string = '';
   newGroupName: string = '';
   reportUserId: number = 0;
+  messageOptionId: number = 0;
 
   constructor(
     private userService: UserService,
     private chatService: ChatService,
     private publicChatService: PublicChatService,
+    private groupChatService: GroupChatService,
     private userChatRelationshipService: UserChatRelationshipService,
     private messageService: MessageService,
     private reportsService: ReportsService) {
@@ -68,13 +75,11 @@ export class MainPageComponent {
         this.chats = chats;
       });
     });
+    this.chatService.getAllPublicChats().subscribe(result => this.publicChats = result);
+    this.chatService.getPrivateChatsUserIsIn(this.logedInUser.id).subscribe(resutl => this.privateChats = resutl);
   }
 
   ngAfterViewInit() {
-    this.scrollToBottom();
-  }
-
-  ngAfterViewChecked() {
     this.scrollToBottom();
   }
 
@@ -91,13 +96,16 @@ export class MainPageComponent {
     this.messageService.getMessagesInChat(this.logedInUser.id, this.activeChat.id).subscribe(result => {
       this.allMessages = result;
       this.loadingMessages = false;
+      setTimeout(() => this.scrollToBottom(), 1);
     });
   }
 
   changeActiveChat(chat: ChatGetterDTO){
+    if (this.creatingGroup) {
+      return;
+    }
     this.activeChat = chat;
-    //Zatím není v api
-    //this.chatService.UsersInChat(chat.id).subscribe(result => this.activeChatUsers = result);
+    this.userChatRelationshipService.getUsersInChat(this.activeChat.id).subscribe(resutl => this.activeChatUsers = resutl)
     this.refreshMessages();
   }
 
@@ -124,8 +132,43 @@ export class MainPageComponent {
     this.showPublicChats ? this.changeChatsToPublic() : this.changeChatsToPrivate();
   }
 
-  createGroup() {
+  createGroupSetup() {
     this.creatingGroup = !this.creatingGroup;
+    this.setChats();
+    this.newGroupIds = [];
+    this.newGroupName = "";
+    this.chatService.getPrivateChatsUserIsIn(this.logedInUser.id).subscribe(resutl => {this.privateChats = resutl; this.loadingChats = false});
+    this.activeChat = new ChatGetterDTO();
+  }
+
+  addChatToGroup(chatId: number) {
+    if (this.chatInNewGroup(chatId)) {
+      this.newGroupIds = this.newGroupIds.filter(id => id !== chatId);
+    } else {
+      this.newGroupIds.push(chatId);
+    }
+  }
+
+  createGroup() {
+    if (!this.newGroupName.trim()) {
+      this.shake = true;
+      setTimeout(() => this.shake = false, 500);
+      return;
+    }
+    if (this.newGroupIds.length < 1) {
+      return;
+    }
+
+    let newGroupChat = new CreateGroupChatDTO();
+    newGroupChat.creatorId = this.logedInUser.id;
+    newGroupChat.title = this.newGroupName;
+    newGroupChat.chatIds = this.newGroupIds;
+
+    this.groupChatService.createGroupChat(newGroupChat).subscribe(_ => {this.changeChatsToPrivate(); this.creatingGroup = false});
+  }
+
+  chatInNewGroup(chatId: number): boolean {
+    return !!this.newGroupIds.find(x => x === chatId);
   }
 
   setChats(){
@@ -149,14 +192,44 @@ export class MainPageComponent {
     this.newMessage.content = '';
   }
 
+  deleteMessage(messageId: number) {
+    this.messageService.deleteMessage(this.logedInUser.id, messageId).subscribe(_ => this.refreshMessages());
+  }
+
+  editMessage(messageId: number) {
+
+  }
+
+  pinMessage(messageId: number) {
+    this.messageService.pinMessage(this.logedInUser.id, messageId).subscribe(_ => this.refreshMessages());
+  }
+
+  showMessageOptions(messageId: number) {
+    if (this.messageOptionId === messageId) {
+      this.messageOptionId = 0;
+    } else {
+      this.messageOptionId = messageId;
+    }
+  }
+
   getUsername(userId: number): string {
     const user = this.activeChatUsers.find(u => u.id === userId);
-    // zatím místo username je id
-    return user ? userId.toString() : 'Unknown';
+    return user ? user.username.toString() : 'Unknown';
+  }
+
+  userHasAvatar(userId: number): boolean {
+  const user = this.activeChatUsers.find(u => u.id === userId);
+  return !!(user && user.profilePicture);
+}
+
+  getProfilePicture(userId: number): string {
+      const user = this.activeChatUsers.find(u => u.id === userId);
+  return user ? user.profilePicture : '';
   }
 
   getChats(): ChatGetterDTO[]{
-    const chats = this.showPublicChats ? this.publicChats : this.chats;
+    let chats = this.creatingGroup ? this.privateChats : this.chats;
+    chats = this.showPublicChats ? this.publicChats : chats;
     if (!this.searchChat?.trim()) {
       return chats;
     }
@@ -206,7 +279,7 @@ export class MainPageComponent {
     console.log(this.activeChatUsers)
   }
 
-  muteUser(user: User){
+  muteUser(userId: number){
 
   }
 

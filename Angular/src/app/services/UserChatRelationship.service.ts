@@ -21,8 +21,8 @@ export class UserChatRelationshipService {
     return this.http.put<UserChatRelationshipDTO>('http://localhost:5000/api/UserChatRelationship/mute-chat-toggle', relationship);
   }
 
-  public getUsersInChat(chatId: number): Observable<BaseUserDataDTO[] | PublicUserDataDTO[]> {
-    return this.http.get<BaseUserDataDTO[] | PublicUserDataDTO[]>(`http://localhost:5000/api/UserChatRelationship/get-users-in-chat-${chatId}`);
+  public getUsersInChat(chatId: number): Observable<PublicUserDataDTO[]> {
+    return this.http.get<PublicUserDataDTO[]>(`http://localhost:5000/api/UserChatRelationship/get-users-in-chat-${chatId}`);
   }
 
   public leavePublicChat(chatId: number, userId: number): Observable<void> {

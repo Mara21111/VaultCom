@@ -28,6 +28,7 @@ export class UserProfilePageComponent {
   public userPanelInfo: UserPanelInfo = new UserPanelInfo()
 
   user: User = new User;
+this: any;
 
   constructor(private userService: UserService,
     private fb: FormBuilder,
@@ -61,7 +62,9 @@ export class UserProfilePageComponent {
     this.darkMode = !this.darkMode;
   }
 
-
+  getProfilePicture(): string {
+    return this.user ? this.user.profilePicture : '/uploads/pfps/default.png';
+  }
 
   updateUser() {
     this.user.username = this.form.value.username;
