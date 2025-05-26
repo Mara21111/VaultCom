@@ -262,6 +262,8 @@ namespace WebApplication1.Services.Implementations
             }
 
             var dto = MapUserToDTO(user);
+            var result = await _reportService.GetReportCountAsync(id, context);
+            dto.ReportCount = (int)result.Data!;
             
             return new ServiceResult { Success = true, Data = dto };
         }
