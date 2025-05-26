@@ -167,29 +167,48 @@ namespace WebApplication1.Services.Implementations
             User? user = await context.User.FindAsync(dto.Id);
             if (user == null)
             {
-                return new ServiceResult { Success = false, ErrorMessage = "User does not exist", ErrorCode = 404 };
+                return new ServiceResult { Success = false, ErrorMessage = "user does not exist", ErrorCode = 404 };
             }
             if (await context.User.AnyAsync(x => x.Username == dto.Username && x.Id != dto.Id))
             {
-                return new ServiceResult { Success = false, ErrorMessage = "Username is already taken", ErrorCode = 409 };
+                return new ServiceResult { Success = false, ErrorMessage = "username is already taken", ErrorCode = 409 };
             }
             if (await context.User.AnyAsync(x => x.Email == dto.Email && x.Id != dto.Id))
             {
-                return new ServiceResult { Success = false, ErrorMessage = "Email already exists", ErrorCode = 409 };
+                return new ServiceResult { Success = false, ErrorMessage = "email already exists", ErrorCode = 409 };
             }
+
+            var hasher = new PasswordHasher<User>();
+            var hsh = hasher.VerifyHashedPassword(user, user.Password, dto.Password);
+            if (hsh != PasswordVerificationResult.Success)
+                return new ServiceResult { Success = false, ErrorMessage = "incorrect password" };
 
             user.Username = dto.Username;
             user.Email = dto.Email;
-            user.Password = dto.Password;
             user.Bio = dto.Bio;
 
-            if (user.Password != dto.Password) // check later doufam ze to funguje
-            {
-                var hasher = new PasswordHasher<User>();
-                user.Password = hasher.HashPassword(user, dto.Password);
-            }
-
             await context.SaveChangesAsync();
+            return new ServiceResult { Success = true, Data = user };
+        }
+
+        public async Task<ServiceResult> ChangePasswordAsync(ChangePasswordDTO dto)
+        {
+            User? user = await context.User.FindAsync(dto.Id);
+            if (user == null)
+                return new ServiceResult { Success = false, ErrorMessage = "user does not exist", ErrorCode = 404 };
+
+            var hasher = new PasswordHasher<User>();
+
+            var hsh = hasher.VerifyHashedPassword(user, user.Password, dto.Password);
+            if (hsh != PasswordVerificationResult.Success)
+                return new ServiceResult { Success = false, ErrorMessage = "incorrect password" };
+
+            if (dto.NewPassword != dto.NewPassword2)
+                return new ServiceResult { Success = false, ErrorMessage = "passwords don't match" };
+
+            user.Password = hasher.HashPassword(user, dto.Password);
+            await context.SaveChangesAsync();
+
             return new ServiceResult { Success = true, Data = user };
         }
 
