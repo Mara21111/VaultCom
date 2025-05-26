@@ -23,12 +23,9 @@ export class CreateUserDTO {
   isAdmin: boolean;
 }
 
-export class EditUserDTO {
-  userId: number;
-  username: string;
-  email: string;
-  password: string;
-  bio: string;
+export class ToggleUserDTO {
+  id: number;
+  value: boolean;
 }
 
 export class BaseUserDataDTO {

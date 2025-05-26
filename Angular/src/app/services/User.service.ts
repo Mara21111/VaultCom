@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {User, CreateUserDTO, EditUserDTO, UserToggleDTO, UserGetterDTO} from '../models/User';
+import {User, CreateUserDTO, UserGetterDTO, ToggleUserDTO} from '../models/User';
 import { AuthenticationService } from './authentication.service';
 
 @Injectable({
@@ -21,8 +21,12 @@ export class UserService {
     return this.http.put<User>('http://localhost:5000/api/User/edit-user', editUser)
   }
 
-  public toggleUserSettings(toggledSettings: EditUserDTO): Observable<User> {
-    return this.http.put<User>('http://localhost:5000/api/User/toggle-user-setting', toggledSettings)
+  public toggleUserIsPublic(toggleUserDTO: ToggleUserDTO): Observable<User> {
+    return this.http.put<User>('http://localhost:5000/api/User/toggle-user-is-public', toggleUserDTO);
+  }
+
+  public toggleUserSafeMode(toggleUserDTO: ToggleUserDTO): Observable<User> {
+    return this.http.put<User>('http://localhost:5000/api/User/toggle-user-safe-mode', toggleUserDTO);
   }
 
   public deleteUser(deletingUserId: number, deletedUserId: number): Observable<void> {

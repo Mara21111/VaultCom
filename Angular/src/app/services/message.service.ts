@@ -27,7 +27,7 @@ export class MessageService {
   }
 
   public deleteMessage(userId: number, messageId: number): Observable<void> {
-    return this.http.delete<void>(`http://localhost:5000/api/Message/edit-message-${userId}-${messageId}`);
+    return this.http.delete<void>(`http://localhost:5000/api/Message/delete-message-${userId}-${messageId}`);
   }
 
 }

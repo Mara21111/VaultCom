@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {User, UserPanelInfo} from '../../models/User';
+import {ToggleUserDTO, User, UserPanelInfo} from '../../models/User';
 import { CommonModule, NgIf } from '@angular/common';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
@@ -51,11 +51,17 @@ this: any;
   }
 
   togglePublicAccount() {
-    this.user.isPublic = !this.user.isPublic;
+    let edit = new ToggleUserDTO();
+    edit.id = this.user.id;
+    edit.value = !this.user.isPublic;
+    this.userService.toggleUserIsPublic(edit).subscribe(_ => this.ngOnInit());
   }
 
   toggleKidsMode() {
-    this.user.safeMode = !this.user.safeMode;
+    let edit = new ToggleUserDTO();
+    edit.id = this.user.id;
+    edit.value = !this.user.safeMode;
+    this.userService.toggleUserSafeMode(edit).subscribe(_ => this.ngOnInit());
   }
 
   toggleDarkMode() {

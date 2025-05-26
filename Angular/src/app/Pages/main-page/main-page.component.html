@@ -76,7 +76,8 @@
               </ng-template>
             </div>  
             <div class="message-content" [ngClass]="{'loginUser': item.userId === this.logedInUser.id}">
-              <div class="message-sender" ><span class="dots clickAble" (click)="this.showMessageOptions(item.id)">
+              <div class="message-sender" >
+                <span class="dots clickAble" (click)="this.showMessageOptions(item.id)">
                 <i class="fas fa-ellipsis-v"></i>
                 </span>{{ this.getUsername(item.userId) }}
               </div>

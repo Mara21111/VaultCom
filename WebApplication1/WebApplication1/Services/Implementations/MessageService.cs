@@ -37,7 +37,7 @@ namespace WebApplication1.Services.Implementations
         public async Task<ServiceResult> EditMessageAsync(MessageEditDTO dto)
         {
             var msg = await context.Message.FindAsync(dto.MessageId);
-            if (msg!.UserId != dto.UserId)
+            if (dto.NewContent is not null && dto.NewContent.Length > 0 && msg!.UserId != dto.UserId)
                 return new ServiceResult { Success = false, ErrorMessage = "cannot edit other message" };
 
             var chat = await context.Chat.FindAsync(msg.ChatId);

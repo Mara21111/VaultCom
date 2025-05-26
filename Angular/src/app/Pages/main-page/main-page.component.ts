@@ -6,18 +6,15 @@ import { FormsModule } from '@angular/forms';
 import { PublicUserDataDTO, User } from '../../models/User';
 import { UserService } from '../../services/User.service';
 import { PublicChatService } from '../../services/PublicChat.service';
-import { Chat, ChatGetterDTO } from '../../models/Chat';
+import { ChatGetterDTO } from '../../models/Chat';
 import { ChatService } from '../../services/ChatService';
 import { Message } from '../../models/Message';
 import { MessageService} from '../../services/message.service';
 import { catchError } from 'rxjs';
 import { ReportsService} from '../../services/reports.service';
-import { CreateReportDTO, ReportLog, UserReportDTO } from '../../models/ReportLog';
-import { PublicChat } from '../../models/PublicChat';
+import { CreateReportDTO } from '../../models/ReportLog';
 import { UserChatRelationshipService } from '../../services/UserChatRelationship.service';
-import { title } from 'node:process';
 import { UserChatRelationshipDTO } from '../../models/UserChatRelationship';
-import { BlobOptions } from 'node:buffer';
 import { CreateGroupChatDTO } from '../../models/GroupChat';
 import { GroupChatService } from '../../services/GroupChat.service';
 
@@ -35,6 +32,7 @@ export class MainPageComponent {
   activeChatUsers: PublicUserDataDTO[] = [];
   showPublicChats: boolean = false;
   pinnedMessages: boolean = false;
+  editingMessage: boolean = false;
   showChatInfo: boolean = false;
   reportPopup: boolean = false;
   loadingChats: boolean = true;
@@ -97,6 +95,7 @@ export class MainPageComponent {
       this.allMessages = result;
       this.loadingMessages = false;
       setTimeout(() => this.scrollToBottom(), 1);
+      this.messageOptionId = 0;
     });
   }
 
@@ -107,6 +106,7 @@ export class MainPageComponent {
     this.activeChat = chat;
     this.userChatRelationshipService.getUsersInChat(this.activeChat.id).subscribe(resutl => this.activeChatUsers = resutl)
     this.refreshMessages();
+    this.newMessage = new Message();
   }
 
   changeChatsToPublic(){
@@ -177,19 +177,29 @@ export class MainPageComponent {
     this.showChatInfo = false;
     this.activeChat = new ChatGetterDTO();
     this.allMessages = [];
+    this.newMessage = new Message();
   }
 
   sendMessage(){
     if(this.activeChat.id == null){
       throw new Error("Chat not selected");
     }
+    if (!this.newMessage.content) {
+      return;
+    }
 
-    this.newMessage.userId = this.logedInUser.id;
-    this.newMessage.chatId = this.activeChat.id;
-    this.messageService.createMessage(this.newMessage).pipe(
-          catchError(error =>{throw error})
-        ).subscribe(_ => this.refreshMessages());
-    this.newMessage.content = '';
+    if (this.editingMessage)
+    {
+      this.messageService.editMessage(this.logedInUser.id, this.newMessage.id, this.newMessage.content).subscribe(_ => {this.newMessage.content = ''; this.refreshMessages()});
+      this.editingMessage = false;
+    } else {
+      this.newMessage.userId = this.logedInUser.id;
+      this.newMessage.chatId = this.activeChat.id;
+      this.messageService.createMessage(this.newMessage).pipe(
+            catchError(error =>{throw error})
+          ).subscribe(_ => this.refreshMessages());
+      this.newMessage.content = '';
+    }
   }
 
   deleteMessage(messageId: number) {
@@ -197,7 +207,10 @@ export class MainPageComponent {
   }
 
   editMessage(messageId: number) {
-
+    let message = this.allMessages.find(m => m.id === messageId)!;
+    this.editingMessage = true;
+    this.newMessage = message;
+    this.messageOptionId = 0;
   }
 
   pinMessage(messageId: number) {
@@ -218,13 +231,13 @@ export class MainPageComponent {
   }
 
   userHasAvatar(userId: number): boolean {
-  const user = this.activeChatUsers.find(u => u.id === userId);
-  return !!(user && user.profilePicture);
-}
+    const user = this.activeChatUsers.find(u => u.id === userId);
+    return !!(user && user.profilePicture);
+  }
 
   getProfilePicture(userId: number): string {
-      const user = this.activeChatUsers.find(u => u.id === userId);
-  return user ? user.profilePicture : '';
+    const user = this.activeChatUsers.find(u => u.id === userId);
+    return user ? user.profilePicture : '';
   }
 
   getChats(): ChatGetterDTO[]{
