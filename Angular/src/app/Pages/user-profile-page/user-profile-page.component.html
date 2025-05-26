@@ -10,6 +10,10 @@
 
     <section class="profile-panel common-panel">
       <img [src]="'http://localhost:5000' + this.getProfilePicture()" alt="Profile picture" class="profile-image" />
+      <div class="edit-item">
+        <input type="file" #fileInput accept="image/*" (change)="onFileSelected($event)" style="display: none" />
+          <i class="bi bi-pencil-square edit-icon" (click)="fileInput.click()"></i>
+        </div>
 
       <div class="user-info-panel common-panel">
         <div class="item-lined">

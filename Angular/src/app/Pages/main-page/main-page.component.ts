@@ -15,7 +15,7 @@ import { ReportsService} from '../../services/reports.service';
 import { CreateReportDTO } from '../../models/ReportLog';
 import { UserChatRelationshipService } from '../../services/UserChatRelationship.service';
 import { UserChatRelationshipDTO } from '../../models/UserChatRelationship';
-import { CreateGroupChatDTO } from '../../models/GroupChat';
+import { CreateGroupChatDTO, EditGroupChatDTO } from '../../models/GroupChat';
 import { GroupChatService } from '../../services/GroupChat.service';
 import { ChatInfoSidePanelComponent } from "../../Components/chat-info-side-panel/chat-info-side-panel.component";
 import { UserInfoSidePanelComponent } from "../../Components/user-info-side-panel/user-info-side-panel.component";
@@ -309,9 +309,17 @@ export class MainPageComponent {
     this.reportsService.sendReport(createReportDTO).subscribe();
   }
 
-  showReportPopup(reportUserId: number){
+  showReportPopup(username: string){
+    let user = this.activeChatUsers.find(u => u.username === username);
+
+    if (user === null) {
+      return;
+    }
+
+    this.showChatInfo = false;
+    this.showUserInfo = false;
     this.reportPopup = true;
-    this.reportUserId = reportUserId;
+    this.reportUserId = user?.id ?? 0;
   }
 
   cancelReport(){
@@ -329,13 +337,27 @@ export class MainPageComponent {
     return chat;
   }
 
+  deleteChat(chatId: number) {
+    console.log(chatId);
+    this.groupChatService.deleteGroupChat(this.logedInUser.id, chatId).subscribe(_ => this.changeChatsToPrivate());
+  }
 
-  deleteChat(chatId: number): void {
-    console.log("delete");
+  removeUser(username: string): void {
+    let user = this.activeChatUsers.find(u => u.username === username);
+
+    if (user === null) {
+      return;
+    }
+
+    this.userChatRelationshipService.leavePublicChat(this.activeChat.id, user!.id).subscribe();
   }
 
   editChat(editedChat: ChatPanelInfo) {
-    console.log("edit");
+    let newChat = new EditGroupChatDTO();
+    newChat.chatId = editedChat.id;
+    newChat.title = editedChat.title;
+    newChat.userId = this.logedInUser.id;
+    this.groupChatService.editGroupChat(newChat).subscribe(_ => {this.activeChat.title = newChat.title; this.showChatInfo = false});
   }
 
   closeUserInfo() {

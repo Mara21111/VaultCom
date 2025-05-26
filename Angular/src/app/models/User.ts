@@ -104,3 +104,8 @@ export class UserGetterDTO {
   safeMode?: boolean;
   reportCount?: string;
 }
+
+export class ProfilePictureDTO {
+  id: number;
+  PFP: File;
+}

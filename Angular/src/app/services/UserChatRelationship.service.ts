@@ -26,6 +26,6 @@ export class UserChatRelationshipService {
   }
 
   public leavePublicChat(chatId: number, userId: number): Observable<void> {
-    return this.http.delete<void>('http://localhost:5000/api/UserChatRelationship/leave-public-chat');
+    return this.http.delete<void>(`http://localhost:5000/api/UserChatRelationship/leave-chat-${userId}-${chatId}`);
   }
 }

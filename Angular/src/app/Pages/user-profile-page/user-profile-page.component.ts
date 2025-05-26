@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {EditUserDTO, ToggleUserDTO, User, UserPanelInfo} from '../../models/User';
+import {EditUserDTO, ProfilePictureDTO, ToggleUserDTO, User, UserPanelInfo} from '../../models/User';
 import { CommonModule, NgIf } from '@angular/common';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
@@ -29,7 +29,7 @@ export class UserProfilePageComponent {
   public userPanelInfo: UserPanelInfo = new UserPanelInfo()
 
   user: User = new User;
-this: any;
+  this: any;
 
   constructor(private userService: UserService,
     private fb: FormBuilder,
@@ -50,6 +50,19 @@ this: any;
       });
     });
   }
+
+  onFileSelected(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  if (!input.files || input.files.length === 0) return;
+
+  const file = input.files[0];
+
+  const formData = new FormData();
+  formData.append('PFP', file);
+  formData.append('Id', this.user.id.toString());
+
+  this.userService.uploadPfp(formData).subscribe(_ => this.ngOnInit());
+}
 
   togglePublicAccount() {
     let edit = new ToggleUserDTO();

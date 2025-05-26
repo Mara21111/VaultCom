@@ -34,7 +34,9 @@
       [editable]="false"
       [userList]="true"
       [userActions]="userActions"
-      (usernameOutput)="outputUsername($event)">
+      (usernameOutput)="outputUsername($event)"
+      (removeUserEmitter)="removeUser($event)"
+      (reportUserEmmiter)="reportUser($event)">
     </app-side-panel-row-list>
   </div>
 

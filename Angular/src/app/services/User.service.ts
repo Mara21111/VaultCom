@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {User, CreateUserDTO, UserGetterDTO, ToggleUserDTO, EditUserDTO} from '../models/User';
+import {User, CreateUserDTO, UserGetterDTO, ToggleUserDTO, EditUserDTO, ProfilePictureDTO} from '../models/User';
 import { AuthenticationService } from './authentication.service';
+import { Form } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,12 @@ export class UserService {
 
   public createUser(createUser: CreateUserDTO): Observable<CreateUserDTO> {
     return this.http.post<CreateUserDTO>('http://localhost:5000/api/User/create-user', createUser);
+  }
+
+  uploadPfp(formData: FormData): Observable<any> {
+  return this.http.post('http://localhost:5000/api/User/upload-pfp', formData, {
+    responseType: 'text' as 'json'
+  });
   }
 
   public editUser(editUser: EditUserDTO): Observable<User> {

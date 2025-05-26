@@ -96,24 +96,6 @@
         </div>
       </div>
     </div>
-
-      <div class="user-info-wrapper">
-        <div class="user-list" *ngIf="this.showChatInfo">
-          <div *ngFor="let user of this.activeChatUsers" class="user-card">
-            <div class="user-info">
-              <h3>{{ user.username }} <span *ngIf="user.id !== this.logedInUser.id">(Nickname)</span></h3>
-              <p><strong>Email:</strong> {{ user.email }}</p>
-              <p><strong>Bio:</strong> {{ user.bio }}</p>
-            </div>
-
-            <div class="user-actions" *ngIf="user.id !== this.logedInUser.id">
-              <button (click)="this.muteUser(user.id)" class="btn mute">Mute</button>
-              <button (click)="this.showReportPopup(user.id)" class="btn ban">Report</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <form class="form-log-in" *ngIf="!this.showPublicChats && !this.creatingGroup">
         <div class="footer-bar message-footer">
           <input type="text" class="message-input" placeholder="Write message" name="msg" [(ngModel)]="this.newMessage.content" required>
@@ -147,6 +129,8 @@
   (close)="chatInfo()"
   (changes)="editChat($event)"
   (delete)="deleteChat($event)"
+  (reportUserEmmiter)="showReportPopup($event)"
+  (removeUserEmitter)="removeUser($event)"
   (usernameOutput)="switchPanel($event)">
 </app-chat-info-side-panel>
 

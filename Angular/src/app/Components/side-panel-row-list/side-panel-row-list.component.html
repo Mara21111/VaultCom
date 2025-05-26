@@ -15,11 +15,12 @@
 
   <ng-template #readonly>
     <ng-container *ngIf="values.length > 0; else noValues">
-      <div *ngFor="let value of values" class="info-value" (click)="outputUsername(value)">{{ value }}
+      <div *ngFor="let value of values" class="info-value">
+        <div (click)="outputUsername(value)">{{value}}</div>
         <div class="user-actions" *ngIf="userActions">
           <button class="button btn-user-action">Mute</button>
-          <button class="button btn-user-action">Report</button>
-          <button class="button btn-user-action">Remove</button>
+          <button class="button btn-user-action" (click)="reportUser(value)">Report</button>
+          <button class="button btn-user-action" (click)="removeUser(value)">Remove</button>
         </div>
       </div>
     </ng-container>

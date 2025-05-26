@@ -229,6 +229,18 @@
       }
     }
     
+      .edit-icon {
+        font-size: 1.4rem;
+        color: $accent;
+        cursor: pointer;
+        transition: transform 0.2s ease, color 0.2s ease;
+  
+        &:hover {
+          color: lighten($accent, 20%);
+          transform: scale(1.1);
+        }
+      }
+
     .logout-btn {
       background-color: $danger;
       border: none;

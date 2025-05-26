@@ -34,7 +34,7 @@
         [editable]="userEditing">
       </app-side-panel-row>
     </div>
-    <div class="info-row">
+    <div class="info-row" *ngIf="!inMain">
       <app-side-panel-row
         [label]="'Date created'"
         [(value)]="user.createdAt"

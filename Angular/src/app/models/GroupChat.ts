@@ -9,3 +9,9 @@ export class CreateGroupChatDTO {
   title: string;
   chatIds: number[];
 }
+
+export class EditGroupChatDTO {
+  chatId: number;
+  userId: number;
+  title: string;
+}
