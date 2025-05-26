@@ -23,11 +23,14 @@ export class FriendRequestListComponent {
   fadingOut: Set<number> = new Set();
 
   onAccept(id: number) {
+    console.log('onAccept')
+    /*
     this.fadingOut.add(id);
     setTimeout(() => {
       this.accept.emit(id);
       this.fadingOut.delete(id);
     }, 300); // match CSS duration
+     */
   }
 
   onReject(id: number) {
@@ -43,7 +46,6 @@ export class FriendRequestListComponent {
   }
 
   onRequestClick(requestId: number) {
-    console.log('ahojs');
-    this.userClick.emit(requestId);
+    console.log(`ahojs ${requestId}`);
   }
 }

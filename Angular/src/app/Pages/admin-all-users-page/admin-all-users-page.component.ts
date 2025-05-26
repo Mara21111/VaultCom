@@ -43,15 +43,14 @@ export class AdminAllUsersPageComponent {
   }
 
   public goToUser(userId: number): void {
-    this.userService.getUser(userId).subscribe(result => {
-      this.selectedUser.username = result.username;
-      this.selectedUser.email = result.email ?? 'Private account';
-      this.selectedUser.bio = result.bio ?? 'Not set';
-      this.selectedUser.createdAt = result.createdAt ?? 'Not created';
-      this.selectedUser.banEnd = result.banEnd ?? 'Not banned';
-      this.selectedUser.reportCount = result.reportCount ?? 'Not reported';
-      this.panelVisible = true;
-    });
+    let user = this.users.find(user => user.id = userId)
+    this.selectedUser.username = user?.username ?? 'Not found'
+    this.selectedUser.email = user?.email ?? 'Private account';
+    this.selectedUser.bio = user?.bio ?? 'Not set';
+    this.selectedUser.createdAt = user?.createdAt ?? 'Not created';
+    this.selectedUser.banEnd = user?.banEnd ?? 'Not banned';
+    this.selectedUser.reportCount = user?.reportCount ?? 'Not reported';
+    this.panelVisible = true;
   }
 
   public closePanel() {

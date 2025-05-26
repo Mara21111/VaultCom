@@ -41,7 +41,7 @@ export class ReportsPageComponent {
       loggedInUser: this.userService.getFromToken(),
       users: this.userService.getAllUsersAdminView()
     }).subscribe({
-      next: ({ loggedInUser, users }) => {
+      next: ({loggedInUser, users}) => {
         this.loggedInUser = loggedInUser;
         this.users = users;
         this.reportsService.getReportsAdminView(loggedInUser.id).subscribe(result => this.data = result);
@@ -51,16 +51,14 @@ export class ReportsPageComponent {
   }
 
 
-  public goToUser(userId: number): void{
-    this.userService.getUser(userId).subscribe(result => {
-      this.selectedUser.username = result.username;
-      this.selectedUser.email = result.email ?? 'Private profile';
-      this.selectedUser.bio = result.bio ?? 'Not set';
-      this.selectedUser.createdAt = result.createdAt ?? 'Not created';
-      this.selectedUser.banEnd = result.banEnd ?? 'Not banned';
-      this.selectedUser.reportCount = result.reportCount ?? 'Not reported';
-      });
-
+  public goToUser(userId: number): void {
+    let user = this.users.find(user => user.id = userId)
+    this.selectedUser.username = user?.username ?? 'Not found'
+    this.selectedUser.email = user?.email ?? 'Private account';
+    this.selectedUser.bio = user?.bio ?? 'Not set';
+    this.selectedUser.createdAt = user?.createdAt ?? 'Not created';
+    this.selectedUser.banEnd = user?.banEnd ?? 'Not banned';
+    this.selectedUser.reportCount = user?.reportCount ?? 'Not reported';
     this.panelVisible = true;
   }
 
@@ -73,20 +71,20 @@ export class ReportsPageComponent {
     this.panelVisible = false;
   }
 
-  public getReports(): ReportLog[]{
-      const reports = this.data;
+  public getReports(): ReportLog[] {
+    const reports = this.data;
 
-      if (!this.searchValue?.trim()) {
-        return reports;
-      }
-
-      const query = this.searchValue.toLowerCase();
-      return reports.filter(report =>
-        this.getUsername(report.userId).toLowerCase().includes(query)
-      );
+    if (!this.searchValue?.trim()) {
+      return reports;
     }
 
-    onSearchChanged(value: string) {
-      this.searchValue = value;
-    }
+    const query = this.searchValue.toLowerCase();
+    return reports.filter(report =>
+      this.getUsername(report.userId).toLowerCase().includes(query)
+    );
+  }
+
+  onSearchChanged(value: string) {
+    this.searchValue = value;
+  }
 }
