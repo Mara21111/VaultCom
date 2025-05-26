@@ -61,7 +61,7 @@ export class PublicChatsPageComponent {
         this.activeUserName = user.username;
       },
       complete: () => {
-        this.isLoading = true;
+        this.isLoading = false;
       }
     })
   }
