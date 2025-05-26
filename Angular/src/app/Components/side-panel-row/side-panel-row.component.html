@@ -1,6 +1,7 @@
 <div class="info-row">
   <label class="info-label">{{ label }}</label>
 
+
   <ng-container *ngIf="editable; else readonly">
     <input
       [(ngModel)]="value"
@@ -11,6 +12,12 @@
   </ng-container>
 
   <ng-template #readonly>
-    <div class="info-value">{{ value }}</div>
+    <ng-container *ngIf="this.value != ''; else placeholder">
+      <div class="info-value">{{ value }}</div>
+    </ng-container>
+  </ng-template>
+
+  <ng-template #placeholder>
+    <div class="info-placeholder">No data available</div>
   </ng-template>
 </div>

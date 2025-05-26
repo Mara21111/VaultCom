@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {User, CreateUserDTO, UserGetterDTO, ToggleUserDTO} from '../models/User';
+import {User, CreateUserDTO, UserGetterDTO, ToggleUserDTO, EditUserDTO} from '../models/User';
 import { AuthenticationService } from './authentication.service';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class UserService {
     return this.http.post<CreateUserDTO>('http://localhost:5000/api/User/create-user', createUser);
   }
 
-  public editUser(editUser: User): Observable<User> {
+  public editUser(editUser: EditUserDTO): Observable<User> {
     return this.http.put<User>('http://localhost:5000/api/User/edit-user', editUser)
   }
 

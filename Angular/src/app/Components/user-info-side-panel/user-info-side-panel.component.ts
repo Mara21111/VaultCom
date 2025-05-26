@@ -15,6 +15,7 @@ export class UserInfoSidePanelComponent {
   @Input() adminView: boolean = false;
 
   @Output() close = new EventEmitter<void>();
+  @Output() edit = new EventEmitter<UserPanelInfo>();
 
   public isClosing = false;
 
@@ -23,7 +24,7 @@ export class UserInfoSidePanelComponent {
   }
 
   public onSaveUserEditing() {
-    console.log(this.user);
+    this.edit.emit(this.user);
   }
 
   public onCancelUserEditing() {
@@ -32,7 +33,6 @@ export class UserInfoSidePanelComponent {
 
   public closePanel() {
     this.isClosing = true;
-
-    setTimeout(() => {this.close.emit();}, 250);
+    setTimeout(() => this.close.emit(), 250);
   }
 }

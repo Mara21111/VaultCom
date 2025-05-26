@@ -52,13 +52,19 @@ export class ReportsPageComponent {
 
 
   public goToUser(userId: number): void {
-    let user = this.users.find(user => user.id = userId)
-    this.selectedUser.username = user?.username ?? 'Not found'
-    this.selectedUser.email = user?.email ?? 'Private account';
-    this.selectedUser.bio = user?.bio ?? 'Not set';
-    this.selectedUser.createdAt = user?.createdAt ?? 'Not created';
-    this.selectedUser.banEnd = user?.banEnd ?? 'Not banned';
-    this.selectedUser.reportCount = user?.reportCount ?? 'Not reported';
+    const user = this.users.find(user => user.id === userId);
+
+    this.selectedUser = {
+      id: user?.id ?? 0,
+      username: user?.username ?? 'Not found',
+      email: user?.email ?? 'Private account',
+      bio: user?.bio ?? 'Not set',
+      createdAt: user?.createdAt ?? 'Not created',
+      banEnd: user?.banEnd ?? 'Not banned',
+      reportCount: user?.reportCount ?? 'Not reported',
+      password: ''
+    };
+
     this.panelVisible = true;
   }
 
