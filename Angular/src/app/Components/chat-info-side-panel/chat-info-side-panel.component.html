@@ -14,7 +14,7 @@
         (valueChange)="onChangeChatName($event)">
       </app-side-panel-row>
     </div>
-    <div class="info-row" *ngIf="chatInfo.description !== null">
+    <div class="info-row" *ngIf="chatInfo.description !== null && !this.inMain">
       <app-side-panel-row
         [label]="'Description'"
         [(value)]="chatInfo.description"
@@ -22,7 +22,7 @@
       (valueChange)="onChangeChatDesc($event)">
       </app-side-panel-row>
     </div>
-    <div class="info-row" *ngIf="!adminView">
+    <div class="info-row" *ngIf="!adminView && !inMain">
       <app-side-panel-row
         [label]="'You'"
         [editable]="false">
@@ -30,8 +30,11 @@
     </div>
     <app-side-panel-row-list
       [label]="'Users:'"
-      [values]="this.getUsernames()"
-      [editable] = false>
+      [values]="getUsernames()"
+      [editable]="false"
+      [userList]="true"
+      [userActions]="userActions"
+      (usernameOutput)="outputUsername($event)">
     </app-side-panel-row-list>
   </div>
 

@@ -27,21 +27,21 @@
         [editable]="userEditing">
       </app-side-panel-row>
     </div>
-    <div class="info-row">
+    <div class="info-row" *ngIf="!inMain">
       <app-side-panel-row
         [label]="'Date created'"
         [(value)]="user.createdAt"
         [editable]="false">
       </app-side-panel-row>
     </div>
-    <div class="info-row">
+    <div class="info-row" *ngIf="!inMain">
       <app-side-panel-row
         [label]="'Ban ends'"
         [(value)]="user.banEnd"
         [editable]="false">
       </app-side-panel-row>
     </div>
-    <div class="info-row" *ngIf="!userEditing">
+    <div class="info-row" *ngIf="!userEditing && !inMain">
       <app-side-panel-row
         [label]="'Reports count'"
         [(value)]="user.reportCount"

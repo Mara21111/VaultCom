@@ -4,6 +4,7 @@ import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { ChatPanelInfo } from '../../models/Chat';
 import {SidePanelRowListComponent} from '../side-panel-row-list/side-panel-row-list.component';
 
+
 @Component({
   selector: 'app-chat-info-side-panel',
   imports: [SidePanelRowComponent, NgForOf, NgIf, NgClass, SidePanelRowListComponent],
@@ -14,12 +15,18 @@ export class ChatInfoSidePanelComponent {
   @Input() chatInfo: ChatPanelInfo = new ChatPanelInfo();
   @Input() userEditing: boolean = false;
   @Input() adminView: boolean = false;
+  @Input() inMain: boolean = false;
+  @Input() userActions: boolean = false;
 
   @Output() close = new EventEmitter<void>();
   @Output() delete = new EventEmitter<number>();
   @Output() changes = new EventEmitter<ChatPanelInfo>();
+  @Output() usernameOutput = new EventEmitter<string>();
+  @Output() removeUserEmitter = new EventEmitter<string>();
+  @Output() reportUserEmmiter = new EventEmitter<string>();
 
   public usernames: string[] = [];
+  public username: string = '';
   public isClosing = false;
 
   public newName = '';
@@ -63,5 +70,17 @@ export class ChatInfoSidePanelComponent {
     this.isClosing = true;
 
     setTimeout(() => {this.close.emit();}, 250);
+  }
+
+  outputUsername(username: string) {
+    this.usernameOutput.emit(username);
+  }
+
+  reportUser(username: string) {
+    this.reportUserEmmiter.emit(username);
+  }
+
+  removeUser(username: string) {
+    this.removeUserEmitter.emit(username);
   }
 }

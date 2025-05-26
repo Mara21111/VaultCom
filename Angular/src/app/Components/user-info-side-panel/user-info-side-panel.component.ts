@@ -13,6 +13,7 @@ export class UserInfoSidePanelComponent {
   @Input() user: UserPanelInfo = new UserPanelInfo();
   @Input() userEditing: boolean = false;
   @Input() adminView: boolean = false;
+  @Input() inMain: boolean = false;
 
   @Output() close = new EventEmitter<void>();
 

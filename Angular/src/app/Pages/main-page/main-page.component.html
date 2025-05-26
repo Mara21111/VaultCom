@@ -136,3 +136,25 @@
     </div>
   </div>
 </div>
+
+<app-chat-info-side-panel
+  *ngIf="showChatInfo"
+  [chatInfo]="transformActiveChat()"
+  [userEditing]="true"
+  [adminView]="false"
+  [userActions]="true"
+  [inMain]="true"
+  (close)="chatInfo()"
+  (changes)="editChat($event)"
+  (delete)="deleteChat($event)"
+  (usernameOutput)="switchPanel($event)">
+</app-chat-info-side-panel>
+
+<app-user-info-side-panel
+  *ngIf="showUserInfo"
+  [user]="selectedUser"
+  [adminView]="false"
+  [userEditing]="false"
+  [inMain]="true"
+  (close)="closeUserInfo()">
+</app-user-info-side-panel>

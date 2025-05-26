@@ -15,7 +15,13 @@
 
   <ng-template #readonly>
     <ng-container *ngIf="values.length > 0; else noValues">
-      <div *ngFor="let value of values" class="info-value">{{ value }}</div>
+      <div *ngFor="let value of values" class="info-value" (click)="outputUsername(value)">{{ value }}
+        <div class="user-actions" *ngIf="userActions">
+          <button class="button btn-user-action">Mute</button>
+          <button class="button btn-user-action">Report</button>
+          <button class="button btn-user-action">Remove</button>
+        </div>
+      </div>
     </ng-container>
   </ng-template>
 

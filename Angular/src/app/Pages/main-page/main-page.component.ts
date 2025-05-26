@@ -3,10 +3,10 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
 import { FormsModule } from '@angular/forms';
-import { PublicUserDataDTO, User } from '../../models/User';
+import { PublicUserDataDTO, User, UserPanelInfo } from '../../models/User';
 import { UserService } from '../../services/User.service';
 import { PublicChatService } from '../../services/PublicChat.service';
-import { ChatGetterDTO } from '../../models/Chat';
+import { ChatGetterDTO, ChatPanelInfo } from '../../models/Chat';
 import { ChatService } from '../../services/ChatService';
 import { Message } from '../../models/Message';
 import { MessageService} from '../../services/message.service';
@@ -17,11 +17,13 @@ import { UserChatRelationshipService } from '../../services/UserChatRelationship
 import { UserChatRelationshipDTO } from '../../models/UserChatRelationship';
 import { CreateGroupChatDTO } from '../../models/GroupChat';
 import { GroupChatService } from '../../services/GroupChat.service';
+import { ChatInfoSidePanelComponent } from "../../Components/chat-info-side-panel/chat-info-side-panel.component";
+import { UserInfoSidePanelComponent } from "../../Components/user-info-side-panel/user-info-side-panel.component";
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, BaseUiComponent, NgFor, FormsModule ] ,
+  imports: [CommonModule, RouterLink, RouterLinkActive, BaseUiComponent, NgFor, FormsModule, ChatInfoSidePanelComponent, UserInfoSidePanelComponent] ,
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss'
 })
@@ -30,10 +32,12 @@ export class MainPageComponent {
 
   logedInUser: User = new User;
   activeChatUsers: PublicUserDataDTO[] = [];
+  selectedUser: UserPanelInfo = new UserPanelInfo();
   showPublicChats: boolean = false;
   pinnedMessages: boolean = false;
   editingMessage: boolean = false;
   showChatInfo: boolean = false;
+  showUserInfo: boolean = false;
   reportPopup: boolean = false;
   loadingChats: boolean = true;
   loadingMessages: boolean = false;
@@ -289,7 +293,6 @@ export class MainPageComponent {
 
   chatInfo(){
     this.showChatInfo = !this.showChatInfo;
-    console.log(this.activeChatUsers)
   }
 
   muteUser(userId: number){
@@ -315,5 +318,41 @@ export class MainPageComponent {
     this.reportPopup = false;
     this.reportReason = '';
     this.reportUserId = 0;
+  }
+
+  transformActiveChat(): ChatPanelInfo {
+    let chat = new ChatPanelInfo();
+    chat.id = this.activeChat.id;
+    chat.title = this.activeChat.title;
+    chat.users = this.activeChatUsers;
+
+    return chat;
+  }
+
+
+  deleteChat(chatId: number): void {
+    console.log("delete");
+  }
+
+  editChat(editedChat: ChatPanelInfo) {
+    console.log("edit");
+  }
+
+  closeUserInfo() {
+    this.showUserInfo = false;
+  }
+
+  getUser(username: string): UserPanelInfo {
+    let user = this.activeChatUsers.find(u => u.username == username);
+    let newUser = new UserPanelInfo();
+    newUser.username = user?.username ?? 'Not found';
+    newUser.email = user?.email ?? 'Not found';
+    newUser.bio = user?.bio ?? 'Not found';
+    return newUser;
+  }
+
+  switchPanel(username: string) {
+    this.selectedUser = this.getUser(username);
+    this.showUserInfo = true;
   }
 }

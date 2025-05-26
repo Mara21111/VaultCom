@@ -19,11 +19,31 @@ $danger: #e74c3c;
   }
 
   .info-value {
+    display: flex;
     font-size: 15px;
     color: $text-light;
     background-color: $panel-hover;
     padding: 10px 14px;
     border-radius: $btn-radius;
+    cursor: pointer;
+
+    .user-actions {
+      margin-left: auto;
+      display: flex;
+      gap: 6px;
+
+      .btn-user-action {
+        border-radius: 8px;
+        border: 1px solid darken($danger, 25);
+        background-color: darken($danger, 20);
+        color: #ffffff;
+        gap: 5px;
+
+        &:hover {
+          background-color: darken($danger, 10);
+        }
+      }
+    }
   }
 
   .info-input {
@@ -50,4 +70,3 @@ $danger: #e74c3c;
   border-radius: $btn-radius;
   font-style: italic;
 }
-

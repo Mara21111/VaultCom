@@ -44,6 +44,8 @@ $red-dark: #c0392b;  // Darker Red for Delete
 
 .side-panel {
   position: fixed;
+  display: flex;
+  flex-direction: column;
   top: 0;
   right: 0;
   width: 400px;
@@ -110,9 +112,9 @@ $red-dark: #c0392b;  // Darker Red for Delete
 
 .button-group {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: auto;
 
   .action-button {
     padding: 10px 20px;
