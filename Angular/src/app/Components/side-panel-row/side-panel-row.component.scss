@@ -42,3 +42,11 @@ $danger: #e74c3c;
   }
 }
 
+.info-placeholder {
+  font-size: 15px;
+  color: #999;
+  background-color: $panel-hover;
+  padding: 10px 14px;
+  border-radius: $btn-radius;
+  font-style: italic;
+}

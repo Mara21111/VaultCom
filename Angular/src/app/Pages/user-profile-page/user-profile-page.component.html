@@ -57,7 +57,7 @@
       <div class="edit-panel">
         <div class="edit-item">
           <div class="edit-text">Change profile information:</div>
-          <i class="bi bi-pencil-square edit-icon" (click)="this.editUser()"></i>
+          <i class="bi bi-pencil-square edit-icon" (click)="this.goToUser()"></i>
         </div>
         <div>
           <button class="save-btn btn-danger" (click)="this.save()">Save profile changes</button>
@@ -70,54 +70,12 @@
   </div>
 </div>
 
-<div class="overlay" *ngIf="false" (click)="closePanel()"></div>
 
-<div class="side-panel" *ngIf="false">
-  <button class="close-button" (click)="this.closePanel()" aria-label="Close panel">&times;</button>
-  <h2>Change User Profile</h2>
-
-  <form [formGroup]="form">
-    <div class="form-group">
-      <label for="username">Username:</label>
-      <input id="username" type="text" formControlName="username" required />
-    </div>
-
-    <div class="form-group">
-      <label for="email">E-mail:</label>
-      <input id="email" type="email" formControlName="email" required />
-    </div>
-
-    <div class="form-group">
-      <label for="curPassword">Current Password:</label>
-      <input id="curPassword" type="password" formControlName="curPassword" required />
-    </div>
-
-    <div class="form-group">
-      <label for="password">New Password:</label>
-      <input id="password" type="password" formControlName="password" required />
-    </div>
-
-    <div class="form-group">
-      <label for="bio">Bio:</label>
-      <textarea id="bio" formControlName="bio"></textarea>
-    </div>
-
-    <div *ngIf="this.errorMessage" class="error-message">
-      {{ this.errorMessage }}
-    </div>
-
-    <div class="button-group">
-      <button type="submit" class="save-button" (click)="this.save()">Save</button>
-      <button type="button" class="cancel-button" (click)="this.closePanel()">Cancel</button>
-    </div>
-
-    <app-user-info-side-panel
-      *ngIf="panelVisible"
-      [user]="userPanelInfo"
-      [adminView]="true"
-      [userEditing]="true"
-      (close)="closePanel()">
-    </app-user-info-side-panel>
-
-  </form>
-</div>
+<app-user-info-side-panel
+  *ngIf="panelVisible"
+  [user]="userPanelInfo"
+  [adminView]="true"
+  [userEditing]="true"
+  (close)="closePanel()"
+  (edit)="editUser($event)">
+</app-user-info-side-panel>
