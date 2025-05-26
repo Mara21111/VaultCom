@@ -32,6 +32,10 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> EditUser([FromBody] EditUserDTO dto)
             => HandleService(() => _userService.EditUserAsync(dto));
 
+        [HttpPut("change-password")]
+        public Task<IActionResult> ChangePassword([FromBody] ChangePasswordDTO dto)
+            => HandleService(() => _userService.ChangePasswordAsync(dto));
+
         [HttpPut("toggle-user-is-public")]
         public Task<IActionResult> ToggleUserIsPublic([FromBody] UserToggleDTO dto)
             => HandleService(() => _userService.ToggleUserSettingAsync(dto, "IsPublic"));

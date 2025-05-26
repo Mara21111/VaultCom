@@ -57,4 +57,11 @@ namespace WebApplication1.Models.DTO
         public int Id { get; set; }
         public IFormFile PFP { get; set; }
     }
+    public class ChangePasswordDTO
+    {
+        public int Id { get; set; }
+        public string Password { get; set; }
+        public string NewPassword { get; set; }
+        public string NewPassword2 { get; set; }
+    }
 }
