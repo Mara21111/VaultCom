@@ -30,6 +30,7 @@ namespace WebApplication1.Services.Implementations
 
         bool IsLinkRegex(string content)
         {
+            return Regex.IsMatch(content, @"https?:\/\/[^\s/$.?#].[^\s]*");
             return Regex.IsMatch(content, @"^(https?://)?www(\.[a-zA-Z0-9]{2,})+(/[a-zA-Z0-9_\-/]*)?$");
         }
 
