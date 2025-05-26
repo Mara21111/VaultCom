@@ -23,6 +23,14 @@ export class CreateUserDTO {
   isAdmin: boolean;
 }
 
+export class EditUserDTO {
+  id: number;
+  username: string;
+  email: string;
+  bio: string;
+  password: string;
+}
+
 export class ToggleUserDTO {
   id: number;
   value: boolean;
@@ -74,12 +82,14 @@ export class AuthResult {
 }
 
 export class UserPanelInfo {
+  id: number;
   username: string;
   email: string;
   bio: string;
   createdAt: string;
   banEnd: string;
   reportCount: string;
+  password: string;
 }
 
 export class UserGetterDTO {

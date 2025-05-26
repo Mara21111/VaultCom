@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen();
 
 //  Register with proper MySQL context
 builder.Services.AddDbContext<MyContext>(options =>
-    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")!));
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IChatService, ChatService>();
@@ -26,6 +26,7 @@ builder.Services.AddScoped<IMessageService, MessageService>();
 builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<IUserChatRelationshipService, UserChatRelationshipService>();
 builder.Services.AddScoped<IUserRelationshipService, UserRelationshipService>();
+builder.Services.AddScoped<IStatisticsService, StatisticsService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<TokenService>();
 

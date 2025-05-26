@@ -67,6 +67,22 @@ namespace WebApplication1.Services.Implementations
             return new ServiceResult { Success = true, Data = dto };
         }
 
+        public async Task<ServiceResult> EditGroupChatAsync(GroupChatEditDTO dto)
+        {
+            var chat = await context.Chat.FindAsync(dto.ChatId);
+            var gc = await context.GroupChat.FindAsync(chat!.ChatId);
+            var user = await context.User.FindAsync(dto.UserId);
+            if (user!.Id != gc!.OwnerId)
+                return new ServiceResult { Success = false, ErrorMessage = "user is not owner of gc" };
+            if (dto.Title.Length == 0)
+                return new ServiceResult { Success = false, ErrorMessage = "cannot make empty name" };
+
+            gc.Title = dto.Title;
+            await context.SaveChangesAsync();
+
+            return new ServiceResult { Success = true, Data = gc };
+        }
+
         public async Task<ServiceResult> DeleteGroupChatAsync(UserChatRelationshipDTO dto)
         {
             var chat = await context.Chat.FindAsync(dto.ChatId);

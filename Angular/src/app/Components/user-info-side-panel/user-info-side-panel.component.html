@@ -27,7 +27,14 @@
         [editable]="userEditing">
       </app-side-panel-row>
     </div>
-    <div class="info-row" *ngIf="!inMain">
+    <div class="info-row" *ngIf="userEditing && !inMain">
+      <app-side-panel-row
+        [label]="'Password'"
+        [(value)]="user.password"
+        [editable]="userEditing">
+      </app-side-panel-row>
+    </div>
+    <div class="info-row">
       <app-side-panel-row
         [label]="'Date created'"
         [(value)]="user.createdAt"

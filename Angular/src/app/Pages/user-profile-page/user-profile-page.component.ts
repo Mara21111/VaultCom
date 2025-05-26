@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ToggleUserDTO, User, UserPanelInfo} from '../../models/User';
+import {EditUserDTO, ToggleUserDTO, User, UserPanelInfo} from '../../models/User';
 import { CommonModule, NgIf } from '@angular/common';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication.service';
 import {UserInfoSidePanelComponent} from '../../Components/user-info-side-panel/user-info-side-panel.component';
 import {ReportsService} from '../../services/reports.service';
+import {delay, switchMap} from 'rxjs';
 
 @Component({
   selector: 'app-user-profile-page',
@@ -92,16 +93,46 @@ this: any;
     this.router.navigate([ '/' ])
   }
 
-  public editUser() {
-    this.userPanelInfo.username = this.user.username;
-    this.userPanelInfo.email = this.user.email;
-    this.userPanelInfo.bio = this.user.bio;
-    this.userPanelInfo.createdAt = this.user.createdAt.toString();
-    this.userPanelInfo.banEnd = this.user.banEnd.toString();
+  public goToUser() {
+    console.log('goToUser');
+    let reportCount: string = '';
+    this.reportService.getReportCountOfUser(this.user.id).subscribe(result => reportCount = result.toString())
 
-    this.reportService.getReportCountOfUser(this.user.id).subscribe(result => this.userPanelInfo.reportCount = result.toString())
+    this.userPanelInfo = {
+      id: this.user.id,
+      username: this.user.username,
+      email: this.user.email,
+      bio: this.user.bio,
+      reportCount: reportCount,
+      password: '',
+      createdAt: this.user.createdAt.toString(),
+      banEnd: this.user.banEnd?.toString() ?? 'Not banned'
+    }
 
     this.panelVisible = true;
+    console.log(this.panelVisible);
+  }
+
+  public editUser(user: UserPanelInfo) {
+
+    const dto = {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      bio: user.bio,
+      name: user.username,
+      password: user.password
+    }
+
+    console.log(dto);
+
+    this.userService.editUser(dto).pipe(
+      switchMap(() => this.userService.getFromToken())
+    ).subscribe(result => {
+      this.user = result;
+    });
+
+    this.closePanel();
   }
 
   public closePanel() {
