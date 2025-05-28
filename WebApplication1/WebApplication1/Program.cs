@@ -41,6 +41,8 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 app.UseStaticFiles();
@@ -55,4 +57,9 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.UseCors();
 app.MapControllers();
+
+app.UseRouting();
+
+app.MapHub<ChatHub>("/chathub");
+
 app.Run();
