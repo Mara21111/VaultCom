@@ -77,8 +77,16 @@ export class MainPageComponent {
         this.chats = chats;
       });
     });
+
     this.chatService.getAllPublicChats().subscribe(result => this.publicChats = result);
     this.chatService.getPrivateChatsUserIsIn(this.logedInUser.id).subscribe(resutl => this.privateChats = resutl);
+    this.messageService.startSignalConnection()
+      .then(() => {
+        this.messageService.onNewMessage((userId, chatId) => {
+          this.refreshMessages();
+      });
+    })
+    .catch(err => console.error('SignalR připojení selhalo:', err));
   }
 
   ngAfterViewInit() {
@@ -94,7 +102,6 @@ export class MainPageComponent {
   }
 
   refreshMessages(){
-    this.loadingMessages = true;
     this.messageService.getMessagesInChat(this.logedInUser.id, this.activeChat.id).subscribe(result => {
       this.allMessages = result;
       this.loadingMessages = false;
@@ -107,8 +114,10 @@ export class MainPageComponent {
     if (this.creatingGroup) {
       return;
     }
+    this.messageService.startSignalConnection();
     this.activeChat = chat;
     this.userChatRelationshipService.getUsersInChat(this.activeChat.id).subscribe(resutl => this.activeChatUsers = resutl)
+    this.loadingMessages = true;
     this.refreshMessages();
     this.newMessage = new Message();
   }
@@ -184,7 +193,7 @@ export class MainPageComponent {
     this.newMessage = new Message();
   }
 
-  sendMessage(){
+  async sendMessage(){
     if(this.activeChat.id == null){
       throw new Error("Chat not selected");
     }
@@ -199,9 +208,12 @@ export class MainPageComponent {
     } else {
       this.newMessage.userId = this.logedInUser.id;
       this.newMessage.chatId = this.activeChat.id;
-      this.messageService.createMessage(this.newMessage).pipe(
+      /*this.messageService.createMessage(this.newMessage).pipe(
             catchError(error =>{throw error})
           ).subscribe(_ => this.refreshMessages());
+      this.newMessage.content = '';*/
+      await this.messageService.sendMessageSignalR(this.newMessage);
+      this.refreshMessages();
       this.newMessage.content = '';
     }
   }

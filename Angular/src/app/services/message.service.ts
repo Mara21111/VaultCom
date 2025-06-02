@@ -1,14 +1,52 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
-import { Message } from '../models/Message';
+import { Message, MessageDTO } from '../models/Message';
+import * as signalR from '@microsoft/signalR';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessageService {
+  private hubConnection!: signalR.HubConnection;
+  private connectionPromise!: Promise<void>;
 
   constructor(private http: HttpClient) { }
+
+  public startSignalConnection(): Promise<void> {
+    this.hubConnection = new signalR.HubConnectionBuilder()
+      .withUrl('http://localhost:5000/chathub', { withCredentials: true })
+      .withAutomaticReconnect()
+      .build();
+
+    this.connectionPromise = this.hubConnection
+      .start()
+      .then()
+      .catch(err => {
+        console.error('❌ SignalR chyba:', err);
+        throw err;
+     });
+
+    return this.connectionPromise;
+  }
+
+  public sendMessageSignalR(dto: Message) {
+    return this.hubConnection.invoke('SendMessage', dto)
+      .catch(err => console.error(err));
+  }
+
+  public onNewMessage(callback: (userId: number, chatId: number) => void) {
+    this.hubConnection.on('GetMessagesInChatAsync', (userId, chatId) => {callback(userId, chatId)})
+  }
+
+  public stopSignalConnection() {
+  if (this.hubConnection) {
+    this.hubConnection.stop()
+      .then(() => console.log('🔌 SignalR odpojeno'))
+      .catch(err => console.error('Chyba při odpojení:', err));
+  }
+}
+
 
   public getMessagesInChat(userId: number, chatId: number): Observable<Message[]>{
     return this.http.get<Message[]>(`http://localhost:5000/api/Message/get-messages-in-chat-${userId}-${chatId}`)
