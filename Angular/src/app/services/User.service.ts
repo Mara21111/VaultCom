@@ -18,7 +18,7 @@ export class UserService {
     return this.http.post<CreateUserDTO>('http://localhost:5000/api/User/create-user', createUser);
   }
 
-  uploadPfp(formData: FormData): Observable<any> {
+  public uploadPfp(formData: FormData): Observable<any> {
   return this.http.post('http://localhost:5000/api/User/upload-pfp', formData, {
     responseType: 'text' as 'json'
   });

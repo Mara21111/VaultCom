@@ -21,7 +21,7 @@ export class RegisterComponent {
   form: FormGroup;
   errorMessage: boolean = false;
   errorText: string = '';
-  user: User;
+  user: CreateUserDTO;
   rPassword: string;
   isLoading: boolean = false;
 
@@ -33,39 +33,6 @@ export class RegisterComponent {
       rPassword: ''
     })
   }
-
-  /*public save(): void {
-    this.GetValues();
-    this.errorMessage = false;
-
-    if(this.user.username == ''){
-      this.errorMessage = true;
-      throw new Error('Please set username')
-    }
-
-    if(this.user.password != this.rPassword){
-      this.errorMessage = true;
-      throw new Error('Password does not match');
-    }
-
-    const cto: CreateUserDTO = {
-      Username: this.user.username,
-      Email: this.user.email,
-      Password: this.user.password,
-      Bio: this.user.bio
-    }
-
-    this.userService.createUser(cto).pipe(
-      catchError(error =>{throw error})
-    ).subscribe(response => console.log(response));
-
-    this.authService.login(new Credentials(this.form.value.username, this.form.value.password)).pipe(
-      catchError(error => {
-        this.errorMessage = true;
-        throw error;
-      })
-    ).subscribe(result => this.router.navigate([ '/main' ]));
-  }*/
 
   public save(): void {
     this.GetValues();
@@ -89,16 +56,8 @@ export class RegisterComponent {
       return;
     }
 
-    const cto: CreateUserDTO = {
-      username: this.user.username,
-      email: this.user.email,
-      password: this.user.password,
-      bio: this.user.bio,
-      isAdmin: false
-    };
-
     // Služba pro vytvoření uživatele
-    this.userService.createUser(cto).pipe(
+    this.userService.createUser(this.user).pipe(
       catchError(error => {
         if (error.status === 400) {  // Pokud uživatel nebo email již existuje
           this.errorText = 'Uživatel nebo email již existuje.';
@@ -112,13 +71,13 @@ export class RegisterComponent {
         }
         throw error;
       })
-    ).subscribe(() => {
+    ).subscribe(_ => {
       // Po úspěšné registraci se pokusíme přihlásit
-      const dto = new LoginDTO();
-      dto.username = this.form.value.username;
-      dto.password = this.form.value.password;
+      let loginDTO = new LoginDTO();
+      loginDTO.username = this.user.username;
+      loginDTO.password = this.user.password;
 
-      this.authService.login(dto).pipe(
+      this.authService.login(loginDTO).pipe(
         catchError(error => {
           this.errorText = 'Přihlášení po registraci selhalo.';
           this.errorMessage = true;
@@ -127,7 +86,9 @@ export class RegisterComponent {
           throw error;
         })
       ).subscribe(result => {
-        this.router.navigate(['/main']);
+        if (result) {
+          this.router.navigate(['/main']);
+        }
         this.isLoading = false;
       });
     });
@@ -144,14 +105,12 @@ export class RegisterComponent {
   }
 
   public GetValues(): void{
-    this.user.username = this.form.get('username')!.value;
-    this.user.email = this.form.get('email')?.value;
-    this.user.password = this.form.get('password')!.value;
-    this.rPassword = this.form.get('rPassword')!.value;
+    this.user = new CreateUserDTO;
+    this.user.username = this.form.value.username;
+    this.user.email = this.form.value.email;
+    this.user.password = this.form.value.password;
+    this.user.bio = '';
+    this.user.isAdmin = false;
+    this.rPassword = this.form.value.rPassword;
   }
-}
-
-class Credentials {
-  constructor(  public username: string,
-                public password: string) {}
 }

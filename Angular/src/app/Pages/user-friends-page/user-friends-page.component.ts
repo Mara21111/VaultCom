@@ -38,8 +38,8 @@ export class UserFriendsPageComponent {
     friends: true,
   };
 
-  private user: User = new User;
-  private users: User[] = [];
+  private user: User = new User();
+  private users: UserGetterDTO[] = [];
 
 
   constructor(private relationshipService: UserRelationshipService, private userService: UserService) {
@@ -49,9 +49,10 @@ export class UserFriendsPageComponent {
   ngOnInit(): void {
     this.isLoading = true;
     this.userService.getFromToken().subscribe(user => {
-      this.user = user
-      this.loadPage()
+      this.user = user;
+      this.loadPage();
     });
+    this.userService.getAllUsers().subscribe(users => this.users = users);
   }
 
   private loadPage() {
@@ -84,12 +85,18 @@ export class UserFriendsPageComponent {
 
     let receiver_id: number = this.users.find(user => user.username === this.newFriendUsername)?.id ?? 0;
 
+    console.log("receiver: " + receiver_id)
+
     if (receiver_id === 0) {
       this.PopupMessage = 'Invalid name: ' + this.newFriendUsername;
       this.ShowPopup = true;
     } else {
-      //tady 100% něco má bejt
+      let request = new UserRelationshipDTO();
+      request.requestorId = this.user.id;
+      request.targetId = receiver_id;
+      this.relationshipService.sendFriendRequest(request).subscribe(_ => this.loadPage());
     }
+    this.newFriendUsername = '';
   }
 
   public closePopup() {

@@ -33,29 +33,6 @@ export class LoginPageComponent {
       Password: ''
     });
   }
-/*
-  public save(): void {
-    this.isLoading = true;
-    this.errorMessage = false;
-
-    var loginDTO = new LoginDTO;
-    loginDTO.password = this.form.value.Password;
-    loginDTO.username = this.form.value.Username;
-
-    this.authentication.login(loginDTO).pipe(catchError(error => {
-        this.errorMessage = true;
-        this.triggerShake();
-        this.isLoading = false;
-        return of(null);
-      })
-    ).subscribe(result => {
-      if (result) {
-        this.router.navigate(['/main']);
-      }
-      this.isLoading = false; // ← přemístěno sem, a volá se vždy
-    });
-  }
-  */
 
   public save(): void {
     this.isLoading = true;
