@@ -36,6 +36,16 @@
         (userClick)="goToUser($event)">
       </app-friend-list>
 
+      <app-friend-request-list
+      *ngIf="SendedRequests.length !== 0"
+      [requests]="SendedRequests"
+      [isOpen]="isSectionOpen.sendedRequests"
+      (accept)="acceptRequest($event)"
+      (reject)="rejectRequest($event)"
+      (toggle)="toggleSection('requests')"
+      (userClick)="goToUser($event)">
+    </app-friend-request-list>
+
       <div *ngIf="isLoading" class="loading-overlay">
         <div class="spinner"></div>
       </div>

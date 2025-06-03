@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
 import { Message, MessageDTO } from '../models/Message';
 import * as signalR from '@microsoft/signalR';
+import { UserChatRelationshipDTO } from '../models/UserChatRelationship';
+import { UserRelationshipDTO } from '../models/UserRelationship';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +35,20 @@ export class MessageService {
   public sendMessageSignalR(dto: Message) {
     return this.hubConnection.invoke('SendMessage', dto)
       .catch(err => console.error(err));
+  }
+
+  public startTyping(dto: UserChatRelationshipDTO) {
+    return this.hubConnection.invoke('StartTyping', dto)
+      .catch(err => console.error(err));
+  }
+
+  public stoppedTyping(dto: UserChatRelationshipDTO) {
+    return this.hubConnection.invoke('StoppedTyping', dto)
+      .catch(err => console.error(err));
+  }
+
+  public onTypingChange(callback: (dto: UserRelationshipDTO) => void) {
+    this.hubConnection.on('UserTypingAsync', dto => {callback(dto)})
   }
 
   public onNewMessage(callback: (userId: number, chatId: number) => void) {

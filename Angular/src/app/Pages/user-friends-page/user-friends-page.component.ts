@@ -24,6 +24,7 @@ export class UserFriendsPageComponent {
 
   public Requests: UserGetterDTO[] = [];
   public Friends: UserGetterDTO[] = [];
+  public SendedRequests: UserGetterDTO[] = [];
   public panelVisible: boolean = false;
   public ShowPopup: boolean = false;
   public newFriendUsername: string = '';
@@ -35,6 +36,7 @@ export class UserFriendsPageComponent {
 
   isSectionOpen = {
     requests: false,
+    sendedRequests: false,
     friends: true,
   };
 
@@ -58,11 +60,13 @@ export class UserFriendsPageComponent {
   private loadPage() {
     forkJoin({
       friends: this.relationshipService.getAllFriends(this.user.id),
-      requests: this.relationshipService.getIncomingFriendRequests(this.user.id)
+      requests: this.relationshipService.getIncomingFriendRequests(this.user.id),
+      sendedRequests: this.relationshipService.getAllSentRequests(this.user.id)
     }).subscribe({
-      next: ({ friends, requests }: {friends: UserGetterDTO[], requests: UserGetterDTO[]}) => {
+      next: ({ friends, requests, sendedRequests }: {friends: UserGetterDTO[], requests: UserGetterDTO[], sendedRequests: UserGetterDTO[]}) => {
         this.Friends = friends;
         this.Requests = requests;
+        this.SendedRequests = sendedRequests;
       },
       complete: () => {
         this.isLoading = false;
