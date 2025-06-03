@@ -15,10 +15,18 @@ public class ChatHub : Hub
 
     public async Task SendMessage(MessageDTO dto)
     {
-        // Uložíš zprávu do DB přes službu
         await _messageService.SendMessageAsync(dto);
 
-        // Pošleš zprávu všem klientům
         await Clients.All.SendAsync("GetMessagesInChatAsync", dto.UserId, dto.ChatId);
+    }
+
+    public async Task StartTyping(UserChatRelationshipDTO dto)
+    {
+        await Clients.All.SendAsync("UserTypingAsync", dto);
+    }
+
+    public async Task StoppedTyping(UserChatRelationshipDTO dto)
+    {
+        await Clients.All.SendAsync("UserStoppedTypingAsync", dto);
     }
 }

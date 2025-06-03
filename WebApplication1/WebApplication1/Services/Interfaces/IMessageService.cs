@@ -9,5 +9,7 @@ namespace WebApplication1.Services.Interfaces
         Task<ServiceResult> EditMessageAsync(MessageEditDTO dto);
         Task<ServiceResult> GetMessagesInChatAsync(int userId, int chatId);
         Task<ServiceResult> DeleteMessageAsync(int userId, int messageId);
+        Task<ServiceResult> UserTypingAsync(UserChatRelationshipDTO dto);
+        Task<ServiceResult> UserStoppedTypingAsync(UserChatRelationshipDTO dto);
     }
 }

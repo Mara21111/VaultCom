@@ -31,7 +31,6 @@ namespace WebApplication1.Services.Implementations
         bool IsLinkRegex(string content)
         {
             return Regex.IsMatch(content, @"https?:\/\/[^\s/$.?#].[^\s]*");
-            return Regex.IsMatch(content, @"^(https?://)?www(\.[a-zA-Z0-9]{2,})+(/[a-zA-Z0-9_\-/]*)?$");
         }
 
         public async Task<ServiceResult> EditMessageAsync(MessageEditDTO dto)
@@ -252,6 +251,15 @@ namespace WebApplication1.Services.Implementations
                 byte[] decryptedBytes = rsa.Decrypt(encryptedBytes, RSAEncryptionPadding.OaepSHA256);
                 return Encoding.UTF8.GetString(decryptedBytes);
             }
+        }
+
+        public async Task<ServiceResult> UserTypingAsync(UserChatRelationshipDTO dto)
+        {
+            return new ServiceResult { Success = true, Data = dto };
+        }
+        public async Task<ServiceResult> UserStoppedTypingAsync(UserChatRelationshipDTO dto)
+        {
+            return new ServiceResult { Success = true, Data = dto };
         }
     }
 }
