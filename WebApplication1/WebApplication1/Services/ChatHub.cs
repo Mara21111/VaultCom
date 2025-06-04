@@ -22,11 +22,11 @@ public class ChatHub : Hub
 
     public async Task StartTyping(UserChatRelationshipDTO dto)
     {
-        await Clients.All.SendAsync("UserTypingAsync", dto);
+        await Clients.Others.SendAsync("UserTypingAsync", dto);
     }
 
     public async Task StoppedTyping(UserChatRelationshipDTO dto)
     {
-        await Clients.All.SendAsync("UserStoppedTypingAsync", dto);
+        await Clients.Others.SendAsync("UserStoppedTypingAsync", dto);
     }
 }

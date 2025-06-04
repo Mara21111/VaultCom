@@ -29,6 +29,7 @@
     {
         public int Id {  set; get; }
         public string Title { set; get; }
+        public int? OwnerId {  get; set; }
     }
     public class ChatSearchDTO
     {
