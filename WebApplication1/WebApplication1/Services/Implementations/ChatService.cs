@@ -22,17 +22,20 @@ namespace WebApplication1.Services.Implementations
         private async Task<ChatGetterDTO> MapChatToDTO(Chat chat, MyContext context, int? userId = null)
         {
             string title = "";
+            string chatType = "";
             int? ownerId = null;
 
             if (chat.Type == 1)
             {
                 title = (await context.PublicChat.FindAsync(chat.ChatId))!.Title;
+                chatType = "public";
             }
             if (chat.Type == 2)
             {
                 var gc = await context.GroupChat.FindAsync(chat.ChatId);
                 title = gc!.Title;
                 ownerId = gc!.OwnerId;
+                chatType = "group";
             }
             if (chat.Type == 3)
             {
@@ -44,13 +47,15 @@ namespace WebApplication1.Services.Implementations
                     title = rel.Nickname;
                 else
                     title = (await context.User.FindAsync(otherUserId))!.Username;
+                chatType = "provate";
             }
 
             return new ChatGetterDTO
             {
                 Title = title,
                 Id = chat.Id,
-                OwnerId = ownerId
+                OwnerId = ownerId,
+                ChatType = chatType
             };
         }
 
