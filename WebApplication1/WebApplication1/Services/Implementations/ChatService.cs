@@ -28,14 +28,14 @@ namespace WebApplication1.Services.Implementations
             if (chat.Type == 1)
             {
                 title = (await context.PublicChat.FindAsync(chat.ChatId))!.Title;
-                chatType = "public";
+                chatType = "Public";
             }
             if (chat.Type == 2)
             {
                 var gc = await context.GroupChat.FindAsync(chat.ChatId);
                 title = gc!.Title;
                 ownerId = gc!.OwnerId;
-                chatType = "group";
+                chatType = "Group";
             }
             if (chat.Type == 3)
             {
@@ -47,7 +47,7 @@ namespace WebApplication1.Services.Implementations
                     title = rel.Nickname;
                 else
                     title = (await context.User.FindAsync(otherUserId))!.Username;
-                chatType = "private";
+                chatType = "Private";
             }
 
             return new ChatGetterDTO
