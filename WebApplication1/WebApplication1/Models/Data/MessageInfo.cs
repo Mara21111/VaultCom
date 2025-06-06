@@ -6,7 +6,7 @@
 
         public int MessageId { get; set; }
 
-        public int UsersId { get; set; }
+        public int UserId { get; set; }
 
         public bool Seen { get; set; }
     }

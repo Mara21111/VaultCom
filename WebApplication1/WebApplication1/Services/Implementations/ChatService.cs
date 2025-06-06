@@ -47,7 +47,7 @@ namespace WebApplication1.Services.Implementations
                     title = rel.Nickname;
                 else
                     title = (await context.User.FindAsync(otherUserId))!.Username;
-                chatType = "provate";
+                chatType = "private";
             }
 
             return new ChatGetterDTO
