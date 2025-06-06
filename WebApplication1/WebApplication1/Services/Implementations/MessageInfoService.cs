@@ -19,6 +19,25 @@ namespace WebApplication1.Services.Implementations
             this.context = context;
         }
 
+        public async Task<ServiceResult> ViewMessageAsync(MessageInfoDTO dto)
+        {
+            var existingInfo = await context.MessageInfo.Where(x => x.ChatId == dto.ChatId && x.UserId == dto.UserId).ToListAsync();
+            if (existingInfo.Any())
+            {
+                context.MessageInfo.RemoveRange(existingInfo);
+            }
 
+            MessageInfo info = new MessageInfo
+            {
+                MessageId = dto.MessageId,
+                UserId = dto.UserId,
+                ChatId = dto.ChatId,
+                Seen = true
+            };
+
+            context.MessageInfo.Add(info);
+            await context.SaveChangesAsync();
+            return new ServiceResult { Success = true, Data = info };
+        }
     }
 }

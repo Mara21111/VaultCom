@@ -21,11 +21,13 @@ namespace WebApplication1.Services.Implementations
     {
         private readonly MyContext context;
         private readonly IUserService _userService;
+        private readonly IMessageInfoService _messageInfoService;
 
-        public MessageService(MyContext context, IUserService userService)
+        public MessageService(MyContext context, IUserService userService, IMessageInfoService messageInfoService)
         {
             this.context = context;
             _userService = userService;
+            _messageInfoService = messageInfoService;
         }
 
         bool IsLinkRegex(string content)
@@ -39,7 +41,7 @@ namespace WebApplication1.Services.Implementations
             if (dto.NewContent is not null && dto.NewContent.Length > 0 && msg!.UserId != dto.UserId)
                 return new ServiceResult { Success = false, ErrorMessage = "cannot edit other message" };
 
-            var chat = await context.Chat.FindAsync(msg.ChatId);
+            var chat = await context.Chat.FindAsync(msg!.ChatId);
             var user = await context.User.FindAsync(dto.UserId);
             if (dto.Pin.HasValue)
             {
@@ -61,7 +63,7 @@ namespace WebApplication1.Services.Implementations
                     {
                         byte[] messageBytes = Encoding.UTF8.GetBytes(msg.Content);
 
-                        msg.Content = EncryptBytes(messageBytes, otherUser.PublicKey, rsa);
+                        msg.Content = EncryptBytes(messageBytes, otherUser!.PublicKey, rsa);
                         msg.SelfContent = EncryptBytes(messageBytes, user.PublicKey, rsa);
                     }
                 }
@@ -129,7 +131,7 @@ namespace WebApplication1.Services.Implementations
                 {
                     byte[] messageBytes = Encoding.UTF8.GetBytes(msg.Content);
 
-                    msg.Content = EncryptBytes(messageBytes, otherUser.PublicKey, rsa);
+                    msg.Content = EncryptBytes(messageBytes, otherUser!.PublicKey, rsa);
                     msg.SelfContent = EncryptBytes(messageBytes, user!.PublicKey, rsa);
                 }
 
@@ -151,7 +153,7 @@ namespace WebApplication1.Services.Implementations
             return Convert.ToBase64String(encrypted);
         }
 
-        public async Task<ServiceResult> GetMessagesInChatAsync(int userId, int chatId)
+        public async Task<ServiceResult> GetMessagesInChatAsync(int userId, int chatId, bool seen)
         {
             await _userService.SetActivityAsync(userId);
 
@@ -164,16 +166,26 @@ namespace WebApplication1.Services.Implementations
 
             if (chat.Type == 3)
             {
-                return await GetDecryptedMessagesAsync(user, chat);
+                return await GetDecryptedMessagesAsync(user, chat, seen);
             }
             if (!await context.UserChatRelationship.Where(x => x.ChatId == chatId && x.UserId == userId).AnyAsync())
                 return new ServiceResult { Success = false, ErrorMessage = "user not in chat" };
 
             var messages = await context.Message.Where(x => x.ChatId == chatId).ToListAsync();
+
+            if (seen && messages.Count != 0)
+            {
+                await _messageInfoService.ViewMessageAsync(new MessageInfoDTO
+                {
+                    ChatId = chat.Id,
+                    UserId = user.Id,
+                    MessageId = messages.OrderByDescending(x => x.Id).FirstOrDefault()!.Id
+                });
+            }
             return new ServiceResult { Success = true, Data = messages };
         }
 
-        public async Task<ServiceResult> GetDecryptedMessagesAsync(User user, Chat chat)
+        public async Task<ServiceResult> GetDecryptedMessagesAsync(User user, Chat chat, bool seen)
         {
             var privateChat = await context.PrivateChat.FindAsync(chat.ChatId);
             if (privateChat is null)
@@ -206,7 +218,15 @@ namespace WebApplication1.Services.Implementations
                     }
                 }
             }
-
+            if (seen && messages.Count != 0)
+            {
+                await _messageInfoService.ViewMessageAsync(new MessageInfoDTO
+                {
+                    ChatId = chat.Id,
+                    UserId = user.Id,
+                    MessageId = messages.OrderByDescending(x => x.Id).FirstOrDefault()!.Id
+                });
+            }
             return new ServiceResult { Success = true, Data = messages };
         }
 

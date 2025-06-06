@@ -27,7 +27,6 @@ namespace WebApplication1
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<MessageInfo>().HasNoKey();
             modelBuilder.Entity<MessageUserReaction>().HasNoKey();
 
             modelBuilder.Entity<ReportLog>().HasKey(x => x.Id);

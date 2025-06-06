@@ -34,7 +34,7 @@ namespace WebApplication1.Controllers
 
         [HttpGet("get-messages-in-chat-{userId}-{chatId}")]
         public Task<IActionResult> GetMessagesFromChat(int userId, int chatId)
-            => HandleService(() => _messageService.GetMessagesInChatAsync(userId, chatId));
+            => HandleService(() => _messageService.GetMessagesInChatAsync(userId, chatId, true));
 
         [HttpDelete("delete-message-{userId}-{messageId}")]
         public Task<IActionResult> DeleteMessage(int userId, int messageId)

@@ -20,7 +20,7 @@ namespace WebApplication1.Controllers
 
         [HttpGet("get-all-public-chats")]
         public Task<IActionResult> GetAllPublicChats()
-            => HandleService(() => _chatService.GetChatsAsync(new ChatFilterDTO { Type = 1 }));
+            => HandleService(() => _chatService.GetPublicChatsAsync());
 
         [HttpGet("search-for-chat-{id}-{prompt}")]
         public Task<IActionResult> SearchForChat(int id, string prompt)

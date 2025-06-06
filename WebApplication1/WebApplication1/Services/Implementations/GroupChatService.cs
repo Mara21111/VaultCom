@@ -89,7 +89,7 @@ namespace WebApplication1.Services.Implementations
             var gc = await context.GroupChat.FindAsync(chat!.ChatId);
             if (gc!.OwnerId != dto.UserId)
                 return new ServiceResult { Success = false, ErrorMessage = "cannot delete group chat" };
-            var messages = (List<Message>)(await _messageService.GetMessagesInChatAsync(dto.UserId, chat.Id)).Data!;
+            var messages = (List<Message>)(await _messageService.GetMessagesInChatAsync(dto.UserId, chat.Id, false)).Data!;
             var users = (List<UserGetterDTO>)(await _userChatRelationshipService.GetUsersInChatAsync(chat.Id)).Data!;
 
             foreach (var msg in messages)

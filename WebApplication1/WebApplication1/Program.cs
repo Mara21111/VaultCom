@@ -26,6 +26,7 @@ builder.Services.AddScoped<IMessageService, MessageService>();
 builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<IUserChatRelationshipService, UserChatRelationshipService>();
 builder.Services.AddScoped<IUserRelationshipService, UserRelationshipService>();
+builder.Services.AddScoped<IMessageInfoService, MessageInfoService>();
 builder.Services.AddScoped<IStatisticsService, StatisticsService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<TokenService>();

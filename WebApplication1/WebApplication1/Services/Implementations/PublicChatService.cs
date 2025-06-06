@@ -77,7 +77,7 @@ namespace WebApplication1.Services.Implementations
                 return new ServiceResult { Success = false, ErrorMessage = "you are not admin" };
             var chat = await context.Chat.FindAsync(chatId);
             var pc = await context.PublicChat.FindAsync(chat!.ChatId);
-            var messages = (List<Message>)(await _messageService.GetMessagesInChatAsync(userId, chatId)).Data!;
+            var messages = (List<Message>)(await _messageService.GetMessagesInChatAsync(userId, chatId, false)).Data!;
             var users = (List<UserGetterDTO>)(await _userChatRelationshipService.GetUsersInChatAsync(chat.Id)).Data!;
 
             foreach (var msg in messages)

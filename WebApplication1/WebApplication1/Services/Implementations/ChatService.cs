@@ -11,19 +11,38 @@ namespace WebApplication1.Services.Implementations
     {
         private readonly MyContext context;
         private readonly IUserService _userService;
+        private readonly IMessageService _messageService;
 
-        public ChatService(MyContext context, IUserService userService)
+        public ChatService(MyContext context, IUserService userService, IMessageService messageService)
         {
             this.context = context;
             _userService = userService;
+            _messageService = messageService;
         }
 
 
-        private async Task<ChatGetterDTO> MapChatToDTO(Chat chat, MyContext context, int? userId = null)
+        private async Task<ChatGetterDTO> MapChatToDTO(Chat chat, MyContext context, int userId)
         {
             string title = "";
             string chatType = "";
             int? ownerId = null;
+            int unread = 0;
+
+            var allInfos = await context.MessageInfo.Where(x => x.ChatId == chat.Id && x.UserId == userId).ToListAsync();
+            var lastMsgInfoSeen = await context.MessageInfo.Where(x => x.ChatId == chat.Id && x.UserId == userId).FirstOrDefaultAsync();
+            var messages = (List<Message>)(await _messageService.GetMessagesInChatAsync(userId, chat.Id, false)).Data!;
+            if (lastMsgInfoSeen is not null)
+            {
+                var lastMsgSeen = await context.Message.FindAsync(lastMsgInfoSeen!.MessageId);
+                unread = messages.Count(x => x.Time > lastMsgSeen!.Time);
+            }
+            else
+            {
+                if (messages is null)
+                    unread = 0;
+                else
+                    unread = messages.Count();
+            }
 
             if (chat.Type == 1)
             {
@@ -40,9 +59,9 @@ namespace WebApplication1.Services.Implementations
             if (chat.Type == 3)
             {
                 var pc = await context.PrivateChat.FindAsync(chat.ChatId);
-                var otherUserId = pc!.GetOtherUserId(userId!.Value);
+                var otherUserId = pc!.GetOtherUserId(userId);
                 var rel = await context.UserRelationship
-                    .Where(x => x.SenderId == userId.Value && x.RecieverId == otherUserId).FirstOrDefaultAsync();
+                    .Where(x => x.SenderId == userId && x.RecieverId == otherUserId).FirstOrDefaultAsync();
                 if (rel is not null)
                     title = rel.Nickname;
                 else
@@ -55,7 +74,8 @@ namespace WebApplication1.Services.Implementations
                 Title = title,
                 Id = chat.Id,
                 OwnerId = ownerId,
-                ChatType = chatType
+                ChatType = chatType,
+                UnreadMessages = unread
             };
         }
 
@@ -68,7 +88,7 @@ namespace WebApplication1.Services.Implementations
             return new ServiceResult { Success = true, Data = dto };
         }
 
-        public async Task<ServiceResult> GetChatsAsync(ChatFilterDTO? filter = null)
+        public async Task<ServiceResult> GetChatsAsync(ChatFilterDTO filter)
         {
             IQueryable<Chat> query = context.Chat;
 
@@ -82,7 +102,7 @@ namespace WebApplication1.Services.Implementations
                         .Select(x => x.ChatId).ToListAsync();
 
                     var privateChatsIn = context.PrivateChat.AsEnumerable()
-                        .Where(x => x.UserInChat(filter.RequestorId!.Value))
+                        .Where(x => x.UserInChat(filter.RequestorId))
                         .Select(x => x.Id).ToList();
 
                     var privateIds = await context.Chat
@@ -111,15 +131,12 @@ namespace WebApplication1.Services.Implementations
             var chatDTOs = new List<ChatGetterDTO>();
             foreach (var chat in chats)
             {
-                if (filter is not null && filter.RequestorId.HasValue)
-                    chatDTOs.Add(await MapChatToDTO(chat, context, filter.RequestorId.Value));
-                else
-                    chatDTOs.Add(await MapChatToDTO(chat, context));
+                chatDTOs.Add(await MapChatToDTO(chat, context, filter.RequestorId));
             }
 
             if (filter?.Prompt != null && filter.Prompt.Any())
                 chatDTOs = chatDTOs
-                    .Where(dto => filter.Prompt.Any(p => dto.Title?.Contains(p, StringComparison.OrdinalIgnoreCase) == true))
+                    .Where(dto => filter.Prompt.Any(x => dto.Title?.Contains(x, StringComparison.OrdinalIgnoreCase) == true))
                     .ToList();
 
             return new ServiceResult { Success = true, Data = chatDTOs };

@@ -63,7 +63,7 @@ namespace WebApplication1.Services.Implementations
                 ProfilePicture = user.ProfilePicture,
                 CreateDate = user.CreatedAt.ToShortDateString(),
                 BanEnd = user.BanEnd?.ToShortDateString(),
-                TimeoutEnd = user.TimeoutEnd?.ToShortDateString(),
+                TimeoutEnd = user.TimeoutEnd?.ToShortDateString()
             };
             if (user.IsPublic)
             {
