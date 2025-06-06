@@ -76,10 +76,10 @@ export class MainPageComponent {
         this.loadingChats = false;
         this.chats = chats;
       });
+      this.chatService.getPrivateChatsUserIsIn(this.logedInUser.id).subscribe(resutl => this.privateChats = resutl);
     });
 
     this.chatService.getAllPublicChats().subscribe(result => this.publicChats = result);
-    this.chatService.getPrivateChatsUserIsIn(this.logedInUser.id).subscribe(resutl => this.privateChats = resutl);
     this.messageService.startSignalConnection()
       .then(() => {
         this.messageService.onNewMessage((userId, chatId) => {

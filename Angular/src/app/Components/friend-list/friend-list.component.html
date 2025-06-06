@@ -23,7 +23,7 @@
       <div class="table-row" *ngFor="let friend of friends" (click)="onFriendClick(friend.id)">
         <div class="col">{{ friend?.username }}</div>
         <div class="col">{{ friend?.bio }}</div>
-        <div class="col">Nickname Here</div>
+        <div class="col" (click)="changeNickname(friend.id); $event.stopPropagation()">Nickname Here</div>
       </div>
     </div>
   </div>

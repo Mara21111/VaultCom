@@ -23,6 +23,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  z-index: 100;
 }
 
 .friends-container {
@@ -31,6 +32,7 @@ body {
   background-color: $body-bg;
   display: flex;
   flex-direction: column;
+  z-index: 100;
 }
 
 .content-area {
@@ -199,22 +201,58 @@ body {
 .add-user-bar {
   display: flex;
   gap: 1rem;
-  margin-top: 0.5rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
+  margin: 0.5rem 1rem;
   align-items: center;
   background: $table-row-bg;
   padding: 0.5rem;
   border-radius: 10px;
+  z-index: 101;
 
-  input {
+  .input-wrapper {
+    position: relative;
     flex: 1;
-    padding: 0.5rem 1rem;
-    border: none;
-    background: $table-header-bg;
-    color: white;
-    border-radius: 6px;
-    outline: none;
+
+    input {
+      width: 100%;
+      padding: 0.5rem 1rem;
+      border: none;
+      background: $table-header-bg;
+      color: white;
+      border-radius: 6px;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    ul {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: lighten($table-header-bg, 5);
+      border-radius: 0 0 6px 6px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      z-index: 200;
+      border: 2px solid #111926;
+
+      max-height: calc(3 * 40px);
+      overflow-y: auto;
+
+      li {
+        padding: 8px 12px;
+        height: 40px;
+        line-height: 24px;
+        border: 1px solid #101e31;
+        cursor: pointer;
+        color: $text-light;
+        z-index: 101;
+
+        &:hover {
+          background-color: $table-row-bg;
+        }
+      }
+    }
   }
 
   button {
@@ -279,7 +317,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
+  z-index: 1000;
 
   .spinner {
     border: 4px solid rgba(255, 255, 255, 0.2);
@@ -294,4 +332,64 @@ body {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000000b3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  .popup {
+    background: $body-bg;
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 400px;
+    box-shadow: 0 0 10px #000;
+
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 0.5rem;
+      background: #222527;
+      color: white;
+      border: 1px solid #969696;
+      border-radius: 6px;
+      margin: 1rem 0;
+    }
+
+    .popup-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+
+      button {
+        background-color: #2e3d4e;
+        border: none;
+        padding: 0.5rem 1rem;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+
+        &:last-child {
+          background-color: #3d3d3d;
+        }
+
+        &:hover{
+          background-color: $table-row-hover;
+        }
+      }
+    }
+  }
+}
+
+.z-index {
+  z-index: 102;
 }
