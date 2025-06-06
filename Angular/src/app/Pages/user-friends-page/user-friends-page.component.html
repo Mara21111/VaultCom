@@ -1,4 +1,5 @@
 <app-base-ui
+  class="z-index"
   [title]="'Friends'"
   [titleOn]="true"
   [closeOn]="true"
@@ -8,11 +9,22 @@
 <div class="main-container">
   <!-- Add Friend Input -->
   <div class="add-user-bar">
-    <input
-      [(ngModel)]="newFriendUsername"
-      placeholder="Insert username"
-      type="text"
-    />
+    <div class="input-wrapper" #inputWrapper>
+      <input
+        [(ngModel)]="newFriendUsername"
+        placeholder="Insert username"
+        type="text"
+        (input)="filterNames()"
+        (focus)="onInputFocus()"
+      />
+
+      <ul *ngIf="filteredNames.length && newFriendUsername">
+        <li *ngFor="let name of filteredNames" (click)="selectName(name)">
+          {{ name }}
+        </li>
+      </ul>
+
+    </div>
     <button (click)="addFriend()">Add</button>
   </div>
 
@@ -23,6 +35,7 @@
         *ngIf="Requests.length !== 0"
         [requests]="Requests"
         [isOpen]="isSectionOpen.requests"
+        [sendedRequests]="false"
         (accept)="acceptRequest($event)"
         (reject)="rejectRequest($event)"
         (toggle)="toggleSection('requests')"
@@ -33,38 +46,50 @@
         [friends]="Friends"
         [isOpen]="isSectionOpen.friends"
         (toggle)="toggleSection('friends')"
-        (userClick)="goToUser($event)">
+        (userClick)="goToUser($event)"
+        (changeNicknameEvent)="nicknamePopup($event)">
       </app-friend-list>
 
       <app-friend-request-list
       *ngIf="SendedRequests.length !== 0"
       [requests]="SendedRequests"
       [isOpen]="isSectionOpen.sendedRequests"
-      (accept)="acceptRequest($event)"
-      (reject)="rejectRequest($event)"
-      (toggle)="toggleSection('requests')"
+      [sendedRequests]="true"
+      (toggle)="toggleSection('sendedRequests')"
+      (cancel)="cancelRequest($event)"
       (userClick)="goToUser($event)">
     </app-friend-request-list>
 
       <div *ngIf="isLoading" class="loading-overlay">
         <div class="spinner"></div>
       </div>
-
-      <app-user-info-side-panel
-        *ngIf="panelVisible"
-        [user]="selectedUser"
-        [adminView]="true"
-        [userEditing]="false"
-        (close)="closePanel()">
-      </app-user-info-side-panel>
     </div>
   </div>
 </div>
+
+  <app-user-info-side-panel
+    *ngIf="panelVisible"
+    [user]="selectedUser"
+    [adminView]="true"
+    [userEditing]="false"
+    (close)="closePanel()">
+  </app-user-info-side-panel>
 
 <!-- Popup -->
 <div class="popup-backdrop" *ngIf="ShowPopup">
   <div class="popup">
     <p>{{ PopupMessage }}</p>
     <button (click)="closePopup()">Close</button>
+  </div>
+</div>
+
+<div id="nicknamePopup" class="popup-overlay" *ngIf="this.showNicknamePopup">
+  <div class="popup">
+    <h2>Change Nickname</h2>
+    <textarea id="nickname" placeholder="Insert nickname..." [(ngModel)]="newNickname"></textarea>
+    <div class="popup-actions">
+      <button (click)="this.changeNickname()">Save</button>
+      <button (click)="this.closeNicknamePopup()">Cancel</button>
+    </div>
   </div>
 </div>

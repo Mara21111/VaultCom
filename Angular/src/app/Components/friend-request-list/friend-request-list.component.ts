@@ -1,11 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import {UserGetterDTO} from '../../models/User';
-import {NgForOf} from '@angular/common';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-friend-request-list',
   imports: [
-    NgForOf
+    CommonModule
   ],
   templateUrl: './friend-request-list.component.html',
   styleUrl: './friend-request-list.component.scss',
@@ -13,9 +13,11 @@ import {NgForOf} from '@angular/common';
 export class FriendRequestListComponent {
   @Input() requests: UserGetterDTO[] = [];
   @Input() isOpen = true;
+  @Input() sendedRequests = false;
 
   @Output() accept = new EventEmitter<number>();
   @Output() reject = new EventEmitter<number>();
+  @Output() cancel = new EventEmitter<number>();
   @Output() toggle = new EventEmitter<void>();
   @Output() userClick = new EventEmitter<any>();
 
@@ -24,13 +26,12 @@ export class FriendRequestListComponent {
 
   onAccept(id: number) {
     console.log('onAccept')
-    /*
+
     this.fadingOut.add(id);
     setTimeout(() => {
       this.accept.emit(id);
       this.fadingOut.delete(id);
-    }, 300); // match CSS duration
-     */
+    }, 300);
   }
 
   onReject(id: number) {
@@ -41,11 +42,19 @@ export class FriendRequestListComponent {
     }, 300);
   }
 
+  onCancel(id: number) {
+    this.fadingOut.add(id);
+    setTimeout(() => {
+      this.cancel.emit(id);
+      this.fadingOut.delete(id);
+    }, 300);
+  }
+
   toggleSection() {
     this.toggle.emit();
   }
 
   onRequestClick(requestId: number) {
-    console.log(`ahojs ${requestId}`);
+    this.userClick.emit(requestId)
   }
 }

@@ -1,7 +1,7 @@
 <section class="panel" [class.active]="isOpen">
   <header class="clickable-header" (click)="toggleSection()">
     <h2 class="section-title">
-      Friend Requests
+      <span *ngIf="!sendedRequests">Friend Requests</span><span *ngIf="sendedRequests">Sended Friend Requests</span>
       <span class="arrow" [class.open]="isOpen">
         <svg width="16" height="16" viewBox="0 0 24 24">
           <path d="M8 5l8 7-8 7" fill="none" stroke="white" stroke-width="2" />
@@ -22,13 +22,17 @@
         class="table-row"
         (click)="onRequestClick(user.id)"
         *ngFor="let user of requests"
-        @fadeOut
       >
         <div class="col">{{ user?.username }}</div>
         <div class="col">{{ user?.bio }}</div>
         <div class="col action-buttons">
-          <button class="btn btn-success" (click)="onAccept(user.id)">Accept</button>
-          <button class="btn btn-danger" (click)="onReject(user.id)">Reject</button>
+          <ng-container *ngIf="!sendedRequests">
+            <button class="btn btn-success" (click)="onAccept(user.id)">Accept</button>
+            <button class="btn btn-danger" (click)="onReject(user.id)">Reject</button>
+          </ng-container>
+          <ng-container *ngIf="sendedRequests">
+            <button class="btn btn-danger" (click)="onCancel(user.id)">Cancel</button>
+          </ng-container>
         </div>
       </div>
     </div>

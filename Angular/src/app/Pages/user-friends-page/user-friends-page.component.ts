@@ -1,10 +1,10 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
 import { UserInfoSidePanelComponent } from '../../Components/user-info-side-panel/user-info-side-panel.component';
 import { FriendRequestListComponent } from '../../Components/friend-request-list/friend-request-list.component';
-import {User, BaseUserDataDTO, UserPanelInfo, UserGetterDTO} from '../../models/User';
+import {User, UserPanelInfo, UserGetterDTO} from '../../models/User';
 import { UserRelationshipService } from '../../services/UserRelationship.service';
 import { UserService } from '../../services/User.service';
 import { FormsModule } from '@angular/forms';
@@ -33,6 +33,10 @@ export class UserFriendsPageComponent {
   public isRequestsOpen: boolean = true;
   public isFriendsOpen: boolean = true;
   public isLoading: boolean = false;
+  public showNicknamePopup: boolean = false;
+  public nicknameUser: number = 0;
+  public newNickname: string = '';
+  public filteredNames: string[] = [];
 
   isSectionOpen = {
     requests: false,
@@ -42,7 +46,7 @@ export class UserFriendsPageComponent {
 
   private user: User = new User();
   private users: UserGetterDTO[] = [];
-
+  @ViewChild('inputWrapper') inputWrapperRef!: ElementRef;
 
   constructor(private relationshipService: UserRelationshipService, private userService: UserService) {
 
@@ -74,6 +78,30 @@ export class UserFriendsPageComponent {
     });
   }
 
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent) {
+    const clickedInside = this.inputWrapperRef?.nativeElement.contains(event.target);
+    if (!clickedInside) {
+      this.filteredNames = [];
+    }
+  }
+
+  onInputFocus() {
+    this.filterNames();
+  }
+
+  filterNames() {
+    const query = this.newFriendUsername.toLowerCase();
+    this.filteredNames = this.users
+      .map(user => user.username)
+      .filter(name => name.toLowerCase().includes(query));
+  }
+
+  selectName(name: string) {
+    this.newFriendUsername = name;
+    this.filteredNames = [];
+  }
+
   public getUsername(user_id: number): string {
     const user = this.users.find(user => user.id = user_id);
     return user ? user.username : 'Unknown';
@@ -88,8 +116,6 @@ export class UserFriendsPageComponent {
     }
 
     let receiver_id: number = this.users.find(user => user.username === this.newFriendUsername)?.id ?? 0;
-
-    console.log("receiver: " + receiver_id)
 
     if (receiver_id === 0) {
       this.PopupMessage = 'Invalid name: ' + this.newFriendUsername;
@@ -116,11 +142,8 @@ export class UserFriendsPageComponent {
     this.isFriendsOpen = !this.isFriendsOpen;
   }
 
-  toggleSection(section: 'requests' | 'friends') {
+  toggleSection(section: 'requests' | 'friends' | 'sendedRequests') {
     this.isSectionOpen[section] = !this.isSectionOpen[section];
-
-    console.log(    this.Friends);
-    console.log(this.Requests)
   }
 
   public acceptRequest(targetId: number): void {
@@ -138,6 +161,22 @@ export class UserFriendsPageComponent {
 
   public cancelRequest(sender_id: number): void {
 
+  }
+
+  public changeNickname(): void {
+    this.showNicknamePopup = false;
+    console.log("Změna Nickname u usera: " + this.newNickname);
+  }
+
+  public nicknamePopup(friendId: number): void {
+    this.showNicknamePopup = true;
+    this.nicknameUser = friendId;
+    // zatim username neni získávání nickname
+    this.newNickname = this.users.find(u => u.id === friendId)?.username ?? '';
+  }
+
+  public closeNicknamePopup(): void {
+    this.showNicknamePopup = false;
   }
 
   public goToUser(userId: number): void {

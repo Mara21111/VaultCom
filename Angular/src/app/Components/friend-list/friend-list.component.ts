@@ -16,6 +16,7 @@ export class FriendListComponent {
 
   @Output() toggle = new EventEmitter<void>();
   @Output() userClick = new EventEmitter<any>();
+  @Output() changeNicknameEvent = new EventEmitter<number>();
 
   toggleSection() {
     this.toggle.emit();
@@ -23,5 +24,10 @@ export class FriendListComponent {
 
   onFriendClick(friendId: number) {
     this.userClick.emit(friendId);
+  }
+
+  changeNickname(friendId: number)
+  {
+    this.changeNicknameEvent.emit(friendId);
   }
 }

@@ -2,6 +2,7 @@ export class PublicChat {
   id: number;
   title: string;
   description: string;
+  ownerId: number | null;
 }
 
 export class CreatePublicChatDTO {
