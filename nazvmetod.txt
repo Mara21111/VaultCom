@@ -1,15 +1,2 @@
-user:
-create-user (CreateUserDTO)
-edit-user (EditUserDTO)
-delete-user (RequestDTO)
-get-all-users-admin-view
-get-all-users
-get-banned-users
-get-timeouted-users
-get-good-users
-get-online-users
-get-user-{id} (int)
-
-chat: (vsechno se predela tady)
-create-public-chat (CreatePublicChatDTO)
-create-group-chat (CreateGroupChatDTO)
+npm istall
+npm install @microsoft/signalr

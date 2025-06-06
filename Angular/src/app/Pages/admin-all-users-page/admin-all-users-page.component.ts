@@ -50,7 +50,7 @@ export class AdminAllUsersPageComponent {
       username: user?.username ?? 'Not found',
       email: user?.email ?? 'Private account',
       bio: user?.bio ?? 'Not set',
-      createdAt: user?.createdAt ?? 'Not created',
+      createdAt: user?.createDate ?? 'Not created',
       banEnd: user?.banEnd ?? 'Not banned',
       reportCount: user?.reportCount ?? 'Not reported',
       password: ''

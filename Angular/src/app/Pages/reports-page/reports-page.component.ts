@@ -46,10 +46,14 @@ export class ReportsPageComponent {
         this.users = users;
         this.reportsService.getReportsAdminView(loggedInUser.id).subscribe(result => this.data = result);
       },
-      complete: () => this.isLoading = false
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        this.isLoading = false
+      }
     });
   }
-
 
   public goToUser(userId: number): void {
     const user = this.users.find(user => user.id === userId);
@@ -59,7 +63,7 @@ export class ReportsPageComponent {
       username: user?.username ?? 'Not found',
       email: user?.email ?? 'Private account',
       bio: user?.bio ?? 'Not set',
-      createdAt: user?.createdAt ?? 'Not created',
+      createdAt: user?.createDate ?? 'Not created',
       banEnd: user?.banEnd ?? 'Not banned',
       reportCount: user?.reportCount ?? 'Not reported',
       password: ''

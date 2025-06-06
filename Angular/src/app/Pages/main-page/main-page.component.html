@@ -1,8 +1,4 @@
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
-
-
-<div class="app-container">
+<div class="component-container">
 
   <app-base-ui
     [logOutOn]="true"
@@ -11,134 +7,299 @@
     [friendsOn]="true">
   </app-base-ui>
 
-  <div class="content">
+  <div class="page-container">
 
-    <div class="sidebar">
-      <div class="search-container">
-        <input type="text" class="form-control search-input clickAble" placeholder="Search" [(ngModel)]="this.searchChat" [ngClass]="{'public-chat': this.showPublicChats}">
-        <button class="new-chat-btn btn-icon clickAble" *ngIf="!this.showPublicChats" (click)="this.createGroupSetup()" [ngClass]="{'creating': this.creatingGroup}">
-          <i class="fas fa-plus"></i>
+
+    <!-- SIDEBAR -->
+
+  <div class="sidebar">
+    <div class="sidebar-header">
+
+      <!-- Search -->
+
+        <input type="text" placeholder="Search chats" [(ngModel)]="chatFilter" (ngModelChange)="searchForChat()">
+
+      <!-- Filter btn -->
+
+        <button mat-fab [matMenuTriggerFor]="menu">
+          <mat-icon style="color: white">filter_alt</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" yPosition="below">
+          <button mat-menu-item (click)="setChatFilter('All')">
+            <mat-icon>list</mat-icon>
+            <span>All</span>
+          </button>
+          <button mat-menu-item (click)="setChatFilter('Private')">
+            <mat-icon>person</mat-icon>
+            <span>Private</span>
+          </button>
+          <button mat-menu-item (click)="setChatFilter('Group')">
+            <mat-icon>group</mat-icon>
+            <span>Group</span>
+          </button>
+          <button mat-menu-item (click)="setChatFilter('Public')">
+            <mat-icon>public</mat-icon>
+            <span>Public</span>
+          </button>
+          <button mat-menu-item (click)="setChatFilter('Unread')" [disabled]="!areThereUnreadChats()">
+            <mat-icon>mark_email_unread</mat-icon>
+            <span>Unread messages</span>
+          </button>
+        </mat-menu>
+
+      <!-- Create group btn -->
+
+        <button mat-fab *ngIf="mode !== 'CreatingGC'" (click)="mode = 'CreatingGC'" [disabled]="mode === 'Public'">
+          <mat-icon style="color: white">add</mat-icon>
+        </button>
+
+      <button mat-fab *ngIf="mode === 'CreatingGC'" (click)="mode = 'Private'">
+        <mat-icon style="color: white">close</mat-icon>
+      </button>
+    </div>
+
+
+    <!-- Chaty -->
+
+    <ul>
+      <div *ngIf="this.loadingChats" class="loading-overlay">
+        <div class="spinner"></div>
+      </div>
+
+      <!-- Private chaty -->
+
+      <ng-container *ngIf="mode === 'Private'">
+        <li *ngFor="let chat of filteredUserChats" (click)="changeActiveChat(chat)" [class.selected]="activeChat.id === chat.id">
+          <div class="message-avatar">{{ chat.title[0].toUpperCase() }}</div>
+          <div class="name" matBadge="{{ chat.unreadMessages }}" matBadgeHidden="{{ chat.unreadMessages === 0 }}" matBadgeOverlap="false">{{ chat.title }}</div>
+
+          <div class="right">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>info</mat-icon>
+                <span>Info</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Leave chat</span>
+              </button>
+            </mat-menu>
+          </div>
+        </li>
+      </ng-container>
+
+
+      <!-- Public chaty -->
+
+      <ng-container *ngIf="mode === 'Public'">
+        <li *ngFor="let chat of allPublicChats">
+          <div class="message-avatar">{{ chat.title[0].toUpperCase() }}</div>
+          <div class="name">{{ chat.title }}</div>
+          <mat-slide-toggle [checked]="isUserInPublicChat(chat.id)" (change)="publicChatLogic(chat.id, $event.checked)"></mat-slide-toggle>
+        </li>
+      </ng-container>
+
+
+      <!-- Tvoreni groupy -->
+
+      <ng-container *ngIf="mode === 'CreatingGC'">
+        <li *ngFor="let user of loggedInUsersFriends">
+          <div class="message-avatar">{{ user.username[0].toUpperCase() }}</div>
+          <div class="name">{{ user.username }}</div>
+          <mat-slide-toggle [checked]="false" (change)="onUserToggle(user.id, $event.checked)"></mat-slide-toggle>
+        </li>
+      </ng-container>
+    </ul>
+
+
+    <!-- Sidebar footer -->
+
+    <div class="sidebar-footer">
+
+      <!-- Private/Public -->
+
+      <ng-container *ngIf="mode !== 'CreatingGC'">
+        <mat-button-toggle-group
+          [(value)]="mode"
+          [hideSingleSelectionIndicator]="hideSingleSelectionIndicator()"
+          class="buttons"
+        >
+          <mat-button-toggle class="button" value="Private">Private</mat-button-toggle>
+          <mat-button-toggle class="button" value="Public">Public</mat-button-toggle>
+        </mat-button-toggle-group>
+      </ng-container>
+
+      <!-- Input tvorba groupy -->
+
+      <ng-container *ngIf="mode === 'CreatingGC'">
+        <div class="creating-group-chat-footer">
+          <input type="text" placeholder="Group name" name='newGc' [(ngModel)]="newGroupName">
+          <button mat-fab (click)="createGroup()">
+            <mat-icon style="color: white">add</mat-icon>
+          </button>
+        </div>
+      </ng-container>
+
+    </div>
+  </div>
+
+  <div class="chat-window">
+
+    <!-- Chat -->
+
+    <div *ngIf="this.loadingMessages" class="loading-overlay">
+      <div class="spinner"></div>
+    </div>
+
+    <div class="chat-header">
+
+      <!-- Title -->
+
+      <div class="left-items" *ngIf="activeChat?.title">
+        <div class="message-avatar">
+          {{ activeChat.title[0].toUpperCase() }}
+        </div>
+        <div class="title">{{ activeChat.title }}</div>
+      </div>
+
+      <!-- Pin btn a search -->
+
+      <div class="right-items">
+      <button mat-fab [class.active]="showOnlyPinnedMessages" (click)="showOnlyPinnedMessages = !showOnlyPinnedMessages; refreshMessages();">
+        <mat-icon style="color: white">push_pin</mat-icon>
+      </button>
+
+        <input type="text" placeholder="Search messages" [(ngModel)]="messageFilter" (ngModelChange)="searchForMessage()">
+    </div>
+    </div>
+
+    <!-- Messages -->
+
+    <div *ngIf="mode === 'Private'" class="messages">
+      <div
+        *ngFor="let msg of filteredMessages; let i = index"
+        class="message"
+        [ngClass]="msg.userId === this.loggedInUser.id ? 'right' : 'left'"
+      >
+
+
+        <!-- Message ne ode me -->
+
+        <ng-container *ngIf="msg.userId !== this.loggedInUser.id; else fromMe">
+
+          <form (click)="goToUser(msg.userId)" style="cursor: pointer">
+            <img *ngIf="this.userHasAvatar(msg.userId); else showInitial" [src]="'http://localhost:5000/' + this.getProfilePicture(msg.userId)" alt="Profile picture" class="message-avatar"/>
+
+            <ng-template #showInitial>
+              <div class="message-avatar">
+                {{ this.getUsername(msg.userId).charAt(0).toUpperCase() }}
+              </div>
+            </ng-template>
+          </form>
+          <div class="bubble">
+            {{ msg.content }}
+            <span class="message-label">
+              <mat-icon class="pin" *ngIf="msg.isPinned">push_pin</mat-icon>
+              <div class="date"> {{ msg.time | date: 'short' }} </div>
+            </span>
+          </div>
+
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item  disabled>
+              <mat-icon>edit</mat-icon>
+              <span>Edit Message</span>
+            </button>
+            <button mat-menu-item (click)="pinMessage(msg.id)">
+              <mat-icon>{{ msg.isPinned ? 'cancel' : 'push_pin' }}</mat-icon>
+              <span>{{ msg.isPinned ? 'Unpin message' : 'Pin message' }}</span>
+            </button>
+            <button mat-menu-item disabled>
+              <mat-icon>delete</mat-icon>
+              <span>Delete message</span>
+            </button>
+          </mat-menu>
+
+        </ng-container>
+
+
+        <!-- Message ode me -->
+
+        <ng-template #fromMe>
+
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <mat-icon>edit</mat-icon>
+              <span>Edit Message</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>push_pin</mat-icon>
+              <span>Pin message</span>
+            </button>
+            <button mat-menu-item (click)="deleteMessage(msg.id)">
+
+              <mat-icon style="color: red">delete</mat-icon>
+              <span  style="color: red">Delete message</span>
+            </button>
+          </mat-menu>
+
+          <div class="bubble">
+            {{ msg.content }}
+            <span class="message-label">
+              <mat-icon class="pin" *ngIf="msg.isPinned" style="color: rgba(255, 255, 255, 40%)">push_pin</mat-icon>
+              <div class="date"> {{ msg.time | date: 'short' }} </div>
+            </span>
+          </div>
+          <form (click)="goToUser(msg.userId)" style="cursor: pointer">
+            <img *ngIf="this.userHasAvatar(msg.userId); else showInitial" [src]="'http://localhost:5000/' + this.getProfilePicture(msg.userId)" alt="Profile picture" class="message-avatar"/>
+            <ng-template #showInitial>
+              <div class="message-avatar">
+                {{ this.getUsername(msg.userId).charAt(0).toUpperCase() }}
+              </div>
+            </ng-template>
+          </form>
+        </ng-template>
+      </div>
+    </div>
+
+    <!-- Napsani message -->
+
+    <form (click)="sendMessage()">
+      <div *ngIf="mode === 'Private'" class="input-area">
+        <input type="text" placeholder="Type a message..." name='msg' [(ngModel)]="newMessage.content">
+        <button mat-fab>
+          <mat-icon style="color: white">send</mat-icon>
         </button>
       </div>
+    </form>
 
-      <div class="chat-list" [ngClass]="{ 'centered' : this.loadingChats}">
-        <div class="spinner" *ngIf="this.loadingChats"></div>
-        <div class="chat-items" *ngIf="!this.loadingChats">
-          <div class="chat-item" *ngFor="let item of this.getChats()" (click)="this.changeActiveChat(item)" [ngClass]="{'active': item.id === this.activeChat.id}">
-          <div class="chat-avatar" style="background-color: #435466">{{ item.title.charAt(0) }}</div>
-          <div class="chat-info">
-            <div class="chat-name"> {{ item.title }}
-              <span class="on-off-button" *ngIf="this.showPublicChats || this.creatingGroup" (click)="this.showPublicChats ? this.addUserToPublicChat(item.id) : this.addChatToGroup(item.id)">
-                {{ this.showPublicChats && this.isUserInPublicChat(item.id) || this.creatingGroup && this.chatInNewGroup(item.id) ? '✓' : '' }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- public placeholder -->
 
-      <div class="sidebar-footer">
-        <div class="mode-toggle-switch" (click)="toggleChatMode()" *ngIf="!this.creatingGroup">
-          <div class="mode-switch-labels">
-            <span [class.active]="!showPublicChats">Private</span>
-            <span [class.active]="showPublicChats">Public</span>
-          </div>
-          <div class="mode-switch-knob" [class.right]="showPublicChats"></div>
-        </div>
-          <div class="create-group" *ngIf="this.creatingGroup">
-            <input type="text" class="group-input" [(ngModel)]="newGroupName" [class.shake]="this.shake" [class.invalid]="this.shake" placeholder="Group name" />
-            <button class="create-group-btn" (click)="createGroup()">Create</button>
-        </div>
-      </div>
+    <div *ngIf="mode === 'Public'" class="public-placeholder">
+      Select a public chat on the left to begin!
+      <div class="arrow"><=</div>
     </div>
 
-    <div class="chat-window">
-      <div class="chat-header" *ngIf="this.activeChat.id">
-        <button class="chat-avatar clickAble" (click)="this.chatInfo()" [ngClass]="'header'">{{ this.activeChat.title?.charAt(0) }}</button>
-        <div class="chat-title">{{ activeChat.title }}</div>
-        <div class="chat-actions" *ngIf="!this.showChatInfo">
-          <button class="chat-action" [ngClass]="{'active': this.pinnedMessages}">
-            <i class="fas fa-thumbtack clickAble" (click)="this.pinnedMessages = !this.pinnedMessages"></i>
-          </button>
-          <div class="search-container">
-            <input type="text" class="form-control search-input clickAble" placeholder="Search" [(ngModel)]="this.searchMessage">
-          </div>
-        </div>
-      </div>
-
-      <div class="message-wraper" [ngClass]="{ 'centered' : this.loadingMessages}">
-        <div class="spinner" *ngIf="this.loadingMessages && !this.showChatInfo"></div>
-        <div class="messages-container" #scrollMe style="overflow-y: auto;" *ngIf="!this.showChatInfo && !this.loadingMessages">
-          <div class="message" *ngFor="let item of this.getMessages()" [ngClass]="{'loginUser': item.userId === this.logedInUser.id}" >
-            <div class="message-avatar">
-              <img *ngIf="this.userHasAvatar(item.userId); else showInitial" [src]="'http://localhost:5000/' + this.getProfilePicture(item.userId)" alt="Profile picture" />
-              <ng-template #showInitial>
-                {{ this.getUsername(item.userId).charAt(0).toUpperCase() }}
-              </ng-template>
-            </div>  
-            <div class="message-content" [ngClass]="{'loginUser': item.userId === this.logedInUser.id}">
-              <div class="message-sender" >
-                <span class="dots clickAble" (click)="this.showMessageOptions(item.id)">
-                <i class="fas fa-ellipsis-v"></i>
-                </span>{{ this.getUsername(item.userId) }}
-              </div>
-                {{ item.content }}
-              <div class="message-info" [ngClass]="{'loginUser': item.userId === this.logedInUser.id}">
-              <div class="message-time">{{ item.time | date: "short" }}</div>
-              <i class="fas fa-thumbtack message-pin" *ngIf="item.isPinned" ></i>
-            </div>
-
-              <div class="message-options" *ngIf="messageOptionId === item.id" [ngClass]="{'left': item.userId === logedInUser.id, 'right': item.userId !== logedInUser.id}">
-                <button *ngIf="item.userId === this.logedInUser.id" (click)="editMessage(item.id)"><i class="fas fa-edit"></i></button>
-                <button *ngIf="item.userId === this.logedInUser.id" (click)="deleteMessage(item.id)"><i class="fas fa-trash-alt"></i></button>
-                <button (click)="pinMessage(item.id)"><i class="fas fa-thumbtack"></i></button>
-              </div>
-          </div>
-        </div>
-      </div>
-    </div>
-      <form class="form-log-in" *ngIf="!this.showPublicChats && !this.creatingGroup">
-        <div class="footer-bar message-footer">
-          <input type="text" class="message-input" placeholder="Write message" name="msg" [(ngModel)]="this.newMessage.content" required>
-          <button class="btn btn-dark btn-icon send-button" (click)="this.sendMessage()">
-            <i class="fas fa-paper-plane"></i>
-          </button>
-        </div>
-      </form>
+    <div *ngIf="mode === 'CreatingGC'" class="public-placeholder">
+      Create your own group chat!
+      <div class="arrow"><=</div>
     </div>
   </div>
 </div>
-
-<div id="reportPopup" class="popup-overlay" *ngIf="this.reportPopup">
-  <div class="popup">
-    <h2>Report user</h2>
-    <textarea id="reportReason" placeholder="Insert reason..." [(ngModel)]="this.reportReason"></textarea>
-    <div class="popup-actions">
-      <button (click)="this.reportUser()">Report</button>
-      <button (click)="this.cancelReport()">Cancel</button>
-    </div>
-  </div>
 </div>
-
-<app-chat-info-side-panel
-  *ngIf="showChatInfo"
-  [chatInfo]="transformActiveChat()"
-  [userEditing]="true"
-  [adminView]="false"
-  [userActions]="true"
-  [inMain]="true"
-  (close)="chatInfo()"
-  (changes)="editChat($event)"
-  (delete)="deleteChat($event)"
-  (reportUserEmmiter)="showReportPopup($event)"
-  (removeUserEmitter)="removeUser($event)"
-  (usernameOutput)="switchPanel($event)">
-</app-chat-info-side-panel>
 
 <app-user-info-side-panel
-  *ngIf="showUserInfo"
+  *ngIf="panelVisible"
   [user]="selectedUser"
-  [adminView]="false"
+  [adminView]="true"
   [userEditing]="false"
-  [inMain]="true"
-  (close)="closeUserInfo()">
+  (close)="closePanel()">
 </app-user-info-side-panel>

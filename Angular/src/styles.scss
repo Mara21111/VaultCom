@@ -52,3 +52,64 @@ app-base-ui {
   top: 0;
   left: 0;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+//custom scrollbar
+
+/* For the whole page or a specific container */
+.chat-window {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 10px; /* width of scrollbar */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1; /* track color */
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #888; /* thumb color */
+    border-radius: 5px;
+    border: 2px solid #f1f1f1; /* padding around thumb */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+}
+
+//loading overlay
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  background: rgba(32, 34, 37, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  &.fullscreen {
+    position: fixed;
+  }
+
+  .spinner {
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+}

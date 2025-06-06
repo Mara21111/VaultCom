@@ -21,7 +21,8 @@ export class ChatFilterDTO {
 export class ChatGetterDTO {
   id: number;
   title: string;
-  ownerId: number | null;
+  chatType: string;
+  unreadMessages: number;
 }
 
 export class ChatPanelInfo {

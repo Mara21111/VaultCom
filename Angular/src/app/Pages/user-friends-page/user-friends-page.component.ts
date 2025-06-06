@@ -184,7 +184,7 @@ export class UserFriendsPageComponent {
       this.selectedUser.username = result.username;
       this.selectedUser.email = result.email ?? 'Private account';
       this.selectedUser.bio = result.bio ?? 'Not set';
-      this.selectedUser.createdAt = result.createdAt ?? 'Not created';
+      this.selectedUser.createdAt = result.createDate ?? 'Not created';
       this.selectedUser.banEnd = result.banEnd ?? 'Not banned';
       this.selectedUser.reportCount = result.reportCount ?? 'Not reported';
       this.panelVisible = true;

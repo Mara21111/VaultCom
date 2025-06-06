@@ -69,6 +69,7 @@ export class MessageService {
   }
 
   public createMessage(message: Message): Observable<Message> {
+    console.log('Creating message..')
     return this.http.post<Message>('http://localhost:5000/api/Message/send-message', message);
   }
 

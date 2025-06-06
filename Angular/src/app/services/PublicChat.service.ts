@@ -15,7 +15,7 @@ export class PublicChatService {
   }
 
   public getAllPublicChats(): Observable<PublicChat[]> {
-    return this.http.get<PublicChat[]>('http://localhost:5000/api/Chat/get-all-public-chats');
+    return this.http.get<PublicChat[]>(`http://localhost:5000/api/Chat/get-all-public-chats`);
   }
 
   public createPublicChat(createdChat: CreatePublicChatDTO): Observable<Chat> {

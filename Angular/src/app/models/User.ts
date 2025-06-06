@@ -98,7 +98,7 @@ export class UserGetterDTO {
   email?: string;
   bio: string;
   profilePicture: string;
-  createdAt: string;
+  createDate: string;
   timeoutEnd?: string;
   banEnd?: string;
   safeMode?: boolean;
