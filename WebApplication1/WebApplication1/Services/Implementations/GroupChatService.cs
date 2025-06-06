@@ -55,11 +55,11 @@ namespace WebApplication1.Services.Implementations
 
             foreach (var chatId in dto.ChatIds)
             {
-                var chat = await context.Chat.FindAsync(chatId);
-                var pc = await context.PrivateChat.FindAsync(chat!.ChatId);
+                //var chat = await context.Chat.FindAsync(chatId);
+                //var pc = await context.PrivateChat.FindAsync(chat!.ChatId);
                 await _userChatRelationshipService.CreateUserChatRelationAsync(new UserChatRelationshipDTO
                 {
-                    UserId = pc!.GetOtherUserId(dto.CreatorId),
+                    UserId = chatId,//pc!.GetOtherUserId(dto.CreatorId),
                     ChatId = baseChat.Id
                 });
             }
