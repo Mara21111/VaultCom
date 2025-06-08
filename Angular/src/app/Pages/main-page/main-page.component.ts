@@ -88,7 +88,7 @@ export class MainPageComponent {
   public newGroupName: string = '';
 
 
-  chats: ChatGetterDTO[] = [];
+
   newGroupIds: Set<number> = new Set();
   newMessage: Message = new Message;
 
@@ -234,26 +234,29 @@ export class MainPageComponent {
 
     this.chatService.getChatsUserIsIn(this.loggedInUser.id).subscribe({
       next: (chats) => {
-        if (this.chatMode === 'All') {
-          this.chats = chats;
-        } else if (this.chatMode === 'Unread') {
-          this.chats = chats.filter(chat => chat.unreadMessages !== 0);
-        } else {
-          this.chats = chats.filter(chat => chat.chatType === this.chatMode);
-        }
+        this.filterChats(chats);
       },
       error: err => {
         console.log(err);
       },
       complete: () => {
-        this.filteredUserChats = [...this.chats];
-        this.activeChat = this.chats[0];
+        this.filteredUserChats = [...this.usersChats];
+        this.activeChat = this.usersChats[0];
         this.refreshMessages();
         this.loadingChats = false;
       }
     });
   }
 
+  filterChats(chats: ChatGetterDTO[]) {
+    if (this.chatMode === 'All') {
+      this.filteredUserChats = chats;
+    } else if (this.chatMode === 'Unread') {
+      this.filteredUserChats = chats.filter(chat => chat.unreadMessages !== 0);
+    } else {
+      this.filteredUserChats = chats.filter(chat => chat.chatType === this.chatMode);
+    }
+  }
 
   changeActiveChat(chat: ChatGetterDTO) {
     if (this.creatingGroup) {
@@ -341,7 +344,7 @@ export class MainPageComponent {
 
   setChatFilter(mode: 'All' | 'Private' | 'Public' | 'Group' | 'Unread') {
     this.chatMode = mode;
-    this.refreshChats();
+    this.filterChats(this.usersChats);
   }
 
 
@@ -475,7 +478,7 @@ deleteMessage(messageId: number) {
   }
 
   areThereUnreadChats(): boolean {
-    return this.chats.some(chat => chat.unreadMessages > 0);
+    return this.usersChats.some(chat => chat.unreadMessages > 0);
   }
 }
 /*this.messageService.createMessage(this.newMessage).pipe(
