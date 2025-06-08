@@ -254,6 +254,10 @@ namespace WebApplication1.Services.Implementations
                 (chat!.Type == 2 && gc!.OwnerId != userId)))
                 return new ServiceResult { Success = false, ErrorMessage = "don't have permission" };
 
+            var info = await context.MessageInfo.Where(x => x.MessageId == msg.Id).FirstOrDefaultAsync();
+            if (info is not null)
+                context.MessageInfo.Remove(info);
+
             context.Message.Remove(msg);
             await context.SaveChangesAsync();
             return new ServiceResult { Success = true, Data = msg };
