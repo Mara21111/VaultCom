@@ -147,7 +147,10 @@ export class MainPageComponent {
         from(this.messageService.startSignalConnection()).pipe(
           tap(() => {
             this.messageService.onNewMessage((userId, chatId) => {
-              this.refreshMessages();
+              if (this.activeChat.id === chatId)
+              {
+                this.refreshMessages();
+              }
             });
           }),
           map(() => ({loggedInUser}))

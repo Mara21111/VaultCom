@@ -178,7 +178,7 @@
 
     <!-- Messages -->
 
-    <div *ngIf="mode === 'Private'" class="messages">
+    <div *ngIf="mode === 'Private'" class="messages" #scrollMe>
       <div
         *ngFor="let msg of filteredMessages; let i = index"
         class="message"
