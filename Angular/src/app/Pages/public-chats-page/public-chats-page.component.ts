@@ -121,6 +121,7 @@ export class PublicChatsPageComponent {
     ).subscribe(result => {
       console.log("Chats refreshed", result);
       this.refresh(result);
+      this.isLoading = false;
     })
   }
 
@@ -139,7 +140,7 @@ export class PublicChatsPageComponent {
       this.selectedChat.id = selectedChat.id;
       this.selectedChat.title = selectedChat.title;
       this.selectedChat.description = selectedChat.description;
-      this.selectedChat.activeUserName = this.activeUserName;
+      this.selectedChat.activeUserUsername = this.activeUserName;
     }
 
     this.userChatRelationshipService.getUsersInChat(chatId).subscribe(result => {

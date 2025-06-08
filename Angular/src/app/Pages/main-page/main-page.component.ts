@@ -32,15 +32,16 @@ import { ChatInfoSidePanelComponent } from "../../Components/chat-info-side-pane
 import { UserInfoSidePanelComponent } from "../../Components/user-info-side-panel/user-info-side-panel.component";
 
 //rxjs
-import {catchError, concatMap, forkJoin, from, map, tap} from 'rxjs';
+import {catchError, concatMap, forkJoin, from, map, switchMap, tap} from 'rxjs';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { UserRelationshipService } from '../../services/UserRelationship.service';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
-import {PublicChat} from '../../models/PublicChat';
+import {EditPublicChatDTO, PublicChat} from '../../models/PublicChat';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../Components/confirm-dialog/confirm-dialog.component';
 import { UserRelationshipDTO } from '../../models/UserRelationship';
+import {throws} from 'node:assert';
 
 
 
@@ -63,6 +64,7 @@ export class MainPageComponent {
   public chatFilter: string = "";
   public chatMode: 'All' | 'Private' | 'Public' | 'Group' | 'Unread' = 'All';
   public activeChat: ChatGetterDTO = new ChatGetterDTO();
+  public activeChatPanel: ChatPanelInfo = new ChatPanelInfo();
   public activeChatUsers: PublicUserDataDTO[] = [];
 
   public allMessages: Message[] = [];
@@ -82,7 +84,8 @@ export class MainPageComponent {
   public showUserInfo: boolean = false;
   public reportPopup: boolean = false;
   public shake: boolean = false;
-  public panelVisible: boolean = false;
+  public userPanelVisible: boolean = false;
+  public chatPanelVisible: boolean = false;
 
   public creatingGroup: boolean = false;
   public newGroupName: string = '';
@@ -214,7 +217,7 @@ export class MainPageComponent {
 
 onTyping() {
   const now = Date.now();
-  const throttleDelay = 3000; // pošle max 1x za 3 sekundy
+  const throttleDelay = 3000;
 
   if (now - this.lastTypingSent > throttleDelay) {
     const dto = new UserChatRelationshipDTO();
@@ -286,7 +289,7 @@ onTyping() {
   }
 
   changeActiveChat(chat: ChatGetterDTO) {
-    if (this.creatingGroup) {
+    if (this.creatingGroup || this.activeChat.id === chat.id) {
       return;
     }
     this.messageService.startSignalConnection();
@@ -297,6 +300,7 @@ onTyping() {
     this.refreshMessages();
     this.newMessage = new Message();
   }
+
 
 
   getUsername(userId: number): string {
@@ -494,15 +498,79 @@ onTyping() {
 
         console.log(this.selectedUser)
 
-        this.panelVisible = true;
+        this.userPanelVisible = true;
       }
     })
   }
 
   closePanel() {
-    this.panelVisible = false;
+    this.userPanelVisible = false;
+    this.chatPanelVisible = false;
     this.selectedUser = new UserPanelInfo();
+    this.activeChatPanel = new ChatPanelInfo();
   }
+
+
+
+  //chat side panel
+
+
+  showInfoAboutChat(chat: ChatGetterDTO) {
+    if (chat.chatType === 'Private' && this.loggedInUser !== undefined) {
+      this.goToUser(this.activeChatUsers.find(user => user.id !== this.loggedInUser.id)?.id ?? this.loggedInUser.id);
+    } else {
+      this.activeChatPanel = Object.assign(new ChatPanelInfo(), {
+        id: this.activeChat.id,
+        title: this.activeChat.title,
+        activeUserUsername: this.loggedInUser.username,
+        users: this.activeChatUsers.filter(user => user.id !== this.loggedInUser.id)
+      });
+
+      console.log(this.loggedInUser.username);
+      console.log(this.activeChatPanel);
+
+      this.chatPanelVisible = true;
+    }
+  }
+
+  editChat(editedChat: ChatPanelInfo) : void {
+    let dto = new EditPublicChatDTO();
+
+    dto.chatId = editedChat.id;
+    dto.title = editedChat.title;
+    dto.description = editedChat.description;
+
+    this.userService.getFromToken().pipe(tap(result => {
+        dto.userId = result.id
+        console.log(dto);
+      }), switchMap(() => this.publicChatService.editPublicChat(dto)),
+      switchMap(() => this.chatService.getPublicChatsAdminView())
+    ).subscribe(result => {
+      this.refreshChats();
+    })
+  }
+
+  deleteChat(chatId: number): void {
+    this.userService.getFromToken().pipe(
+      tap(result => {
+        console.log("User data retrieved", result);
+        this.publicChatService.deletePublicChat(result.id, chatId).subscribe({
+          next: () => {
+            console.log('Chat deleted successfully');
+          },
+          error: (err) => {
+            console.error('Error deleting chat:', err);
+          }
+        });
+      }), switchMap(() => this.chatService.getPublicChatsAdminView())
+    ).subscribe(result => {
+      console.log("Chats refreshed", result);
+      this.refreshChats();
+    })
+  }
+
+
+
 
   areThereUnreadChats(): boolean {
     return this.usersChats.some(chat => chat.unreadMessages > 0);
