@@ -200,6 +200,9 @@
             </ng-template>
           </form>
           <div class="bubble">
+            <div>
+              {{ this.getUsername(msg.userId) }}
+            </div>
             {{ msg.content }}
             <span class="message-label">
               <mat-icon class="pin" *ngIf="msg.isPinned">push_pin</mat-icon>
@@ -236,7 +239,7 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>
+            <button mat-menu-item (click)="editMessage(msg.id)">
               <mat-icon>edit</mat-icon>
               <span>Edit Message</span>
             </button>
@@ -245,13 +248,15 @@
               <span>{{ msg.isPinned ? 'Unpin message' : 'Pin message' }}</span>
             </button>
             <button mat-menu-item (click)="deleteMessage(msg.id)">
-
               <mat-icon style="color: red">delete</mat-icon>
               <span  style="color: red">Delete message</span>
             </button>
           </mat-menu>
 
           <div class="bubble">
+            <div>
+              {{ this.getUsername(msg.userId) }}
+            </div>
             {{ msg.content }}
             <span class="message-label">
               <mat-icon class="pin" *ngIf="msg.isPinned" style="color: rgba(255, 255, 255, 40%)">push_pin</mat-icon>
@@ -269,9 +274,9 @@
         </ng-template>
       </div>
       <div *ngIf="typingUsers.size > 0">
-      <em *ngFor="let user of typingUsers">
-        {{ this.getUsername(user) }}
-      </em>
+      <div *ngFor="let user of typingUsers">
+        {{ this.getUsername(user) }} is typing...
+      </div>
     </div>
   </div>
 
@@ -312,9 +317,9 @@
 <app-chat-info-side-panel
   *ngIf="chatPanelVisible"
   [chatInfo]="activeChatPanel"
-  [userEditing]="activeChat.ownerId === this.loggedInUser.id"
+  [userEditing]="userIsOwner()"
   [adminView]="false"
-  [userActions]="activeChat.ownerId === this.loggedInUser.id"
+  [userActions]="userIsOwner()"
   (close)="closePanel()"
   (changes)="editChat($event)"
   (delete)="deleteChat($event)">

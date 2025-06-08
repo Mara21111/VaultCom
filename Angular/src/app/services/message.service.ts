@@ -56,8 +56,8 @@ export class MessageService {
     this.hubConnection.on('UserStoppedTypingAsync', (userId, chatId) => {callback(userId, chatId)})
   }
 
-  public onNewMessage(callback: (userId: number, chatId: number) => void) {
-    this.hubConnection.on('GetMessagesInChatAsync', (userId, chatId) => {callback(userId, chatId)})
+  public onNewMessage(callback: (userId: number, chatId: number, value: boolean) => void) {
+    this.hubConnection.on('GetMessagesInChatAsync', (userId, chatId, value) => {callback(userId, chatId, value)})
   }
 
   public stopSignalConnection() {

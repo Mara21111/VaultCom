@@ -152,6 +152,12 @@ export class MainPageComponent {
       concatMap(({loggedInUser}) =>
         from(this.messageService.startSignalConnection()).pipe(
           tap(() => {
+          this.messageService.onNewMessage((userId, chatId) => {
+            if (chatId === this.activeChat.id) {
+              this.refreshMessages(false);
+            }
+          });
+
           this.messageService.onTypingSignal((userId, chatId) => {
               if (chatId === this.activeChat.id) {
                 this.typingUsers.add(userId);
@@ -166,6 +172,7 @@ export class MainPageComponent {
                 }, 3000);
 
                 this.typingTimeouts.set(userId, timeout);
+                this.scrollToBottom();
               }
             });
           }),
@@ -215,19 +222,25 @@ export class MainPageComponent {
     }
   }
 
-onTyping() {
-  const now = Date.now();
-  const throttleDelay = 3000;
+  onTyping() {
+    const now = Date.now();
+    const throttleDelay = 3000;
+    this.scrollToBottom();
 
-  if (now - this.lastTypingSent > throttleDelay) {
-    const dto = new UserChatRelationshipDTO();
-    dto.userId = this.loggedInUser.id;
-    dto.chatId = this.activeChat.id;
+    if (now - this.lastTypingSent > throttleDelay) {
+      const dto = new UserChatRelationshipDTO();
+      dto.userId = this.loggedInUser.id;
+      dto.chatId = this.activeChat.id;
 
-    this.messageService.sendTypingSignalR(dto);
-    this.lastTypingSent = now;
+      this.messageService.sendTypingSignalR(dto);
+      this.lastTypingSent = now;
+    }
   }
-}
+
+  userIsOwner(): boolean {
+    const chatOwner = this.activeChat.ownerId ?? 0;
+    return chatOwner === this.loggedInUser.id;
+  }
 
 
   //refreshing
@@ -540,10 +553,12 @@ onTyping() {
     dto.title = editedChat.title;
     dto.description = editedChat.description;
 
+    console.log(dto);
+
     this.userService.getFromToken().pipe(tap(result => {
         dto.userId = result.id
         console.log(dto);
-      }), switchMap(() => this.publicChatService.editPublicChat(dto)),
+      }), switchMap(() => this.groupChatService.editGroupChat(dto)),
       switchMap(() => this.chatService.getPublicChatsAdminView())
     ).subscribe(result => {
       this.refreshChats();
@@ -575,7 +590,19 @@ onTyping() {
   areThereUnreadChats(): boolean {
     return this.usersChats.some(chat => chat.unreadMessages > 0);
   }
+
+  editMessage(messageId: number) {
+    console.log("edit message");
+    let message = this.allMessages.find(m => m.id === messageId)!;
+    this.editingMessage = true;
+    this.newMessage = message;
+    this.messageOptionId = 0;
+  }
+
 }
+
+
+
 /*this.messageService.createMessage(this.newMessage).pipe(
       catchError(error =>{throw error})
     ).subscribe(_ => this.refreshMessages());
@@ -716,14 +743,6 @@ await this.messageService.sendMessageSignalR(this.newMessage);
 this.refreshMessages();
 this.newMessage.content = '';
 }
-}
-
-
-editMessage(messageId: number) {
-let message = this.allMessages.find(m => m.id === messageId)!;
-this.editingMessage = true;
-this.newMessage = message;
-this.messageOptionId = 0;
 }
 
 changeChatsToPublic(){
