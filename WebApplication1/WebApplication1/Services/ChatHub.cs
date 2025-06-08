@@ -17,14 +17,7 @@ public class ChatHub : Hub
     {
         var result = await _messageService.SendMessageAsync(dto);
 
-        if (result.Success)
-        {
-            await Clients.All.SendAsync("GetMessagesInChatAsync", dto.UserId, dto.ChatId);
-        }
-        else
-        {
-            Console.WriteLine($"Message failed to send: {result.ErrorMessage}");
-        }
+        await Clients.All.SendAsync("GetMessagesInChatAsync", dto.UserId, dto.ChatId);
     }
 
     public async Task StartTyping(UserChatRelationshipDTO dto)
