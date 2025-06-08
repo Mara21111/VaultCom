@@ -134,11 +134,17 @@ namespace WebApplication1.Services.Implementations
                     msg.Content = EncryptBytes(messageBytes, otherUser!.PublicKey, rsa);
                     msg.SelfContent = EncryptBytes(messageBytes, user!.PublicKey, rsa);
                 }
-
-                context.Message.Add(msg);
-                await context.SaveChangesAsync();
-
-                return new ServiceResult { Success = true, Data = msg };
+                try
+                {
+                    context.Message.Add(msg);
+                    await context.SaveChangesAsync();
+                    return new ServiceResult { Success = true, Data = msg };
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("database save failed: " + ex.Message);
+                    return new ServiceResult { Success = false, ErrorMessage = $"database save failed: {ex.Message}" };
+                }
             }
             catch (Exception ex)
             {
@@ -190,7 +196,10 @@ namespace WebApplication1.Services.Implementations
             var privateChat = await context.PrivateChat.FindAsync(chat.ChatId);
             if (privateChat is null)
                 return new ServiceResult { Success = false, ErrorMessage = "chat does not exist in 'PrivateChat' table" };
-            var messages = await context.Message.Where(m => m.ChatId == chat.Id).ToListAsync();
+            var users = await privateChat.GetUsers(context);
+            if (!users.Contains(user))
+                return new ServiceResult { Success = false, ErrorMessage = "user not in chat" };
+            var messages = await context.Message.Where(m => m.ChatId == chat.Id).AsNoTracking().ToListAsync();
             var otherUserId = privateChat.GetOtherUserId(user.Id);
 
             foreach (var msg in messages)
@@ -201,9 +210,9 @@ namespace WebApplication1.Services.Implementations
                     {
                         msg.Content = DecryptMessage(msg, user);
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        msg.Content = "[decryption error]";
+                        msg.Content = $"[decryption error: {ex.Message}]";
                     }
                 }
                 else
@@ -212,9 +221,9 @@ namespace WebApplication1.Services.Implementations
                     {
                         msg.Content = DecryptOwnMessage(msg, user);
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        msg.Content = "[decryption error]";
+                        msg.Content = $"[decryption error: {ex.Message}]";
                     }
                 }
             }
