@@ -19,11 +19,7 @@ public class ChatHub : Hub
     public async Task SendMessage(MessageDTO dto)
     {
         var result = await _messageService.SendMessageAsync(dto);
-        List<int> userIds = (List<int>)(await _userChatRelationshipService.GetUsersInChatAsync(dto.ChatId)).Data!;
-        foreach (var id in userIds)
-        {
-            await Clients.User(id.ToString()).SendAsync("GetMessagesInChatAsync", id, dto.ChatId, true);
-        }
+        await Clients.All.SendAsync("GetMessagesInChatAsync", dto.UserId, dto.ChatId, true);
     }
 
     public async Task StartTyping(UserChatRelationshipDTO dto)
