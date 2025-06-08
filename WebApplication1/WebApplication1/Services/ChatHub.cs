@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using System;
 using System.Threading.Tasks;
 using WebApplication1.Models.Data;
 using WebApplication1.Models.DTO;
@@ -7,17 +8,22 @@ using WebApplication1.Services.Interfaces;
 public class ChatHub : Hub
 {
     private readonly IMessageService _messageService;
+    private readonly IUserChatRelationshipService _userChatRelationshipService;
 
-    public ChatHub(IMessageService messageService)
+    public ChatHub(IMessageService messageService, IUserChatRelationshipService userChatRelationshipService)
     {
         _messageService = messageService;
+        _userChatRelationshipService = userChatRelationshipService;
     }
 
     public async Task SendMessage(MessageDTO dto)
     {
         var result = await _messageService.SendMessageAsync(dto);
-
-        await Clients.All.SendAsync("GetMessagesInChatAsync", dto.UserId, dto.ChatId, true);
+        List<int> userIds = (List<int>)(await _userChatRelationshipService.GetUsersInChatAsync(dto.ChatId)).Data!;
+        foreach (var id in userIds)
+        {
+            await Clients.User(id.ToString()).SendAsync("GetMessagesInChatAsync", id, dto.ChatId, true);
+        }
     }
 
     public async Task StartTyping(UserChatRelationshipDTO dto)
