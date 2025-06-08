@@ -149,7 +149,7 @@ export class MainPageComponent {
             this.messageService.onNewMessage((userId, chatId) => {
               if (this.activeChat.id === chatId)
               {
-                this.refreshMessages();
+                this.refreshMessages(false);
               }
             });
           }),
@@ -202,8 +202,8 @@ export class MainPageComponent {
 
   //refreshing
 
-  refreshMessages() {
-    this.loadingMessages = true;
+  refreshMessages(loadingMessages: boolean = true, scrollToBottom: boolean = true) {
+    this.loadingMessages = loadingMessages;
 
     this.messageService.getMessagesInChat(this.loggedInUser.id, this.activeChat.id).subscribe({
       next: (messages) => {
@@ -221,7 +221,9 @@ export class MainPageComponent {
         console.error('Init error:', err);
       },
       complete: () => {
-        setTimeout(() => this.scrollToBottom(), 1);
+        if (scrollToBottom) {
+          setTimeout(() => this.scrollToBottom(), 1);
+        }
         this.loadingMessages = false;
       }
     });
@@ -358,7 +360,7 @@ export class MainPageComponent {
     if (this.editingMessage) {
       this.messageService.editMessage(this.loggedInUser.id, this.newMessage.id, this.newMessage.content).subscribe(_ => {
         this.newMessage.content = '';
-        this.refreshMessages()
+        this.refreshMessages(false)
       });
       this.editingMessage = false;
     } else {
@@ -368,10 +370,10 @@ export class MainPageComponent {
         catchError(error => {
           throw error
         })
-      ).subscribe(_ => this.refreshMessages());
+      ).subscribe(_ => this.refreshMessages(false));
       this.newMessage.content = '';
       await this.messageService.sendMessageSignalR(this.newMessage);
-      this.refreshMessages();
+      this.refreshMessages(false);
       this.newMessage.content = '';
     }
   }
@@ -387,7 +389,7 @@ deleteMessage(messageId: number) {
 
   dialogRef.afterClosed().subscribe(result => {
     if (result === true) {
-      this.messageService.deleteMessage(this.loggedInUser.id, messageId).subscribe(_ => this.refreshMessages());
+      this.messageService.deleteMessage(this.loggedInUser.id, messageId).subscribe(_ => this.refreshMessages(false, false));
     } else {
       console.log('User canceled.');
     }
@@ -396,7 +398,7 @@ deleteMessage(messageId: number) {
 
   pinMessage(messageId: number) {
     console.log(messageId);
-    this.messageService.pinMessage(this.loggedInUser.id, messageId).subscribe(_ => this.refreshMessages());
+    this.messageService.pinMessage(this.loggedInUser.id, messageId).subscribe(_ => this.refreshMessages(false, false));
   }
 
 

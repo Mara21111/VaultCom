@@ -240,9 +240,9 @@
               <mat-icon>edit</mat-icon>
               <span>Edit Message</span>
             </button>
-            <button mat-menu-item>
-              <mat-icon>push_pin</mat-icon>
-              <span>Pin message</span>
+            <button mat-menu-item (click)="pinMessage(msg.id)">
+              <mat-icon>{{ msg.isPinned ? 'cancel' : 'push_pin' }}</mat-icon>
+              <span>{{ msg.isPinned ? 'Unpin message' : 'Pin message' }}</span>
             </button>
             <button mat-menu-item (click)="deleteMessage(msg.id)">
 
