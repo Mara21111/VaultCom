@@ -156,11 +156,19 @@ export class UserFriendsPageComponent {
   }
 
   public rejectRequest(sender_id: number): void {
+    let dto = new UserRelationshipDTO();
+    dto.requestorId = this.user.id;
+    dto.targetId = sender_id;
 
+    this.relationshipService.removePendign(dto).subscribe(_ => this.loadPage());
   }
 
   public cancelRequest(sender_id: number): void {
+    let dto = new UserRelationshipDTO();
+    dto.requestorId = this.user.id;
+    dto.targetId = sender_id;
 
+    this.relationshipService.removePendign(dto).subscribe(_ => this.loadPage());
   }
 
   public changeNickname(): void {

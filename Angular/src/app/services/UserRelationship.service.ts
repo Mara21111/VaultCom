@@ -31,4 +31,8 @@ export class UserRelationshipService {
   public getAllFriends(userId: number): Observable<UserGetterDTO[]> {
     return this.http.get<UserGetterDTO[]>(`http://localhost:5000/api/UserRelationship/get-friends-${userId}`);
   }
+
+  public removePendign(request: UserRelationshipDTO): Observable<void> {
+    return this.http.put<void>('http://localhost:5000/api/UserRelationship/remove-pending', request);
+  }
 }
