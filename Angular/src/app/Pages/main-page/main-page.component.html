@@ -78,7 +78,7 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item>
+              <button mat-menu-item (click)="showInfoAboutChat(chat)">
                 <mat-icon>info</mat-icon>
                 <span>Info</span>
               </button>
@@ -297,9 +297,20 @@
 </div>
 
 <app-user-info-side-panel
-  *ngIf="panelVisible"
+  *ngIf="userPanelVisible"
   [user]="selectedUser"
   [adminView]="true"
   [userEditing]="false"
   (close)="closePanel()">
 </app-user-info-side-panel>
+
+<app-chat-info-side-panel
+  *ngIf="chatPanelVisible"
+  [chatInfo]="activeChatPanel"
+  [userEditing]="activeChat.ownerId === this.loggedInUser.id"
+  [adminView]="false"
+  [userActions]="activeChat.ownerId === this.loggedInUser.id"
+  (close)="closePanel()"
+  (changes)="editChat($event)"
+  (delete)="deleteChat($event)">
+</app-chat-info-side-panel>
