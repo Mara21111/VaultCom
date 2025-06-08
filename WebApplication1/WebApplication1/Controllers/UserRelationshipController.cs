@@ -33,6 +33,14 @@ namespace WebApplication1.Controllers
         public Task<IActionResult> AcceptFriendRequest(UserRelationshipDTO dto)
             => HandleService(() => _URService.AcceptFriendRequestAsync(dto));
 
+        [HttpPut("remove-pending")]
+        public Task<IActionResult> RemovePending(UserRelationshipDTO dto)
+            => HandleService(() => _URService.RemoveRequestAsync(dto));
+
+        [HttpPut("unfriend-user")]
+        public Task<IActionResult> UnfriendUser(UserRelationshipDTO dto)
+            => HandleService(() => _URService.UnfriendAsync(dto));
+
         [HttpGet("get-incoming-friend-requests-{id}")]
         public Task<IActionResult> GetIncomingFriendRequest(int id)
             => HandleService(() => _URService.GetIncomingFriendRequestsAsync(id));
