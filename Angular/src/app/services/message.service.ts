@@ -37,18 +37,23 @@ export class MessageService {
       .catch(err => console.error(err));
   }
 
-  public startTyping(dto: UserChatRelationshipDTO) {
+  public sendTypingSignalR(dto: UserChatRelationshipDTO) {
+    console.log("sending typing signal");
     return this.hubConnection.invoke('StartTyping', dto)
       .catch(err => console.error(err));
   }
 
-  public stoppedTyping(dto: UserChatRelationshipDTO) {
+  public sendStopTypingSignalR(dto: UserChatRelationshipDTO) {
     return this.hubConnection.invoke('StoppedTyping', dto)
       .catch(err => console.error(err));
   }
 
-  public onTypingChange(callback: (dto: UserRelationshipDTO) => void) {
-    this.hubConnection.on('UserTypingAsync', dto => {callback(dto)})
+  public onTypingSignal(callback: (userId: number, chatId: number) => void) {
+    this.hubConnection.on('UserTypingAsync', (userId, chatId) => {callback(userId, chatId)})
+  }
+
+  public onStopTypingSignal(callback: (userId: number, chatId: number) => void) {
+    this.hubConnection.on('UserStoppedTypingAsync', (userId, chatId) => {callback(userId, chatId)})
   }
 
   public onNewMessage(callback: (userId: number, chatId: number) => void) {

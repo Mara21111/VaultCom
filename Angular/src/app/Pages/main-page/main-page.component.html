@@ -268,14 +268,19 @@
           </form>
         </ng-template>
       </div>
+      <div *ngIf="typingUsers.size > 0">
+      <em *ngFor="let user of typingUsers">
+        {{ this.getUsername(user) }}
+      </em>
     </div>
+  </div>
 
     <!-- Napsani message -->
 
-    <form (click)="sendMessage()">
+    <form>
       <div *ngIf="mode === 'Private'" class="input-area">
-        <input type="text" placeholder="Type a message..." name='msg' [(ngModel)]="newMessage.content">
-        <button mat-fab>
+        <input type="text" placeholder="Type a message..." name='msg' [(ngModel)]="newMessage.content" (input)="onTyping()">
+        <button mat-fab (click)="sendMessage()">
           <mat-icon style="color: white">send</mat-icon>
         </button>
       </div>

@@ -40,6 +40,7 @@ import {PublicChat} from '../../models/PublicChat';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../Components/confirm-dialog/confirm-dialog.component';
+import { UserRelationshipDTO } from '../../models/UserRelationship';
 
 
 
@@ -84,16 +85,18 @@ export class MainPageComponent {
   public panelVisible: boolean = false;
 
   public creatingGroup: boolean = false;
-  public groupChatMembers: number[] = [];
   public newGroupName: string = '';
-
-
 
   newGroupIds: Set<number> = new Set();
   newMessage: Message = new Message;
 
   reportUserId: number = 0;
   messageOptionId: number = 0;
+
+  typing: boolean = false;
+  lastTypingSent: number = 0;
+  typingUsers: Set<number> = new Set<number>();
+  typingTimeouts: Map<number, any> = new Map<number, any>();
 
   public unreadCount: number = 0;
   public mode: 'Private' | 'Public' | 'CreatingGC' = 'Private';
@@ -146,10 +149,20 @@ export class MainPageComponent {
       concatMap(({loggedInUser}) =>
         from(this.messageService.startSignalConnection()).pipe(
           tap(() => {
-            this.messageService.onNewMessage((userId, chatId) => {
-              if (this.activeChat.id === chatId)
-              {
-                this.refreshMessages(false);
+          this.messageService.onTypingSignal((userId, chatId) => {
+              if (chatId === this.activeChat.id) {
+                this.typingUsers.add(userId);
+
+                if (this.typingTimeouts.has(userId)) {
+                  clearTimeout(this.typingTimeouts.get(userId));
+                }
+
+                const timeout = setTimeout(() => {
+                  this.typingUsers.delete(userId);
+                  this.typingTimeouts.delete(userId);
+                }, 3000);
+
+                this.typingTimeouts.set(userId, timeout);
               }
             });
           }),
@@ -198,6 +211,20 @@ export class MainPageComponent {
       console.error('Scroll error:', err);
     }
   }
+
+onTyping() {
+  const now = Date.now();
+  const throttleDelay = 3000; // pošle max 1x za 3 sekundy
+
+  if (now - this.lastTypingSent > throttleDelay) {
+    const dto = new UserChatRelationshipDTO();
+    dto.userId = this.loggedInUser.id;
+    dto.chatId = this.activeChat.id;
+
+    this.messageService.sendTypingSignalR(dto);
+    this.lastTypingSent = now;
+  }
+}
 
 
   //refreshing
@@ -381,7 +408,7 @@ export class MainPageComponent {
     }
   }
 
-deleteMessage(messageId: number) {
+  async deleteMessage(messageId: number) {
   const dialogRef = this.dialog.open(ConfirmDialogComponent, {
     width: '300px',
     data: {
@@ -397,10 +424,10 @@ deleteMessage(messageId: number) {
       console.log('User canceled.');
     }
   });
+  await this.messageService.sendMessageSignalR(this.newMessage);
 }
 
   pinMessage(messageId: number) {
-    console.log(messageId);
     this.messageService.pinMessage(this.loggedInUser.id, messageId).subscribe(_ => this.refreshMessages(false, false));
   }
 
