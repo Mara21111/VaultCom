@@ -81,5 +81,19 @@
   [adminView]="true"
   [userEditing]="true"
   (close)="closePanel()"
-  (edit)="editUser($event)">
+  (edit)="editUser($event)"
+  (password)="changePasswordPopup()">
 </app-user-info-side-panel>
+
+<div id="passwordPopup" class="popup-overlay" *ngIf="this.showPasswordPopup">
+  <div class="popup">
+    <h2>Change Password</h2>
+    <input id="oldPassword" type="password" placeholder="Insert old password..." [(ngModel)]="password">
+    <input id="newPassword" type="password" placeholder="Insert new password..." [(ngModel)]="newPassword">
+    <input id="newPasswordRepeat" type="password" placeholder="Insert new password again..." [(ngModel)]="newPassword2">
+    <div class="popup-actions">
+      <button (click)="this.changePassword()">Save</button>
+      <button (click)="this.closePasswordPopup()">Cancel</button>
+    </div>
+  </div>
+</div>

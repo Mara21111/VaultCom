@@ -17,6 +17,7 @@ export class UserInfoSidePanelComponent {
 
   @Output() close = new EventEmitter<void>();
   @Output() edit = new EventEmitter<UserPanelInfo>();
+  @Output() password = new EventEmitter<void>();
 
   public isClosing = false;
 
@@ -35,5 +36,9 @@ export class UserInfoSidePanelComponent {
   public closePanel() {
     this.isClosing = true;
     setTimeout(() => this.close.emit(), 250);
+  }
+
+  public changePassword() {
+    this.password.emit();
   }
 }

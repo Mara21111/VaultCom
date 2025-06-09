@@ -109,3 +109,10 @@ export class ProfilePictureDTO {
   id: number;
   PFP: File;
 }
+
+export class changePasswordDTO {
+  id: number;
+  password: string;
+  newPassword: string;
+  newPassword2: string;
+}

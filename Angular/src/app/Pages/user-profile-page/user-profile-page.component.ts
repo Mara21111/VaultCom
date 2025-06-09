@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import {EditUserDTO, ProfilePictureDTO, ToggleUserDTO, User, UserPanelInfo} from '../../models/User';
+import {changePasswordDTO, EditUserDTO, ProfilePictureDTO, ToggleUserDTO, User, UserPanelInfo} from '../../models/User';
 import { CommonModule, NgIf } from '@angular/common';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { BaseUiComponent } from "../../Components/base-ui/base-ui.component";
 import { UserService } from '../../services/User.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication.service';
 import {UserInfoSidePanelComponent} from '../../Components/user-info-side-panel/user-info-side-panel.component';
 import {ReportsService} from '../../services/reports.service';
@@ -13,7 +13,7 @@ import {delay, switchMap} from 'rxjs';
 @Component({
   selector: 'app-user-profile-page',
   standalone: true,
-  imports: [NgIf, RouterLink, RouterLinkActive, BaseUiComponent, CommonModule, ReactiveFormsModule, UserInfoSidePanelComponent],
+  imports: [NgIf, RouterLink, RouterLinkActive, BaseUiComponent, CommonModule, ReactiveFormsModule, UserInfoSidePanelComponent, FormsModule],
   templateUrl: './user-profile-page.component.html',
   styleUrl: './user-profile-page.component.scss'
 })
@@ -27,9 +27,14 @@ export class UserProfilePageComponent {
 
   public panelVisible: boolean = false;
   public userPanelInfo: UserPanelInfo = new UserPanelInfo()
+  public showPasswordPopup: boolean = false;
 
   user: User = new User;
   this: any;
+
+  password: string = '';
+  newPassword: string = '';
+  newPassword2: string = '';
 
   constructor(private userService: UserService,
     private fb: FormBuilder,
@@ -151,5 +156,32 @@ export class UserProfilePageComponent {
   public closePanel() {
     this.panelVisible = false;
     this.userPanelInfo = new UserPanelInfo();
+  }
+
+  public changePasswordPopup() {
+    this.closePanel();
+    this.showPasswordPopup = true;
+  }
+
+  public changePassword() {
+    let dto = new changePasswordDTO();
+    dto.id = this.user.id;
+    dto.password = this.password;
+    dto.newPassword = this.newPassword;
+    dto.newPassword2 = this.newPassword2;
+
+    this.userService.changePassword(dto).subscribe(_ => this.ngOnInit());
+    this.closePasswordPopup();
+    this.resetPasswordPopup();
+  }
+
+  public closePasswordPopup() {
+    this.showPasswordPopup = false;
+  }
+
+  public resetPasswordPopup() {
+    this.password = '';
+    this.newPassword = '';
+    this.newPassword2 = '';
   }
 }

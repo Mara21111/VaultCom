@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {User, CreateUserDTO, UserGetterDTO, ToggleUserDTO, EditUserDTO, ProfilePictureDTO} from '../models/User';
+import {User, CreateUserDTO, UserGetterDTO, ToggleUserDTO, EditUserDTO, ProfilePictureDTO, changePasswordDTO} from '../models/User';
 import { AuthenticationService } from './authentication.service';
 import { Form } from '@angular/forms';
 
@@ -26,6 +26,10 @@ export class UserService {
 
   public editUser(editUser: EditUserDTO): Observable<User> {
     return this.http.put<User>('http://localhost:5000/api/User/edit-user', editUser)
+  }
+
+  public changePassword(dto: changePasswordDTO): Observable<User> {
+    return this.http.put<User>('http://localhost:5000/api/User/change-password', dto);
   }
 
   public toggleUserIsPublic(toggleUserDTO: ToggleUserDTO): Observable<User> {

@@ -7,7 +7,7 @@
       [(ngModel)]="value"
       (ngModelChange)="onChange($event)"
       class="info-input"
-      type="text"
+      [type]="label === 'Password' ? 'Password' : 'text'"
     />
   </ng-container>
 
