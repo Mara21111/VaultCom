@@ -15,7 +15,7 @@ import { ChatGetterDTO, ChatPanelInfo } from '../../models/Chat';
 import { Message } from '../../models/Message';
 import { CreateReportDTO } from '../../models/ReportLog';
 import { UserChatRelationshipDTO } from '../../models/UserChatRelationship';
-import { CreateGroupChatDTO, EditGroupChatDTO } from '../../models/GroupChat';
+import { CreateGroupChatDTO } from '../../models/GroupChat';
 
 //services
 import { ChatService } from '../../services/ChatService';
@@ -40,8 +40,6 @@ import {EditPublicChatDTO, PublicChat} from '../../models/PublicChat';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../Components/confirm-dialog/confirm-dialog.component';
-import { UserRelationshipDTO } from '../../models/UserRelationship';
-import {throws} from 'node:assert';
 
 
 
@@ -80,8 +78,6 @@ export class MainPageComponent {
   public showPublicChats: boolean = false;
   public showOnlyPinnedMessages: boolean = false;
   public editingMessage: boolean = false;
-  public showChatInfo: boolean = false;
-  public showUserInfo: boolean = false;
   public reportPopup: boolean = false;
   public shake: boolean = false;
   public userPanelVisible: boolean = false;
@@ -100,6 +96,7 @@ export class MainPageComponent {
   lastTypingSent: number = 0;
   typingUsers: Set<number> = new Set<number>();
   typingTimeouts: Map<number, any> = new Map<number, any>();
+  shouldScroll: boolean = false;
 
   public unreadCount: number = 0;
   public mode: 'Private' | 'Public' | 'CreatingGC' = 'Private';
@@ -175,7 +172,7 @@ export class MainPageComponent {
 
                 this.typingTimeouts.set(userId, timeout);
               }
-              this.scrollToBottom();
+              this.shouldScroll = true;
             });
           }),
           map(() => ({loggedInUser}))
@@ -206,14 +203,21 @@ export class MainPageComponent {
         )
       )
     ).subscribe({
-      next: () => console.log('Initialization complete'),
-      error: err => console.error('Init error:', err)
+      next: () => {console.log('Initialization complete'); this.scrollToBottom()},
+      error: err => console.error('Init error:', err),
     });
   }
 
 
   ngAfterViewInit() {
     this.scrollToBottom();
+  }
+
+  ngAfterViewChecked() {
+    if (this.shouldScroll) {
+      this.scrollToBottom();
+      this.shouldScroll = false;
+    }
   }
 
   private scrollToBottom(): void {
@@ -287,7 +291,7 @@ export class MainPageComponent {
       },
       complete: () => {
 
-        this.refreshMessages();
+        this.refreshMessages(loading);
         this.loadingChats = false;
       }
     });
@@ -316,7 +320,10 @@ export class MainPageComponent {
     this.newMessage = new Message();
   }
 
-
+  getUserId(username: string): number {
+    const user = this.activeChatUsers.find(u => u.username === username)
+    return user ? user.id : 0;
+  }
 
   getUsername(userId: number): string {
     const user = this.activeChatUsers.find(u => u.id === userId);
@@ -407,11 +414,7 @@ export class MainPageComponent {
     }
 
     if (this.editingMessage) {
-      this.messageService.editMessage(this.loggedInUser.id, this.newMessage.id, this.newMessage.content).subscribe(_ => {
-        this.newMessage.content = '';
-        this.refreshMessages(false)
-      });
-      this.editingMessage = false;
+      this.messageService.editMessage(this.loggedInUser.id, this.newMessage.id, this.newMessage.content).subscribe();
     } else {
       this.newMessage.userId = this.loggedInUser.id;
       this.newMessage.chatId = this.activeChat.id;
@@ -419,12 +422,13 @@ export class MainPageComponent {
         catchError(error => {
           throw error
         })
-      ).subscribe(_ => this.refreshMessages(false));
+      ).subscribe();
+    }
       this.newMessage.content = '';
       await this.messageService.sendMessageSignalR(this.newMessage);
       this.refreshMessages(false);
+      this.editingMessage = false;
       this.newMessage.content = '';
-    }
   }
 
   async deleteMessage(messageId: number) {
@@ -517,13 +521,15 @@ export class MainPageComponent {
     })
   }
 
-  closePanel() {
+  closeUserPanel() {
     this.userPanelVisible = false;
-    this.chatPanelVisible = false;
     this.selectedUser = new UserPanelInfo();
-    this.activeChatPanel = new ChatPanelInfo();
   }
 
+  closeChatPanel() {
+    this.chatPanelVisible = false;
+    this.activeChatPanel = new ChatPanelInfo();
+  }
 
 
   //chat side panel
@@ -567,26 +573,10 @@ export class MainPageComponent {
   }
 
   deleteChat(chatId: number): void {
-    this.userService.getFromToken().pipe(
-      tap(result => {
-        console.log("User data retrieved", result);
-        this.publicChatService.deletePublicChat(result.id, chatId).subscribe({
-          next: () => {
-            console.log('Chat deleted successfully');
-          },
-          error: (err) => {
-            console.error('Error deleting chat:', err);
-          }
-        });
-      }), switchMap(() => this.chatService.getPublicChatsAdminView())
-    ).subscribe(result => {
-      console.log("Chats refreshed", result);
-      this.refreshChats();
-    })
+    this.groupChatService.deleteGroupChat(this.loggedInUser.id, chatId).subscribe(_ =>{
+        this.refreshChats();
+    });
   }
-
-
-
 
   areThereUnreadChats(): boolean {
     return this.usersChats.some(chat => chat.unreadMessages > 0);
@@ -600,209 +590,43 @@ export class MainPageComponent {
     this.messageOptionId = 0;
   }
 
+  reportUser() {
+    let createReportDTO = new CreateReportDTO;
+    createReportDTO.requestorId = this.loggedInUser.id;
+    createReportDTO.targetId = this.reportUserId;
+    createReportDTO.message = this.reportReason;
+    this.reportPopup = false;
+
+    this.reportsService.sendReport(createReportDTO).subscribe();
+  }
+
+  showReportPopup(username: string){
+    let user = this.activeChatUsers.find(u => u.username === username);
+
+    if (user === null) {
+    return;
+    }
+
+    this.userPanelVisible = false;
+    this.chatPanelVisible = false;
+    this.reportPopup = true;
+    this.reportUserId = user?.id ?? 0;
+  }
+
+  cancelReport(){
+    this.reportPopup = false;
+    this.reportReason = '';
+    this.reportUserId = 0;
+  }
+
+  removeUserFromChat(username: string): void {
+    let user = this.activeChatUsers.find(u => u.username === username);
+
+    if (user === null) {
+      return;
+    }
+
+    this.userChatRelationshipService.leavePublicChat(this.activeChat.id, user!.id).subscribe();
+  }
+
 }
-
-
-
-/*this.messageService.createMessage(this.newMessage).pipe(
-      catchError(error =>{throw error})
-    ).subscribe(_ => this.refreshMessages());
-this.newMessage.content = '';
-await this.messageService.sendMessageSignalR(this.newMessage);
-this.refreshMessages();
-this.newMessage.content = '';
-}
-
-
-/* VSECHNY UNUSED METODY
-
-switchPanel(username: string) {
-this.selectedUser = this.getUser(username);
-this.showUserInfo = true;
-}
-
-
-chatInfo(){
-this.showChatInfo = !this.showChatInfo;
-}
-
-muteUser(userId: number){
-
-}
-
-reportUser(){
-let createReportDTO = new CreateReportDTO;
-createReportDTO.requestorId = this.loggedInUser.id;
-createReportDTO.targetId = this.reportUserId;
-createReportDTO.message = this.reportReason;
-this.reportPopup = false;
-
-this.reportsService.sendReport(createReportDTO).subscribe();
-}
-
-showReportPopup(username: string){
-let user = this.activeChatUsers.find(u => u.username === username);
-
-if (user === null) {
-return;
-}
-
-this.showChatInfo = false;
-this.showUserInfo = false;
-this.reportPopup = true;
-this.reportUserId = user?.id ?? 0;
-}
-
-cancelReport(){
-this.reportPopup = false;
-this.reportReason = '';
-this.reportUserId = 0;
-}
-
-transformActiveChat(): ChatPanelInfo {
-let chat = new ChatPanelInfo();
-chat.id = this.activeChat.id;
-chat.title = this.activeChat.title;
-chat.users = this.activeChatUsers;
-
-return chat;
-}
-
-deleteChat(chatId: number) {
-this.groupChatService.deleteGroupChat(this.loggedInUser.id, chatId).subscribe(_ => this.mode = "Private");
-}
-
-editChat(editedChat: ChatPanelInfo) {
-let newChat = new EditGroupChatDTO();
-newChat.chatId = editedChat.id;
-newChat.title = editedChat.title;
-newChat.userId = this.loggedInUser.id;
-this.groupChatService.editGroupChat(newChat).subscribe(_ => {this.activeChat.title = newChat.title; this.showChatInfo = false});
-}
-
-closeUserInfo() {
-this.showUserInfo = false;
-}
-
-getUser(username: string): UserPanelInfo {
-let user = this.activeChatUsers.find(u => u.username == username);
-let newUser = new UserPanelInfo();
-newUser.username = user?.username ?? 'Not found';
-newUser.email = user?.email ?? 'Not found';
-newUser.bio = user?.bio ?? 'Not found';
-return newUser;
-}
-
-
-
-getChats(): ChatGetterDTO[]{
-let chats = this.creatingGroup ? this.usersChats : this.chats;
-chats = this.showPublicChats ? this.allPublicChats : chats;
-if (!this.searchChat?.trim()) {
-return chats;
-}
-
-const query = this.searchChat.toLowerCase();
-return chats.filter(chat =>
-chat.title.toLowerCase().includes(query)
-);
-}
-
-getMessages(): Message[]{
-const messages = this.showOnlyPinnedMessages ? this.allMessages.filter(m => m.isPinned === true) : this.allMessages;
-if (!this.searchMessage?.trim()) {
-return messages;
-}
-
-const query = this.searchMessage.toLowerCase();
-return messages.filter(message =>
-message.content.toLowerCase().includes(query)
-);
-}
-
-
-async sendMessage(){
-if(this.activeChat.id == null){
-throw new Error("Chat not selected");
-}
-if (!this.newMessage.content) {
-return;
-}
-
-if (this.editingMessage)
-{
-this.messageService.editMessage(this.loggedInUser.id, this.newMessage.id, this.newMessage.content).subscribe(_ => {this.newMessage.content = ''; this.refreshMessages()});
-this.editingMessage = false;
-} else {
-this.newMessage.userId = this.loggedInUser.id;
-this.newMessage.chatId = this.activeChat.id;
-/*this.messageService.createMessage(this.newMessage).pipe(
-      catchError(error =>{throw error})
-    ).subscribe(_ => this.refreshMessages());
-this.newMessage.content = '';
-await this.messageService.sendMessageSignalR(this.newMessage);
-this.refreshMessages();
-this.newMessage.content = '';
-}
-}
-
-changeChatsToPublic(){
-this.showPublicChats = true;
-this.setChats();
-this.publicChatService.getAllPublicChats().subscribe(result => {
-this.allPublicChats = result;
-this.loadingChats = false;
-});
-}
-
-createGroupSetup() {
-this.creatingGroup = !this.creatingGroup;
-this.setChats();
-this.newGroupIds = [];
-this.newGroupName = "";
-this.chatService.getPrivateChatsUserIsIn(this.loggedInUser.id).subscribe(resutl => {this.usersChats = resutl; this.loadingChats = false});
-this.activeChat = new ChatGetterDTO();
-}
-
-addChatToGroup(chatId: number) {
-if (this.chatInNewGroup(chatId)) {
-this.newGroupIds = this.newGroupIds.filter(id => id !== chatId);
-} else {
-this.newGroupIds.push(chatId);
-}
-}
-
-createGroup() {
-if (!this.newGroupName.trim()) {
-this.shake = true;
-setTimeout(() => this.shake = false, 500);
-return;
-}
-if (this.newGroupIds.length < 1) {
-return;
-}
-
-let newGroupChat = new CreateGroupChatDTO();
-newGroupChat.creatorId = this.loggedInUser.id;
-newGroupChat.title = this.newGroupName;
-newGroupChat.chatIds = this.newGroupIds;
-
-this.groupChatService.createGroupChat(newGroupChat).subscribe(_ => {this.mode = 'Private'; this.creatingGroup = false});
-}
-
-
-chatInNewGroup(chatId: number): boolean {
-return !!this.newGroupIds.find(x => x === chatId);
-}
-
-setChats(){
-this.loadingChats = true;
-this.searchChat = "";
-this.showChatInfo = false;
-this.activeChat = new ChatGetterDTO();
-this.allMessages = [];
-this.newMessage = new Message();
-}
-
-*/
-

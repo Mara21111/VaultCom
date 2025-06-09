@@ -17,10 +17,10 @@
     <ng-container *ngIf="values.length > 0; else noValues">
       <div *ngFor="let value of values" class="info-value">
         <div (click)="outputUsername(value)">{{value}}</div>
-        <div class="user-actions" *ngIf="userActions">
+        <div class="user-actions">
           <button class="button btn-user-action">Mute</button>
           <button class="button btn-user-action" (click)="reportUser(value)">Report</button>
-          <button class="button btn-user-action" (click)="removeUser(value)">Remove</button>
+          <button class="button btn-user-action" (click)="removeUser(value)" *ngIf="userActions">Remove</button>
         </div>
       </div>
     </ng-container>

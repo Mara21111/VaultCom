@@ -27,11 +27,11 @@
         <div class="col">{{ user?.bio }}</div>
         <div class="col action-buttons">
           <ng-container *ngIf="!sendedRequests">
-            <button class="btn btn-success" (click)="onAccept(user.id)">Accept</button>
-            <button class="btn btn-danger" (click)="onReject(user.id)">Reject</button>
+            <button class="btn btn-success" (click)="onAccept(user.id); $event.stopPropagation()">Accept</button>
+            <button class="btn btn-danger" (click)="onReject(user.id); $event.stopPropagation()">Reject</button>
           </ng-container>
           <ng-container *ngIf="sendedRequests">
-            <button class="btn btn-danger" (click)="onCancel(user.id)">Cancel</button>
+            <button class="btn btn-danger" (click)="onCancel(user.id); $event.stopPropagation()">Cancel</button>
           </ng-container>
         </div>
       </div>

@@ -276,7 +276,12 @@
       <div *ngIf="typingUsers.size > 0">
       <div *ngFor="let user of typingUsers">
         <div *ngIf="user !== loggedInUser.id">
-          {{ this.getUsername(user) }} is typing...
+          <img *ngIf="this.userHasAvatar(user); else showInitial" [src]="'http://localhost:5000/' + this.getProfilePicture(user)" alt="Profile picture" class="message-avatar-typing"/>{{ this.getUsername(user) }} is typing...
+            <ng-template #showInitial>
+              <div class="message-avatar-typing">
+                {{ this.getUsername(user).charAt(0).toUpperCase() }}
+              </div>
+            </ng-template>
         </div>
       </div>
     </div>
@@ -308,21 +313,36 @@
 </div>
 </div>
 
-<app-user-info-side-panel
-  *ngIf="userPanelVisible"
-  [user]="selectedUser"
-  [adminView]="true"
-  [userEditing]="false"
-  (close)="closePanel()">
-</app-user-info-side-panel>
-
 <app-chat-info-side-panel
   *ngIf="chatPanelVisible"
   [chatInfo]="activeChatPanel"
   [userEditing]="userIsOwner()"
   [adminView]="false"
   [userActions]="userIsOwner()"
-  (close)="closePanel()"
+  [inMain]="true"
+  (close)="closeChatPanel()"
   (changes)="editChat($event)"
-  (delete)="deleteChat($event)">
+  (delete)="deleteChat($event)"
+  (reportUserEmmiter)="showReportPopup($event)"
+  (removeUserEmitter)="removeUserFromChat($event)"
+  (usernameOutput)="goToUser(getUserId($event))">
 </app-chat-info-side-panel>
+
+<app-user-info-side-panel
+  *ngIf="userPanelVisible"
+  [user]="selectedUser"
+  [adminView]="true"
+  [userEditing]="false"
+  (close)="closeUserPanel()">
+</app-user-info-side-panel>
+
+<div id="reportPopup" class="popup-overlay" *ngIf="this.reportPopup">
+  <div class="popup">
+    <h2>Report user</h2>
+    <textarea id="reportReason" placeholder="Insert reason..." [(ngModel)]="this.reportReason"></textarea>
+    <div class="popup-actions">
+      <button (click)="this.reportUser()">Report</button>
+      <button (click)="this.cancelReport()">Cancel</button>
+    </div>
+  </div>
+</div>

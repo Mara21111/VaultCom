@@ -17,7 +17,7 @@ $red-dark: #c0392b;  // Darker Red for Delete
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
+  z-index: 9998;
 }
 
 @keyframes slideIn {
@@ -56,7 +56,7 @@ $red-dark: #c0392b;  // Darker Red for Delete
   color: $text-light;
   padding: 30px 20px;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.6);
-  z-index: 10000;
+  z-index: 9999;
   overflow-y: auto;
   animation: slideIn 0.25s ease-out forwards;
 

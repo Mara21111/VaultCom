@@ -155,18 +155,18 @@ export class UserFriendsPageComponent {
     this.relationshipService.acceptFriendRequest(request);
   }
 
-  public rejectRequest(sender_id: number): void {
+  public rejectRequest(senderId: number): void {
     let dto = new UserRelationshipDTO();
-    dto.requestorId = this.user.id;
-    dto.targetId = sender_id;
+    dto.requestorId = senderId;
+    dto.targetId = this.user.id;
 
     this.relationshipService.removePendign(dto).subscribe(_ => this.loadPage());
   }
 
-  public cancelRequest(sender_id: number): void {
+  public cancelRequest(senderId: number): void {
     let dto = new UserRelationshipDTO();
     dto.requestorId = this.user.id;
-    dto.targetId = sender_id;
+    dto.targetId = senderId;
 
     this.relationshipService.removePendign(dto).subscribe(_ => this.loadPage());
   }

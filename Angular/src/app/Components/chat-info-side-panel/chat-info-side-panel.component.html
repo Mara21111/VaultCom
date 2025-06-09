@@ -15,14 +15,14 @@
       </app-side-panel-row>
     </div>
 
-    <!-- <div class="info-row" *ngIf="chatInfo.description !== null && !this.inMain">
+    <div class="info-row" *ngIf="chatInfo.description !== null && !this.inMain">
       <app-side-panel-row
         [label]="'Description'"
         [(value)]="chatInfo.description"
         [editable]="userEditing"
       (valueChange)="onChangeChatDesc($event)">
       </app-side-panel-row>
-    </div> -->
+    </div>
 
     <div class="info-row" *ngIf="!adminView">
       <app-side-panel-row
