@@ -275,7 +275,9 @@
       </div>
       <div *ngIf="typingUsers.size > 0">
       <div *ngFor="let user of typingUsers">
-        {{ this.getUsername(user) }} is typing...
+        <div *ngIf="user !== loggedInUser.id">
+          {{ this.getUsername(user) }} is typing...
+        </div>
       </div>
     </div>
   </div>

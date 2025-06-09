@@ -152,9 +152,11 @@ export class MainPageComponent {
       concatMap(({loggedInUser}) =>
         from(this.messageService.startSignalConnection()).pipe(
           tap(() => {
-          this.messageService.onNewMessage((userId, chatId) => {
+          this.messageService.onNewMessage((userId, chatId, value) => {
             if (chatId === this.activeChat.id) {
               this.refreshMessages(false);
+            } else {
+              this.refreshChats(false);
             }
           });
 
@@ -172,8 +174,8 @@ export class MainPageComponent {
                 }, 3000);
 
                 this.typingTimeouts.set(userId, timeout);
-                this.scrollToBottom();
               }
+              this.scrollToBottom();
             });
           }),
           map(() => ({loggedInUser}))
@@ -272,19 +274,19 @@ export class MainPageComponent {
     });
   }
 
-  refreshChats() {
-    this.loadingChats = true;
+  refreshChats(loading: boolean = true) {
+    this.loadingChats = loading;
 
     this.chatService.getChatsUserIsIn(this.loggedInUser.id).subscribe({
       next: (chats) => {
         this.filterChats(chats);
+        this.filteredUserChats = chats;
       },
       error: err => {
         console.log(err);
       },
       complete: () => {
-        this.filteredUserChats = [...this.usersChats];
-        this.activeChat = this.usersChats[0];
+
         this.refreshMessages();
         this.loadingChats = false;
       }
@@ -441,7 +443,6 @@ export class MainPageComponent {
       console.log('User canceled.');
     }
   });
-  await this.messageService.sendMessageSignalR(this.newMessage);
 }
 
   pinMessage(messageId: number) {
